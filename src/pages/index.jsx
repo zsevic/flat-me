@@ -12,6 +12,7 @@ import Head from "next/head";
 import React from "react";
 import * as apartmentsService from "services/apartments";
 
+React.useLayoutEffect = React.useEffect;
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
