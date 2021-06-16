@@ -10,6 +10,7 @@ import {
 } from "antd";
 import Head from "next/head";
 import React from "react";
+import * as apartmentsService from 'services/apartments';
 
 const { Option } = Select;
 const formItemLayout = {
@@ -22,7 +23,7 @@ const formItemLayout = {
 };
 
 const IndexPage = () => {
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     const { price, ...filters } = values;
     const [minPrice, maxPrice] = price;
     console.log("Received values of form: ", {
@@ -30,6 +31,14 @@ const IndexPage = () => {
       minPrice,
       maxPrice,
     });
+    const apartmentList = await apartmentsService.getApartmentList({
+      ...filters,
+      minPrice,
+      maxPrice,
+      pageNumber: 1,
+      limitPerPage: 10,
+    });
+    console.log('result', apartmentList);
   };
 
   return (
