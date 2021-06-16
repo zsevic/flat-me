@@ -83,7 +83,6 @@ const IndexPage = () => {
           <Form.Item
             name="price"
             label="Opseg cene (€)"
-            hasFeedback
             rules={[
               {
                 required: true,
