@@ -45,6 +45,7 @@ const IndexPage = () => {
           {...formItemLayout}
           onFinish={onFinish}
           initialValues={{
+            price: [200, 300],
             structures: ["1.0", "1.5"],
           }}
         >
@@ -82,7 +83,6 @@ const IndexPage = () => {
           >
             <Slider
               range
-              defaultValue={[200, 300]}
               min={0}
               max={500}
               marks={{
