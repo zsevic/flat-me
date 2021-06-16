@@ -49,7 +49,7 @@ const IndexPage = () => {
         <link rel="icon" href="./favicon.ico" />
       </Head>
       <Divider orientation="left">FlatMe</Divider>
-      <Row justify="center" align="top" className="bg-gray-50 px-3">
+      <Row justify="center" align="top" className="bg-gray-50 px-3 mx-5">
         <Form
           name="validate_other"
           {...formItemLayout}
