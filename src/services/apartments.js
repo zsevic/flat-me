@@ -1,8 +1,8 @@
-import request from 'utils/request';
+import request from "utils/request";
 
 export const getApartmentList = async (filters) => {
   try {
-    const apartmentList = await request.get('/apartments', {
+    const apartmentList = await request.get("/apartments", {
       params: filters,
     });
 

@@ -10,7 +10,7 @@ import {
 } from "antd";
 import Head from "next/head";
 import React from "react";
-import * as apartmentsService from 'services/apartments';
+import * as apartmentsService from "services/apartments";
 
 const { Option } = Select;
 const formItemLayout = {
@@ -38,7 +38,7 @@ const IndexPage = () => {
       pageNumber: 1,
       limitPerPage: 10,
     });
-    console.log('result', apartmentList);
+    console.log("result", apartmentList);
   };
 
   return (
@@ -73,7 +73,7 @@ const IndexPage = () => {
               },
             ]}
           >
-            <Select placeholder="Vrsta pretrage">
+            <Select placeholder="Izaberi vrstu pretrage">
               <Option value="rent">Iznajmljivanje</Option>
               <Option value="sale">Kupovina</Option>
             </Select>
