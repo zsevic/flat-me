@@ -242,7 +242,7 @@ const IndexPage = () => {
                         description={item.description || "opis"}
                       />
                       <div>
-                        {item.price}€, sprat: {item.floor}.
+                        {item.price}€, {item.floor}. sprat
                       </div>
                     </Skeleton>
                   </List.Item>
