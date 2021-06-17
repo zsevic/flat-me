@@ -1,12 +1,15 @@
 import {
+  Avatar,
   Button,
   Checkbox,
   Col,
   Divider,
   Form,
+  List,
   Pagination,
   Row,
   Select,
+  Skeleton,
   Slider,
 } from "antd";
 import Head from "next/head";
@@ -26,6 +29,7 @@ const formItemLayout = {
 };
 
 const IndexPage = () => {
+  const [apartmentList, setApartmentList] = useState([]);
   const [filters, setFilters] = useState({});
   const [total, setTotal] = useState(0);
 
@@ -39,20 +43,23 @@ const IndexPage = () => {
     };
     setFilters(newFilters);
 
-    const { total: totalAmount } = await apartmentsService.getApartmentList({
-      ...newFilters,
-      pageNumber: 1,
-      limitPerPage: PAGE_SIZE,
-    });
+    const { data, total: totalAmount } =
+      await apartmentsService.getApartmentList({
+        ...newFilters,
+        pageNumber: 1,
+        limitPerPage: PAGE_SIZE,
+      });
+    setApartmentList(data);
     setTotal(totalAmount);
   };
 
   const onChange = async (page, pageSize) => {
-    const apartmentList = await apartmentsService.getApartmentList({
+    const { data } = await apartmentsService.getApartmentList({
       ...filters,
       pageNumber: page,
       limitPerPage: pageSize,
     });
+    setApartmentList(data);
     console.log("result", apartmentList);
   };
 
@@ -206,9 +213,41 @@ const IndexPage = () => {
         </Form>
       </Row>
       {total > 0 && (
-        <Row justify="center" className="my-4">
-          <Pagination onChange={onChange} total={total} pageSize={PAGE_SIZE} />
-        </Row>
+        <>
+          <List
+            className="demo-loadmore-list mx-5"
+            loading={false}
+            itemLayout="horizontal"
+            dataSource={apartmentList}
+            renderItem={(item) => (
+              <List.Item
+                actions={[
+                  <a key="list-loadmore-edit" href={item.url}>
+                    sajt
+                  </a>,
+                ]}
+              >
+                <Skeleton avatar loading={false} title={false} active>
+                  <List.Item.Meta
+                    avatar={
+                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                    }
+                    title={<a href="https://ant.design">{item.address}</a>}
+                    description={item.description || "opis"}
+                  />
+                  <div>{item.price}€</div>
+                </Skeleton>
+              </List.Item>
+            )}
+          />
+          <Row justify="center" className="my-4">
+            <Pagination
+              onChange={onChange}
+              total={total}
+              pageSize={PAGE_SIZE}
+            />
+          </Row>
+        </>
       )}
     </div>
   );
