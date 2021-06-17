@@ -255,7 +255,7 @@ const IndexPage = () => {
               onChange={onChange}
               total={total}
               showSizeChanger={false}
-              hideOnSinglePage={true}
+              hideOnSinglePage
             />
           </Row>
         </>
