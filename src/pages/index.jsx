@@ -205,9 +205,11 @@ const IndexPage = () => {
           </Row>
         </Form>
       </Row>
-      <Row justify="center" className="my-4">
-        <Pagination onChange={onChange} total={total} pageSize={PAGE_SIZE} />
-      </Row>
+      {total > 0 && (
+        <Row justify="center" className="my-4">
+          <Pagination onChange={onChange} total={total} pageSize={PAGE_SIZE} />
+        </Row>
+      )}
     </div>
   );
 };
