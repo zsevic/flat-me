@@ -14,7 +14,7 @@ import {
 } from "antd";
 import Head from "next/head";
 import React, { useState } from "react";
-import { PAGE_SIZE } from "constants/config";
+import { INITIAL_PAGE_NUMBER, INITIAL_PAGE_SIZE } from "constants/config";
 import * as apartmentsService from "services/apartments";
 
 React.useLayoutEffect = React.useEffect;
@@ -53,8 +53,8 @@ const IndexPage = () => {
     const { data, total: totalAmount } =
       await apartmentsService.getApartmentList({
         ...newFilters,
-        pageNumber: 1,
-        limitPerPage: PAGE_SIZE,
+        pageNumber: INITIAL_PAGE_NUMBER,
+        limitPerPage: INITIAL_PAGE_SIZE,
       });
     setApartmentList(data);
     setTotal(totalAmount);
@@ -254,7 +254,8 @@ const IndexPage = () => {
             <Pagination
               onChange={onChange}
               total={total}
-              pageSize={PAGE_SIZE}
+              showSizeChanger={false}
+              hideOnSinglePage={true}
             />
           </Row>
         </>
