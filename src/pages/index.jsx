@@ -4,12 +4,14 @@ import {
   Col,
   Divider,
   Form,
+  Pagination,
   Row,
   Select,
   Slider,
 } from "antd";
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
+import { PAGE_SIZE } from "constants/config";
 import * as apartmentsService from "services/apartments";
 
 React.useLayoutEffect = React.useEffect;
@@ -24,20 +26,32 @@ const formItemLayout = {
 };
 
 const IndexPage = () => {
+  const [filters, setFilters] = useState({});
+  const [total, setTotal] = useState(0);
+
   const onFinish = async (values) => {
-    const { price, ...filters } = values;
+    const { price, ...filterValues } = values;
     const [minPrice, maxPrice] = price;
-    console.log("Received values of form: ", {
-      ...filters,
+    const newFilters = {
+      ...filterValues,
       minPrice,
       maxPrice,
+    };
+    setFilters(newFilters);
+
+    const { data, total } = await apartmentsService.getApartmentList({
+      ...newFilters,
+      pageNumber: 1,
+      limitPerPage: PAGE_SIZE,
     });
+    setTotal(total);
+  };
+
+  const onChange = async (page, pageSize) => {
     const apartmentList = await apartmentsService.getApartmentList({
       ...filters,
-      minPrice,
-      maxPrice,
-      pageNumber: 1,
-      limitPerPage: 10,
+      pageNumber: page,
+      limitPerPage: pageSize,
     });
     console.log("result", apartmentList);
   };
@@ -190,6 +204,9 @@ const IndexPage = () => {
             </Form.Item>
           </Row>
         </Form>
+      </Row>
+      <Row justify="center" className="my-4">
+        <Pagination onChange={onChange} total={total} pageSize={PAGE_SIZE} />
       </Row>
     </div>
   );
