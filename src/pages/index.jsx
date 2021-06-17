@@ -214,33 +214,36 @@ const IndexPage = () => {
       </Row>
       {total > 0 && (
         <>
-          <List
-            className="demo-loadmore-list mx-5"
-            loading={false}
-            itemLayout="horizontal"
-            dataSource={apartmentList}
-            renderItem={(item) => (
-              <List.Item
-                actions={[
-                  <a key="list-loadmore-edit" href={item.url}>
-                    sajt
-                  </a>,
-                ]}
-              >
-                <Skeleton avatar loading={false} title={false} active>
-                  <List.Item.Meta
-                    avatar={
-                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                    }
-                    title={<a href="https://ant.design">{item.address}</a>}
-                    description={item.description || "opis"}
-                  />
-                  <div>{item.price}€</div>
-                </Skeleton>
-              </List.Item>
-            )}
-          />
-          <Row justify="center" className="my-4">
+          <Row justify="center" className="mt-4">
+            <Col xs={24} md={12}>
+              <List
+                className="demo-loadmore-list mx-5"
+                loading={false}
+                itemLayout="vertical"
+                dataSource={apartmentList}
+                renderItem={(item) => (
+                  <List.Item>
+                    <Skeleton avatar loading={false} title={false} active>
+                      <List.Item.Meta
+                        avatar={<Avatar src="./logo.png" shape="square" />}
+                        title={
+                          <a href={item.url}>
+                            {item.address || item.place}, {item.size}m
+                            <sup>2</sup>, broj soba: {item.structure}
+                          </a>
+                        }
+                        description={item.description || "opis"}
+                      />
+                      <div>
+                        {item.price}€, sprat: {item.floor}.
+                      </div>
+                    </Skeleton>
+                  </List.Item>
+                )}
+              />
+            </Col>
+          </Row>
+          <Row justify="center" align="top" className="py-5">
             <Pagination
               onChange={onChange}
               total={total}
