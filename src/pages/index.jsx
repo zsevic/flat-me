@@ -39,12 +39,12 @@ const IndexPage = () => {
     };
     setFilters(newFilters);
 
-    const { data, total } = await apartmentsService.getApartmentList({
+    const { total: totalAmount } = await apartmentsService.getApartmentList({
       ...newFilters,
       pageNumber: 1,
       limitPerPage: PAGE_SIZE,
     });
-    setTotal(total);
+    setTotal(totalAmount);
   };
 
   const onChange = async (page, pageSize) => {
