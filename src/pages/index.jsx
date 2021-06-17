@@ -28,6 +28,13 @@ const formItemLayout = {
   },
 };
 
+const rooms = {
+  1: "jednosoban",
+  1.5: "jednoiposoban",
+  2: "dvosoban",
+  2.5: "dvoiposoban",
+};
+
 const IndexPage = () => {
   const [apartmentList, setApartmentList] = useState([]);
   const [filters, setFilters] = useState({});
@@ -229,7 +236,7 @@ const IndexPage = () => {
                         title={
                           <a href={item.url}>
                             {item.address || item.place}, {item.size}m
-                            <sup>2</sup>, broj soba: {item.structure}
+                            <sup>2</sup>, {rooms[item.structure]}
                           </a>
                         }
                         description={item.description || "opis"}
