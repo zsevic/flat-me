@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 
-const stringOrNumberPropType = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
+const stringOrNumberPropType = PropTypes.oneOfType([
+  PropTypes.number,
+  PropTypes.string,
+]);
 
 const apartmentPropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
