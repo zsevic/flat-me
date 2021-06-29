@@ -23,7 +23,8 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
-    "import/prefer-default-export": "warn",
+    "import/no-default-export": "warn",
+    "import/prefer-default-export": "off",
     "no-param-reassign": "warn",
     "react/forbid-prop-types": "warn",
     "react/jsx-fragments": "off",

@@ -1,7 +1,9 @@
 import { Avatar, Col, List, Pagination, Row, Skeleton } from "antd";
+import PropTypes from "prop-types";
 import React from "react";
 import { roomsMap } from "constants/rooms-map";
 import * as apartmentsService from "services/apartments";
+import { apartmentListPropType, filtersPropType } from "utils/prop-types";
 
 export const ApartmentList = ({
   apartmentList,
@@ -60,4 +62,11 @@ export const ApartmentList = ({
       </Row>
     </>
   );
+};
+
+ApartmentList.propTypes = {
+  apartmentList: apartmentListPropType.isRequired,
+  setApartmentList: PropTypes.func.isRequired,
+  filters: filtersPropType.isRequired,
+  total: PropTypes.number.isRequired,
 };
