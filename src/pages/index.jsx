@@ -1,19 +1,16 @@
 import {
-  Avatar,
   Button,
   Checkbox,
   Col,
   Divider,
   Form,
-  List,
-  Pagination,
   Row,
   Select,
-  Skeleton,
   Slider,
 } from "antd";
 import Head from "next/head";
 import React, { useState } from "react";
+import { ApartmentList } from "components/ApartmentList";
 import { INITIAL_PAGE_NUMBER, INITIAL_PAGE_SIZE } from "constants/config";
 import * as apartmentsService from "services/apartments";
 
@@ -26,13 +23,6 @@ const formItemLayout = {
   wrapperCol: {
     span: 14,
   },
-};
-
-const rooms = {
-  1: "jednosoban",
-  1.5: "jednoiposoban",
-  2: "dvosoban",
-  2.5: "dvoiposoban",
 };
 
 const IndexPage = () => {
@@ -58,16 +48,6 @@ const IndexPage = () => {
       });
     setApartmentList(data);
     setTotal(totalAmount);
-  };
-
-  const onChange = async (page, pageSize) => {
-    const { data } = await apartmentsService.getApartmentList({
-      ...filters,
-      pageNumber: page,
-      limitPerPage: pageSize,
-    });
-    setApartmentList(data);
-    console.log("result", apartmentList);
   };
 
   return (
@@ -126,8 +106,6 @@ const IndexPage = () => {
                 0: 0,
                 500: 500,
               }}
-              tooltipPlacement="bottom"
-              tooltipVisible={true}
               step={10}
             />
           </Form.Item>
@@ -223,45 +201,12 @@ const IndexPage = () => {
         </Form>
       </Row>
       {total > 0 && (
-        <>
-          <Row justify="center" className="mt-4">
-            <Col xs={24} md={12}>
-              <List
-                className="demo-loadmore-list mx-5"
-                loading={false}
-                itemLayout="vertical"
-                dataSource={apartmentList}
-                renderItem={(item) => (
-                  <List.Item>
-                    <Skeleton avatar loading={false} title={false} active>
-                      <List.Item.Meta
-                        avatar={<Avatar src="./logo.png" shape="square" />}
-                        title={
-                          <a href={item.url}>
-                            {item.address || item.place}, {item.size}m
-                            <sup>2</sup>, {rooms[item.structure]}
-                          </a>
-                        }
-                        description={item.description || "opis"}
-                      />
-                      <div>
-                        {item.price}€, {item.floor}. sprat
-                      </div>
-                    </Skeleton>
-                  </List.Item>
-                )}
-              />
-            </Col>
-          </Row>
-          <Row justify="center" align="top" className="py-5">
-            <Pagination
-              onChange={onChange}
-              total={total}
-              showSizeChanger={false}
-              hideOnSinglePage
-            />
-          </Row>
-        </>
+        <ApartmentList
+          apartmentList={apartmentList}
+          setApartmentList={setApartmentList}
+          filters={filters}
+          total={total}
+        />
       )}
     </div>
   );
