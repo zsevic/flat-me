@@ -126,6 +126,9 @@ const IndexPage = () => {
                 0: 0,
                 500: 500,
               }}
+              tooltipPlacement="bottom"
+              tooltipVisible={true}
+              step={10}
             />
           </Form.Item>
 
