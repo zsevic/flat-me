@@ -18,7 +18,6 @@ export const ApartmentList = ({
       limitPerPage: pageSize,
     });
     setApartmentList(data);
-    console.log("result", apartmentList);
   };
 
   return (
