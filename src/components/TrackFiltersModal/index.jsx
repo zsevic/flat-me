@@ -1,3 +1,4 @@
+import { SaveOutlined } from "@ant-design/icons";
 import { Button, Modal } from "antd";
 import React, { useState } from "react";
 
@@ -26,7 +27,7 @@ export const TrackFiltersModal = () => {
   return (
     <>
       <Button type="primary" onClick={showModal} size="large">
-        Sačuvaj pretragu
+        <SaveOutlined className="pb-1 align-middle" /> Sačuvaj pretragu
       </Button>
       <Modal
         title="Title"

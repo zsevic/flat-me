@@ -1,3 +1,4 @@
+import { SearchOutlined } from "@ant-design/icons";
 import { Checkbox, Col, Button, Form, Row, Select, Slider } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
@@ -179,7 +180,8 @@ export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
           <Col className="mx-1">
             <Form.Item>
               <Button type="primary" htmlType="submit" size="large">
-                Pretraži stanove
+                <SearchOutlined className="pb-1 align-middle" /> Pretraži
+                stanove
               </Button>
             </Form.Item>
           </Col>

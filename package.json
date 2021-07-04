@@ -14,6 +14,7 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.6.2",
     "antd": "^4.16.3",
     "axios": "^0.21.1",
     "next": "^10.2.3",
