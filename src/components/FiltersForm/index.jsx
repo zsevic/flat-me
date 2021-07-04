@@ -1,6 +1,7 @@
 import { Checkbox, Col, Button, Form, Row, Select, Slider } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
+import { TrackFiltersModal } from "components/TrackFiltersModal";
 import { INITIAL_PAGE_NUMBER, INITIAL_PAGE_SIZE } from "constants/config";
 import * as apartmentsService from "services/apartments";
 
@@ -36,12 +37,20 @@ export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
     setTotal(totalAmount);
   };
 
+  const onFieldsChange = (fields) => {
+    const [field] = fields;
+    const { name, value } = field;
+    const [fieldsName] = name;
+    console.log("on fields changed", fieldsName, value);
+  };
+
   return (
     <Row justify="center" align="top" className="bg-gray-50 px-3 mx-5">
       <Form
         name="filters-form"
         {...formItemLayout}
         onFinish={onFinish}
+        onFieldsChange={onFieldsChange}
         initialValues={{
           price: [200, 300],
           structures: ["1.0", "1.5"],
@@ -166,17 +175,19 @@ export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
           </Checkbox.Group>
         </Form.Item>
 
-        <Row justify="center">
-          <Form.Item
-            wrapperCol={{
-              span: 12,
-              offset: 6,
-            }}
-          >
-            <Button type="primary" htmlType="submit">
-              Pretraži
-            </Button>
-          </Form.Item>
+        <Row justify="space-around" align="center">
+          <Col className="mx-1">
+            <Form.Item>
+              <Button type="primary" htmlType="submit" size="large">
+                Pretraži stanove
+              </Button>
+            </Form.Item>
+          </Col>
+          <Col className="mx-1">
+            <Form.Item>
+              <TrackFiltersModal />
+            </Form.Item>
+          </Col>
         </Row>
       </Form>
     </Row>
