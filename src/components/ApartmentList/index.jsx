@@ -20,6 +20,14 @@ export const ApartmentList = ({
     setApartmentList(data);
   };
 
+  const handleFloor = (floor) => {
+    if (!floor) return null;
+
+    if (["-1", "0", "PR"].includes(floor)) return "prizemlje";
+
+    return `${floor}. sprat`;
+  };
+
   return (
     <>
       <Row justify="center" className="mt-4">
@@ -42,9 +50,8 @@ export const ApartmentList = ({
                     }
                     description={item.description || "opis"}
                   />
-                  <div>
-                    {item.price}€{item.floor && `, ${item.floor}. sprat`}
-                  </div>
+                  <div>{item.price}€</div>
+                  <div>{handleFloor(item.floor)}</div>
                 </Skeleton>
               </List.Item>
             )}
