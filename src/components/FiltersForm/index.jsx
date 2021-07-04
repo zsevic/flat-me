@@ -5,6 +5,7 @@ import React from "react";
 import { TrackFiltersModal } from "components/TrackFiltersModal";
 import { INITIAL_PAGE_NUMBER, INITIAL_PAGE_SIZE } from "constants/config";
 import * as apartmentsService from "services/apartments";
+import eventBus from "utils/event-bus";
 
 const { Option } = Select;
 
@@ -18,6 +19,7 @@ const formItemLayout = {
 };
 
 export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
+  const [form] = Form.useForm();
   const onFinish = async (values) => {
     const { price, ...filterValues } = values;
     const [minPrice, maxPrice] = price;
@@ -38,20 +40,21 @@ export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
     setTotal(totalAmount);
   };
 
-  const onFieldsChange = (fields) => {
-    const [field] = fields;
-    const { name, value } = field;
-    const [fieldsName] = name;
-    console.log("on fields changed", fieldsName, value);
+  const onValuesChange = () => {
+    form.validateFields().catch((error) => {
+      const isDisabled = error.errorFields.length > 0;
+      eventBus.dispatch("changed-is-disabled", { isDisabled });
+    });
   };
 
   return (
     <Row justify="center" align="top" className="bg-gray-50 px-3 mx-5">
       <Form
+        form={form}
         name="filters-form"
         {...formItemLayout}
         onFinish={onFinish}
-        onFieldsChange={onFieldsChange}
+        onValuesChange={onValuesChange}
         initialValues={{
           price: [200, 300],
           structures: ["1.0", "1.5"],
