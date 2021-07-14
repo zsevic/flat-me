@@ -1,6 +1,7 @@
 import { SaveOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, Steps, message } from "antd";
 import React, { useEffect, useState } from "react";
+import * as usersService from "services/users";
 import eventBus from "utils/event-bus";
 
 const { Step } = Steps;
@@ -27,6 +28,10 @@ const steps = [
     title: "Čuvanje",
     description: "Potvrdi sačuvanu pretragu",
   },
+  {
+    title: "Kraj",
+    description: "Pretraga je sačuvana",
+  },
 ];
 
 export const TrackFiltersModal = () => {
@@ -36,8 +41,21 @@ export const TrackFiltersModal = () => {
 
   const [current, setCurrent] = useState(0);
 
-  const next = () => {
-    setCurrent(current + 1);
+  let eventSource;
+
+  const onFinish = async (values) => {
+    await usersService.registerUser(values.email);
+    setCurrent(1);
+    eventSource = new EventSource(`${process.env.NEXT_PUBLIC_API_BASE_URL}/sse`);
+    eventSource.onmessage = ({ data }) => {
+      const eventData = JSON.parse(data);
+      if (eventData.isVerifiedEmail) {
+        setCurrent(2);
+      }
+      if (eventData.isVerifiedFilter) {
+        setVisible(3);
+      }
+    };
   };
 
   const prev = () => {
@@ -48,16 +66,9 @@ export const TrackFiltersModal = () => {
     setVisible(true);
   };
 
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setVisible(false);
-      setConfirmLoading(false);
-    }, 2000);
-  };
-
   const handleCancel = () => {
     setVisible(false);
+    eventSource?.close();
   };
 
   useEffect(() => {
@@ -79,11 +90,10 @@ export const TrackFiltersModal = () => {
       <Modal
         title="Sačuvaj pretragu"
         visible={visible}
-        onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
       >
-        <Steps progressDot current={current}>
+        <Steps progressDot direction="vertical" current={current}>
           {steps.map((item) => (
             <Step
               key={item.title}
@@ -93,7 +103,7 @@ export const TrackFiltersModal = () => {
           ))}
         </Steps>
         {current === 0 && (
-          <Form name="email-form" {...formItemLayout} className="mb-5">
+          <Form name="email-form" {...formItemLayout} className="mb-5" onFinish={onFinish}>
             <Form.Item
               name="email"
               label="E-mail adresa"
@@ -112,22 +122,12 @@ export const TrackFiltersModal = () => {
             >
               <Input />
             </Form.Item>
+            <Button type="primary" htmlType="submit">
+              Registruj se
+            </Button>
           </Form>
         )}
-        {current < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
-            Next
-          </Button>
-        )}
-        {current === steps.length - 1 && (
-          <Button
-            type="primary"
-            onClick={() => message.success("Processing complete!")}
-          >
-            Done
-          </Button>
-        )}
-        {current > 0 && (
+        {current === 1 && (
           <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
             Previous
           </Button>
