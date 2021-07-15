@@ -44,8 +44,9 @@ export const TrackFiltersModal = () => {
   let eventSource;
 
   const onFinish = async (values) => {
+    const { email } = values;
     try {
-      await usersService.registerUser(values.email);
+      await usersService.registerUser(email);
     } catch {
       message.error("Email nije dobar");
       return;
@@ -53,7 +54,7 @@ export const TrackFiltersModal = () => {
 
     setCurrent(1);
     eventSource = new EventSource(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sse`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sse?email=${email}`
     );
     eventSource.onmessage = ({ data }) => {
       const eventData = JSON.parse(data);
