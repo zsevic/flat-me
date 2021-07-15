@@ -45,17 +45,16 @@ export const TrackFiltersModal = () => {
 
   const onFinish = async (values) => {
     const { email } = values;
-    try {
-      await usersService.registerUser(email);
-    } catch {
-      message.error("Email nije dobar");
-      return;
-    }
 
-    setCurrent(1);
     eventSource = new EventSource(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sse?email=${email}`
     );
+
+    eventSource.onerror = () => {
+      message.error("Pretraga ne može da se sačuva, pokušajte kasnije");
+      setVisible(false);
+    };
+
     eventSource.onmessage = ({ data }) => {
       const eventData = JSON.parse(data);
       if (eventData.isVerifiedEmail) {
@@ -65,6 +64,15 @@ export const TrackFiltersModal = () => {
         setVisible(3);
       }
     };
+
+    try {
+      await usersService.registerUser(email);
+    } catch {
+      message.error("Email nije dobar");
+      return;
+    }
+
+    setCurrent(1);
   };
 
   const prev = () => {
