@@ -6,11 +6,11 @@ const VerifyUserPage = () => {
   const router = useRouter();
   const { token } = router.query;
 
-  const [response, setResponse] = useState('');
-  
+  const [response, setResponse] = useState("");
+
   useEffect(() => {
-    usersService.verifyUser(token).then((result) => {
-      setResponse('Mejl je uspešno potvrđen');
+    usersService.verifyUser(token).then(() => {
+      setResponse("Mejl je uspešno potvrđen");
     });
   });
 

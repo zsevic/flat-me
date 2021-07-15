@@ -37,7 +37,6 @@ const steps = [
 export const TrackFiltersModal = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [visible, setVisible] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
 
   const [current, setCurrent] = useState(0);
@@ -48,12 +47,14 @@ export const TrackFiltersModal = () => {
     try {
       await usersService.registerUser(values.email);
     } catch {
-      message.error('Email nije dobar');
+      message.error("Email nije dobar");
       return;
     }
 
     setCurrent(1);
-    eventSource = new EventSource(`${process.env.NEXT_PUBLIC_API_BASE_URL}/sse`);
+    eventSource = new EventSource(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sse`
+    );
     eventSource.onmessage = ({ data }) => {
       const eventData = JSON.parse(data);
       if (eventData.isVerifiedEmail) {
@@ -99,7 +100,6 @@ export const TrackFiltersModal = () => {
       <Modal
         title="Sačuvaj pretragu"
         visible={visible}
-        confirmLoading={confirmLoading}
         onCancel={closeModal}
         onOk={closeModal}
       >
@@ -113,7 +113,13 @@ export const TrackFiltersModal = () => {
           ))}
         </Steps>
         {current === 0 && (
-          <Form name="email-form" {...formItemLayout} className="mb-5" form={form} onFinish={onFinish}>
+          <Form
+            name="email-form"
+            {...formItemLayout}
+            className="mb-5"
+            form={form}
+            onFinish={onFinish}
+          >
             <Form.Item
               name="email"
               label="E-mail adresa"
