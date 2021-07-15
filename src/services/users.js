@@ -1,14 +1,6 @@
 import request from "utils/request";
 
-export const registerUser = async (email) => {
-  try {
-    await request.post("/users", {
-      email,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
+export const registerUser = async (email) => request.post("/users", { email });
 
 export const verifyUser = async (token) => {
   try {

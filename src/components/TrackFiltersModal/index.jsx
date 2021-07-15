@@ -38,13 +38,20 @@ export const TrackFiltersModal = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [form] = Form.useForm();
 
   const [current, setCurrent] = useState(0);
 
   let eventSource;
 
   const onFinish = async (values) => {
-    await usersService.registerUser(values.email);
+    try {
+      await usersService.registerUser(values.email);
+    } catch {
+      message.error('Email nije dobar');
+      return;
+    }
+
     setCurrent(1);
     eventSource = new EventSource(`${process.env.NEXT_PUBLIC_API_BASE_URL}/sse`);
     eventSource.onmessage = ({ data }) => {
@@ -63,11 +70,13 @@ export const TrackFiltersModal = () => {
   };
 
   const showModal = () => {
+    setCurrent(0);
     setVisible(true);
   };
 
-  const handleCancel = () => {
+  const closeModal = () => {
     setVisible(false);
+    form.resetFields();
     eventSource?.close();
   };
 
@@ -91,7 +100,8 @@ export const TrackFiltersModal = () => {
         title="Sačuvaj pretragu"
         visible={visible}
         confirmLoading={confirmLoading}
-        onCancel={handleCancel}
+        onCancel={closeModal}
+        onOk={closeModal}
       >
         <Steps progressDot direction="vertical" current={current}>
           {steps.map((item) => (
@@ -103,7 +113,7 @@ export const TrackFiltersModal = () => {
           ))}
         </Steps>
         {current === 0 && (
-          <Form name="email-form" {...formItemLayout} className="mb-5" onFinish={onFinish}>
+          <Form name="email-form" {...formItemLayout} className="mb-5" form={form} onFinish={onFinish}>
             <Form.Item
               name="email"
               label="E-mail adresa"
