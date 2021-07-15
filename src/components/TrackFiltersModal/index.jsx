@@ -57,11 +57,13 @@ export const TrackFiltersModal = () => {
 
     eventSource.onmessage = ({ data }) => {
       const eventData = JSON.parse(data);
+      console.log('event data', eventData);
       if (eventData.isVerifiedEmail) {
         setCurrent(2);
       }
       if (eventData.isVerifiedFilter) {
         setVisible(3);
+        eventSource.close();
       }
     };
 
