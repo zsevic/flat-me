@@ -65,8 +65,8 @@ export const TrackFiltersModal = () => {
           setCurrent(2);
         } catch {
           message.error("Pretraga nije sačuvana");
-          setVisible(false);
-          eventSource.close();
+          // setVisible(false);
+          // eventSource.close();
         }
       }
       if (eventData.isVerifiedFilter) {

@@ -1,42 +1,16 @@
-import { message, Spin } from "antd";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { Header } from "components/Header";
-import { VERIFICATION_PAGE_NOTIFICATION_DURATION } from "constants/config";
+import React from "react";
+import { VerificationPage } from "components/VerificationPage";
 import * as filtersService from "services/filters";
 
-const FilterVerificationPage = () => {
-  const router = useRouter();
-  const { token } = router.query;
-  const [loading, setLoading] = useState(true);
+const ERROR_MESSAGE = "Čuvanje pretrage nije uspešno obavljeno";
+const SUCCESS_MESSAGE = "Pretraga je uspešno sačuvana";
 
-  useEffect(() => {
-    if (!router.isReady) return;
-
-    filtersService
-      .verifyFilter(token)
-      .then(() => {
-        message.success(
-          "Pretraga je uspešno sačuvana",
-          VERIFICATION_PAGE_NOTIFICATION_DURATION
-        );
-        setLoading(false);
-      })
-      .catch(() => {
-        message.error(
-          "Čuvanje pretrage nije uspešno obavljeno",
-          VERIFICATION_PAGE_NOTIFICATION_DURATION
-        );
-        setLoading(false);
-      });
-  }, [router.isReady]);
-
-  return (
-    <>
-      <Header />
-      <Spin spinning={loading} className="flex justify-center" />
-    </>
-  );
-};
+const FilterVerificationPage = () => (
+  <VerificationPage
+    errorMessage={ERROR_MESSAGE}
+    successMessage={SUCCESS_MESSAGE}
+    verify={filtersService.verifyFilter}
+  />
+);
 
 export default FilterVerificationPage;

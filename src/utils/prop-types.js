@@ -35,3 +35,9 @@ export const filtersPropType = PropTypes.shape({
   rentOrSale: PropTypes.string.isRequired,
   structures: PropTypes.arrayOf(stringOrNumberPropType).isRequired,
 });
+
+export const verificationPagePropTypes = {
+  errorMessage: PropTypes.string.isRequired,
+  successMessage: PropTypes.string.isRequired,
+  verify: PropTypes.func.isRequired,
+};
