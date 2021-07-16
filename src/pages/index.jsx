@@ -1,8 +1,8 @@
-import { Divider } from "antd";
 import Head from "next/head";
 import React, { useState } from "react";
 import { ApartmentList } from "components/ApartmentList";
 import { FiltersForm } from "components/FiltersForm";
+import { Header } from "components/Header";
 
 React.useLayoutEffect = React.useEffect;
 
@@ -17,7 +17,7 @@ const IndexPage = () => {
         <title>FlatMe</title>
         <link rel="icon" href="./favicon.ico" />
       </Head>
-      <Divider orientation="left">FlatMe</Divider>
+      <Header />
       <FiltersForm
         setApartmentList={setApartmentList}
         setFilters={setFilters}
