@@ -1,6 +1,7 @@
 import { SaveOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, Steps, message } from "antd";
 import React, { useEffect, useState } from "react";
+import * as filtersService from "services/filters";
 import * as usersService from "services/users";
 import eventBus from "utils/event-bus";
 
@@ -55,14 +56,21 @@ export const TrackFiltersModal = () => {
       setVisible(false);
     };
 
-    eventSource.onmessage = ({ data }) => {
+    eventSource.onmessage = async ({ data }) => {
       const eventData = JSON.parse(data);
       console.log("event data", eventData);
       if (eventData.isVerifiedEmail) {
-        setCurrent(2);
+        try {
+          await filtersService.saveFilter({ email });
+          setCurrent(2);
+        } catch {
+          message.error("Pretraga nije sačuvana");
+          setVisible(false);
+          eventSource.close();
+        }
       }
       if (eventData.isVerifiedFilter) {
-        setVisible(3);
+        setCurrent(3);
         eventSource.close();
       }
     };
@@ -93,7 +101,7 @@ export const TrackFiltersModal = () => {
   };
 
   useEffect(() => {
-    eventBus.on("changed-is-disabled", (data) => {
+    eventBus.on("isDisabled-changed", (data) => {
       setIsDisabled(data.isDisabled);
     });
   }, []);

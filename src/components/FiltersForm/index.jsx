@@ -38,7 +38,7 @@ export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
   const onValuesChange = () => {
     form.validateFields().catch((error) => {
       const isDisabled = error.errorFields.length > 0;
-      eventBus.dispatch("changed-is-disabled", { isDisabled });
+      eventBus.dispatch("isDisabled-changed", { isDisabled });
     });
   };
 

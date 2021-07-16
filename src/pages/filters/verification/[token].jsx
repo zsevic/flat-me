@@ -10,26 +10,26 @@ const FilterVerificationPage = () => {
   const { token } = router.query;
   const [loading, setLoading] = useState(true);
 
-  useEffect(
-    () =>
-      filtersService
-        .verifyFilter(token)
-        .then(() => {
-          message.success(
-            "Pretraga je uspešno sačuvana",
-            VERIFICATION_PAGE_NOTIFICATION_DURATION
-          );
-          setLoading(false);
-        })
-        .catch(() => {
-          message.error(
-            "Čuvanje pretrage nije uspešno obavljeno",
-            VERIFICATION_PAGE_NOTIFICATION_DURATION
-          );
-          setLoading(false);
-        }),
-    []
-  );
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    filtersService
+      .verifyFilter(token)
+      .then(() => {
+        message.success(
+          "Pretraga je uspešno sačuvana",
+          VERIFICATION_PAGE_NOTIFICATION_DURATION
+        );
+        setLoading(false);
+      })
+      .catch(() => {
+        message.error(
+          "Čuvanje pretrage nije uspešno obavljeno",
+          VERIFICATION_PAGE_NOTIFICATION_DURATION
+        );
+        setLoading(false);
+      });
+  }, [router.isReady]);
 
   return (
     <>

@@ -10,26 +10,26 @@ const UserVerificationPage = () => {
   const { token } = router.query;
   const [loading, setLoading] = useState(true);
 
-  useEffect(
-    () =>
-      usersService
-        .verifyUser(token)
-        .then(() => {
-          message.success(
-            "Mejl je uspešno potvrđen",
-            VERIFICATION_PAGE_NOTIFICATION_DURATION
-          );
-          setLoading(false);
-        })
-        .catch(() => {
-          message.error(
-            "Mejl nije potvrđen",
-            VERIFICATION_PAGE_NOTIFICATION_DURATION
-          );
-          setLoading(false);
-        }),
-    []
-  );
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    usersService
+      .verifyUser(token)
+      .then(() => {
+        message.success(
+          "Mejl je uspešno potvrđen",
+          VERIFICATION_PAGE_NOTIFICATION_DURATION
+        );
+        setLoading(false);
+      })
+      .catch(() => {
+        message.error(
+          "Mejl nije potvrđen",
+          VERIFICATION_PAGE_NOTIFICATION_DURATION
+        );
+        setLoading(false);
+      });
+  }, [router.isReady]);
 
   return (
     <>
