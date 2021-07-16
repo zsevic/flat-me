@@ -6,6 +6,7 @@ import { TrackFiltersModal } from "components/TrackFiltersModal";
 import { INITIAL_PAGE_NUMBER, INITIAL_PAGE_SIZE } from "constants/config";
 import * as apartmentsService from "services/apartments";
 import eventBus from "utils/event-bus";
+import { getFilters } from "utils/filters";
 
 const { Option } = Select;
 
@@ -21,13 +22,7 @@ const formItemLayout = {
 export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
   const [form] = Form.useForm();
   const onFinish = async (values) => {
-    const { price, ...filterValues } = values;
-    const [minPrice, maxPrice] = price;
-    const newFilters = {
-      ...filterValues,
-      minPrice,
-      maxPrice,
-    };
+    const newFilters = getFilters(values);
     setFilters(newFilters);
 
     const { data, total: totalAmount } =
