@@ -37,6 +37,7 @@ const steps = [
 
 export const TrackFiltersModal = () => {
   const [isDisabled, setIsDisabled] = useState(true);
+  const [filters, setFilters] = useState({});
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
 
@@ -61,7 +62,7 @@ export const TrackFiltersModal = () => {
       console.log("event data", eventData);
       if (eventData.isVerifiedEmail) {
         try {
-          await filtersService.saveFilter({ email });
+          await filtersService.saveFilter({ ...filters, email });
           setCurrent(2);
         } catch {
           message.error("Pretraga nije sačuvana");
@@ -103,6 +104,10 @@ export const TrackFiltersModal = () => {
   useEffect(() => {
     eventBus.on("isDisabled-changed", (data) => {
       setIsDisabled(data.isDisabled);
+    });
+
+    eventBus.on("filters-changed", (data) => {
+      setFilters(data.filters);
     });
   }, []);
 

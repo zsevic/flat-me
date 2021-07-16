@@ -38,6 +38,11 @@ export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
   const onValuesChange = () => {
     form.validateFields().catch((error) => {
       const isDisabled = error.errorFields.length > 0;
+      if (!isDisabled) {
+        const filters = form.getFieldsValue();
+        const updatedFilters = getFilters(filters);
+        eventBus.dispatch("filters-changed", { filters: updatedFilters });
+      }
       eventBus.dispatch("isDisabled-changed", { isDisabled });
     });
   };
