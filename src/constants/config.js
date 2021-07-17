@@ -3,6 +3,7 @@ export const API_BASE_URL =
 
 export const INITIAL_PAGE_NUMBER = 1;
 export const INITIAL_PAGE_SIZE = 10;
+export const NO_RESULTS_TEXT = "Nema rezultata";
 
 export const RENT_MIN_PRICE = 0;
 export const RENT_MAX_PRICE = 500;

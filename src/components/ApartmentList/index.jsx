@@ -1,6 +1,7 @@
 import { Avatar, Col, List, Pagination, Row, Skeleton } from "antd";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
+import { NO_RESULTS_TEXT } from "constants/config";
 import { roomsMap } from "constants/rooms-map";
 import * as apartmentsService from "services/apartments";
 import { apartmentListPropType, filtersPropType } from "utils/prop-types";
@@ -11,13 +12,16 @@ export const ApartmentList = ({
   filters,
   total,
 }) => {
+  const [loading, setLoading] = useState(false);
   const onChange = async (page, pageSize) => {
+    setLoading(true);
     const { data } = await apartmentsService.getApartmentList({
       ...filters,
       pageNumber: page,
       limitPerPage: pageSize,
     });
     setApartmentList(data);
+    setLoading(false);
   };
 
   const handleFloor = (floor) => {
@@ -34,12 +38,13 @@ export const ApartmentList = ({
         <Col xs={24} md={12}>
           <List
             className="demo-loadmore-list mx-5"
-            loading={false}
+            loading={loading}
             itemLayout="vertical"
             dataSource={apartmentList}
+            locale={{ emptyText: NO_RESULTS_TEXT }}
             renderItem={(item) => (
               <List.Item>
-                <Skeleton avatar loading={false} title={false} active>
+                <Skeleton avatar loading={loading} title={false} active>
                   <List.Item.Meta
                     avatar={<Avatar src="./logo.png" shape="square" />}
                     title={
