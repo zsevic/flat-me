@@ -216,6 +216,16 @@ export const FiltersForm = ({
             <Row>
               <Col span={12}>
                 <Checkbox
+                  value="0.5"
+                  style={{
+                    lineHeight: "32px",
+                  }}
+                >
+                  garsonjera
+                </Checkbox>
+              </Col>
+              <Col span={12}>
+                <Checkbox
                   value="1.0"
                   style={{
                     lineHeight: "32px",
@@ -252,6 +262,16 @@ export const FiltersForm = ({
                   }}
                 >
                   dvoiposoban
+                </Checkbox>
+              </Col>
+              <Col span={12}>
+                <Checkbox
+                  value="3.0"
+                  style={{
+                    lineHeight: "32px",
+                  }}
+                >
+                  trosoban
                 </Checkbox>
               </Col>
             </Row>
