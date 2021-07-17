@@ -9,6 +9,7 @@ React.useLayoutEffect = React.useEffect;
 const IndexPage = () => {
   const [apartmentList, setApartmentList] = useState([]);
   const [filters, setFilters] = useState({});
+  const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
   const [total, setTotal] = useState(0);
 
   return (
@@ -20,6 +21,7 @@ const IndexPage = () => {
       <Header />
       <FiltersForm
         setApartmentList={setApartmentList}
+        setIsLoadingApartmentList={setIsLoadingApartmentList}
         setFilters={setFilters}
         setTotal={setTotal}
       />
@@ -27,6 +29,8 @@ const IndexPage = () => {
         <ApartmentList
           apartmentList={apartmentList}
           setApartmentList={setApartmentList}
+          isLoadingApartmentList={isLoadingApartmentList}
+          setIsLoadingApartmentList={setIsLoadingApartmentList}
           filters={filters}
           total={total}
         />

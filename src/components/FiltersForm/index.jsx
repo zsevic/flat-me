@@ -32,7 +32,12 @@ const formItemLayout = {
   },
 };
 
-export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
+export const FiltersForm = ({
+  setApartmentList,
+  setFilters,
+  setIsLoadingApartmentList,
+  setTotal,
+}) => {
   const [form] = Form.useForm();
   const [minPriceField, setMinPriceField] = useState(RENT_MIN_PRICE);
   const [maxPriceField, setMaxPriceField] = useState(RENT_MAX_PRICE);
@@ -41,6 +46,7 @@ export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
     const newFilters = getFilters(values);
     setFilters(newFilters);
 
+    setIsLoadingApartmentList(true);
     const { data, total: totalAmount } =
       await apartmentsService.getApartmentList({
         ...newFilters,
@@ -48,6 +54,7 @@ export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
         limitPerPage: INITIAL_PAGE_SIZE,
       });
     setApartmentList(data);
+    setIsLoadingApartmentList(false);
     setTotal(totalAmount);
   };
 
@@ -242,5 +249,6 @@ export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
 FiltersForm.propTypes = {
   setApartmentList: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired,
+  setIsLoadingApartmentList: PropTypes.func.isRequired,
   setTotal: PropTypes.func.isRequired,
 };
