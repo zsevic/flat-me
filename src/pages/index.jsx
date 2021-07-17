@@ -10,7 +10,7 @@ const IndexPage = () => {
   const [apartmentList, setApartmentList] = useState([]);
   const [filters, setFilters] = useState({});
   const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(null);
 
   return (
     <div>
@@ -25,7 +25,7 @@ const IndexPage = () => {
         setFilters={setFilters}
         setTotal={setTotal}
       />
-      {total > 0 && (
+      {total !== null && (
         <ApartmentList
           apartmentList={apartmentList}
           setApartmentList={setApartmentList}
