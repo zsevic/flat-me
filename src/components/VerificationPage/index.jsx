@@ -25,7 +25,7 @@ export const VerificationPage = ({ errorMessage, successMessage, verify }) => {
         message.error(errorMessage, VERIFICATION_PAGE_NOTIFICATION_DURATION);
         setLoading(false);
       });
-  }, [router.isReady]);
+  }, [errorMessage, router.isReady, successMessage, token, verify]);
 
   return (
     <>

@@ -1,9 +1,22 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Checkbox, Col, Button, Form, Row, Select, Slider } from "antd";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import { TrackFiltersModal } from "components/TrackFiltersModal";
-import { INITIAL_PAGE_NUMBER, INITIAL_PAGE_SIZE } from "constants/config";
+import {
+  INITIAL_PAGE_NUMBER,
+  INITIAL_PAGE_SIZE,
+  RENT_MAX_PRICE,
+  RENT_MIN_PRICE,
+  RENT_OR_SALE_INITIAL_MAX_PRICE,
+  RENT_OR_SALE_INITIAL_MIN_PRICE,
+  RENT_SELECTED_MAX_PRICE,
+  RENT_SELECTED_MIN_PRICE,
+  SALE_MAX_PRICE,
+  SALE_MIN_PRICE,
+  SALE_SELECTED_MAX_PRICE,
+  SALE_SELECTED_MIN_PRICE,
+} from "constants/config";
 import * as apartmentsService from "services/apartments";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
@@ -21,6 +34,9 @@ const formItemLayout = {
 
 export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
   const [form] = Form.useForm();
+  const [minPriceField, setMinPriceField] = useState(RENT_MIN_PRICE);
+  const [maxPriceField, setMaxPriceField] = useState(RENT_MAX_PRICE);
+
   const onFinish = async (values) => {
     const newFilters = getFilters(values);
     setFilters(newFilters);
@@ -35,7 +51,28 @@ export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
     setTotal(totalAmount);
   };
 
-  const onValuesChange = () => {
+  const onValuesChange = (changedField) => {
+    const { rentOrSale } = changedField;
+    if (rentOrSale) {
+      switch (rentOrSale) {
+        case "rent":
+          setMinPriceField(RENT_MIN_PRICE);
+          setMaxPriceField(RENT_MAX_PRICE);
+          form.setFieldsValue({
+            price: [RENT_SELECTED_MIN_PRICE, RENT_SELECTED_MAX_PRICE],
+          });
+          break;
+        case "sale":
+          setMinPriceField(SALE_MIN_PRICE);
+          setMaxPriceField(SALE_MAX_PRICE);
+          form.setFieldsValue({
+            price: [SALE_SELECTED_MIN_PRICE, SALE_SELECTED_MAX_PRICE],
+          });
+          break;
+        default:
+      }
+    }
+
     form.validateFields().catch((error) => {
       const isDisabled = error.errorFields.length > 0;
       if (!isDisabled) {
@@ -56,7 +93,10 @@ export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
         onFinish={onFinish}
         onValuesChange={onValuesChange}
         initialValues={{
-          price: [200, 300],
+          price: [
+            RENT_OR_SALE_INITIAL_MIN_PRICE,
+            RENT_OR_SALE_INITIAL_MAX_PRICE,
+          ],
           structures: ["1.0", "1.5"],
         }}
       >
@@ -93,11 +133,11 @@ export const FiltersForm = ({ setApartmentList, setFilters, setTotal }) => {
         >
           <Slider
             range
-            min={0}
-            max={500}
+            min={minPriceField}
+            max={maxPriceField}
             marks={{
-              0: 0,
-              500: 500,
+              [minPriceField]: minPriceField,
+              [maxPriceField]: maxPriceField,
             }}
             step={10}
           />
