@@ -8,7 +8,7 @@ import { verificationPagePropTypes } from "utils/prop-types";
 export const VerificationPage = ({ errorMessage, successMessage, verify }) => {
   const router = useRouter();
   const { token } = router.query;
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -19,18 +19,18 @@ export const VerificationPage = ({ errorMessage, successMessage, verify }) => {
           successMessage,
           VERIFICATION_PAGE_NOTIFICATION_DURATION
         );
-        setLoading(false);
+        setIsLoading(false);
       })
       .catch(() => {
         message.error(errorMessage, VERIFICATION_PAGE_NOTIFICATION_DURATION);
-        setLoading(false);
+        setIsLoading(false);
       });
   }, [errorMessage, router.isReady, successMessage, token, verify]);
 
   return (
     <>
       <Header />
-      <Spin spinning={loading} className="flex justify-center" />
+      <Spin spinning={isLoading} className="flex justify-center" />
     </>
   );
 };
