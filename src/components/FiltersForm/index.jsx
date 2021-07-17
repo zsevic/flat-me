@@ -39,8 +39,21 @@ export const FiltersForm = ({
   setTotal,
 }) => {
   const [form] = Form.useForm();
+  const [isInitialRentOrSale, setIsInitialRentOrSale] = useState(true);
   const [minPriceField, setMinPriceField] = useState(RENT_MIN_PRICE);
   const [maxPriceField, setMaxPriceField] = useState(RENT_MAX_PRICE);
+  const [minRentPriceField, setMinRentPriceField] = useState(
+    RENT_SELECTED_MIN_PRICE
+  );
+  const [maxRentPriceField, setMaxRentPriceField] = useState(
+    RENT_SELECTED_MAX_PRICE
+  );
+  const [minSalePriceField, setMinSalePriceField] = useState(
+    SALE_SELECTED_MIN_PRICE
+  );
+  const [maxSalePriceField, setMaxSalePriceField] = useState(
+    SALE_SELECTED_MAX_PRICE
+  );
 
   const onFinish = async (values) => {
     const newFilters = getFilters(values);
@@ -61,20 +74,39 @@ export const FiltersForm = ({
   const onValuesChange = (changedField) => {
     const { rentOrSale } = changedField;
     if (rentOrSale) {
+      const [minPrice, maxPrice] = form.getFieldValue("price");
       switch (rentOrSale) {
         case "rent":
           setMinPriceField(RENT_MIN_PRICE);
           setMaxPriceField(RENT_MAX_PRICE);
-          form.setFieldsValue({
-            price: [RENT_SELECTED_MIN_PRICE, RENT_SELECTED_MAX_PRICE],
-          });
+          if (isInitialRentOrSale) {
+            setIsInitialRentOrSale(false);
+            form.setFieldsValue({
+              price: [minPrice, maxPrice],
+            });
+          } else {
+            setMinSalePriceField(minPrice);
+            setMaxSalePriceField(maxPrice);
+            form.setFieldsValue({
+              price: [minRentPriceField, maxRentPriceField],
+            });
+          }
           break;
         case "sale":
           setMinPriceField(SALE_MIN_PRICE);
           setMaxPriceField(SALE_MAX_PRICE);
-          form.setFieldsValue({
-            price: [SALE_SELECTED_MIN_PRICE, SALE_SELECTED_MAX_PRICE],
-          });
+          setMinRentPriceField(minPrice);
+          setMaxRentPriceField(maxPrice);
+          if (isInitialRentOrSale) {
+            setIsInitialRentOrSale(false);
+            form.setFieldsValue({
+              price: [SALE_SELECTED_MIN_PRICE, SALE_SELECTED_MAX_PRICE],
+            });
+          } else {
+            form.setFieldsValue({
+              price: [minSalePriceField, maxSalePriceField],
+            });
+          }
           break;
         default:
       }
