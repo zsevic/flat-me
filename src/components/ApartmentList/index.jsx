@@ -69,14 +69,16 @@ export const ApartmentList = ({
           />
         </Col>
       </Row>
-      <Row justify="center" align="top" className="py-5">
-        <Pagination
-          onChange={onChange}
-          total={total}
-          showSizeChanger={false}
-          hideOnSinglePage
-        />
-      </Row>
+      {!isLoadingApartmentList && (
+        <Row justify="center" align="top" className="py-5">
+          <Pagination
+            onChange={onChange}
+            total={total}
+            showSizeChanger={false}
+            hideOnSinglePage
+          />
+        </Row>
+      )}
     </>
   );
 };
