@@ -182,7 +182,14 @@ export const FiltersForm = ({
             max={maxPriceField}
             marks={{
               [minPriceField]: minPriceField,
-              [maxPriceField]: maxPriceField,
+              [maxPriceField]: {
+                ...(maxPriceField === SALE_MAX_PRICE && {
+                  style: {
+                    transform: "translate(-35px)",
+                  },
+                }),
+                label: maxPriceField,
+              },
             }}
             step={10}
           />
