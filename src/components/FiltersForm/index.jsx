@@ -196,7 +196,11 @@ export const FiltersForm = ({
             },
           ]}
         >
-          <Select mode="multiple" placeholder="Izaberi deo grada">
+          <Select
+            mode="multiple"
+            placeholder="Izaberi deo grada"
+            listHeight={160}
+          >
             {MUNICIPALITIES.map((municipality) => (
               <Option key={municipality} value={municipality}>
                 {municipality}
