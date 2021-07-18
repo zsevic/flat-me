@@ -2,7 +2,6 @@ import { SaveOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, Steps, message } from "antd";
 import React, { useEffect, useState } from "react";
 import * as filtersService from "services/filters";
-import * as usersService from "services/users";
 import eventBus from "utils/event-bus";
 
 const { Step } = Steps;
@@ -20,10 +19,6 @@ const steps = [
   {
     title: "E-mail",
     description: "Unesi e-mail adresu",
-  },
-  {
-    title: "Verifikacija",
-    description: "Potvrdi e-mail adresu",
   },
   {
     title: "Čuvanje",
@@ -60,34 +55,20 @@ export const TrackFiltersModal = () => {
     eventSource.onmessage = async ({ data }) => {
       const eventData = JSON.parse(data);
       console.log("event data", eventData);
-      if (eventData.isVerifiedEmail) {
-        try {
-          await filtersService.saveFilter({ ...filters, email });
-          setCurrent(2);
-        } catch {
-          message.error("Pretraga nije sačuvana");
-          // setVisible(false);
-          // eventSource.close();
-        }
-      }
       if (eventData.isVerifiedFilter) {
-        setCurrent(3);
+        setCurrent(2);
         eventSource.close();
       }
     };
 
     try {
-      await usersService.registerUser(email);
+      await filtersService.saveFilter({ ...filters, email });
     } catch {
-      message.error("Email nije dobar");
+      message.error("Pretraga nije sačuvana");
       return;
     }
 
     setCurrent(1);
-  };
-
-  const prev = () => {
-    setCurrent(current - 1);
   };
 
   const showModal = () => {
@@ -166,11 +147,6 @@ export const TrackFiltersModal = () => {
               Registruj se
             </Button>
           </Form>
-        )}
-        {current === 1 && (
-          <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-            Previous
-          </Button>
         )}
       </Modal>
     </>
