@@ -108,7 +108,7 @@ export const TrackFiltersModal = () => {
         onCancel={closeModal}
         onOk={closeModal}
       >
-        <Steps progressDot direction="vertical" current={current}>
+        <Steps direction="vertical" current={current}>
           {steps.map((item) => (
             <Step
               key={item.title}
