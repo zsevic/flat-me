@@ -18,6 +18,7 @@ import {
   SALE_SELECTED_MIN_PRICE,
 } from "constants/config";
 import { MUNICIPALITIES } from "constants/municipalities";
+import { STRUCTURES } from "constants/structures";
 import * as apartmentsService from "services/apartments";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
@@ -218,66 +219,18 @@ export const FiltersForm = ({
         >
           <Checkbox.Group>
             <Row>
-              <Col span={12}>
-                <Checkbox
-                  value="0.5"
-                  style={{
-                    lineHeight: "32px",
-                  }}
-                >
-                  garsonjera
-                </Checkbox>
-              </Col>
-              <Col span={12}>
-                <Checkbox
-                  value="1.0"
-                  style={{
-                    lineHeight: "32px",
-                  }}
-                >
-                  jednosoban
-                </Checkbox>
-              </Col>
-              <Col span={12}>
-                <Checkbox
-                  value="1.5"
-                  style={{
-                    lineHeight: "32px",
-                  }}
-                >
-                  jednoiposoban
-                </Checkbox>
-              </Col>
-              <Col span={12}>
-                <Checkbox
-                  value="2.0"
-                  style={{
-                    lineHeight: "32px",
-                  }}
-                >
-                  dvosoban
-                </Checkbox>
-              </Col>
-              <Col span={12}>
-                <Checkbox
-                  value="2.5"
-                  style={{
-                    lineHeight: "32px",
-                  }}
-                >
-                  dvoiposoban
-                </Checkbox>
-              </Col>
-              <Col span={12}>
-                <Checkbox
-                  value="3.0"
-                  style={{
-                    lineHeight: "32px",
-                  }}
-                >
-                  trosoban
-                </Checkbox>
-              </Col>
+              {STRUCTURES.map((structure) => (
+                <Col span={12} key={structure.locale}>
+                  <Checkbox
+                    value={structure.numberOfRooms}
+                    style={{
+                      lineHeight: "32px",
+                    }}
+                  >
+                    {structure.locale}
+                  </Checkbox>
+                </Col>
+              ))}
             </Row>
           </Checkbox.Group>
         </Form.Item>
