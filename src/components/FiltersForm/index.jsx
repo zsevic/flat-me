@@ -138,7 +138,7 @@ export const FiltersForm = ({
             RENT_OR_SALE_INITIAL_MIN_PRICE,
             RENT_OR_SALE_INITIAL_MAX_PRICE,
           ],
-          structures: ["1.0", "1.5"],
+          structures: [1.0, 1.5],
         }}
       >
         <p className="text-center mt-4 mb-4">
