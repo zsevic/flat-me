@@ -17,6 +17,7 @@ import {
   SALE_SELECTED_MAX_PRICE,
   SALE_SELECTED_MIN_PRICE,
 } from "constants/config";
+import { MUNICIPALITIES } from "constants/municipalities";
 import * as apartmentsService from "services/apartments";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
@@ -195,8 +196,11 @@ export const FiltersForm = ({
           ]}
         >
           <Select mode="multiple" placeholder="Izaberi deo grada">
-            <Option value="Vračar">Vračar</Option>
-            <Option value="Zvezdara">Zvezdara</Option>
+            {MUNICIPALITIES.map((municipality) => (
+              <Option key={municipality} value={municipality}>
+                {municipality}
+              </Option>
+            ))}
           </Select>
         </Form.Item>
 
