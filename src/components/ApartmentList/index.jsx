@@ -1,4 +1,4 @@
-import { Avatar, Col, List, Pagination, Row, Skeleton } from "antd";
+import { Avatar, Col, List, Row, Skeleton } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
 import { NO_RESULTS_TEXT } from "constants/config";
@@ -43,6 +43,13 @@ export const ApartmentList = ({
             itemLayout="vertical"
             dataSource={apartmentList}
             locale={{ emptyText: NO_RESULTS_TEXT }}
+            pagination={{
+              onChange,
+              total,
+              showSizeChanger: false,
+              hideOnSinglePage: true,
+              className: "mb-5",
+            }}
             renderItem={(item) => (
               <List.Item>
                 <Skeleton
@@ -69,16 +76,6 @@ export const ApartmentList = ({
           />
         </Col>
       </Row>
-      {!isLoadingApartmentList && (
-        <Row justify="center" align="top" className="py-5">
-          <Pagination
-            onChange={onChange}
-            total={total}
-            showSizeChanger={false}
-            hideOnSinglePage
-          />
-        </Row>
-      )}
     </>
   );
 };
