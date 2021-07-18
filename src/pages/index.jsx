@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { ApartmentList } from "components/ApartmentList";
 import { FiltersForm } from "components/FiltersForm";
 import { Header } from "components/Header";
@@ -11,6 +11,7 @@ const IndexPage = () => {
   const [filters, setFilters] = useState({});
   const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
   const [total, setTotal] = useState(null);
+  const listRef = useRef();
 
   return (
     <div>
@@ -24,6 +25,7 @@ const IndexPage = () => {
         setIsLoadingApartmentList={setIsLoadingApartmentList}
         setFilters={setFilters}
         setTotal={setTotal}
+        listRef={listRef}
       />
       {total !== null && (
         <ApartmentList
@@ -32,6 +34,7 @@ const IndexPage = () => {
           isLoadingApartmentList={isLoadingApartmentList}
           setIsLoadingApartmentList={setIsLoadingApartmentList}
           filters={filters}
+          listRef={listRef}
           total={total}
         />
       )}

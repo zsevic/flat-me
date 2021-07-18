@@ -12,6 +12,7 @@ export const ApartmentList = ({
   isLoadingApartmentList,
   setIsLoadingApartmentList,
   filters,
+  listRef,
   total,
 }) => {
   const onChange = async (page, pageSize) => {
@@ -23,6 +24,9 @@ export const ApartmentList = ({
     });
     setApartmentList(data);
     setIsLoadingApartmentList(false);
+    listRef.current.scrollIntoView({
+      behavior: "smooth",
+    });
   };
 
   const handleFloor = (floor) => {
@@ -35,13 +39,13 @@ export const ApartmentList = ({
 
   return (
     <>
-      <Row justify="center" className="mt-4">
+      <Row justify="center" className="mt-4" ref={listRef}>
         <Col xs={24} md={12}>
           <List
             className="demo-loadmore-list mx-5"
-            loading={isLoadingApartmentList}
-            itemLayout="vertical"
             dataSource={apartmentList}
+            itemLayout="vertical"
+            loading={isLoadingApartmentList}
             locale={{ emptyText: NO_RESULTS_TEXT }}
             pagination={{
               onChange,
@@ -86,5 +90,6 @@ ApartmentList.propTypes = {
   isLoadingApartmentList: PropTypes.bool.isRequired,
   setIsLoadingApartmentList: PropTypes.func.isRequired,
   filters: filtersPropType.isRequired,
+  listRef: PropTypes.object.isRequired,
   total: PropTypes.number.isRequired,
 };

@@ -39,6 +39,7 @@ export const FiltersForm = ({
   setFilters,
   setIsLoadingApartmentList,
   setTotal,
+  listRef,
 }) => {
   const [form] = Form.useForm();
   const [isInitialRentOrSale, setIsInitialRentOrSale] = useState(true);
@@ -71,6 +72,9 @@ export const FiltersForm = ({
     setApartmentList(data);
     setIsLoadingApartmentList(false);
     setTotal(totalAmount);
+    listRef.current.scrollIntoView({
+      behavior: "smooth",
+    });
   };
 
   const onValuesChange = (changedField) => {
@@ -264,4 +268,5 @@ FiltersForm.propTypes = {
   setFilters: PropTypes.func.isRequired,
   setIsLoadingApartmentList: PropTypes.func.isRequired,
   setTotal: PropTypes.func.isRequired,
+  listRef: PropTypes.object.isRequired,
 };
