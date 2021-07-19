@@ -1,4 +1,5 @@
 import { Avatar, Col, List, Row, Skeleton } from "antd";
+import Link from "next/link";
 import PropTypes from "prop-types";
 import React from "react";
 import { NO_RESULTS_TEXT } from "constants/config";
@@ -65,10 +66,12 @@ export const ApartmentList = ({
                   <List.Item.Meta
                     avatar={<Avatar src="./logo.png" shape="square" />}
                     title={
-                      <a href={item.url}>
-                        {item.address || item.place}, {item.size}m<sup>2</sup>,{" "}
-                        {roomsMap[item.structure]}
-                      </a>
+                      <Link href={item.url} passHref>
+                        <a target="_blank" rel="noopener noreferrer">
+                          {item.address || item.place}, {item.size}m<sup>2</sup>
+                          , {roomsMap[item.structure]}
+                        </a>
+                      </Link>
                     }
                     description={item.description || "opis"}
                   />
