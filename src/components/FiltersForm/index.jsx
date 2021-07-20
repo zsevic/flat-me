@@ -281,7 +281,7 @@ export const FiltersForm = ({
           </Checkbox.Group>
         </Form.Item>
 
-        <Row justify="space-around" align="center">
+        <Row justify="space-around" align="center" className="mt-2">
           <Col className="mx-1">
             <Form.Item>
               <Button type="primary" htmlType="submit" size="large">
