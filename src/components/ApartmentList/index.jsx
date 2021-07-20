@@ -3,6 +3,7 @@ import Link from "next/link";
 import PropTypes from "prop-types";
 import React from "react";
 import { NO_RESULTS_TEXT } from "constants/config";
+import { furnishedMap } from "constants/furnished";
 import { roomsMap } from "constants/rooms-map";
 import * as apartmentsService from "services/apartments";
 import { apartmentListPropType, filtersPropType } from "utils/prop-types";
@@ -69,7 +70,8 @@ export const ApartmentList = ({
                       <Link href={item.url} passHref>
                         <a target="_blank" rel="noopener noreferrer">
                           {item.address || item.place}, {item.size}m<sup>2</sup>
-                          , {roomsMap[item.structure]}
+                          , {roomsMap[item.structure]},{" "}
+                          {furnishedMap[item.furnished]}
                         </a>
                       </Link>
                     }

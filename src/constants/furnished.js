@@ -1,14 +1,20 @@
 export const FURNISHED = [
   {
     value: "furnished",
-    locale: "namešteno",
+    locale: "namešten",
   },
   {
     value: "semi-furnished",
-    locale: "polunamešteno",
+    locale: "polunamešten",
   },
   {
     value: "empty",
-    locale: "prazno",
+    locale: "prazan",
   },
 ];
+
+export const furnishedMap = {
+  furnished: "namešten",
+  "semi-furnished": "polunamešten",
+  empty: "prazan",
+};
