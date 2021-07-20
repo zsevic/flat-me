@@ -17,6 +17,7 @@ import {
   SALE_SELECTED_MAX_PRICE,
   SALE_SELECTED_MIN_PRICE,
 } from "constants/config";
+import { FURNISHED } from "constants/furnished";
 import { MUNICIPALITIES } from "constants/municipalities";
 import { STRUCTURES } from "constants/structures";
 import * as apartmentsService from "services/apartments";
@@ -156,7 +157,7 @@ export const FiltersForm = ({
           rules={[
             {
               required: true,
-              message: "Izaberi vrstu pretrage!",
+              message: "Izaberi vrstu pretrage",
             },
           ]}
         >
@@ -172,7 +173,7 @@ export const FiltersForm = ({
           rules={[
             {
               required: true,
-              message: "Izaberi opseg cene!",
+              message: "Izaberi opseg cene",
             },
           ]}
         >
@@ -202,7 +203,7 @@ export const FiltersForm = ({
           rules={[
             {
               required: true,
-              message: "Izaberi deo grada!",
+              message: "Izaberi deo grada",
               type: "array",
             },
           ]}
@@ -227,7 +228,7 @@ export const FiltersForm = ({
           rules={[
             {
               required: true,
-              message: "Izaberi strukturu stana!",
+              message: "Izaberi strukturu stana",
               type: "array",
             },
           ]}
@@ -243,6 +244,36 @@ export const FiltersForm = ({
                     }}
                   >
                     {structure.locale}
+                  </Checkbox>
+                </Col>
+              ))}
+            </Row>
+          </Checkbox.Group>
+        </Form.Item>
+
+        <Form.Item
+          name="furnished"
+          label="Opremljenost stana"
+          hasFeedback
+          rules={[
+            {
+              required: true,
+              message: "Izaberi opremljenost stana",
+              type: "array",
+            },
+          ]}
+        >
+          <Checkbox.Group>
+            <Row>
+              {FURNISHED.map((furnished) => (
+                <Col span={12} key={furnished.locale}>
+                  <Checkbox
+                    value={furnished.value}
+                    style={{
+                      lineHeight: "32px",
+                    }}
+                  >
+                    {furnished.locale}
                   </Checkbox>
                 </Col>
               ))}
