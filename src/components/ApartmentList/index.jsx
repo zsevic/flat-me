@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { NO_RESULTS_TEXT } from "constants/config";
 import { furnishedMap } from "constants/furnished";
-import { roomsMap } from "constants/rooms-map";
+import { structuresMap } from "constants/structures";
 import * as apartmentsService from "services/apartments";
 import { apartmentListPropType, filtersPropType } from "utils/prop-types";
 
@@ -79,14 +79,14 @@ export const ApartmentList = ({
                       )
                     }
                     actions={[
-                      <div key={`apartment-price-${apartment._id}`}>
-                        {apartment.price}€
-                      </div>,
                       <div key={`apartment-floor-${apartment._id}`}>
                         {handleFloor(apartment.floor)}
                       </div>,
                       <div key={`apartment-furnished-${apartment._id}`}>
                         {furnishedMap[apartment.furnished]}
+                      </div>,
+                      <div key={`apartment-structure-${apartment._id}`}>
+                        {structuresMap[apartment.structure]}
                       </div>,
                     ]}
                   >
@@ -96,8 +96,7 @@ export const ApartmentList = ({
                         <Link href={apartment.url} passHref>
                           <a target="_blank" rel="noopener noreferrer">
                             {apartment.address || apartment.place},{" "}
-                            {apartment.size}m<sup>2</sup>,{" "}
-                            {roomsMap[apartment.structure]}
+                            {apartment.size}m<sup>2</sup>, {apartment.price}€
                           </a>
                         </Link>
                       }
