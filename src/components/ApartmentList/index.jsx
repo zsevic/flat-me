@@ -1,5 +1,6 @@
-import { Avatar, Col, List, Row, Skeleton } from "antd";
+import { Avatar, Card, Col, List, Row, Skeleton } from "antd";
 import Link from "next/link";
+import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 import { NO_RESULTS_TEXT } from "constants/config";
@@ -7,6 +8,8 @@ import { furnishedMap } from "constants/furnished";
 import { roomsMap } from "constants/rooms-map";
 import * as apartmentsService from "services/apartments";
 import { apartmentListPropType, filtersPropType } from "utils/prop-types";
+
+const { Meta } = Card;
 
 export const ApartmentList = ({
   apartmentList,
@@ -64,21 +67,41 @@ export const ApartmentList = ({
                   title={false}
                   active
                 >
-                  <List.Item.Meta
-                    avatar={<Avatar src="./logo.png" shape="square" />}
-                    title={
-                      <Link href={item.url} passHref>
-                        <a target="_blank" rel="noopener noreferrer">
-                          {item.address || item.place}, {item.size}m<sup>2</sup>
-                          , {roomsMap[item.structure]},{" "}
-                          {furnishedMap[item.furnished]}
-                        </a>
-                      </Link>
+                  <Card
+                    cover={
+                      <Image
+                        alt="logo"
+                        width={300}
+                        height={300}
+                        src={item.coverPhotoUrl}
+                      />
                     }
-                    description={item.description || "opis"}
-                  />
-                  <div>{item.price}€</div>
-                  <div>{handleFloor(item.floor)}</div>
+                    actions={[
+                      <div key={`apartment-price-${item._id}`}>
+                        {item.price}€
+                      </div>,
+                      <div key={`apartment-size-${item._id}`}>
+                        {item.size}m<sup>2</sup>
+                      </div>,
+                      <div key={`apartment-floor-${item._id}`}>
+                        {handleFloor(item.floor)}
+                      </div>,
+                    ]}
+                  >
+                    <Meta
+                      avatar={<Avatar src="./logo.png" />}
+                      title={
+                        <Link href={item.url} passHref>
+                          <a target="_blank" rel="noopener noreferrer">
+                            {item.address || item.place},{" "}
+                            {roomsMap[item.structure]},{" "}
+                            {furnishedMap[item.furnished]}
+                          </a>
+                        </Link>
+                      }
+                      description={item.description || "opis"}
+                    />
+                  </Card>
                 </Skeleton>
               </List.Item>
             )}

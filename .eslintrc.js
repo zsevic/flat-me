@@ -32,6 +32,7 @@ module.exports = {
     "react/forbid-prop-types": "warn",
     "react/jsx-fragments": "off",
     "react/jsx-props-no-spreading": "warn",
+    "no-underscore-dangle": "warn",
   },
   settings: {
     "import/resolver": {
