@@ -4,6 +4,7 @@ import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 import { NO_RESULTS_TEXT } from "constants/config";
+import { floorsLocaleMap } from "constants/floors";
 import { furnishedMap } from "constants/furnished";
 import { structuresMap } from "constants/structures";
 import * as apartmentsService from "services/apartments";
@@ -37,9 +38,7 @@ export const ApartmentList = ({
   const handleFloor = (floor) => {
     if (!floor) return null;
 
-    if (["-1", "0", "PR"].includes(floor)) return "prizemlje";
-
-    return `${floor}. sprat`;
+    return floorsLocaleMap[floor] || `na ${floor}. spratu`;
   };
 
   return (
@@ -59,54 +58,61 @@ export const ApartmentList = ({
               hideOnSinglePage: true,
               className: "mb-5",
             }}
-            renderItem={(apartment) => (
-              <List.Item>
-                <Skeleton
-                  avatar
-                  loading={isLoadingApartmentList}
-                  title={false}
-                  active
-                >
-                  <Card
-                    cover={
-                      apartment.coverPhotoUrl && (
-                        <Image
-                          alt="logo"
-                          width={300}
-                          height={300}
-                          src={apartment.coverPhotoUrl}
-                        />
-                      )
-                    }
-                    actions={[
-                      <div key={`apartment-floor-${apartment._id}`}>
-                        {handleFloor(apartment.floor)}
-                      </div>,
-                      <div key={`apartment-furnished-${apartment._id}`}>
-                        {furnishedMap[apartment.furnished]}
-                      </div>,
-                      <div key={`apartment-structure-${apartment._id}`}>
-                        {structuresMap[apartment.structure]}
-                      </div>,
-                    ]}
+            renderItem={(apartment) => {
+              const actions = [
+                <div key={`apartment-furnished-${apartment._id}`}>
+                  {furnishedMap[apartment.furnished]}
+                </div>,
+                <div key={`apartment-structure-${apartment._id}`}>
+                  {structuresMap[apartment.structure]}
+                </div>,
+              ];
+              if (apartment.floor) {
+                actions.unshift(
+                  <div key={`apartment-floor-${apartment._id}`}>
+                    {handleFloor(apartment.floor)}
+                  </div>
+                );
+              }
+              return (
+                <List.Item>
+                  <Skeleton
+                    avatar
+                    loading={isLoadingApartmentList}
+                    title={false}
+                    active
                   >
-                    <Meta
-                      avatar={<Avatar src="./logo.png" shape="square" />}
-                      title={
-                        <Link href={apartment.url} passHref>
-                          <a target="_blank" rel="noopener noreferrer">
-                            {apartment.address || apartment.place} (
-                            {apartment.municipality}), {apartment.size}m
-                            <sup>2</sup>, {apartment.price}€
-                          </a>
-                        </Link>
+                    <Card
+                      cover={
+                        apartment.coverPhotoUrl && (
+                          <Image
+                            alt="logo"
+                            width={300}
+                            height={300}
+                            src={apartment.coverPhotoUrl}
+                          />
+                        )
                       }
-                      description={apartment.description || "opis"}
-                    />
-                  </Card>
-                </Skeleton>
-              </List.Item>
-            )}
+                      actions={actions}
+                    >
+                      <Meta
+                        avatar={<Avatar src="./logo.png" shape="square" />}
+                        title={
+                          <Link href={apartment.url} passHref>
+                            <a target="_blank" rel="noopener noreferrer">
+                              {apartment.address || apartment.place} (
+                              {apartment.municipality}), {apartment.size}m
+                              <sup>2</sup>, {apartment.price}€
+                            </a>
+                          </Link>
+                        }
+                        description={apartment.description || "opis"}
+                      />
+                    </Card>
+                  </Skeleton>
+                </List.Item>
+              );
+            }}
           />
         </Col>
       </Row>
