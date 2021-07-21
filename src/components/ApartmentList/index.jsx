@@ -91,7 +91,7 @@ export const ApartmentList = ({
                     ]}
                   >
                     <Meta
-                      avatar={<Avatar src="./logo.png" />}
+                      avatar={<Avatar src="./logo.png" shape="square" />}
                       title={
                         <Link href={apartment.url} passHref>
                           <a target="_blank" rel="noopener noreferrer">
