@@ -59,7 +59,7 @@ export const ApartmentList = ({
               hideOnSinglePage: true,
               className: "mb-5",
             }}
-            renderItem={(item) => (
+            renderItem={(apartment) => (
               <List.Item>
                 <Skeleton
                   avatar
@@ -69,37 +69,39 @@ export const ApartmentList = ({
                 >
                   <Card
                     cover={
-                      <Image
-                        alt="logo"
-                        width={300}
-                        height={300}
-                        src={item.coverPhotoUrl}
-                      />
+                      apartment.coverPhotoUrl && (
+                        <Image
+                          alt="logo"
+                          width={300}
+                          height={300}
+                          src={apartment.coverPhotoUrl}
+                        />
+                      )
                     }
                     actions={[
-                      <div key={`apartment-price-${item._id}`}>
-                        {item.price}€
+                      <div key={`apartment-price-${apartment._id}`}>
+                        {apartment.price}€
                       </div>,
-                      <div key={`apartment-size-${item._id}`}>
-                        {item.size}m<sup>2</sup>
+                      <div key={`apartment-size-${apartment._id}`}>
+                        {apartment.size}m<sup>2</sup>
                       </div>,
-                      <div key={`apartment-floor-${item._id}`}>
-                        {handleFloor(item.floor)}
+                      <div key={`apartment-floor-${apartment._id}`}>
+                        {handleFloor(apartment.floor)}
                       </div>,
                     ]}
                   >
                     <Meta
                       avatar={<Avatar src="./logo.png" />}
                       title={
-                        <Link href={item.url} passHref>
+                        <Link href={apartment.url} passHref>
                           <a target="_blank" rel="noopener noreferrer">
-                            {item.address || item.place},{" "}
-                            {roomsMap[item.structure]},{" "}
-                            {furnishedMap[item.furnished]}
+                            {apartment.address || apartment.place},{" "}
+                            {roomsMap[apartment.structure]},{" "}
+                            {furnishedMap[apartment.furnished]}
                           </a>
                         </Link>
                       }
-                      description={item.description || "opis"}
+                      description={apartment.description || "opis"}
                     />
                   </Card>
                 </Skeleton>
