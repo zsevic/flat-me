@@ -95,8 +95,9 @@ export const ApartmentList = ({
                       title={
                         <Link href={apartment.url} passHref>
                           <a target="_blank" rel="noopener noreferrer">
-                            {apartment.address || apartment.place},{" "}
-                            {apartment.size}m<sup>2</sup>, {apartment.price}€
+                            {apartment.address || apartment.place} (
+                            {apartment.municipality}), {apartment.size}m
+                            <sup>2</sup>, {apartment.price}€
                           </a>
                         </Link>
                       }
