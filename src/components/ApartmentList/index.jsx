@@ -82,11 +82,11 @@ export const ApartmentList = ({
                       <div key={`apartment-price-${apartment._id}`}>
                         {apartment.price}€
                       </div>,
-                      <div key={`apartment-size-${apartment._id}`}>
-                        {apartment.size}m<sup>2</sup>
-                      </div>,
                       <div key={`apartment-floor-${apartment._id}`}>
                         {handleFloor(apartment.floor)}
+                      </div>,
+                      <div key={`apartment-furnished-${apartment._id}`}>
+                        {furnishedMap[apartment.furnished]}
                       </div>,
                     ]}
                   >
@@ -96,8 +96,8 @@ export const ApartmentList = ({
                         <Link href={apartment.url} passHref>
                           <a target="_blank" rel="noopener noreferrer">
                             {apartment.address || apartment.place},{" "}
-                            {roomsMap[apartment.structure]},{" "}
-                            {furnishedMap[apartment.furnished]}
+                            {apartment.size}m<sup>2</sup>,{" "}
+                            {roomsMap[apartment.structure]}
                           </a>
                         </Link>
                       }
