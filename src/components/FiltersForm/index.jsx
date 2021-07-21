@@ -266,7 +266,7 @@ export const FiltersForm = ({
           <Checkbox.Group>
             <Row>
               {FURNISHED.map((furnished) => (
-                <Col span={12} key={furnished.locale}>
+                <Col span={24} key={furnished.locale}>
                   <Checkbox
                     value={furnished.value}
                     style={{
