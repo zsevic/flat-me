@@ -89,39 +89,41 @@ export const ApartmentList = ({
                 title={false}
                 active
               >
-                <Card
-                  cover={
-                    apartment.coverPhotoUrl && (
-                      <Image
-                        alt="logo"
-                        width={300}
-                        height={300}
-                        src={apartment.coverPhotoUrl}
+                <Link href={apartment.url} passHref>
+                  <a target="_blank" rel="noopener noreferrer">
+                    <Card
+                      cover={
+                        apartment.coverPhotoUrl && (
+                          <Image
+                            alt="logo"
+                            width={300}
+                            height={300}
+                            src={apartment.coverPhotoUrl}
+                          />
+                        )
+                      }
+                      actions={actions}
+                    >
+                      <Meta
+                        avatar={<Avatar src="./logo.png" shape="square" />}
+                        title={
+                          <>
+                            {apartment.address || apartment.place} (
+                            {apartment.municipality})
+                          </>
+                        }
+                        description={
+                          <>
+                            <div>
+                              {apartment.size}m<sup>2</sup>
+                            </div>
+                            <div>{apartment.price}€</div>
+                          </>
+                        }
                       />
-                    )
-                  }
-                  actions={actions}
-                >
-                  <Meta
-                    avatar={<Avatar src="./logo.png" shape="square" />}
-                    title={
-                      <Link href={apartment.url} passHref>
-                        <a target="_blank" rel="noopener noreferrer">
-                          {apartment.address || apartment.place} (
-                          {apartment.municipality})
-                        </a>
-                      </Link>
-                    }
-                    description={
-                      <>
-                        <div>
-                          {apartment.size}m<sup>2</sup>
-                        </div>
-                        <div>{apartment.price}€</div>
-                      </>
-                    }
-                  />
-                </Card>
+                    </Card>
+                  </a>
+                </Link>
               </Skeleton>
             </List.Item>
           );
