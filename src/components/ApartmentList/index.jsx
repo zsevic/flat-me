@@ -3,6 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
+import { BiHome } from "react-icons/bi";
+import { FaDoorOpen, FaEuroSign } from "react-icons/fa";
+import { GiSofa, GiStairs } from "react-icons/gi";
+import { MdLocationOn } from "react-icons/md";
 import { NO_RESULTS_TEXT } from "constants/config";
 import { floorsLocaleMap } from "constants/floors";
 import { furnishedMap } from "constants/furnished";
@@ -68,16 +72,17 @@ export const ApartmentList = ({
         renderItem={(apartment) => {
           const actions = [
             <div key={`apartment-furnished-${apartment._id}`}>
-              {furnishedMap[apartment.furnished]}
+              <GiSofa className="inline" /> {furnishedMap[apartment.furnished]}
             </div>,
             <div key={`apartment-structure-${apartment._id}`}>
+              <FaDoorOpen className="inline" />{" "}
               {structuresMap[apartment.structure]}
             </div>,
           ];
           if (apartment.floor) {
             actions.unshift(
               <div key={`apartment-floor-${apartment._id}`}>
-                {handleFloor(apartment.floor)}
+                <GiStairs className="inline" /> {handleFloor(apartment.floor)}
               </div>
             );
           }
@@ -106,19 +111,22 @@ export const ApartmentList = ({
                     >
                       <Meta
                         avatar={<Avatar src="./logo.png" shape="square" />}
-                        title={
-                          <>
-                            {apartment.address || apartment.place} (
-                            {apartment.municipality})
-                          </>
-                        }
+                        title={apartment.address || apartment.place}
                         description={
-                          <>
-                            <div>
-                              {apartment.size}m<sup>2</sup>
-                            </div>
-                            <div>{apartment.price}€</div>
-                          </>
+                          <ul className="divide-x">
+                            <li className="inline px-2">
+                              <BiHome className="inline" /> {apartment.size}m
+                              <sup>2</sup>
+                            </li>
+                            <li className="inline px-2">
+                              <MdLocationOn className="inline" />{" "}
+                              {apartment.municipality}
+                            </li>
+                            <li className="inline px-2">
+                              <FaEuroSign className="inline" />{" "}
+                              {apartment.price}
+                            </li>
+                          </ul>
                         }
                       />
                     </Card>
