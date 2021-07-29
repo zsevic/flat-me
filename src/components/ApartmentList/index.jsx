@@ -115,12 +115,12 @@ export const ApartmentList = ({
                         description={
                           <ul className="divide-x">
                             <li className="inline px-2">
-                              <BiHome className="inline" /> {apartment.size}m
-                              <sup>2</sup>
-                            </li>
-                            <li className="inline px-2">
                               <MdLocationOn className="inline" />{" "}
                               {apartment.municipality}
+                            </li>
+                            <li className="inline px-2">
+                              <BiHome className="inline" /> {apartment.size}m
+                              <sup>2</sup>
                             </li>
                             <li className="inline px-2">
                               <FaEuroSign className="inline" />{" "}
