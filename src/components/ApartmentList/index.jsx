@@ -67,7 +67,7 @@ export const ApartmentList = ({
           total,
           showSizeChanger: false,
           hideOnSinglePage: true,
-          className: "mb-5",
+          className: "pb-5 text-center",
         }}
         renderItem={(apartment) => {
           const actions = [
