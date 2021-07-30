@@ -3,10 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
-import { BiHome } from "react-icons/bi";
 import { FaDoorOpen, FaEuroSign } from "react-icons/fa";
 import { GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
+import { RiPencilRuler2Fill } from "react-icons/ri";
 import { NO_RESULTS_TEXT } from "constants/config";
 import { floorsLocaleMap } from "constants/floors";
 import { furnishedMap } from "constants/furnished";
@@ -119,8 +119,8 @@ export const ApartmentList = ({
                               {apartment.municipality}
                             </li>
                             <li className="inline px-2">
-                              <BiHome className="inline" /> {apartment.size}m
-                              <sup>2</sup>
+                              <RiPencilRuler2Fill className="inline" />{" "}
+                              {apartment.size}m<sup>2</sup>
                             </li>
                             <li className="inline px-2">
                               <FaEuroSign className="inline" />{" "}
