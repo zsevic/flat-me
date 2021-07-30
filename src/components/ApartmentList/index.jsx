@@ -3,8 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
-import { FaDoorOpen, FaEuroSign } from "react-icons/fa";
-import { GiSofa, GiStairs } from "react-icons/gi";
+import { FaDoorOpen } from "react-icons/fa";
+import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import { RiPencilRuler2Fill } from "react-icons/ri";
 import { NO_RESULTS_TEXT } from "constants/config";
@@ -123,8 +123,8 @@ export const ApartmentList = ({
                               {apartment.size}m<sup>2</sup>
                             </li>
                             <li className="inline px-2">
-                              <FaEuroSign className="inline" />{" "}
-                              {apartment.price}
+                              <GiMoneyStack className="inline" />{" "}
+                              {apartment.price}€
                             </li>
                           </ul>
                         }
