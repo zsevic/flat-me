@@ -8,7 +8,6 @@ const stringOrNumberPropType = PropTypes.oneOfType([
 const apartmentPropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
   availableFrom: PropTypes.string,
-  description: PropTypes.string,
   floor: stringOrNumberPropType,
   heatingType: PropTypes.string,
   isFurnished: PropTypes.bool,
