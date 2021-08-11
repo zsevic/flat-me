@@ -83,7 +83,7 @@ export const TrackFiltersModal = () => {
   };
 
   useEffect(() => {
-    eventBus.on("isDisabled-changed", (data) => {
+    eventBus.on("trackFilters-changed", (data) => {
       setIsDisabled(data.isDisabled);
     });
 

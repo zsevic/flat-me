@@ -1,15 +1,14 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Checkbox, Col, Button, Form, Row, Select, Slider } from "antd";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TrackFiltersModal } from "components/TrackFiltersModal";
 import {
+  INITIAL_FILTERS,
   INITIAL_PAGE_NUMBER,
   INITIAL_PAGE_SIZE,
   RENT_MAX_PRICE,
   RENT_MIN_PRICE,
-  RENT_OR_SALE_INITIAL_MAX_PRICE,
-  RENT_OR_SALE_INITIAL_MIN_PRICE,
   RENT_SELECTED_MAX_PRICE,
   RENT_SELECTED_MIN_PRICE,
   SALE_MAX_PRICE,
@@ -58,6 +57,41 @@ export const FiltersForm = ({
   const [maxSalePriceField, setMaxSalePriceField] = useState(
     SALE_SELECTED_MAX_PRICE
   );
+
+  const validateFields = (storedFilters) => {
+    form
+      .validateFields()
+      .then(() => {
+        const filters = storedFilters || form.getFieldsValue();
+        const updatedFilters = getFilters(filters);
+        eventBus.dispatch("filters-changed", { filters: updatedFilters });
+        eventBus.dispatch("trackFilters-changed", { isDisabled: false });
+      })
+      .catch((error) => {
+        console.error("error validating fields", error);
+        const isDisabled = error?.errorFields?.length > 0;
+        if (!isDisabled) {
+          const filters = form.getFieldsValue();
+          const updatedFilters = getFilters(filters);
+          eventBus.dispatch("filters-changed", { filters: updatedFilters });
+        }
+        eventBus.dispatch("trackFilters-changed", { isDisabled });
+      });
+  };
+
+  useEffect(() => {
+    const storedFilters = localStorage.getItem("initial-filters");
+    if (storedFilters) {
+      const filters = JSON.parse(storedFilters);
+      if (filters.rentOrSale === "sale") {
+        setMinPriceField(SALE_MIN_PRICE);
+        setMaxPriceField(SALE_MAX_PRICE);
+        setIsInitialRentOrSale(false);
+      }
+      form.setFieldsValue(filters);
+      validateFields(filters);
+    }
+  }, []);
 
   const onFinish = async (values) => {
     const newFilters = getFilters(values);
@@ -119,15 +153,10 @@ export const FiltersForm = ({
       }
     }
 
-    form.validateFields().catch((error) => {
-      const isDisabled = error.errorFields.length > 0;
-      if (!isDisabled) {
-        const filters = form.getFieldsValue();
-        const updatedFilters = getFilters(filters);
-        eventBus.dispatch("filters-changed", { filters: updatedFilters });
-      }
-      eventBus.dispatch("isDisabled-changed", { isDisabled });
-    });
+    validateFields();
+
+    const filters = form.getFieldsValue();
+    localStorage.setItem("initial-filters", JSON.stringify(filters));
   };
 
   return (
@@ -138,13 +167,7 @@ export const FiltersForm = ({
         {...formItemLayout}
         onFinish={onFinish}
         onValuesChange={onValuesChange}
-        initialValues={{
-          price: [
-            RENT_OR_SALE_INITIAL_MIN_PRICE,
-            RENT_OR_SALE_INITIAL_MAX_PRICE,
-          ],
-          structures: [1.0, 1.5],
-        }}
+        initialValues={INITIAL_FILTERS}
       >
         <p className="text-center mt-4 mb-4">
           Izaberi filtere i pronađi odgovarajući stan
