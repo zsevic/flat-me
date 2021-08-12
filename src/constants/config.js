@@ -23,3 +23,5 @@ export const INITIAL_FILTERS = {
   price: [RENT_OR_SALE_INITIAL_MIN_PRICE, RENT_OR_SALE_INITIAL_MAX_PRICE],
   structures: [1.0, 1.5],
 };
+
+export const TRACK_FILTERS_MODAL_TITLE = "Uključi obaveštenja";

@@ -1,5 +1,6 @@
-import { SaveOutlined } from "@ant-design/icons";
+import { MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, Steps, message } from "antd";
+import { TRACK_FILTERS_MODAL_TITLE } from "constants/config";
 import React, { useEffect, useState } from "react";
 import * as filtersService from "services/filters";
 import eventBus from "utils/event-bus";
@@ -100,10 +101,11 @@ export const TrackFiltersModal = () => {
         size="large"
         disabled={isDisabled}
       >
-        <SaveOutlined className="pb-1 align-middle" /> Sačuvaj pretragu
+        <MailOutlined className="pb-1 align-middle" />{" "}
+        {TRACK_FILTERS_MODAL_TITLE}
       </Button>
       <Modal
-        title="Sačuvaj pretragu"
+        title={TRACK_FILTERS_MODAL_TITLE}
         visible={visible}
         onCancel={closeModal}
         onOk={closeModal}
