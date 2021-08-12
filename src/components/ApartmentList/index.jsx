@@ -100,7 +100,7 @@ export const ApartmentList = ({
                       cover={
                         apartment.coverPhotoUrl && (
                           <Image
-                            alt="apartment"
+                            alt="stan"
                             width={300}
                             height={300}
                             src={apartment.coverPhotoUrl}
