@@ -4,6 +4,8 @@ import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
 import "../styles/globals.css";
 
+React.useLayoutEffect = React.useEffect;
+
 function App({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }

@@ -4,8 +4,6 @@ import { ApartmentList } from "components/ApartmentList";
 import { FiltersForm } from "components/FiltersForm";
 import { Header } from "components/Header";
 
-React.useLayoutEffect = React.useEffect;
-
 const IndexPage = () => {
   const [apartmentList, setApartmentList] = useState([]);
   const [filters, setFilters] = useState({});
