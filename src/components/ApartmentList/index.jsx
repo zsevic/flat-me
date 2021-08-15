@@ -39,11 +39,8 @@ export const ApartmentList = ({
     });
   };
 
-  const handleFloor = (floor) => {
-    if (!floor) return null;
-
-    return floorsLocaleMap[floor] || `na ${floor}. spratu`;
-  };
+  const handleFloor = (floor) =>
+    floorsLocaleMap[floor] || `na ${floor}. spratu`;
 
   return (
     <div ref={listRef}>
@@ -71,6 +68,9 @@ export const ApartmentList = ({
         }}
         renderItem={(apartment) => {
           const actions = [
+            <div key={`apartment-floor-${apartment._id}`}>
+              <GiStairs className="inline" /> {handleFloor(apartment.floor)}
+            </div>,
             <div key={`apartment-furnished-${apartment._id}`}>
               <GiSofa className="inline" /> {furnishedMap[apartment.furnished]}
             </div>,
@@ -79,13 +79,7 @@ export const ApartmentList = ({
               {structuresMap[apartment.structure]}
             </div>,
           ];
-          if (apartment.floor) {
-            actions.unshift(
-              <div key={`apartment-floor-${apartment._id}`}>
-                <GiStairs className="inline" /> {handleFloor(apartment.floor)}
-              </div>
-            );
-          }
+
           return (
             <List.Item>
               <Skeleton
