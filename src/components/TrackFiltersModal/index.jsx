@@ -39,12 +39,10 @@ export const TrackFiltersModal = () => {
 
   const [current, setCurrent] = useState(0);
 
-  let eventSource;
-
   const onFinish = async (values) => {
     const { email } = values;
 
-    eventSource = new EventSource(
+    const eventSource = new EventSource(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sse?email=${email}`
     );
 
@@ -52,6 +50,8 @@ export const TrackFiltersModal = () => {
       message.error("Pretraga ne može da se sačuva, pokušajte kasnije");
       setVisible(false);
     };
+
+    eventBus.on("sse-close", () => eventSource.close());
 
     eventSource.onmessage = async ({ data }) => {
       const eventData = JSON.parse(data);
@@ -80,7 +80,7 @@ export const TrackFiltersModal = () => {
   const closeModal = () => {
     setVisible(false);
     form.resetFields();
-    eventSource?.close();
+    eventBus.dispatch("sse-close");
   };
 
   useEffect(() => {
