@@ -81,16 +81,16 @@ export const FiltersForm = ({
 
   useEffect(() => {
     const storedFilters = localStorage.getItem("initial-filters");
-    if (storedFilters) {
-      const filters = JSON.parse(storedFilters);
-      if (filters.rentOrSale === "sale") {
-        setMinPriceField(SALE_MIN_PRICE);
-        setMaxPriceField(SALE_MAX_PRICE);
-        setIsInitialRentOrSale(false);
-      }
-      form.setFieldsValue(filters);
-      validateFields(filters);
+    if (!storedFilters) return form.setFieldsValue(INITIAL_FILTERS);
+
+    const filters = JSON.parse(storedFilters);
+    if (filters.rentOrSale === "sale") {
+      setMinPriceField(SALE_MIN_PRICE);
+      setMaxPriceField(SALE_MAX_PRICE);
+      setIsInitialRentOrSale(false);
     }
+    form.setFieldsValue(filters);
+    return validateFields(filters);
   }, []);
 
   const onFinish = async (values) => {
@@ -167,7 +167,6 @@ export const FiltersForm = ({
         {...formItemLayout}
         onFinish={onFinish}
         onValuesChange={onValuesChange}
-        initialValues={INITIAL_FILTERS}
       >
         <p className="text-center mt-4 mb-4">
           Izaberi filtere i pronađi odgovarajući stan
