@@ -100,6 +100,9 @@ export const FiltersForm = ({
     if (storedFilters && total) {
       const isSameFilter = deepEqual(JSON.parse(storedFilters), values);
       if (isSameFilter) {
+        listRef.current.scrollIntoView({
+          behavior: "smooth",
+        });
         return;
       }
     }
