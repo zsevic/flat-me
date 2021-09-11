@@ -6,7 +6,7 @@ const stringOrNumberPropType = PropTypes.oneOfType([
 ]);
 
 const apartmentPropType = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   apartmentId: PropTypes.string,
   availableFrom: PropTypes.string,
   floor: stringOrNumberPropType,

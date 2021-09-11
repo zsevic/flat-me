@@ -23,6 +23,7 @@ const IndexPage = () => {
         setIsLoadingApartmentList={setIsLoadingApartmentList}
         setFilters={setFilters}
         setTotal={setTotal}
+        total={total}
         listRef={listRef}
       />
       {total !== null && (

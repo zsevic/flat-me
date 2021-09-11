@@ -1,5 +1,6 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Checkbox, Col, Button, Form, Row, Select, Slider } from "antd";
+import deepEqual from "fast-deep-equal/react";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { TrackFiltersModal } from "components/TrackFiltersModal";
@@ -39,6 +40,7 @@ export const FiltersForm = ({
   setFilters,
   setIsLoadingApartmentList,
   setTotal,
+  total,
   listRef,
 }) => {
   const [form] = Form.useForm();
@@ -94,8 +96,17 @@ export const FiltersForm = ({
   }, []);
 
   const onFinish = async (values) => {
+    const storedFilters = localStorage.getItem("initial-filters");
+    if (storedFilters && total) {
+      const isSameFilter = deepEqual(JSON.parse(storedFilters), values);
+      if (isSameFilter) {
+        return;
+      }
+    }
+
     const newFilters = getFilters(values);
     setFilters(newFilters);
+    localStorage.setItem("initial-filters", JSON.stringify(values));
 
     setIsLoadingApartmentList(true);
     const { data, total: totalAmount } =
@@ -157,9 +168,6 @@ export const FiltersForm = ({
     }
 
     validateFields();
-
-    const filters = form.getFieldsValue();
-    localStorage.setItem("initial-filters", JSON.stringify(filters));
   };
 
   return (
@@ -331,5 +339,10 @@ FiltersForm.propTypes = {
   setFilters: PropTypes.func.isRequired,
   setIsLoadingApartmentList: PropTypes.func.isRequired,
   setTotal: PropTypes.func.isRequired,
+  total: PropTypes.number,
   listRef: PropTypes.object.isRequired,
+};
+
+FiltersForm.defaultProps = {
+  total: null,
 };
