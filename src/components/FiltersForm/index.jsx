@@ -110,6 +110,9 @@ export const FiltersForm = ({
     listRef.current.scrollIntoView({
       behavior: "smooth",
     });
+    eventBus.dispatch("apartment-list-page-changed", {
+      page: INITIAL_PAGE_NUMBER,
+    });
   };
 
   const onValuesChange = (changedField) => {

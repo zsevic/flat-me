@@ -2,16 +2,17 @@ import { Avatar, Card, List, Skeleton } from "antd";
 import Link from "next/link";
 import Image from "next/image";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaDoorOpen } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import { RiPencilRuler2Fill } from "react-icons/ri";
-import { NO_RESULTS_TEXT } from "constants/config";
+import { INITIAL_PAGE_NUMBER, NO_RESULTS_TEXT } from "constants/config";
 import { floorsLocaleMap } from "constants/floors";
 import { furnishedMap } from "constants/furnished";
 import { structuresMap } from "constants/structures";
 import * as apartmentsService from "services/apartments";
+import eventBus from "utils/event-bus";
 import { apartmentListPropType, filtersPropType } from "utils/prop-types";
 
 const { Meta } = Card;
@@ -25,8 +26,11 @@ export const ApartmentList = ({
   listRef,
   total,
 }) => {
+  const [currentPage, setCurrentPage] = useState(INITIAL_PAGE_NUMBER);
+
   const onChange = async (page, pageSize) => {
     setIsLoadingApartmentList(true);
+    setCurrentPage(page);
     const { data } = await apartmentsService.getApartmentList({
       ...filters,
       pageNumber: page,
@@ -41,6 +45,12 @@ export const ApartmentList = ({
 
   const handleFloor = (floor) =>
     floorsLocaleMap[floor] || `na ${floor}. spratu`;
+
+  useEffect(() => {
+    eventBus.on("apartment-list-page-changed", (data) => {
+      setCurrentPage(data.page);
+    });
+  }, []);
 
   return (
     <div ref={listRef}>
@@ -61,6 +71,7 @@ export const ApartmentList = ({
         locale={{ emptyText: NO_RESULTS_TEXT }}
         pagination={{
           onChange,
+          current: currentPage,
           total,
           showSizeChanger: false,
           hideOnSinglePage: true,
