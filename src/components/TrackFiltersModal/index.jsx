@@ -1,6 +1,8 @@
 import { MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, message } from "antd";
 import { TRACK_FILTERS_MODAL_TITLE } from "constants/config";
+import { tooManyRequestsErrorMessage } from "constants/error-messages";
+import { TOO_MANY_REQUESTS_STATUS_CODE } from "constants/status-codes";
 import React, { useEffect, useState } from "react";
 import * as filtersService from "services/filters";
 import eventBus from "utils/event-bus";
@@ -26,8 +28,12 @@ export const TrackFiltersModal = () => {
     try {
       await filtersService.saveFilter({ ...filters, email });
       message.info("Proveri mejl sa detaljima oko potvrde sačuvane pretrage");
-    } catch {
-      message.error("Pretraga nije sačuvana");
+    } catch (error) {
+      if (error?.response?.status === TOO_MANY_REQUESTS_STATUS_CODE) {
+        message.error(tooManyRequestsErrorMessage);
+      } else {
+        message.error("Pretraga nije sačuvana");
+      }
     }
   };
 
