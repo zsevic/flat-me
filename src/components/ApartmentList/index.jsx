@@ -115,7 +115,9 @@ export const ApartmentList = ({
                       actions={actions}
                     >
                       <Meta
-                        avatar={<Avatar src="./logo.png" shape="square" />}
+                        avatar={
+                          <Avatar src="./assets/logo.png" shape="square" />
+                        }
                         title={apartment.address || apartment.place}
                         description={
                           <ul className="divide-x">

@@ -1,6 +1,10 @@
 export const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
 
+export const HOMEPAGE_META_DESCRIPTION = "FlatMe olakšava traženje stana";
+export const HOMEPAGE_TITLE = "FlatMe";
+export const DOMAIN_URL = "https://flat-me.vercel.app";
+
 export const INITIAL_PAGE_NUMBER = 1;
 export const INITIAL_PAGE_SIZE = 10;
 export const NO_RESULTS_TEXT = "Nema rezultata";
