@@ -29,10 +29,12 @@ module.exports = {
       "aspects": ["invalidHref"],
     }],
     "no-param-reassign": "warn",
+    'no-restricted-globals': 'warn',
+    'no-undef': 'warn',
+    "no-underscore-dangle": "warn",
     "react/forbid-prop-types": "warn",
     "react/jsx-fragments": "off",
     "react/jsx-props-no-spreading": "warn",
-    "no-underscore-dangle": "warn",
   },
   settings: {
     "import/resolver": {

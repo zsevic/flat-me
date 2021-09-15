@@ -1,12 +1,15 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
 import "../styles/globals.css";
+import { registerServiceWorker } from "services/service-worker-registration";
 
 React.useLayoutEffect = React.useEffect;
 
 function App({ Component, pageProps }) {
+  useEffect(() => registerServiceWorker(), []);
+
   return <Component {...pageProps} />;
 }
 
