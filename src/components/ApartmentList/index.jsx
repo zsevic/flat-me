@@ -1,15 +1,16 @@
 import { Avatar, Card, List, Skeleton } from "antd";
 import Link from "next/link";
-import Image from "next/image";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { FaDoorOpen } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import { RiPencilRuler2Fill } from "react-icons/ri";
+import ImageWithFallback from "components/ImageWithFallback";
 import {
   INITIAL_PAGE_NUMBER,
   INITIAL_PAGE_SIZE,
+  LOGO_URL,
   NO_RESULTS_TEXT,
 } from "constants/config";
 import { floorsLocaleMap } from "constants/floors";
@@ -84,13 +85,13 @@ export const ApartmentList = ({
         }}
         renderItem={(apartment) => {
           const actions = [
-            <div key={`apartment-floor-${apartment._id}`}>
+            <div key={`apartment-floor-${apartment.id}`}>
               <GiStairs className="inline" /> {handleFloor(apartment.floor)}
             </div>,
-            <div key={`apartment-furnished-${apartment._id}`}>
+            <div key={`apartment-furnished-${apartment.id}`}>
               <GiSofa className="inline" /> {furnishedMap[apartment.furnished]}
             </div>,
-            <div key={`apartment-structure-${apartment._id}`}>
+            <div key={`apartment-structure-${apartment.id}`}>
               <FaDoorOpen className="inline" />{" "}
               {structuresMap[apartment.structure]}
             </div>,
@@ -109,20 +110,22 @@ export const ApartmentList = ({
                     <Card
                       cover={
                         apartment.coverPhotoUrl && (
-                          <Image
+                          <ImageWithFallback
                             alt="stan"
                             width={300}
                             height={300}
+                            key={`image-${apartment.id}`}
                             src={apartment.coverPhotoUrl}
+                            fallbackSrc={LOGO_URL}
+                            placeholder="blur"
+                            blurDataURL={LOGO_URL}
                           />
                         )
                       }
                       actions={actions}
                     >
                       <Meta
-                        avatar={
-                          <Avatar src="./assets/logo.png" shape="square" />
-                        }
+                        avatar={<Avatar src={LOGO_URL} shape="square" />}
                         title={apartment.address || apartment.place}
                         description={
                           <ul className="divide-x">

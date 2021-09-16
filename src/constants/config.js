@@ -30,3 +30,5 @@ export const INITIAL_FILTERS = {
 };
 
 export const TRACK_FILTERS_MODAL_TITLE = "Uključi obaveštenja";
+
+export const LOGO_URL = "/assets/logo.png";
