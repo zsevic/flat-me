@@ -7,7 +7,11 @@ import { FaDoorOpen } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import { RiPencilRuler2Fill } from "react-icons/ri";
-import { INITIAL_PAGE_NUMBER, NO_RESULTS_TEXT } from "constants/config";
+import {
+  INITIAL_PAGE_NUMBER,
+  INITIAL_PAGE_SIZE,
+  NO_RESULTS_TEXT,
+} from "constants/config";
 import { floorsLocaleMap } from "constants/floors";
 import { furnishedMap } from "constants/furnished";
 import { structuresMap } from "constants/structures";
@@ -76,6 +80,7 @@ export const ApartmentList = ({
           showSizeChanger: false,
           hideOnSinglePage: true,
           className: "pb-5 text-center",
+          defaultPageSize: INITIAL_PAGE_SIZE,
         }}
         renderItem={(apartment) => {
           const actions = [
