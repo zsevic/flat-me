@@ -248,6 +248,7 @@ export const FiltersForm = ({
             mode="multiple"
             placeholder="Izaberi deo grada"
             listHeight={160}
+            allowClear
           >
             {MUNICIPALITIES.map((municipality) => (
               <Option key={municipality} value={municipality}>
