@@ -3,7 +3,7 @@ export const API_BASE_URL =
 
 export const HOMEPAGE_META_DESCRIPTION = "FlatMe olakšava traženje stana";
 export const HOMEPAGE_TITLE = "FlatMe";
-export const DOMAIN_URL = "https://flat-me.com";
+export const DOMAIN_URL = "https://www.flat-me.com";
 
 export const INITIAL_PAGE_NUMBER = 1;
 export const INITIAL_PAGE_SIZE = 10;
