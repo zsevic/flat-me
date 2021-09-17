@@ -117,8 +117,6 @@ export const ApartmentList = ({
                             key={`image-${apartment.id}`}
                             src={apartment.coverPhotoUrl}
                             fallbackSrc={LOGO_URL}
-                            placeholder="blur"
-                            blurDataURL={LOGO_URL}
                           />
                         )
                       }

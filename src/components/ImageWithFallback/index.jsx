@@ -19,11 +19,9 @@ const ImageWithFallback = (props) => {
 
 ImageWithFallback.propTypes = {
   alt: PropTypes.string.isRequired,
-  blurDataURL: PropTypes.string.isRequired,
   fallbackSrc: PropTypes.string.isRequired,
   height: PropTypes.number.isRequired,
   key: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
 };
