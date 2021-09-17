@@ -23,6 +23,7 @@ import { STRUCTURES } from "constants/structures";
 import * as apartmentsService from "services/apartments";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
+import { priceFormatter } from "utils";
 
 const { Option } = Select;
 
@@ -205,7 +206,7 @@ export const FiltersForm = ({
 
         <Form.Item
           name="price"
-          label="Opseg cene (€)"
+          label="Opseg cene"
           rules={[
             {
               required: true,
@@ -218,17 +219,18 @@ export const FiltersForm = ({
             min={minPriceField}
             max={maxPriceField}
             marks={{
-              [minPriceField]: minPriceField,
+              [minPriceField]: priceFormatter(minPriceField),
               [maxPriceField]: {
                 ...(maxPriceField === SALE_MAX_PRICE && {
                   style: {
-                    transform: "translate(-45px)",
+                    transform: "translate(-55px)",
                   },
                 }),
-                label: maxPriceField,
+                label: priceFormatter(maxPriceField),
               },
             }}
             step={10}
+            tipFormatter={priceFormatter}
           />
         </Form.Item>
 
