@@ -204,6 +204,8 @@ export const FiltersForm = ({
           </Select>
         </Form.Item>
 
+        <br />
+
         <Form.Item
           name="price"
           label="Opseg cene"
@@ -231,6 +233,8 @@ export const FiltersForm = ({
             }}
             step={10}
             tipFormatter={priceFormatter}
+            tooltipVisible
+            tooltipPlacement="top"
           />
         </Form.Item>
 
