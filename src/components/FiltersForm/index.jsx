@@ -1,5 +1,5 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Checkbox, Col, Button, Form, Row, Select, Slider } from "antd";
+import { Button, Checkbox, Col, Form, Row, Select, Slider } from "antd";
 import deepEqual from "fast-deep-equal/react";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
@@ -186,143 +186,154 @@ export const FiltersForm = ({
         <p className="text-center mt-4 mb-4">
           Izaberi filtere i pronađi odgovarajući stan
         </p>
-        <Form.Item
-          name="rentOrSale"
-          label="Vrsta pretrage"
-          className="mt-2"
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: "Izaberi vrstu pretrage",
-            },
-          ]}
-        >
-          <Select placeholder="Izaberi vrstu pretrage">
-            <Option value="rent">Iznajmljivanje</Option>
-            <Option value="sale">Kupovina</Option>
-          </Select>
-        </Form.Item>
-
-        <br />
-
-        <Form.Item
-          name="price"
-          label="Opseg cene"
-          rules={[
-            {
-              required: true,
-              message: "Izaberi opseg cene",
-            },
-          ]}
-        >
-          <Slider
-            range
-            min={minPriceField}
-            max={maxPriceField}
-            marks={{
-              [minPriceField]: priceFormatter(minPriceField),
-              [maxPriceField]: {
-                ...(maxPriceField === SALE_MAX_PRICE && {
-                  style: {
-                    transform: "translate(-55px)",
-                  },
-                }),
-                label: priceFormatter(maxPriceField),
+        <Col>
+          <Form.Item
+            name="rentOrSale"
+            label="Vrsta pretrage"
+            className="mt-2"
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "Izaberi vrstu pretrage",
               },
-            }}
-            step={10}
-            tipFormatter={priceFormatter}
-            tooltipVisible
-            tooltipPlacement="top"
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="municipalities"
-          label="Deo grada"
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: "Izaberi deo grada",
-              type: "array",
-            },
-          ]}
-        >
-          <Select
-            mode="multiple"
-            placeholder="Izaberi deo grada"
-            listHeight={160}
-            allowClear
+            ]}
           >
-            {MUNICIPALITIES.map((municipality) => (
-              <Option key={municipality} value={municipality}>
-                {municipality}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
+            <Select placeholder="Izaberi vrstu pretrage">
+              <Option value="rent">Iznajmljivanje</Option>
+              <Option value="sale">Kupovina</Option>
+            </Select>
+          </Form.Item>
+        </Col>
+        <Col>
+          <Form.Item
+            name="price"
+            label="Opseg cene"
+            rules={[
+              {
+                required: true,
+                message: "Izaberi opseg cene",
+              },
+            ]}
+          >
+            <Slider
+              range
+              min={minPriceField}
+              max={maxPriceField}
+              marks={{
+                [minPriceField]: {
+                  label: priceFormatter(minPriceField),
+                  style: {
+                    transform: "translate(-5px, -35px)",
+                  },
+                },
+                [maxPriceField]: {
+                  style: {
+                    transform:
+                      maxPriceField === SALE_MAX_PRICE
+                        ? "translate(-55px, -35px)"
+                        : "translate(-25px, -35px)",
+                  },
+                  label: priceFormatter(maxPriceField),
+                },
+              }}
+              step={10}
+              tipFormatter={priceFormatter}
+              tooltipVisible
+              tooltipPlacement="bottom"
+            />
+          </Form.Item>
+        </Col>
 
-        <Form.Item
-          name="structures"
-          label="Struktura stana"
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: "Izaberi strukturu stana",
-              type: "array",
-            },
-          ]}
-        >
-          <Checkbox.Group>
-            <Row>
-              {STRUCTURES.map((structure) => (
-                <Col span={12} key={structure.locale}>
-                  <Checkbox
-                    value={structure.numberOfRooms}
-                    style={{
-                      lineHeight: "32px",
-                    }}
-                  >
-                    {structure.locale}
-                  </Checkbox>
-                </Col>
+        <Col>
+          <Form.Item
+            name="municipalities"
+            label="Deo grada"
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "Izaberi deo grada",
+                type: "array",
+              },
+            ]}
+          >
+            <Select
+              mode="multiple"
+              placeholder="Izaberi deo grada"
+              listHeight={160}
+              allowClear
+            >
+              {MUNICIPALITIES.map((municipality) => (
+                <Option key={municipality} value={municipality}>
+                  {municipality}
+                </Option>
               ))}
-            </Row>
-          </Checkbox.Group>
-        </Form.Item>
-
-        <Form.Item
-          name="furnished"
-          label="Opremljenost stana"
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: "Izaberi opremljenost stana",
-              type: "array",
-            },
-          ]}
-        >
-          <Checkbox.Group>
-            <Row>
-              {FURNISHED.map((furnished) => (
-                <Col span={24} key={furnished.locale}>
-                  <Checkbox
-                    value={furnished.value}
-                    style={{
-                      lineHeight: "32px",
-                    }}
-                  >
-                    {furnished.locale}
-                  </Checkbox>
-                </Col>
-              ))}
-            </Row>
-          </Checkbox.Group>
-        </Form.Item>
+            </Select>
+          </Form.Item>
+        </Col>
+        <Col>
+          <Form.Item
+            name="structures"
+            label="Struktura stana"
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "Izaberi strukturu stana",
+                type: "array",
+              },
+            ]}
+          >
+            <Checkbox.Group>
+              <Row>
+                {STRUCTURES.map((structure) => (
+                  <Col span={12} key={structure.locale}>
+                    <Checkbox
+                      value={structure.numberOfRooms}
+                      style={{
+                        lineHeight: "32px",
+                      }}
+                    >
+                      {structure.locale}
+                    </Checkbox>
+                  </Col>
+                ))}
+              </Row>
+            </Checkbox.Group>
+          </Form.Item>
+        </Col>
+        <Col>
+          <Form.Item
+            name="furnished"
+            label="Opremljenost stana"
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "Izaberi opremljenost stana",
+                type: "array",
+              },
+            ]}
+          >
+            <Checkbox.Group>
+              <Row>
+                {FURNISHED.map((furnished) => (
+                  <Col span={24} key={furnished.locale}>
+                    <Checkbox
+                      value={furnished.value}
+                      style={{
+                        lineHeight: "32px",
+                      }}
+                    >
+                      {furnished.locale}
+                    </Checkbox>
+                  </Col>
+                ))}
+              </Row>
+            </Checkbox.Group>
+          </Form.Item>
+        </Col>
 
         <Row justify="space-around" align="center" className="mt-2">
           <Col className="mx-1">
