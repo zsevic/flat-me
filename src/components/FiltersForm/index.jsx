@@ -60,6 +60,7 @@ export const FiltersForm = ({
   const [maxSalePriceField, setMaxSalePriceField] = useState(
     SALE_SELECTED_MAX_PRICE
   );
+  const [tooltipVisible, setTooltipVisible] = useState(false);
 
   const validateFields = (storedFilters) => {
     form
@@ -84,7 +85,10 @@ export const FiltersForm = ({
 
   useEffect(() => {
     const storedFilters = localStorage.getItem("initial-filters");
-    if (!storedFilters) return form.setFieldsValue(INITIAL_FILTERS);
+    if (!storedFilters) {
+      form.setFieldsValue(INITIAL_FILTERS);
+      return setTooltipVisible(true);
+    }
 
     const filters = JSON.parse(storedFilters);
     if (filters.rentOrSale === "sale") {
@@ -92,6 +96,7 @@ export const FiltersForm = ({
       setMaxPriceField(SALE_MAX_PRICE);
       setIsInitialRentOrSale(false);
     }
+    setTooltipVisible(true);
     form.setFieldsValue(filters);
     return validateFields(filters);
   }, []);
@@ -239,7 +244,7 @@ export const FiltersForm = ({
               }}
               step={10}
               tipFormatter={priceFormatter}
-              tooltipVisible
+              tooltipVisible={tooltipVisible}
               tooltipPlacement="bottom"
             />
           </Form.Item>
