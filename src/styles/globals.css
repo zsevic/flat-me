@@ -5,3 +5,7 @@
 a[target="_blank"]:visited {
   color: gray;
 }
+
+body {
+  font-family: "DM Sans", sans-serif;
+}
