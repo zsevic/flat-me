@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --main-color: #5fe0ed;
+}
+
 a[target="_blank"]:visited {
   color: gray;
 }
@@ -16,4 +20,29 @@ body {
 
 .ant-tooltip {
   z-index: 100;
+}
+
+.ant-tooltip-inner,
+.ant-tooltip-arrow-content {
+  background-color: var(--main-color);
+}
+
+.ant-btn-primary,
+.ant-btn-primary:focus {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.ant-slider-track {
+  background-color: var(--main-color);
+}
+
+.ant-slider-handle.ant-tooltip-open,
+.ant-slider-handle.ant-tooltip-open:focus {
+  border-color: var(--main-color);
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
 }
