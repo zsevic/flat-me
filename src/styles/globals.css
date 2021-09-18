@@ -9,3 +9,11 @@ a[target="_blank"]:visited {
 body {
   font-family: "DM Sans", sans-serif;
 }
+
+.ant-select-item-option {
+  z-index: 200;
+}
+
+.ant-tooltip {
+  z-index: 100;
+}
