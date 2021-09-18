@@ -23,7 +23,7 @@ import { STRUCTURES } from "constants/structures";
 import * as apartmentsService from "services/apartments";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
-import { priceFormatter } from "utils";
+import { getPriceStep, priceFormatter } from "./utils";
 
 const { Option } = Select;
 
@@ -242,7 +242,7 @@ export const FiltersForm = ({
                   label: priceFormatter(maxPriceField),
                 },
               }}
-              step={10}
+              step={getPriceStep(maxPriceField)}
               tipFormatter={priceFormatter}
               tooltipVisible={tooltipVisible}
               tooltipPlacement="bottom"
