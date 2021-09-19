@@ -13,6 +13,7 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "prettier",
+    "plugin:@next/next/recommended",
   ],
   parser: "babel-eslint",
   parserOptions: {
@@ -25,12 +26,15 @@ module.exports = {
   rules: {
     "import/no-default-export": "warn",
     "import/prefer-default-export": "off",
-    "jsx-a11y/anchor-is-valid": ["error", {
-      "aspects": ["invalidHref"],
-    }],
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        aspects: ["invalidHref"],
+      },
+    ],
     "no-param-reassign": "warn",
-    'no-restricted-globals': 'warn',
-    'no-undef': 'warn',
+    "no-restricted-globals": "warn",
+    "no-undef": "warn",
     "no-underscore-dangle": "warn",
     "react/forbid-prop-types": "warn",
     "react/jsx-fragments": "off",

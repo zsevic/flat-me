@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
 import "../styles/globals.css";
-import "fontsource-dm-sans";
 import { registerServiceWorker } from "services/service-worker-registration";
 
 React.useLayoutEffect = React.useEffect;
