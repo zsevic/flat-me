@@ -5,7 +5,12 @@ module.exports = withAntdLess({
   lessVarsFilePathAppendToEndOfContent: true,
 
   images: {
-    domains: ["img.cityexpert.rs", "resizer.4zida.rs"],
+    domains: [
+      "img.cityexpert.rs",
+      "cityexpert.rs",
+      "resizer.4zida.rs",
+      "www.4zida.rs",
+    ],
   },
   src: "./src",
 

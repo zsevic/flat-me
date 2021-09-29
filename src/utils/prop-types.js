@@ -9,6 +9,8 @@ const apartmentPropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
   apartmentId: PropTypes.string,
   availableFrom: PropTypes.string,
+  coverPhotoUrl: PropTypes.string,
+  advertiserLogoUrl: PropTypes.string,
   floor: stringOrNumberPropType,
   heatingType: PropTypes.string,
   isFurnished: PropTypes.bool,

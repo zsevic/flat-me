@@ -1,4 +1,5 @@
 import { Avatar, Card, List, Skeleton } from "antd";
+import Image from "next/image";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
@@ -123,7 +124,26 @@ export const ApartmentList = ({
                       actions={actions}
                     >
                       <Meta
-                        avatar={<Avatar src={LOGO_URL} shape="square" />}
+                        avatar={
+                          <Avatar
+                            size={{
+                              xs: 24,
+                              sm: 32,
+                              md: 40,
+                              lg: 64,
+                              xl: 80,
+                              xxl: 100,
+                            }}
+                            shape="square"
+                            icon={
+                              <Image
+                                src={apartment.advertiserLogoUrl || LOGO_URL}
+                                layout="fill"
+                                className="bg-white"
+                              />
+                            }
+                          />
+                        }
                         title={apartment.address || apartment.place}
                         description={
                           <ul className="divide-x">
