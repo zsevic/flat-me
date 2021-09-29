@@ -127,11 +127,11 @@ export const ApartmentList = ({
                         avatar={
                           <Avatar
                             size={{
-                              xs: 24,
-                              sm: 32,
-                              md: 40,
-                              lg: 64,
-                              xl: 80,
+                              xs: 64,
+                              sm: 50,
+                              md: 54,
+                              lg: 50,
+                              xl: 50,
                               xxl: 100,
                             }}
                             shape="square"
