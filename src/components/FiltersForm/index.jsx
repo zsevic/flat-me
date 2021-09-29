@@ -236,8 +236,8 @@ export const FiltersForm = ({
                   style: {
                     transform:
                       maxPriceField === SALE_MAX_PRICE
-                        ? "translate(-55px, -35px)"
-                        : "translate(-25px, -35px)",
+                        ? "translate(-60px, -35px)"
+                        : "translate(-30px, -35px)",
                   },
                   label: priceFormatter(maxPriceField),
                 },
