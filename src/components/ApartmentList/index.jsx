@@ -7,6 +7,7 @@ import { FaDoorOpen } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import { RiPencilRuler2Fill } from "react-icons/ri";
+import { priceFormatter } from "components/FiltersForm/utils";
 import ImageWithFallback from "components/ImageWithFallback";
 import {
   INITIAL_PAGE_NUMBER,
@@ -70,7 +71,6 @@ export const ApartmentList = ({
           xl: 3,
           xxl: 3,
         }}
-        className="mx-5"
         dataSource={apartmentList}
         itemLayout="horizontal"
         loading={isLoadingApartmentList}
@@ -157,7 +157,7 @@ export const ApartmentList = ({
                             </li>
                             <li className="inline px-2">
                               <GiMoneyStack className="inline" />{" "}
-                              {apartment.price}€
+                              {priceFormatter(apartment.price)}
                             </li>
                           </ul>
                         }
