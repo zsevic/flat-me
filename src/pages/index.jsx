@@ -1,3 +1,4 @@
+import { BackTop } from "antd";
 import Head from "next/head";
 import React, { useRef, useState } from "react";
 import { ApartmentList } from "components/ApartmentList";
@@ -67,6 +68,7 @@ const IndexPage = () => {
           total={total}
         />
       )}
+      <BackTop />
     </div>
   );
 };
