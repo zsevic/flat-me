@@ -71,6 +71,8 @@ export const FiltersForm = ({
     SALE_SELECTED_MAX_PRICE
   );
   const [tooltipVisible, setTooltipVisible] = useState(false);
+  const otherFiltersKey = "1";
+  const [activeKey, setActiveKey] = useState(null);
 
   const validateFields = (storedFilters) => {
     form
@@ -106,6 +108,11 @@ export const FiltersForm = ({
       setMaxPriceField(SALE_MAX_PRICE);
       setIsInitialRentOrSale(false);
     }
+
+    if (filters?.floor.length > 0) {
+      setActiveKey(otherFiltersKey);
+    }
+
     setTooltipVisible(true);
     form.setFieldsValue(filters);
     return validateFields(filters);
@@ -355,9 +362,11 @@ export const FiltersForm = ({
           expandIcon={({ isActive }) => (
             <CaretRightOutlined rotate={isActive ? 90 : 0} />
           )}
+          onChange={(key) => setActiveKey(key)}
+          activeKey={activeKey}
           ghost
         >
-          <Panel key="1" header="Ostali filteri">
+          <Panel key={otherFiltersKey} header="Ostali filteri">
             <Col>
               <Form.Item name="floor" label="Spratnost stana">
                 <Checkbox.Group>
