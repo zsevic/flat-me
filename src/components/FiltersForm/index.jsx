@@ -1,5 +1,14 @@
-import { SearchOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Col, Form, Row, Select, Slider } from "antd";
+import { CaretRightOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Checkbox,
+  Col,
+  Collapse,
+  Form,
+  Row,
+  Select,
+  Slider,
+} from "antd";
 import deepEqual from "fast-deep-equal/react";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
@@ -26,6 +35,7 @@ import { getFilters } from "utils/filters";
 import { getPriceStep, priceFormatter } from "./utils";
 
 const { Option } = Select;
+const { Panel } = Collapse;
 
 const formItemLayout = {
   labelCol: {
@@ -339,6 +349,45 @@ export const FiltersForm = ({
             </Checkbox.Group>
           </Form.Item>
         </Col>
+
+        <Collapse
+          bordered={false}
+          expandIcon={({ isActive }) => (
+            <CaretRightOutlined rotate={isActive ? 90 : 0} />
+          )}
+          ghost
+        >
+          <Panel key="1" header="Ostali filteri">
+            <Col>
+              <Form.Item name="floor" label="Spratnost stana">
+                <Checkbox.Group>
+                  <Row>
+                    <Col span={24} key="not-ground-floor">
+                      <Checkbox
+                        value="not-ground-floor"
+                        style={{
+                          lineHeight: "32px",
+                        }}
+                      >
+                        Nije na prizemlju
+                      </Checkbox>
+                    </Col>
+                    <Col span={24} key="not-attic">
+                      <Checkbox
+                        value="not-attic"
+                        style={{
+                          lineHeight: "32px",
+                        }}
+                      >
+                        Nije u potkrovlju
+                      </Checkbox>
+                    </Col>
+                  </Row>
+                </Checkbox.Group>
+              </Form.Item>
+            </Col>
+          </Panel>
+        </Collapse>
 
         <Row justify="space-around" align="center" className="mt-2">
           <Col className="mx-1">
