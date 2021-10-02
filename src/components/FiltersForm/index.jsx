@@ -109,7 +109,7 @@ export const FiltersForm = ({
       setIsInitialRentOrSale(false);
     }
 
-    if (filters?.floor.length > 0) {
+    if (filters?.floor?.length > 0) {
       setActiveKey(otherFiltersKey);
     }
 
