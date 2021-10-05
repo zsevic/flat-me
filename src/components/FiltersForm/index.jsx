@@ -8,6 +8,7 @@ import {
   Row,
   Select,
   Slider,
+  TreeSelect,
 } from "antd";
 import deepEqual from "fast-deep-equal/react";
 import PropTypes from "prop-types";
@@ -27,15 +28,16 @@ import {
   SALE_SELECTED_MIN_PRICE,
 } from "constants/config";
 import { FURNISHED } from "constants/furnished";
-import { MUNICIPALITIES } from "constants/municipalities";
 import { STRUCTURES } from "constants/structures";
 import * as apartmentsService from "services/apartments";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
+import { placesData, placesMap } from "./data";
 import { getPriceStep, priceFormatter } from "./utils";
 
 const { Option } = Select;
 const { Panel } = Collapse;
+const { SHOW_PARENT } = TreeSelect;
 
 const formItemLayout = {
   labelCol: {
@@ -73,6 +75,7 @@ export const FiltersForm = ({
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const otherFiltersKey = "1";
   const [activeKey, setActiveKey] = useState(null);
+  const [places, setPlaces] = useState([]);
 
   const validateFields = (storedFilters) => {
     form
@@ -84,7 +87,6 @@ export const FiltersForm = ({
         eventBus.dispatch("trackFilters-changed", { isDisabled: false });
       })
       .catch((error) => {
-        console.error("error validating fields", error);
         const isDisabled = error?.errorFields?.length > 0;
         if (!isDisabled) {
           const filters = form.getFieldsValue();
@@ -118,7 +120,22 @@ export const FiltersForm = ({
     return validateFields(filters);
   }, []);
 
+  const handleMunicipalities = (formValues) => {
+    const { municipalities } = formValues;
+    const [place] = municipalities;
+    if (
+      municipalities.length === 1 &&
+      Object.hasOwnProperty.call(placesMap, place)
+    ) {
+      Object.assign(formValues, {
+        municipalities: placesMap[place],
+      });
+    }
+  };
+
   const onFinish = async (values) => {
+    handleMunicipalities(values);
+
     const storedFilters = localStorage.getItem("initial-filters");
     if (storedFilters && total) {
       const isSameFilter = deepEqual(JSON.parse(storedFilters), values);
@@ -196,6 +213,22 @@ export const FiltersForm = ({
     validateFields();
   };
 
+  const onPlacesChange = (values) => {
+    setPlaces(values);
+  };
+
+  const placesProps = {
+    allowClear: true,
+    listHeight: 160,
+    onChange: onPlacesChange,
+    placeholder: "Izaberi mesto",
+    showCheckedStrategy: SHOW_PARENT,
+    treeCheckable: true,
+    treeData: placesData,
+    treeDefaultExpandAll: true,
+    value: places,
+  };
+
   return (
     <Row justify="center" align="top" className="bg-gray-50 px-3 mx-5">
       <Form
@@ -270,28 +303,17 @@ export const FiltersForm = ({
         <Col>
           <Form.Item
             name="municipalities"
-            label="Deo grada"
+            label="Mesto"
             hasFeedback
             rules={[
               {
                 required: true,
-                message: "Izaberi deo grada",
+                message: "Izaberi mesto",
                 type: "array",
               },
             ]}
           >
-            <Select
-              mode="multiple"
-              placeholder="Izaberi deo grada"
-              listHeight={160}
-              allowClear
-            >
-              {MUNICIPALITIES.map((municipality) => (
-                <Option key={municipality} value={municipality}>
-                  {municipality}
-                </Option>
-              ))}
-            </Select>
+            <TreeSelect {...placesProps} />
           </Form.Item>
         </Col>
         <Col>
