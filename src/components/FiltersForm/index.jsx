@@ -32,8 +32,8 @@ import { STRUCTURES } from "constants/structures";
 import * as apartmentsService from "services/apartments";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
-import { placesData, placesMap } from "./data";
-import { getPriceStep, priceFormatter } from "./utils";
+import { placesData } from "./data";
+import { getPriceStep, handleMunicipalities, priceFormatter } from "./utils";
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -119,19 +119,6 @@ export const FiltersForm = ({
     form.setFieldsValue(filters);
     return validateFields(filters);
   }, []);
-
-  const handleMunicipalities = (formValues) => {
-    const { municipalities } = formValues;
-    const [place] = municipalities;
-    if (
-      municipalities.length === 1 &&
-      Object.hasOwnProperty.call(placesMap, place)
-    ) {
-      Object.assign(formValues, {
-        municipalities: placesMap[place],
-      });
-    }
-  };
 
   const onFinish = async (values) => {
     handleMunicipalities(values);

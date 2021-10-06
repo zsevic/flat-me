@@ -1,5 +1,6 @@
 import { MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, message } from "antd";
+import { handleMunicipalities } from "components/FiltersForm/utils";
 import { TRACK_FILTERS_MODAL_TITLE } from "constants/config";
 import { tooManyRequestsErrorMessage } from "constants/error-messages";
 import { TOO_MANY_REQUESTS_STATUS_CODE } from "constants/status-codes";
@@ -26,6 +27,7 @@ export const TrackFiltersModal = () => {
     const { email } = values;
 
     try {
+      handleMunicipalities(filters);
       await filtersService.saveFilter({ ...filters, email });
       message.info("Proveri mejl sa detaljima oko potvrde sačuvane pretrage");
     } catch (error) {
