@@ -60,7 +60,7 @@ export const ApartmentList = ({
   }, []);
 
   return (
-    <div ref={listRef}>
+    <div ref={listRef} className="paginated-list">
       <List
         grid={{
           gutter: 16,
@@ -81,7 +81,7 @@ export const ApartmentList = ({
           total,
           showSizeChanger: false,
           hideOnSinglePage: true,
-          className: "pb-5 text-center",
+          className: "text-center",
           defaultPageSize: INITIAL_PAGE_SIZE,
         }}
         renderItem={(apartment) => {
