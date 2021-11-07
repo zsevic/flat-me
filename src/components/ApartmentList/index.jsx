@@ -147,15 +147,15 @@ export const ApartmentList = ({
                         title={apartment.address || apartment.place}
                         description={
                           <ul className="divide-x">
-                            <li className="inline px-2">
+                            <li className="inline-block px-2">
                               <MdLocationOn className="inline" />{" "}
                               {apartment.municipality}
                             </li>
-                            <li className="inline px-2">
+                            <li className="inline-block px-2">
                               <RiPencilRuler2Fill className="inline" />{" "}
                               {apartment.size}m<sup>2</sup>
                             </li>
-                            <li className="inline px-2">
+                            <li className="inline-block px-2">
                               <GiMoneyStack className="inline" />{" "}
                               {priceFormatter(apartment.price)}
                             </li>
