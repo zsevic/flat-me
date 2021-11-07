@@ -10,3 +10,8 @@ a[target="_blank"]:visited {
   margin-right: 0 !important;
   margin-left: 0 !important;
 }
+
+.ant-slider {
+  margin-left: 1.25rem !important;
+  margin-right: 2.25rem !important;
+}
