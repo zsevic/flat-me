@@ -116,15 +116,16 @@ export const FiltersForm = ({
     if (filters.rentOrSale === "sale") {
       setMinPriceField(SALE_MIN_PRICE);
       setMaxPriceField(SALE_MAX_PRICE);
-      const [minPrice, maxPrice] = filters.price;
-      setMinSelectedPrice(minPrice);
-      setMaxSelectedPrice(maxPrice);
       setIsInitialRentOrSale(false);
     }
 
     if (filters?.floor?.length > 0) {
       setActiveKey(otherFiltersKey);
     }
+
+    const [minPrice, maxPrice] = filters.price;
+    setMinSelectedPrice(minPrice);
+    setMaxSelectedPrice(maxPrice);
 
     form.setFieldsValue(filters);
     validateFields(filters);
