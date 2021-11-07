@@ -268,6 +268,7 @@ export const FiltersForm = ({
           <Form.Item
             name="price"
             label="Opseg cene"
+            className="m0"
             rules={[
               {
                 required: true,
