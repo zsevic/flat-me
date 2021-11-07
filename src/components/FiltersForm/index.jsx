@@ -72,7 +72,12 @@ export const FiltersForm = ({
   const [maxSalePriceField, setMaxSalePriceField] = useState(
     SALE_SELECTED_MAX_PRICE
   );
-  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [minSelectedPrice, setMinSelectedPrice] = useState(
+    RENT_SELECTED_MIN_PRICE
+  );
+  const [maxSelectedPrice, setMaxSelectedPrice] = useState(
+    RENT_SELECTED_MAX_PRICE
+  );
   const otherFiltersKey = "1";
   const [activeKey, setActiveKey] = useState(null);
   const [places, setPlaces] = useState([]);
@@ -101,7 +106,10 @@ export const FiltersForm = ({
     const storedFilters = localStorage.getItem("initial-filters");
     if (!storedFilters) {
       form.setFieldsValue(INITIAL_FILTERS);
-      return setTooltipVisible(true);
+      const [minPrice, maxPrice] = form.getFieldValue("price");
+      setMinSelectedPrice(minPrice);
+      setMaxSelectedPrice(maxPrice);
+      return;
     }
 
     const filters = JSON.parse(storedFilters);
@@ -115,9 +123,8 @@ export const FiltersForm = ({
       setActiveKey(otherFiltersKey);
     }
 
-    setTooltipVisible(true);
     form.setFieldsValue(filters);
-    return validateFields(filters);
+    validateFields(filters);
   }, []);
 
   const onFinish = async (values) => {
@@ -157,7 +164,13 @@ export const FiltersForm = ({
   };
 
   const onValuesChange = (changedField) => {
-    const { rentOrSale } = changedField;
+    const { price, rentOrSale } = changedField;
+    if (price) {
+      const [minPrice, maxPrice] = price;
+      setMinSelectedPrice(minPrice);
+      setMaxSelectedPrice(maxPrice);
+    }
+
     if (rentOrSale) {
       const [minPrice, maxPrice] = form.getFieldValue("price");
       switch (rentOrSale) {
@@ -195,6 +208,9 @@ export const FiltersForm = ({
           break;
         default:
       }
+      const [latestMinPrice, latestMaxPrice] = form.getFieldValue("price");
+      setMinSelectedPrice(latestMinPrice);
+      setMaxSelectedPrice(latestMaxPrice);
     }
 
     validateFields();
@@ -247,7 +263,8 @@ export const FiltersForm = ({
             </Select>
           </Form.Item>
         </Col>
-        <Col>
+
+        <Col className="mt-2">
           <Form.Item
             name="price"
             label="Opseg cene"
@@ -266,25 +283,27 @@ export const FiltersForm = ({
                 [minPriceField]: {
                   label: priceFormatter(minPriceField),
                   style: {
-                    transform: "translate(-5px, -35px)",
+                    transform: "translate(-5px)",
                   },
                 },
                 [maxPriceField]: {
+                  label: priceFormatter(maxPriceField),
                   style: {
                     transform:
                       maxPriceField === SALE_MAX_PRICE
-                        ? "translate(-30px, -35px)"
-                        : "translate(-20px, -35px)",
+                        ? "translate(-60px)"
+                        : "translate(-30px)",
                   },
-                  label: priceFormatter(maxPriceField),
                 },
               }}
               step={getPriceStep(maxPriceField)}
               tipFormatter={priceFormatter}
-              tooltipVisible={tooltipVisible}
-              tooltipPlacement="bottom"
+              tooltipVisible={false}
             />
           </Form.Item>
+          <p className="text-center">
+            Izabran opseg cene: {minSelectedPrice} - {maxSelectedPrice}
+          </p>
         </Col>
 
         <Col>
