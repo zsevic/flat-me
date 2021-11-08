@@ -18,3 +18,7 @@ a[target="_blank"]:visited {
 .paginated-list {
   padding-bottom: 2rem !important;
 }
+
+.ant-card-actions {
+  pointer-events: none !important;
+}
