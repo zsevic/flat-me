@@ -1,4 +1,4 @@
-import { Avatar, Card, List, Skeleton } from "antd";
+import { Avatar, Card, List, Row, Skeleton } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import PropTypes from "prop-types";
@@ -162,26 +162,30 @@ export const ApartmentList = ({
                     }
                     title={locationComponent}
                     description={
-                      <ul className="divide-x">
-                        <li className="inline-block px-2">
-                          <MdLocationOn className="inline" />{" "}
-                          {apartment.municipality}
-                        </li>
-                        <li className="inline-block px-2">
-                          <RiPencilRuler2Fill className="inline" />{" "}
-                          {apartment.size}m<sup>2</sup>
-                        </li>
-                        <li className="inline-block px-2">
-                          <GiMoneyStack className="inline" />{" "}
-                          {priceFormatter(apartment.price)}
-                        </li>
-                        <li className="inline-block px-2">
-                          <Link href={apartment.url} passHref>
-                            <a target="_blank" rel="noopener noreferrer">
-                              <BiLinkExternal className="inline" /> detaljnije
-                            </a>
-                          </Link>
-                        </li>
+                      <ul>
+                        <Row>
+                          <li className="inline-block px-2">
+                            <MdLocationOn className="inline" />{" "}
+                            {apartment.municipality}
+                          </li>
+                          <li className="inline-block px-2">
+                            <RiPencilRuler2Fill className="inline" />{" "}
+                            {apartment.size}m<sup>2</sup>
+                          </li>
+                        </Row>
+                        <Row>
+                          <li className="inline-block px-2">
+                            <GiMoneyStack className="inline" />{" "}
+                            {priceFormatter(apartment.price)}
+                          </li>
+                          <li className="inline-block px-2">
+                            <Link href={apartment.url} passHref>
+                              <a target="_blank" rel="noopener noreferrer">
+                                <BiLinkExternal className="inline" /> detaljnije
+                              </a>
+                            </Link>
+                          </li>
+                        </Row>
                       </ul>
                     }
                   />
