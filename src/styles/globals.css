@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 a[target="_blank"]:visited {
-  color: gray;
+  color: #0B0080;
 }
 
 .ant-row {
