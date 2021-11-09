@@ -88,8 +88,9 @@ export const ApartmentList = ({
         }}
         renderItem={(apartment) => {
           const actions = [
-            <div key={`apartment-floor-${apartment.id}`}>
-              <GiStairs className="inline" /> {handleFloor(apartment.floor)}
+            <div key={`apartment-price-${apartment.id}`}>
+              <GiMoneyStack className="inline" />{" "}
+              {priceFormatter(apartment.price)}
             </div>,
             <div key={`apartment-furnished-${apartment.id}`}>
               <GiSofa className="inline" /> {furnishedMap[apartment.furnished]}
@@ -104,7 +105,7 @@ export const ApartmentList = ({
             apartment.location && getLocationUrl(apartment.location);
           const locationTextComponent = (
             <span>
-              <FaMapMarkedAlt className="inline" />{" "}
+              {locationUrl && <FaMapMarkedAlt className="inline" />}{" "}
               {apartment.address || apartment.place}
             </span>
           );
@@ -169,21 +170,21 @@ export const ApartmentList = ({
                             {apartment.municipality}
                           </li>
                           <li className="inline-block px-2">
-                            <RiPencilRuler2Fill className="inline" />{" "}
-                            {apartment.size}m<sup>2</sup>
-                          </li>
-                        </Row>
-                        <Row>
-                          <li className="inline-block px-2">
-                            <GiMoneyStack className="inline" />{" "}
-                            {priceFormatter(apartment.price)}
-                          </li>
-                          <li className="inline-block px-2">
                             <Link href={apartment.url} passHref>
                               <a target="_blank" rel="noopener noreferrer">
                                 <BiLinkExternal className="inline" /> detaljnije
                               </a>
                             </Link>
+                          </li>
+                        </Row>
+                        <Row>
+                          <li className="inline-block px-2">
+                            <GiStairs className="inline" />{" "}
+                            {handleFloor(apartment.floor)}
+                          </li>
+                          <li className="inline-block px-2">
+                            <RiPencilRuler2Fill className="inline" />{" "}
+                            {apartment.size}m<sup>2</sup>
                           </li>
                         </Row>
                       </ul>
