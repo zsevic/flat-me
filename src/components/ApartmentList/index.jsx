@@ -1,4 +1,4 @@
-import { Avatar, Card, List, Row, Skeleton } from "antd";
+import { Avatar, Button, Card, List, Row, Skeleton } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import PropTypes from "prop-types";
@@ -88,16 +88,21 @@ export const ApartmentList = ({
         }}
         renderItem={(apartment) => {
           const actions = [
-            <div key={`apartment-price-${apartment.id}`}>
-              <GiMoneyStack className="inline" />{" "}
-              {priceFormatter(apartment.price)}
-            </div>,
             <div key={`apartment-furnished-${apartment.id}`}>
               <GiSofa className="inline" /> {furnishedMap[apartment.furnished]}
             </div>,
             <div key={`apartment-structure-${apartment.id}`}>
               <FaDoorOpen className="inline" />{" "}
               {structuresMap[apartment.structure]}
+            </div>,
+            <div key={`apartment-details-link-${apartment.id}`}>
+              <Button type="primary" size="small">
+                <Link href={apartment.url} passHref>
+                  <a target="_blank" rel="noopener noreferrer">
+                    <BiLinkExternal className="inline" /> saznaj više
+                  </a>
+                </Link>
+              </Button>
             </div>,
           ];
 
@@ -170,11 +175,8 @@ export const ApartmentList = ({
                             {apartment.municipality}
                           </li>
                           <li className="inline-block px-2">
-                            <Link href={apartment.url} passHref>
-                              <a target="_blank" rel="noopener noreferrer">
-                                <BiLinkExternal className="inline" /> detaljnije
-                              </a>
-                            </Link>
+                            <GiMoneyStack className="inline" />{" "}
+                            {priceFormatter(apartment.price)}
                           </li>
                         </Row>
                         <Row>

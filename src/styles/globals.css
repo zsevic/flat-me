@@ -19,6 +19,6 @@ a[target="_blank"]:visited {
   padding-bottom: 2rem !important;
 }
 
-.ant-card-actions {
+.ant-card-actions > li:not(:last-child) {
   pointer-events: none !important;
 }
