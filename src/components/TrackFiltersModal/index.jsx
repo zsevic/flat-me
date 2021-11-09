@@ -43,11 +43,6 @@ export const TrackFiltersModal = () => {
     setVisible(true);
   };
 
-  const closeModal = () => {
-    setVisible(false);
-    form.resetFields();
-  };
-
   useEffect(() => {
     eventBus.on("trackFilters-changed", (data) => {
       setIsDisabled(data.isDisabled);
@@ -69,16 +64,11 @@ export const TrackFiltersModal = () => {
         <MailOutlined className="pb-1 align-middle" />{" "}
         {TRACK_FILTERS_MODAL_TITLE}
       </Button>
-      <Modal
-        title={TRACK_FILTERS_MODAL_TITLE}
-        visible={visible}
-        onCancel={closeModal}
-        onOk={closeModal}
-      >
+      <Modal title={TRACK_FILTERS_MODAL_TITLE} visible={visible} footer={null}>
         <Form
           name="email-form"
           {...formItemLayout}
-          className="mb-5"
+          className="mb-5 text-center"
           form={form}
           onFinish={onFinish}
         >
