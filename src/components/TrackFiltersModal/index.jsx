@@ -1,5 +1,6 @@
 import { MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, message } from "antd";
+import Link from "next/link";
 import { handleMunicipalities } from "components/FiltersForm/utils";
 import { TRACK_FILTERS_MODAL_TITLE } from "constants/config";
 import { tooManyRequestsErrorMessage } from "constants/error-messages";
@@ -70,15 +71,20 @@ export const TrackFiltersModal = () => {
         footer={
           <div>
             <small>
-              Unošenjem email adrese, slažete sa FlatMe uslovima korišćenja.
+              Unošenjem email adrese, slažete sa FlatMe{" "}
+              <Link href="/terms-and-conditions" passHref>
+                <a target="_blank" rel="noopener noreferrer">
+                  Uslovima korišćenja.
+                </a>
+              </Link>
             </small>
           </div>
         }
       >
         <p>
-          Ukoliko želite da primate informacije o stanovima koji odgovaraju
-          Vašim izabranim kriterijumima, nakon što se pojave na FlatMe, unesite
-          Vašu email adresu.
+          Ukoliko želite da primate informacije o novim stanovima koji
+          odgovaraju Vašim izabranim kriterijumima, nakon što se pojave na
+          FlatMe, unesite svoju email adresu.
         </p>
         <Form
           name="email-form"
