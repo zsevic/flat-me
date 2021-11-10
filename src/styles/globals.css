@@ -22,3 +22,11 @@ a[target="_blank"]:visited {
 .ant-card-actions > li:not(:last-child) {
   pointer-events: none !important;
 }
+
+.ant-card-actions > li:last-child > span > div > button > a {
+  color: white !important;
+}
+
+.ant-card-actions > li:last-child > span > div > button > a:hover {
+  color: white !important;
+}
