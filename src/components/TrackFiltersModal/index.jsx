@@ -64,7 +64,22 @@ export const TrackFiltersModal = () => {
         <MailOutlined className="pb-1 align-middle" />{" "}
         {TRACK_FILTERS_MODAL_TITLE}
       </Button>
-      <Modal title={TRACK_FILTERS_MODAL_TITLE} visible={visible} footer={null}>
+      <Modal
+        title={TRACK_FILTERS_MODAL_TITLE}
+        visible={visible}
+        footer={
+          <div>
+            <small>
+              Unošenjem email adrese, slažete sa FlatMe uslovima korišćenja.
+            </small>
+          </div>
+        }
+      >
+        <p>
+          Ukoliko želite da primate informacije o stanovima koji odgovaraju
+          Vašim izabranim kriterijumima, nakon što se pojave na FlatMe, unesite
+          Vašu email adresu.
+        </p>
         <Form
           name="email-form"
           {...formItemLayout}
