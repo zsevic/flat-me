@@ -40,6 +40,11 @@ export const TrackFiltersModal = () => {
     }
   };
 
+  const closeModal = () => {
+    setVisible(false);
+    form.resetFields();
+  };
+
   const showModal = () => {
     setVisible(true);
   };
@@ -68,6 +73,7 @@ export const TrackFiltersModal = () => {
       <Modal
         title={TRACK_FILTERS_MODAL_TITLE}
         visible={visible}
+        onCancel={closeModal}
         footer={
           <div>
             <small>
