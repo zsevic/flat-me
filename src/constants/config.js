@@ -4,6 +4,7 @@ export const API_BASE_URL =
 export const HOMEPAGE_META_DESCRIPTION =
   "FlatMe omogućava brz pronalazak dostupnih stanova za iznajmljivanje ili kupovinu koji u potpunosti odgovaraju zadatim kriterijumima. Uštedite vreme, energiju i novac.";
 export const HOMEPAGE_TITLE = "FlatMe";
+export const TERMS_AND_CONDITIONS_PAGE_TITLE = "FlatMe | Uslovi korišćenja";
 export const DOMAIN_URL = "https://www.flat-me.com";
 
 export const INITIAL_PAGE_NUMBER = 1;
