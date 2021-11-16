@@ -57,17 +57,15 @@ const IndexPage = () => {
         total={total}
         listRef={listRef}
       />
-      {total !== null && (
-        <ApartmentList
-          apartmentList={apartmentList}
-          setApartmentList={setApartmentList}
-          isLoadingApartmentList={isLoadingApartmentList}
-          setIsLoadingApartmentList={setIsLoadingApartmentList}
-          filters={filters}
-          listRef={listRef}
-          total={total}
-        />
-      )}
+      <ApartmentList
+        apartmentList={apartmentList}
+        setApartmentList={setApartmentList}
+        isLoadingApartmentList={isLoadingApartmentList}
+        setIsLoadingApartmentList={setIsLoadingApartmentList}
+        filters={filters}
+        listRef={listRef}
+        total={total}
+      />
       <BackTop />
     </div>
   );

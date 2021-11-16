@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, List, Row, Skeleton } from "antd";
+import { Avatar, Button, Card, Empty, List, Row, Skeleton } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import PropTypes from "prop-types";
@@ -76,7 +76,14 @@ export const ApartmentList = ({
         dataSource={apartmentList}
         itemLayout="horizontal"
         loading={isLoadingApartmentList}
-        locale={{ emptyText: NO_RESULTS_TEXT }}
+        locale={{
+          emptyText: (
+            <Empty
+              className={total === 0 ? "block" : "hidden"}
+              description={NO_RESULTS_TEXT}
+            />
+          ),
+        }}
         pagination={{
           onChange,
           current: currentPage,
