@@ -3,11 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { BiLinkExternal } from "react-icons/bi";
-import { FaDoorOpen, FaMapMarkedAlt } from "react-icons/fa";
+import { FaMapMarkedAlt } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
-import { RiPencilRuler2Fill } from "react-icons/ri";
+import {
+  RiDoorOpenFill,
+  RiExternalLinkLine,
+  RiPencilRuler2Fill,
+} from "react-icons/ri";
 import { priceFormatter } from "components/FiltersForm/utils";
 import ImageWithFallback from "components/ImageWithFallback";
 import {
@@ -99,14 +102,14 @@ export const ApartmentList = ({
               <GiSofa className="inline" /> {furnishedMap[apartment.furnished]}
             </div>,
             <div key={`apartment-structure-${apartment.id}`}>
-              <FaDoorOpen className="inline" />{" "}
+              <RiDoorOpenFill className="inline" />{" "}
               {structuresMap[apartment.structure]}
             </div>,
             <div key={`apartment-details-link-${apartment.id}`}>
               <Button type="primary" size="small">
                 <Link href={apartment.url} passHref>
                   <a target="_blank" rel="noopener noreferrer">
-                    <BiLinkExternal className="inline" /> saznaj više
+                    <RiExternalLinkLine className="inline" /> saznaj više
                   </a>
                 </Link>
               </Button>
