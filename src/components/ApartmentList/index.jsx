@@ -216,5 +216,9 @@ ApartmentList.propTypes = {
   setIsLoadingApartmentList: PropTypes.func.isRequired,
   filters: filtersPropType.isRequired,
   listRef: PropTypes.object.isRequired,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
+};
+
+ApartmentList.defaultProps = {
+  total: null,
 };
