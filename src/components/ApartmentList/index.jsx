@@ -58,6 +58,21 @@ export const ApartmentList = ({
   const handleFloor = (floor) =>
     floorsLocaleMap[floor] || `na ${floor}. spratu`;
 
+  const getLocationText = (apartment) => {
+    let locationText = apartment.address;
+    if (
+      apartment.place &&
+      apartment.address &&
+      apartment.place !== apartment.address
+    ) {
+      locationText += `, ${apartment.place}`;
+    } else if (apartment.place && !apartment.address) {
+      locationText = apartment.place;
+    }
+
+    return locationText;
+  };
+
   useEffect(() => {
     eventBus.on("apartment-list-page-changed", (data) => {
       setCurrentPage(data.page);
@@ -121,7 +136,7 @@ export const ApartmentList = ({
           const locationTextComponent = (
             <span>
               {locationUrl && <FaMapMarkedAlt className="inline" />}{" "}
-              {apartment.address || apartment.place}
+              {getLocationText(apartment)}
             </span>
           );
           const locationComponent = locationUrl ? (
