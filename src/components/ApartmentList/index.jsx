@@ -1,4 +1,5 @@
 import { Avatar, Button, Card, Empty, List, Row, Skeleton } from "antd";
+import latinize from "latinize";
 import Image from "next/image";
 import Link from "next/link";
 import PropTypes from "prop-types";
@@ -63,7 +64,8 @@ export const ApartmentList = ({
     if (
       apartment.place &&
       apartment.address &&
-      apartment.place !== apartment.address
+      latinize(apartment.place) !== latinize(apartment.address) &&
+      apartment.place !== apartment.municipality
     ) {
       locationText += `, ${apartment.place}`;
     } else if (apartment.place && !apartment.address) {
