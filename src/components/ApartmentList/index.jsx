@@ -193,7 +193,11 @@ export const ApartmentList = ({
                         }
                       />
                     }
-                    title={locationComponent}
+                    title={
+                      <span style={{ whiteSpace: "initial" }}>
+                        {locationComponent}
+                      </span>
+                    }
                     description={
                       <ul>
                         <Row>
