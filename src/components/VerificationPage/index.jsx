@@ -39,7 +39,9 @@ export const VerificationPage = ({ errorMessage, successMessage, verify }) => {
   return (
     <>
       <Header />
-      <Spin spinning={isLoading} className="flex justify-center" />
+      <div className="text-center">
+        <Spin spinning={isLoading} />
+      </div>
     </>
   );
 };
