@@ -10,6 +10,8 @@ module.exports = withAntdLess({
       "cityexpert.rs",
       "resizer.4zida.rs",
       "www.4zida.rs",
+      "img.halooglasi.com",
+      "www.halooglasi.com"
     ],
   },
   src: "./src",
