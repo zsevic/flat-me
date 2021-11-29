@@ -5,7 +5,7 @@ import Link from "next/link";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { FaMapMarkedAlt } from "react-icons/fa";
-import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
+import { GiMoneyStack, GiShop, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import {
   RiDoorOpenFill,
@@ -19,6 +19,7 @@ import {
   INITIAL_PAGE_SIZE,
   LOGO_URL,
   NO_RESULTS_TEXT,
+  PROVIDER_LOGO_URLS,
 } from "constants/config";
 import { floorsLocaleMap } from "constants/floors";
 import { furnishedMap } from "constants/furnished";
@@ -186,7 +187,7 @@ export const ApartmentList = ({
                         shape="square"
                         icon={
                           <Image
-                            src={apartment.advertiserLogoUrl || LOGO_URL}
+                            src={PROVIDER_LOGO_URLS[apartment.providerName]}
                             layout="fill"
                             className="bg-white"
                           />
@@ -202,24 +203,33 @@ export const ApartmentList = ({
                       <ul>
                         <Row>
                           <li className="inline-block px-2">
-                            <MdLocationOn className="inline" />{" "}
+                            <MdLocationOn className="inline mb-1" />{" "}
                             {apartment.municipality}
                           </li>
                           <li className="inline-block px-2">
-                            <GiMoneyStack className="inline" />{" "}
+                            <GiMoneyStack className="inline mb-1" />{" "}
                             {priceFormatter(apartment.price)}
                           </li>
                         </Row>
                         <Row>
                           <li className="inline-block px-2">
-                            <GiStairs className="inline" />{" "}
+                            <GiStairs className="inline mb-1" />{" "}
                             {handleFloor(apartment.floor)}
                           </li>
                           <li className="inline-block px-2">
-                            <RiPencilRuler2Fill className="inline" />{" "}
+                            <RiPencilRuler2Fill className="inline mb-1" />{" "}
                             {apartment.size}m<sup>2</sup>
                           </li>
                         </Row>
+                        {apartment.advertiserName &&
+                          apartment.advertiserName !== "City Expert" && (
+                            <Row>
+                              <li className="inline-block px-2">
+                                <GiShop className="inline mb-1" />{" "}
+                                {apartment.advertiserName}
+                              </li>
+                            </Row>
+                          )}
                       </ul>
                     }
                   />

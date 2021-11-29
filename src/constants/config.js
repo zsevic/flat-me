@@ -37,3 +37,8 @@ export const TRACK_FILTERS_MODAL_TITLE = "Uključi obaveštenja";
 
 export const LOGO_URL = "/assets/logo.png";
 export const THEME_COLOR = "#3366CC";
+
+export const PROVIDER_LOGO_URLS = {
+  cetiriZida: "https://www.4zida.rs/assets/images/logos/deo-is-grupe-gray.png",
+  cityExpert: "https://cityexpert.rs/images/cxlogo/cityexpert-logo-header.svg",
+};
