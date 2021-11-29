@@ -116,9 +116,6 @@ export const ApartmentList = ({
         }}
         renderItem={(apartment) => {
           const actions = [
-            <div key={`apartment-furnished-${apartment.id}`}>
-              <GiSofa className="inline" /> {furnishedMap[apartment.furnished]}
-            </div>,
             <div key={`apartment-structure-${apartment.id}`}>
               <RiDoorOpenFill className="inline" />{" "}
               {structuresMap[apartment.structure]}
@@ -133,6 +130,14 @@ export const ApartmentList = ({
               </Button>
             </div>,
           ];
+          if (apartment.rentOrSale === "rent") {
+            actions.unshift(
+              <div key={`apartment-furnished-${apartment.id}`}>
+                <GiSofa className="inline" />{" "}
+                {furnishedMap[apartment.furnished]}
+              </div>
+            );
+          }
 
           const locationUrl =
             apartment.location && getLocationUrl(apartment.location);
