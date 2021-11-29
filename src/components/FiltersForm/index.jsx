@@ -81,6 +81,7 @@ export const FiltersForm = ({
   const otherFiltersKey = "1";
   const [activeKey, setActiveKey] = useState(null);
   const [places, setPlaces] = useState([]);
+  const [showFurnishedFilter, setShowFurnishedFilter] = useState(false);
 
   const validateFields = (storedFilters) => {
     form
@@ -117,6 +118,9 @@ export const FiltersForm = ({
       setMinPriceField(SALE_MIN_PRICE);
       setMaxPriceField(SALE_MAX_PRICE);
       setIsInitialRentOrSale(false);
+      setShowFurnishedFilter(false);
+    } else {
+      setShowFurnishedFilter(true);
     }
 
     if (filters?.floor?.length > 0) {
@@ -181,6 +185,7 @@ export const FiltersForm = ({
         case "rent":
           setMinPriceField(RENT_MIN_PRICE);
           setMaxPriceField(RENT_MAX_PRICE);
+          setShowFurnishedFilter(true);
           if (isInitialRentOrSale) {
             setIsInitialRentOrSale(false);
             form.setFieldsValue({
@@ -199,6 +204,7 @@ export const FiltersForm = ({
           setMaxPriceField(SALE_MAX_PRICE);
           setMinRentPriceField(minPrice);
           setMaxRentPriceField(maxPrice);
+          setShowFurnishedFilter(false);
           if (isInitialRentOrSale) {
             setIsInitialRentOrSale(false);
             form.setFieldsValue({
@@ -365,11 +371,12 @@ export const FiltersForm = ({
             hasFeedback
             rules={[
               {
-                required: true,
+                required: !!showFurnishedFilter,
                 message: "Izaberi opremljenost stana",
                 type: "array",
               },
             ]}
+            hidden={!showFurnishedFilter}
           >
             <Checkbox.Group>
               <Row>
@@ -389,7 +396,6 @@ export const FiltersForm = ({
             </Checkbox.Group>
           </Form.Item>
         </Col>
-
         <Collapse
           bordered={false}
           expandIcon={({ isActive }) => (
