@@ -31,7 +31,7 @@ export const TrackFiltersModal = () => {
       handleMunicipalities(filters);
       await filtersService.saveFilter({
         ...filters,
-        ...(filters.rentOrSale !== "rent", { furnished: [] }),
+        ...(filters.rentOrSale !== "rent" && { furnished: [] }),
         email,
       });
       message.info("Proveri mejl sa detaljima oko potvrde sačuvane pretrage");
