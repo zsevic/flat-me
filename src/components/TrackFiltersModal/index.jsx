@@ -29,7 +29,11 @@ export const TrackFiltersModal = () => {
 
     try {
       handleMunicipalities(filters);
-      await filtersService.saveFilter({ ...filters, email });
+      await filtersService.saveFilter({
+        ...filters,
+        ...(filters.rentOrSale !== "rent", { furnished: [] }),
+        email,
+      });
       message.info("Proveri mejl sa detaljima oko potvrde sačuvane pretrage");
     } catch (error) {
       if (error?.response?.status === TOO_MANY_REQUESTS_STATUS_CODE) {
