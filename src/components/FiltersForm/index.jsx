@@ -303,7 +303,7 @@ export const FiltersForm = ({
                     transform:
                       maxPriceField === SALE_MAX_PRICE
                         ? "translate(-60px)"
-                        : "translate(-30px)",
+                        : "translate(-35px)",
                   },
                 },
               }}
