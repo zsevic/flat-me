@@ -41,4 +41,6 @@ export const THEME_COLOR = "#3366CC";
 export const PROVIDER_LOGO_URLS = {
   cetiriZida: "https://www.4zida.rs/assets/images/logos/deo-is-grupe-gray.png",
   cityExpert: "https://cityexpert.rs/images/cxlogo/cityexpert-logo-header.svg",
+  haloOglasi:
+    "https://www.halooglasi.com/Content/assets/frontend/layout/img/halo-oglasi-nek-aplikacija-icon.png",
 };
