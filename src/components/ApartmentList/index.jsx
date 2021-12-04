@@ -143,7 +143,7 @@ export const ApartmentList = ({
             apartment.location && getLocationUrl(apartment.location);
           const locationTextComponent = (
             <span>
-              {locationUrl && <FaMapMarkedAlt className="inline" />}{" "}
+              {locationUrl && <FaMapMarkedAlt className="inline mb-1" />}{" "}
               {getLocationText(apartment)}
             </span>
           );
