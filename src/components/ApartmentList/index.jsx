@@ -192,7 +192,10 @@ export const ApartmentList = ({
                         shape="square"
                         icon={
                           <Image
-                            src={PROVIDER_LOGO_URLS[apartment.providerName]}
+                            src={
+                              PROVIDER_LOGO_URLS[apartment.providerName] ||
+                              LOGO_URL
+                            }
                             layout="fill"
                             className="bg-white"
                           />
