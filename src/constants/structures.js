@@ -34,4 +34,5 @@ export const structuresMap = {
   "2.0": "dvosoban",
   2.5: "dvoiposoban",
   3.0: "trosoban",
+  "3.0": "trosoban",
 };
