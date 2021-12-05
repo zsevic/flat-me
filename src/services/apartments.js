@@ -9,6 +9,9 @@ export const getApartmentList = async (filters) => {
     return apartmentList.data;
   } catch (error) {
     console.error(error);
-    return [];
+    return {
+      data: [],
+      total: 0,
+    };
   }
 };
