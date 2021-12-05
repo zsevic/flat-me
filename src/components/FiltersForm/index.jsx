@@ -162,8 +162,8 @@ export const FiltersForm = ({
       });
     setApartmentList(data);
     setIsLoadingApartmentList(false);
-    scroll(listRef);
     setTotal(totalAmount);
+    scroll(listRef);
     eventBus.dispatch("apartment-list-page-changed", {
       page: INITIAL_PAGE_NUMBER,
     });
