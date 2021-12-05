@@ -1,6 +1,5 @@
-import { Avatar, Button, Card, Empty, List, Row, Skeleton } from "antd";
+import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
 import latinize from "latinize";
-import Image from "next/image";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
@@ -13,7 +12,6 @@ import {
   RiPencilRuler2Fill,
 } from "react-icons/ri";
 import { priceFormatter } from "components/FiltersForm/utils";
-import ImageWithFallback from "components/ImageWithFallback";
 import {
   APARTMENT_LIST_LOADER_TEXT,
   INITIAL_PAGE_NUMBER,
@@ -171,13 +169,12 @@ export const ApartmentList = ({
                 <Card
                   cover={
                     apartment.coverPhotoUrl && (
-                      <ImageWithFallback
+                      <Image
                         alt="stan"
-                        width={300}
                         height={300}
                         key={`image-${apartment.id}`}
                         src={apartment.coverPhotoUrl}
-                        fallbackSrc={LOGO_URL}
+                        preview={false}
                       />
                     )
                   }
@@ -197,12 +194,14 @@ export const ApartmentList = ({
                         shape="square"
                         icon={
                           <Image
+                            alt={`${apartment.providerName} logo`}
                             src={
                               PROVIDER_LOGO_URLS[apartment.providerName] ||
                               LOGO_URL
                             }
-                            layout="fill"
+                            preview={false}
                             className="bg-white"
+                            height={50}
                           />
                         }
                       />
