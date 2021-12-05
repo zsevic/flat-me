@@ -105,6 +105,7 @@ export const ApartmentList = ({
           emptyText: (
             <Empty
               className={total === 0 ? "block" : "hidden"}
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={NO_RESULTS_TEXT}
             />
           ),
