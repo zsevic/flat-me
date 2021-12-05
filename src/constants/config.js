@@ -34,6 +34,7 @@ export const INITIAL_FILTERS = {
 };
 
 export const TRACK_FILTERS_MODAL_TITLE = "Uključi obaveštenja";
+export const APARTMENT_LIST_LOADER_TEXT = "Prikupljaju se rezultati...";
 
 export const LOGO_URL = "/assets/logo.png";
 export const THEME_COLOR = "#3366CC";

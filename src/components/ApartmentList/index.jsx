@@ -15,6 +15,7 @@ import {
 import { priceFormatter } from "components/FiltersForm/utils";
 import ImageWithFallback from "components/ImageWithFallback";
 import {
+  APARTMENT_LIST_LOADER_TEXT,
   INITIAL_PAGE_NUMBER,
   INITIAL_PAGE_SIZE,
   LOGO_URL,
@@ -96,7 +97,11 @@ export const ApartmentList = ({
         }}
         dataSource={apartmentList}
         itemLayout="horizontal"
-        loading={isLoadingApartmentList}
+        loading={{
+          tip: APARTMENT_LIST_LOADER_TEXT,
+          spinning: isLoadingApartmentList,
+          className: "mt-2",
+        }}
         locale={{
           emptyText: (
             <Empty
