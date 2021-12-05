@@ -29,6 +29,7 @@ import * as apartmentsService from "services/apartments";
 import eventBus from "utils/event-bus";
 import { getLocationUrl } from "utils/location";
 import { apartmentListPropType, filtersPropType } from "utils/prop-types";
+import { scroll } from "utils/scrolling";
 
 const { Meta } = Card;
 
@@ -45,6 +46,7 @@ export const ApartmentList = ({
 
   const onChange = async (page, pageSize) => {
     setIsLoadingApartmentList(true);
+    scroll(listRef);
     setCurrentPage(page);
     const { data } = await apartmentsService.getApartmentList({
       ...filters,
@@ -53,9 +55,6 @@ export const ApartmentList = ({
     });
     setApartmentList(data);
     setIsLoadingApartmentList(false);
-    listRef.current.scrollIntoView({
-      behavior: "smooth",
-    });
   };
 
   const handleFloor = (floor) =>

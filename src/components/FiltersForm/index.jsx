@@ -32,6 +32,7 @@ import { STRUCTURES } from "constants/structures";
 import * as apartmentsService from "services/apartments";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
+import { scroll } from "utils/scrolling";
 import { placesData } from "./data";
 import { getPriceStep, handleMunicipalities, priceFormatter } from "./utils";
 
@@ -142,9 +143,7 @@ export const FiltersForm = ({
     if (storedFilters && total) {
       const isSameFilter = deepEqual(JSON.parse(storedFilters), values);
       if (isSameFilter) {
-        listRef.current.scrollIntoView({
-          behavior: "smooth",
-        });
+        scroll(listRef);
         return;
       }
     }
@@ -154,6 +153,7 @@ export const FiltersForm = ({
     localStorage.setItem("initial-filters", JSON.stringify(values));
 
     setIsLoadingApartmentList(true);
+    scroll(listRef);
     const { data, total: totalAmount } =
       await apartmentsService.getApartmentList({
         ...newFilters,
@@ -162,10 +162,8 @@ export const FiltersForm = ({
       });
     setApartmentList(data);
     setIsLoadingApartmentList(false);
+    scroll(listRef);
     setTotal(totalAmount);
-    listRef.current.scrollIntoView({
-      behavior: "smooth",
-    });
     eventBus.dispatch("apartment-list-page-changed", {
       page: INITIAL_PAGE_NUMBER,
     });
