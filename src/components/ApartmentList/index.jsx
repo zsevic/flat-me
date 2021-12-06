@@ -14,10 +14,9 @@ import {
 import { priceFormatter } from "components/FiltersForm/utils";
 import {
   APARTMENT_LIST_LOADER_TEXT,
-  INITIAL_PAGE_NUMBER,
-  INITIAL_PAGE_SIZE,
   LOGO_URL,
   NO_RESULTS_TEXT,
+  PAGE_SIZE,
   PROVIDER_LOGO_URLS,
 } from "constants/config";
 import { floorsLocaleMap } from "constants/floors";
@@ -27,7 +26,6 @@ import * as apartmentsService from "services/apartments";
 import eventBus from "utils/event-bus";
 import { getLocationUrl } from "utils/location";
 import { apartmentListPropType, filtersPropType } from "utils/prop-types";
-import { scroll } from "utils/scrolling";
 
 const { Meta } = Card;
 
@@ -38,20 +36,21 @@ export const ApartmentList = ({
   setIsLoadingApartmentList,
   filters,
   listRef,
-  total,
+  isInitialSearchDone,
 }) => {
-  const [currentPage, setCurrentPage] = useState(INITIAL_PAGE_NUMBER);
+  const [endCursor, setEndCursor] = useState(null);
+  const [hasNextPage, setHasNextPage] = useState(false);
 
-  const onChange = async (page, pageSize) => {
+  const handleLoadMore = async () => {
     setIsLoadingApartmentList(true);
-    scroll(listRef);
-    setCurrentPage(page);
-    const { data } = await apartmentsService.getApartmentList({
+    const { data, pageInfo } = await apartmentsService.getApartmentList({
       ...filters,
-      pageNumber: page,
-      limitPerPage: pageSize,
+      limitPerPage: PAGE_SIZE,
+      cursor: endCursor,
     });
-    setApartmentList(data);
+    setHasNextPage(pageInfo.hasNextPage);
+    setEndCursor(pageInfo.endCursor);
+    setApartmentList([...apartmentList, ...data]);
     setIsLoadingApartmentList(false);
   };
 
@@ -76,9 +75,23 @@ export const ApartmentList = ({
 
   useEffect(() => {
     eventBus.on("apartment-list-page-changed", (data) => {
-      setCurrentPage(data.page);
+      setHasNextPage(data.hasNextPage);
+      setEndCursor(data.endCursor);
     });
   }, []);
+
+  const loadMore = !isLoadingApartmentList && hasNextPage && (
+    <div
+      style={{
+        textAlign: "center",
+        marginTop: 12,
+        height: 32,
+        lineHeight: "32px",
+      }}
+    >
+      <Button onClick={handleLoadMore}>Pretraži još</Button>
+    </div>
+  );
 
   return (
     <div ref={listRef} className="paginated-list">
@@ -102,21 +115,17 @@ export const ApartmentList = ({
         locale={{
           emptyText: (
             <Empty
-              className={total === 0 ? "block" : "hidden"}
+              className={
+                isInitialSearchDone && !apartmentList.length
+                  ? "block"
+                  : "hidden"
+              }
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={NO_RESULTS_TEXT}
             />
           ),
         }}
-        pagination={{
-          onChange,
-          current: currentPage,
-          total,
-          showSizeChanger: false,
-          hideOnSinglePage: true,
-          className: "text-center",
-          defaultPageSize: INITIAL_PAGE_SIZE,
-        }}
+        loadMore={loadMore}
         renderItem={(apartment) => {
           const actions = [
             <div key={`apartment-structure-${apartment.id}`}>
@@ -262,9 +271,5 @@ ApartmentList.propTypes = {
   setIsLoadingApartmentList: PropTypes.func.isRequired,
   filters: filtersPropType.isRequired,
   listRef: PropTypes.object.isRequired,
-  total: PropTypes.number,
-};
-
-ApartmentList.defaultProps = {
-  total: null,
+  isInitialSearchDone: PropTypes.bool.isRequired,
 };

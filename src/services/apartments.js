@@ -11,7 +11,9 @@ export const getApartmentList = async (filters) => {
     console.error(error);
     return {
       data: [],
-      total: 0,
+      pageInfo: {
+        hasNextPage: false,
+      },
     };
   }
 };

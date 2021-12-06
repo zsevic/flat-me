@@ -16,8 +16,7 @@ import React, { useEffect, useState } from "react";
 import { TrackFiltersModal } from "components/TrackFiltersModal";
 import {
   INITIAL_FILTERS,
-  INITIAL_PAGE_NUMBER,
-  INITIAL_PAGE_SIZE,
+  PAGE_SIZE,
   RENT_MAX_PRICE,
   RENT_MIN_PRICE,
   RENT_SELECTED_MAX_PRICE,
@@ -53,8 +52,8 @@ export const FiltersForm = ({
   setApartmentList,
   setFilters,
   setIsLoadingApartmentList,
-  setTotal,
-  total,
+  setIsInitialSearchDone,
+  isInitialSearchDone,
   listRef,
 }) => {
   const [form] = Form.useForm();
@@ -140,7 +139,7 @@ export const FiltersForm = ({
     handleMunicipalities(values);
 
     const storedFilters = localStorage.getItem("initial-filters");
-    if (storedFilters && total) {
+    if (storedFilters && isInitialSearchDone) {
       const isSameFilter = deepEqual(JSON.parse(storedFilters), values);
       if (isSameFilter) {
         scroll(listRef);
@@ -154,18 +153,17 @@ export const FiltersForm = ({
 
     setIsLoadingApartmentList(true);
     scroll(listRef);
-    const { data, total: totalAmount } =
-      await apartmentsService.getApartmentList({
-        ...newFilters,
-        pageNumber: INITIAL_PAGE_NUMBER,
-        limitPerPage: INITIAL_PAGE_SIZE,
-      });
+    const { data, pageInfo } = await apartmentsService.getApartmentList({
+      ...newFilters,
+      limitPerPage: PAGE_SIZE,
+    });
     setApartmentList(data);
     setIsLoadingApartmentList(false);
-    setTotal(totalAmount);
+    setIsInitialSearchDone(true);
     scroll(listRef);
     eventBus.dispatch("apartment-list-page-changed", {
-      page: INITIAL_PAGE_NUMBER,
+      hasNextPage: pageInfo.hasNextPage,
+      endCursor: pageInfo.endCursor,
     });
   };
 
@@ -459,11 +457,7 @@ FiltersForm.propTypes = {
   setApartmentList: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired,
   setIsLoadingApartmentList: PropTypes.func.isRequired,
-  setTotal: PropTypes.func.isRequired,
-  total: PropTypes.number,
+  setIsInitialSearchDone: PropTypes.func.isRequired,
+  isInitialSearchDone: PropTypes.bool.isRequired,
   listRef: PropTypes.object.isRequired,
-};
-
-FiltersForm.defaultProps = {
-  total: null,
 };
