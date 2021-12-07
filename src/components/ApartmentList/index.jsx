@@ -14,6 +14,7 @@ import {
 import { priceFormatter } from "components/FiltersForm/utils";
 import {
   APARTMENT_LIST_LOADER_TEXT,
+  LOGO_ENCODED,
   LOGO_URL,
   NO_RESULTS_TEXT,
   PAGE_SIZE,
@@ -179,11 +180,12 @@ export const ApartmentList = ({
                   cover={
                     apartment.coverPhotoUrl && (
                       <Image
-                        alt="stan"
+                        alt={apartment.address}
                         height={300}
                         key={`image-${apartment.id}`}
                         src={apartment.coverPhotoUrl}
                         preview={false}
+                        fallback={LOGO_ENCODED}
                       />
                     )
                   }
