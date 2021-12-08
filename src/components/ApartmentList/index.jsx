@@ -63,7 +63,8 @@ export const ApartmentList = ({
     if (
       apartment.place &&
       apartment.address &&
-      latinize(apartment.place) !== latinize(apartment.address) &&
+      latinize(apartment.place.toLowerCase()) !==
+        latinize(apartment.address.toLowerCase()) &&
       apartment.place !== apartment.municipality
     ) {
       locationText += `, ${apartment.place}`;
