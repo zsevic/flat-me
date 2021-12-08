@@ -66,7 +66,7 @@ const IndexPage = () => {
         listRef={listRef}
         isInitialSearchDone={isInitialSearchDone}
       />
-      <BackTop />
+      {!isLoadingApartmentList && <BackTop />}
     </div>
   );
 };
