@@ -2,7 +2,7 @@ import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
 import latinize from "latinize";
 import Link from "next/link";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { GiMoneyStack, GiShop, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
@@ -41,9 +41,13 @@ export const ApartmentList = ({
 }) => {
   const [endCursor, setEndCursor] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(false);
+  const newSublistStartRef = useRef();
+  const [newSublistStartApartmentId, setNewSublistStartApartmentId] =
+    useState(null);
 
   const handleLoadMore = async () => {
     setIsLoadingApartmentList(true);
+    listRef?.current?.scrollIntoView();
     const { data, pageInfo } = await apartmentsService.getApartmentList({
       ...filters,
       limitPerPage: PAGE_SIZE,
@@ -51,8 +55,11 @@ export const ApartmentList = ({
     });
     setHasNextPage(pageInfo.hasNextPage);
     setEndCursor(pageInfo.endCursor);
+    const [firstSublistApartment] = data;
+    setNewSublistStartApartmentId(firstSublistApartment?.id);
     setApartmentList([...apartmentList, ...data]);
     setIsLoadingApartmentList(false);
+    newSublistStartRef?.current?.scrollIntoView();
   };
 
   const handleFloor = (floor) =>
@@ -180,14 +187,19 @@ export const ApartmentList = ({
                 <Card
                   cover={
                     apartment.coverPhotoUrl && (
-                      <Image
-                        alt={apartment.address}
-                        height={300}
-                        key={`image-${apartment.id}`}
-                        src={apartment.coverPhotoUrl}
-                        preview={false}
-                        fallback={LOGO_ENCODED}
-                      />
+                      <>
+                        {newSublistStartApartmentId === apartment.id && (
+                          <div ref={newSublistStartRef} />
+                        )}
+                        <Image
+                          alt={apartment.address}
+                          height={300}
+                          key={`image-${apartment.id}`}
+                          src={apartment.coverPhotoUrl}
+                          preview={false}
+                          fallback={LOGO_ENCODED}
+                        />
+                      </>
                     )
                   }
                   actions={actions}
