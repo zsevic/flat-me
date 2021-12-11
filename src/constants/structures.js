@@ -4,7 +4,7 @@ export const STRUCTURES = [
     locale: "garsonjera",
   },
   {
-    numberOfRooms: 1.0,
+    numberOfRooms: 1,
     locale: "jednosoban",
   },
   {
@@ -12,7 +12,7 @@ export const STRUCTURES = [
     locale: "jednoiposoban",
   },
   {
-    numberOfRooms: 2.0,
+    numberOfRooms: 2,
     locale: "dvosoban",
   },
   {
@@ -20,7 +20,7 @@ export const STRUCTURES = [
     locale: "dvoiposoban",
   },
   {
-    numberOfRooms: 3.0,
+    numberOfRooms: 3,
     locale: "trosoban",
   },
   {
@@ -28,22 +28,18 @@ export const STRUCTURES = [
     locale: "troiposoban",
   },
   {
-    numberOfRooms: 4.0,
+    numberOfRooms: 4,
     locale: "četvorosoban",
   },
 ];
 
 export const structuresMap = {
   0.5: "garsonjera",
-  1.0: "jednosoban",
-  "1.0": "jednosoban",
+  1: "jednosoban",
   1.5: "jednoiposoban",
-  2.0: "dvosoban",
-  "2.0": "dvosoban",
+  2: "dvosoban",
   2.5: "dvoiposoban",
-  3.0: "trosoban",
-  "3.0": "trosoban",
+  3: "trosoban",
   3.5: "troiposoban",
-  4.0: "četvorosoban",
-  "4.0": "četvorosoban",
+  4: "četvorosoban",
 };
