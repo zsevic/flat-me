@@ -23,6 +23,14 @@ export const STRUCTURES = [
     numberOfRooms: 3.0,
     locale: "trosoban",
   },
+  {
+    numberOfRooms: 3.5,
+    locale: "troiposoban",
+  },
+  {
+    numberOfRooms: 4.0,
+    locale: "četvorosoban",
+  },
 ];
 
 export const structuresMap = {
@@ -35,4 +43,7 @@ export const structuresMap = {
   2.5: "dvoiposoban",
   3.0: "trosoban",
   "3.0": "trosoban",
+  3.5: "troiposoban",
+  4.0: "četvorosoban",
+  "4.0": "četvorosoban",
 };
