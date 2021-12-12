@@ -27,6 +27,7 @@ import * as apartmentsService from "services/apartments";
 import eventBus from "utils/event-bus";
 import { getLocationUrl } from "utils/location";
 import { apartmentListPropType, filtersPropType } from "utils/prop-types";
+import { getAddressValue } from "./utils";
 
 const { Meta } = Card;
 
@@ -175,6 +176,7 @@ export const ApartmentList = ({
           ) : (
             locationTextComponent
           );
+          const apartmentImageAlt = `stan: ${getAddressValue(apartment)}`;
 
           return (
             <List.Item>
@@ -192,7 +194,7 @@ export const ApartmentList = ({
                           <div ref={newSublistStartRef} />
                         )}
                         <Image
-                          alt={apartment.address}
+                          alt={apartmentImageAlt}
                           height={300}
                           key={`image-${apartment.id}`}
                           src={apartment.coverPhotoUrl}
