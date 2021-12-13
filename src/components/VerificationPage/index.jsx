@@ -1,47 +1,109 @@
-import { message, Spin } from "antd";
+import { Alert, Button, Col, Row, Space, Spin } from "antd";
+import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Header } from "components/Header";
-import { VERIFICATION_PAGE_NOTIFICATION_DURATION } from "constants/config";
-import { tooManyRequestsErrorMessage } from "constants/error-messages";
-import { TOO_MANY_REQUESTS_STATUS_CODE } from "constants/status-codes";
+import { DOMAIN_URL } from "constants/config";
+import {
+  tokenExpiredErrorMessage,
+  tooManyRequestsErrorMessage,
+} from "constants/error-messages";
+import {
+  TOKEN_EXPIRED_STATUS_CODE,
+  TOO_MANY_REQUESTS_STATUS_CODE,
+} from "constants/status-codes";
 import { verificationPagePropTypes } from "utils/prop-types";
 
-export const VerificationPage = ({ errorMessage, successMessage, verify }) => {
+export const VerificationPage = ({
+  errorMessage,
+  successMessage,
+  successMessageDescription,
+  verify,
+  title,
+}) => {
   const router = useRouter();
   const { token } = router.query;
   const [isLoading, setIsLoading] = useState(true);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [successMsg, setSuccessMsg] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     if (!router.isReady) return;
 
     verify(token)
       .then(() => {
-        message.success(
-          successMessage,
-          VERIFICATION_PAGE_NOTIFICATION_DURATION
-        );
         setIsLoading(false);
+        setShowSuccessMessage(true);
+        setSuccessMsg(successMessageDescription);
       })
       .catch((error) => {
         if (error?.response?.status === TOO_MANY_REQUESTS_STATUS_CODE) {
-          message.error(
-            tooManyRequestsErrorMessage,
-            VERIFICATION_PAGE_NOTIFICATION_DURATION
-          );
-        } else {
-          message.error(errorMessage, VERIFICATION_PAGE_NOTIFICATION_DURATION);
+          setErrorMsg(tooManyRequestsErrorMessage);
+        } else if (error?.response.status === TOKEN_EXPIRED_STATUS_CODE) {
+          setErrorMsg(tokenExpiredErrorMessage);
         }
         setIsLoading(false);
+        setShowErrorMessage(true);
       });
   }, [errorMessage, router.isReady, successMessage, token, verify]);
 
+  const rowGutter = { xs: 8, sm: 16, md: 24, lg: 32 };
+
+  const action = (
+    <Space direction="vertical">
+      <Button size="small" type="primary">
+        <Link href={DOMAIN_URL} passHref>
+          <a className="links">Pronađi stan</a>
+        </Link>
+      </Button>
+    </Space>
+  );
+
+  const commonProps = {
+    showIcon: true,
+    action,
+  };
+
+  const errorAlertProps = {
+    ...commonProps,
+    type: "error",
+    message: errorMessage,
+    ...(errorMsg && { description: errorMsg }),
+  };
+
+  const successAlertProps = {
+    ...commonProps,
+    type: "success",
+    message: successMessage,
+    ...(successMsg && { description: successMsg }),
+  };
+
   return (
     <>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <Header />
       <div className="text-center">
         <Spin spinning={isLoading} />
       </div>
+      {!isLoading && showSuccessMessage && !showErrorMessage && (
+        <Row gutter={rowGutter}>
+          <Col className="mx-auto">
+            <Alert {...successAlertProps} />
+          </Col>
+        </Row>
+      )}
+      {!isLoading && showErrorMessage && !showSuccessMessage && (
+        <Row gutter={rowGutter}>
+          <Col className="mx-auto">
+            <Alert {...errorAlertProps} />
+          </Col>
+        </Row>
+      )}
     </>
   );
 };

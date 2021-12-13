@@ -23,7 +23,7 @@ a[target="_blank"]:visited {
   pointer-events: none !important;
 }
 
-.ant-card-actions > li:last-child > span > div > button > a {
+.ant-card-actions > li:last-child > span > div > button > a, .links {
   color: white !important;
 }
 

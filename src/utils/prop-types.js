@@ -42,5 +42,7 @@ export const filtersPropType = PropTypes.shape({
 export const verificationPagePropTypes = {
   errorMessage: PropTypes.string.isRequired,
   successMessage: PropTypes.string.isRequired,
+  successMessageDescription: PropTypes.string.isRequired,
   verify: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
 };
