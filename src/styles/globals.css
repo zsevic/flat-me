@@ -30,3 +30,21 @@ a[target="_blank"]:visited {
 .ant-card-actions > li:last-child > span > div > button > a:hover {
   color: white !important;
 }
+
+@media (min-width: 576px) {
+  .ant-collapse-header {
+    margin-left: 0rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .ant-collapse-header {
+    margin-left: 4rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .ant-collapse-header {
+    margin-left: 8rem;
+  }
+}
