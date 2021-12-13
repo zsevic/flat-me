@@ -13,7 +13,7 @@ const FilterVerificationPage = () => (
     successMessage={SUCCESS_MESSAGE}
     successMessageDescription={VERIFICATION_SUCCESS_MESSAGE}
     verify={filtersService.verifyFilter}
-    title="FlatMe | Verifikovanje sačuvane pretrage"
+    title="FlatMe | Čuvanje pretrage"
   />
 );
 

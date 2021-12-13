@@ -13,7 +13,7 @@ const FilterDeactivationPage = () => (
     successMessage={SUCCESS_MESSAGE}
     successMessageDescription={DEACTIVATION_SUCCESS_MESSAGE}
     verify={filtersService.deactivateFilter}
-    title="FlatMe | Brisanje sačuvane pretrage"
+    title="FlatMe | Brisanje pretrage"
   />
 );
 
