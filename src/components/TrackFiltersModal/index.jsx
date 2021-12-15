@@ -90,6 +90,7 @@ export const TrackFiltersModal = () => {
       <Modal
         title={TRACK_FILTERS_MODAL_TITLE}
         visible={visible}
+        forceRender
         onCancel={closeModal}
         footer={
           <div>
