@@ -6,11 +6,11 @@ import React, { useEffect, useState } from "react";
 import { Header } from "components/Header";
 import { DOMAIN_URL } from "constants/config";
 import {
-  tokenExpiredErrorMessage,
+  tokenAlreadyUsedErrorMessage,
   tooManyRequestsErrorMessage,
 } from "constants/error-messages";
 import {
-  TOKEN_EXPIRED_STATUS_CODE,
+  TOKEN_ALREADY_USED_STATUS_CODE,
   TOO_MANY_REQUESTS_STATUS_CODE,
 } from "constants/status-codes";
 import { verificationPagePropTypes } from "utils/prop-types";
@@ -42,8 +42,8 @@ export const VerificationPage = ({
       .catch((error) => {
         if (error?.response?.status === TOO_MANY_REQUESTS_STATUS_CODE) {
           setErrorMsg(tooManyRequestsErrorMessage);
-        } else if (error?.response.status === TOKEN_EXPIRED_STATUS_CODE) {
-          setErrorMsg(tokenExpiredErrorMessage);
+        } else if (error?.response.status === TOKEN_ALREADY_USED_STATUS_CODE) {
+          setErrorMsg(tokenAlreadyUsedErrorMessage);
         }
         setIsLoading(false);
         setShowErrorMessage(true);
