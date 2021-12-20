@@ -139,14 +139,14 @@ export const ApartmentList = ({
         renderItem={(apartment) => {
           const actions = [
             <div key={`apartment-structure-${apartment.id}`}>
-              <RiDoorOpenFill className="inline" />{" "}
+              <RiDoorOpenFill className="inline mb-1" />{" "}
               {structuresMap[apartment.structure]}
             </div>,
             <div key={`apartment-details-link-${apartment.id}`}>
               <Button type="primary" size="small">
                 <Link href={apartment.url} passHref>
                   <a target="_blank" rel="noopener noreferrer">
-                    <RiExternalLinkLine className="inline" /> saznaj više
+                    <RiExternalLinkLine className="inline mb-1" /> saznaj više
                   </a>
                 </Link>
               </Button>
@@ -155,7 +155,7 @@ export const ApartmentList = ({
           if (apartment.rentOrSale === "rent") {
             actions.unshift(
               <div key={`apartment-furnished-${apartment.id}`}>
-                <GiSofa className="inline" />{" "}
+                <GiSofa className="inline mb-1" />{" "}
                 {furnishedMap[apartment.furnished]}
               </div>
             );
