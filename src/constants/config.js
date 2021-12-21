@@ -7,6 +7,9 @@ export const HOMEPAGE_TITLE = "FlatMe";
 export const TERMS_AND_CONDITIONS_PAGE_TITLE = "FlatMe | Uslovi korišćenja";
 export const DOMAIN_URL = "https://www.flat-me.com";
 
+export const TRACK_FILTERS_SUCCESS_MESSAGE =
+  "Proverite mejl (uključujući i deo sa promocijama) za detalje oko potvrde sačuvane pretrage.";
+
 export const APARTMENT_CARD_LOCALE = "sr";
 export const PAGE_SIZE = 12;
 export const NO_RESULTS_TEXT = "Nema rezultata";

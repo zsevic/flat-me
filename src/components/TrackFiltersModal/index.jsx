@@ -2,7 +2,10 @@ import { MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, message } from "antd";
 import Link from "next/link";
 import { handleMunicipalities } from "components/FiltersForm/utils";
-import { TRACK_FILTERS_MODAL_TITLE } from "constants/config";
+import {
+  TRACK_FILTERS_MODAL_TITLE,
+  TRACK_FILTERS_SUCCESS_MESSAGE,
+} from "constants/config";
 import {
   filtersLimitErrorMessage,
   tooManyRequestsErrorMessage,
@@ -41,7 +44,7 @@ export const TrackFiltersModal = () => {
         ...(filters.rentOrSale !== "rent" && { furnished: [] }),
         email,
       });
-      message.info("Proveri mejl sa detaljima oko potvrde sačuvane pretrage");
+      message.info(TRACK_FILTERS_SUCCESS_MESSAGE);
     } catch (error) {
       if (error?.response?.status === TOO_MANY_REQUESTS_STATUS_CODE) {
         message.error(tooManyRequestsErrorMessage);
