@@ -3,6 +3,7 @@ import latinize from "latinize";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
+import { CgPlayListAdd } from "react-icons/cg";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { GiMoneyStack, GiShop, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
@@ -13,6 +14,7 @@ import {
 } from "react-icons/ri";
 import { priceFormatter } from "components/FiltersForm/utils";
 import {
+  APARTMENT_CARD_LOCALE,
   APARTMENT_LIST_LOADER_TEXT,
   LOGO_ENCODED,
   LOGO_URL,
@@ -137,7 +139,14 @@ export const ApartmentList = ({
         }}
         loadMore={loadMore}
         renderItem={(apartment) => {
+          const postedAt = new Intl.DateTimeFormat(
+            APARTMENT_CARD_LOCALE
+          ).format(new Date(apartment.postedAt));
+
           const actions = [
+            <div key={`apartment-postedat-${apartment.id}`}>
+              <CgPlayListAdd className="inline mb-1" /> {postedAt}
+            </div>,
             <div key={`apartment-structure-${apartment.id}`}>
               <RiDoorOpenFill className="inline mb-1" />{" "}
               {structuresMap[apartment.structure]}
@@ -152,14 +161,6 @@ export const ApartmentList = ({
               </Button>
             </div>,
           ];
-          if (apartment.rentOrSale === "rent") {
-            actions.unshift(
-              <div key={`apartment-furnished-${apartment.id}`}>
-                <GiSofa className="inline mb-1" />{" "}
-                {furnishedMap[apartment.furnished]}
-              </div>
-            );
-          }
 
           const locationUrl =
             apartment.location && getLocationUrl(apartment.location);
@@ -259,15 +260,21 @@ export const ApartmentList = ({
                             {apartment.size}m<sup>2</sup>
                           </li>
                         </Row>
-                        {apartment.advertiserName &&
-                          apartment.advertiserName !== "City Expert" && (
-                            <Row>
+                        <Row>
+                          {apartment.rentOrSale === "rent" && (
+                            <li className="inline-block px-2">
+                              <GiSofa className="inline mb-1" />{" "}
+                              {furnishedMap[apartment.furnished]}
+                            </li>
+                          )}
+                          {apartment.advertiserName &&
+                            apartment.advertiserName !== "City Expert" && (
                               <li className="inline-block px-2">
                                 <GiShop className="inline mb-1" />{" "}
                                 {apartment.advertiserName}
                               </li>
-                            </Row>
-                          )}
+                            )}
+                        </Row>
                       </ul>
                     }
                   />
