@@ -1,5 +1,4 @@
 import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
-import latinize from "latinize";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
@@ -67,23 +66,6 @@ export const ApartmentList = ({
 
   const handleFloor = (floor) =>
     floorsLocaleMap[floor] || `na ${floor}. spratu`;
-
-  const getLocationText = (apartment) => {
-    let locationText = apartment.address;
-    if (
-      apartment.place &&
-      apartment.address &&
-      latinize(apartment.place.toLowerCase()) !==
-        latinize(apartment.address.toLowerCase()) &&
-      apartment.place !== apartment.municipality
-    ) {
-      locationText += `, ${apartment.place}`;
-    } else if (apartment.place && !apartment.address) {
-      locationText = apartment.place;
-    }
-
-    return locationText;
-  };
 
   useEffect(() => {
     eventBus.on("apartment-list-page-changed", (data) => {
@@ -167,7 +149,7 @@ export const ApartmentList = ({
           const locationTextComponent = (
             <span>
               {locationUrl && <FaMapMarkedAlt className="inline mb-1" />}{" "}
-              {getLocationText(apartment)}
+              {getAddressValue(apartment)}
             </span>
           );
           const locationComponent = locationUrl ? (
