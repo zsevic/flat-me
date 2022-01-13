@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { CgPlayListAdd } from "react-icons/cg";
 import { FaMapMarkedAlt } from "react-icons/fa";
-import { GiMoneyStack, GiShop, GiSofa, GiStairs } from "react-icons/gi";
+import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import {
   RiDoorOpenFill,
@@ -249,13 +249,6 @@ export const ApartmentList = ({
                               {furnishedMap[apartment.furnished]}
                             </li>
                           )}
-                          {apartment.advertiserName &&
-                            apartment.advertiserName !== "City Expert" && (
-                              <li className="inline-block px-2">
-                                <GiShop className="inline mb-1" />{" "}
-                                {apartment.advertiserName}
-                              </li>
-                            )}
                         </Row>
                       </ul>
                     }
