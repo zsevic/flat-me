@@ -1,4 +1,4 @@
-import { CaretRightOutlined, SearchOutlined } from "@ant-design/icons";
+import { CaretRightOutlined } from "@ant-design/icons";
 import {
   Button,
   Checkbox,
@@ -13,6 +13,7 @@ import {
 import deepEqual from "fast-deep-equal/react";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { GoSearch } from "react-icons/go";
 import { TrackFiltersModal } from "components/TrackFiltersModal";
 import {
   INITIAL_FILTERS,
@@ -437,8 +438,8 @@ export const FiltersForm = ({
           <Col className="mx-1">
             <Form.Item>
               <Button type="primary" htmlType="submit" size="large">
-                <SearchOutlined className="pb-1 align-middle" /> Pretraži
-                stanove
+                <GoSearch className="mb-1 mr-1 inline" />
+                Pretraži stanove
               </Button>
             </Form.Item>
           </Col>

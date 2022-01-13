@@ -1,6 +1,6 @@
-import { MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, message } from "antd";
 import Link from "next/link";
+import { RiMailLine } from "react-icons/ri";
 import { handleMunicipalities } from "components/FiltersForm/utils";
 import {
   TRACK_FILTERS_MODAL_TITLE,
@@ -87,7 +87,7 @@ export const TrackFiltersModal = () => {
         size="large"
         disabled={isDisabled}
       >
-        <MailOutlined className="pb-1 align-middle" />{" "}
+        <RiMailLine className="mb-1 mr-1 inline" />
         {TRACK_FILTERS_MODAL_TITLE}
       </Button>
       <Modal
