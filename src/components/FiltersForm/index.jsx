@@ -331,18 +331,7 @@ export const FiltersForm = ({
           </Form.Item>
         </Col>
         <Col>
-          <Form.Item
-            name="structures"
-            label="Struktura stana"
-            hasFeedback
-            rules={[
-              {
-                required: true,
-                message: "Izaberi strukturu stana",
-                type: "array",
-              },
-            ]}
-          >
+          <Form.Item name="structures" label="Struktura stana" hasFeedback>
             <Checkbox.Group>
               <Row>
                 {STRUCTURES.map((structure) => (
