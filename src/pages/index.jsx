@@ -4,7 +4,6 @@ import React, { useRef, useState } from "react";
 import { ApartmentList } from "components/ApartmentList";
 import CommonHead from "components/CommonHead";
 import { FiltersForm } from "components/FiltersForm";
-import { Header } from "components/Header";
 import {
   DOMAIN_URL,
   HOMEPAGE_META_DESCRIPTION,
@@ -19,7 +18,7 @@ const AppPage = () => {
   const listRef = useRef();
 
   return (
-    <div className="px-2">
+    <div className="px-2 mt-2">
       <CommonHead />
       <Head>
         <meta name="description" content={HOMEPAGE_META_DESCRIPTION} />
@@ -48,7 +47,6 @@ const AppPage = () => {
         <link rel="canonical" href={DOMAIN_URL} />
         <title>{HOMEPAGE_TITLE}</title>
       </Head>
-      <Header />
       <FiltersForm
         setApartmentList={setApartmentList}
         setFilters={setFilters}
