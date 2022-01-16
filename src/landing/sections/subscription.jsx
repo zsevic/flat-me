@@ -1,6 +1,6 @@
 import { rgba } from "polished";
 import React from "react";
-import { Box, Flex, Container, Input, Button } from "theme-ui";
+import { Box, Button, Container, Flex, Grid, Input } from "theme-ui";
 import { SectionHeading } from "landing/components/section-heading";
 
 const styles = {
@@ -30,6 +30,9 @@ const styles = {
     margin: "0 auto",
     textAlign: "center",
   },
+  grid: {
+    mx: "auto",
+  },
   form: {
     alignItems: "center",
     display: ["block", "flex"],
@@ -43,6 +46,7 @@ const styles = {
       height: "auto",
       px: "30px",
       py: "0",
+      textAlign: ["center", "left"],
       minHeight: [50, 50, 60],
       width: ["100%", "auto"],
       "::placeholder": {
@@ -82,11 +86,10 @@ export const Subscription = () => {
             description="Budite prvi koji će saznati sve o novostima u vezi FlatMe aplikacije"
           />
           <Flex as="form" sx={styles.form} onSubmit={handleSubmit}>
-            <Box as="label" htmlFor="email" variant="styles.srOnly">
-              Unesite svoj email
-            </Box>
-            <Input type="email" id="email" placeholder="Unesite svoj email" />
-            <Button variant="white">Prijavi me</Button>
+            <Grid gap={2} columns={[1, "2fr 1fr"]} sx={styles.grid}>
+              <Input type="email" id="email" placeholder="Unesite svoj email" />
+              <Button variant="white">Prijavi me</Button>
+            </Grid>
           </Flex>
         </Box>
       </Container>
