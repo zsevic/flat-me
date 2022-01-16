@@ -113,7 +113,7 @@ const TermsAndConditionsPage = () => (
               uvek aktuelne, ispravne i/ili potpune.
             </Text>
             <Text as="p" sx={styles.subdescription}>
-              Datum poslednjeg ažuriranja: 28.11.2021.
+              Datum poslednjeg ažuriranja: 16.1.2022.
             </Text>
             <Heading sx={styles.subtitle}>OPŠTI USLOVI KORIŠĆENJA</Heading>
             <Text as="p" sx={styles.subdescription}>
