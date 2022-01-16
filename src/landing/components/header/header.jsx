@@ -1,7 +1,6 @@
 import React from "react";
 import Sticky from "react-stickynode";
 import { Box, Button, Container, Link } from "theme-ui";
-import { Header as HeaderComponent } from "components/Header";
 import { APP_RELATIVE_URL, CTA_TEXT } from "constants/config";
 
 const styles = {
@@ -60,9 +59,6 @@ const styles = {
     },
   },
   joinNow: {
-    position: "absolute",
-    top: "1rem",
-    right: ["2rem", "2rem", "2rem", "2rem"],
     padding: ["0 30px", "0 30px", "0 30px", "0 30px"],
   },
 };
@@ -74,7 +70,7 @@ export const Header = () => {
         <Box as="header" sx={styles.header}>
           <Container>
             <Box sx={styles.headerInner}>
-              <HeaderComponent />
+              <Link href="/">FlatMe</Link>
               <Link href={APP_RELATIVE_URL}>
                 <Button sx={styles.joinNow} aria-label={CTA_TEXT}>
                   {CTA_TEXT}
