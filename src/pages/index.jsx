@@ -19,7 +19,7 @@ const IndexPage = () => {
   const listRef = useRef();
 
   return (
-    <div>
+    <div className="px-2">
       <CommonHead />
       <Head>
         <meta name="description" content={HOMEPAGE_META_DESCRIPTION} />
