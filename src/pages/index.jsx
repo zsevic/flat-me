@@ -11,7 +11,7 @@ import {
   HOMEPAGE_TITLE,
 } from "constants/config";
 
-const IndexPage = () => {
+const AppPage = () => {
   const [apartmentList, setApartmentList] = useState([]);
   const [filters, setFilters] = useState({});
   const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
@@ -71,4 +71,4 @@ const IndexPage = () => {
   );
 };
 
-export default IndexPage;
+export default AppPage;
