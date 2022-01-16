@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, Button, Container, Link, Text } from "theme-ui";
-import { APP_RELATIVE_URL, CTA_TEXT } from "constants/config";
+import { Box, Container, Text } from "theme-ui";
 import { SectionHeading } from "landing/components/section-heading";
 import { Image } from "landing/components/image";
+import { InstallableButton } from "landing/components/button/installable";
 
 const styles = {
   contentWrapper: {
@@ -68,11 +68,7 @@ export const Widgets = () => {
               />
               Automatizovana obaveštenja
             </Text>
-            <Link href={APP_RELATIVE_URL}>
-              <Button sx={styles.joinNow} aria-label={CTA_TEXT}>
-                {CTA_TEXT}
-              </Button>
-            </Link>
+            <InstallableButton sx={styles.joinNow} />
           </Box>
         </Box>
       </Container>

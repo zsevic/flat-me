@@ -1,10 +1,7 @@
 import React from "react";
-import { Box, Button, Container, Heading, Image, Link, Text } from "theme-ui";
-import {
-  APP_RELATIVE_URL,
-  CTA_TEXT,
-  HOMEPAGE_META_DESCRIPTION,
-} from "constants/config";
+import { Box, Container, Heading, Image, Text } from "theme-ui";
+import { HOMEPAGE_META_DESCRIPTION } from "constants/config";
+import { InstallableButton } from "landing/components/button/installable";
 
 const styles = {
   contentWrapper: {
@@ -32,7 +29,7 @@ const styles = {
     mt: ["14px", "19px"],
   },
   button: {
-    display: ["none", "flex"],
+    display: ["flex"],
     mt: [45, 45, 45, 25, 25],
   },
   clients: {
@@ -66,11 +63,7 @@ export const Banner = () => {
             <Text as="p" sx={styles.text}>
               {HOMEPAGE_META_DESCRIPTION}
             </Text>
-            <Link href={APP_RELATIVE_URL}>
-              <Button aria-label={CTA_TEXT} sx={styles.button}>
-                {CTA_TEXT}
-              </Button>
-            </Link>
+            <InstallableButton sx={styles.button} />
           </Box>
           <Box sx={styles.illustration}>
             <Image src="/assets/banner.jpg" alt="banner" />

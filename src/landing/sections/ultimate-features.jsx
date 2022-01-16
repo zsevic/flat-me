@@ -3,6 +3,23 @@ import { Box, Container } from "theme-ui";
 import { SectionHeading } from "landing/components/section-heading";
 import { UltimateFeature } from "landing/components/cards/ultimate-feature";
 
+const styles = {
+  heading: {
+    marginBottom: [60, 60, 60, 80],
+  },
+  features: {
+    gap: ["35px 60px", 60, 60, 40, 30, 60],
+    display: ["grid", "grid"],
+    gridTemplateColumns: [
+      "repeat(1, 1fr)",
+      "repeat(1, 1fr)",
+      "repeat(1, 1fr)",
+      "repeat(2, 1fr)",
+      "repeat(4, 1fr)",
+    ],
+  },
+};
+
 const data = [
   {
     id: 1,
@@ -29,23 +46,6 @@ const data = [
     description: `Keep secure with fluent 2-factor authentication full activity.`,
   },
 ];
-
-const styles = {
-  heading: {
-    marginBottom: [60, 60, 60, 80],
-  },
-  features: {
-    gap: ["35px 60px", 60, 60, 40, 30, 60],
-    display: ["grid", "grid"],
-    gridTemplateColumns: [
-      "repeat(1, 1fr)",
-      "repeat(1, 1fr)",
-      "repeat(1, 1fr)",
-      "repeat(2, 1fr)",
-      "repeat(4, 1fr)",
-    ],
-  },
-};
 
 export const UltimateFeatures = () => {
   return (
