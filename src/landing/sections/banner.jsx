@@ -30,7 +30,7 @@ const styles = {
   },
   button: {
     display: ["flex"],
-    mt: [45, 45, 45, 25, 25],
+    mt: [15, 25, 25, 25, 25],
   },
   clients: {
     display: "flex",
