@@ -1,3 +1,4 @@
+import { BackTop } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
 import { Header } from "./header/header";
@@ -15,6 +16,7 @@ export const Layout = ({ children }) => {
         {children}
       </main>
       <Footer />
+      <BackTop />
     </React.Fragment>
   );
 };
