@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Button, Container, Text } from "theme-ui";
+import { Box, Button, Container, Link, Text } from "theme-ui";
+import { APP_RELATIVE_URL, CTA_TEXT } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { Image } from "landing/components/image";
 
@@ -67,9 +68,11 @@ export const Widgets = () => {
               />
               Automatizovana obaveštenja
             </Text>
-            <Button sx={styles.joinNow} variant="primaryMd">
-              Pronađi stan
-            </Button>
+            <Link href={APP_RELATIVE_URL}>
+              <Button sx={styles.joinNow} aria-label={CTA_TEXT}>
+                {CTA_TEXT}
+              </Button>
+            </Link>
           </Box>
         </Box>
       </Container>

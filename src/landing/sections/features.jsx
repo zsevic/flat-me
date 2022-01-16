@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
-import { Box, Container, Text } from "theme-ui";
+import { HiOutlineChevronRight } from "react-icons/hi";
+import { Box, Container, Link, Text } from "theme-ui";
+import { APP_RELATIVE_URL, CTA_TEXT } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { Feature } from "landing/components/cards/feature";
-import { LearnMore } from "landing/components/link";
 import { Image } from "landing/components/image";
 
 const data = [
@@ -94,6 +95,22 @@ const styles = {
   explore: {
     mt: ["20px", "20px", "20px", "20px", "40px"],
   },
+  learnMore: {
+    color: "link",
+    cursor: "pointer",
+    fontWeight: 500,
+    display: "inline-flex",
+    alignItems: "center",
+    svg: {
+      transition: "margin-left 0.3s ease-in-out 0s",
+      ml: "3px",
+    },
+    ":hover": {
+      svg: {
+        ml: "8px",
+      },
+    },
+  },
 };
 
 export const Features = () => {
@@ -132,7 +149,9 @@ export const Features = () => {
               Completely responsive features
             </Text>
             <Box sx={styles.explore}>
-              <LearnMore path="#!" label="Pronađi stan" />
+              <Link href={APP_RELATIVE_URL} sx={styles.learnMore}>
+                {CTA_TEXT} <HiOutlineChevronRight />
+              </Link>
             </Box>
           </Box>
         </Box>

@@ -1,6 +1,10 @@
 import React from "react";
-import { Box, Container, Heading, Text, Button, Image } from "theme-ui";
-import { HOMEPAGE_META_DESCRIPTION } from "constants/config";
+import { Box, Button, Container, Heading, Image, Link, Text } from "theme-ui";
+import {
+  APP_RELATIVE_URL,
+  CTA_TEXT,
+  HOMEPAGE_META_DESCRIPTION,
+} from "constants/config";
 
 const styles = {
   contentWrapper: {
@@ -62,9 +66,9 @@ export const Banner = () => {
             <Text as="p" sx={styles.text}>
               {HOMEPAGE_META_DESCRIPTION}
             </Text>
-            <Button variant="primary" sx={styles.button}>
-              Pronađi stan
-            </Button>
+            <Link href={APP_RELATIVE_URL}>
+              <Button aria-label={CTA_TEXT}>{CTA_TEXT}</Button>
+            </Link>
           </Box>
           <Box sx={styles.illustration}>
             <Image src="/assets/banner.jpg" alt="banner" />
