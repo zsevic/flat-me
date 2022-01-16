@@ -42,7 +42,7 @@ export const VerificationPage = ({
       .catch((error) => {
         if (error?.response?.status === TOO_MANY_REQUESTS_STATUS_CODE) {
           setErrorMsg(tooManyRequestsErrorMessage);
-        } else if (error?.response.status === TOKEN_ALREADY_USED_STATUS_CODE) {
+        } else if (error?.response?.status === TOKEN_ALREADY_USED_STATUS_CODE) {
           setErrorMsg(tokenAlreadyUsedErrorMessage);
         }
         setIsLoading(false);
