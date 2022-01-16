@@ -60,8 +60,9 @@ const styles = {
     },
   },
   joinNow: {
-    position: "relative",
-    right: ["9rem", "9rem", "9rem", "9rem"],
+    position: "absolute",
+    top: "1rem",
+    right: ["2rem", "2rem", "2rem", "2rem"],
     padding: ["0 30px", "0 30px", "0 30px", "0 30px"],
   },
 };
