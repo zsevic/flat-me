@@ -82,7 +82,7 @@ export const VerificationPage = ({
   };
 
   return (
-    <>
+    <div className="px-2">
       <Head>
         <title>{title}</title>
       </Head>
@@ -104,7 +104,7 @@ export const VerificationPage = ({
           </Col>
         </Row>
       )}
-    </>
+    </div>
   );
 };
 
