@@ -93,7 +93,7 @@ const styles = {
     },
   },
   explore: {
-    mt: ["20px", "20px", "20px", "20px", "40px"],
+    mt: ["20px", "20px", "20px", "20px", "20px"],
   },
   learnMore: {
     color: "link",

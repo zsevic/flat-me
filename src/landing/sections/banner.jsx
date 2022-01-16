@@ -67,7 +67,9 @@ export const Banner = () => {
               {HOMEPAGE_META_DESCRIPTION}
             </Text>
             <Link href={APP_RELATIVE_URL}>
-              <Button aria-label={CTA_TEXT}>{CTA_TEXT}</Button>
+              <Button aria-label={CTA_TEXT} sx={styles.button}>
+                {CTA_TEXT}
+              </Button>
             </Link>
           </Box>
           <Box sx={styles.illustration}>
