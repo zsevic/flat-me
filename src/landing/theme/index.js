@@ -16,17 +16,6 @@ export const theme = {
     accent: "#609", // a contrast color for emphasizing UI
     dark: "#10132D",
     link: "#4F96FF", // default link color
-
-    // highlight	a background color for highlighting text
-    modes: {
-      dark: {
-        text: "#fff",
-        background: "#000",
-        primary: "#0cf",
-        secondary: "#09c",
-        muted: "#111",
-      },
-    },
   },
   fonts: {
     body: '"DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
