@@ -1,7 +1,9 @@
+import { message } from "antd";
 import { rgba } from "polished";
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, Container, Flex, Grid, Input } from "theme-ui";
 import { SectionHeading } from "landing/components/section-heading";
+import request from "utils/request";
 
 const styles = {
   section: {
@@ -72,10 +74,27 @@ const styles = {
 };
 
 export const Subscription = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(`Submitted...`);
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      if (!email) throw new Error("Email is missing");
+      await request("https://www.flat-me.com/api/subscriptions", {
+        method: "POST",
+        data: {
+          email,
+        },
+      });
+      message.success("Uspešno ste se prijavili na FlatMe newsletter");
+    } catch (error) {
+      message.error("Prijava nije uspela");
+      console.error(error);
+    }
   };
+
+  const onChange = (event) => setEmail(event.target.value);
+
   return (
     <Box as="section" sx={styles.section}>
       <Container>
@@ -87,7 +106,12 @@ export const Subscription = () => {
           />
           <Flex as="form" sx={styles.form} onSubmit={handleSubmit}>
             <Grid gap={2} columns={[1, "2fr 1fr"]} sx={styles.grid}>
-              <Input type="email" id="email" placeholder="Unesite svoj email" />
+              <Input
+                type="email"
+                id="email"
+                onChange={onChange}
+                placeholder="Unesite svoj email"
+              />
               <Button variant="white">Prijavi me</Button>
             </Grid>
           </Flex>
