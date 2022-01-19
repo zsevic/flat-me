@@ -2,6 +2,7 @@ import { message } from "antd";
 import { rgba } from "polished";
 import React, { useState } from "react";
 import { Box, Button, Container, Flex, Grid, Input } from "theme-ui";
+import { DOMAIN_URL } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import request from "utils/request";
 
@@ -80,7 +81,8 @@ export const Subscription = () => {
     event.preventDefault();
     try {
       if (!email) throw new Error("Email is missing");
-      await request("https://www.flat-me.com/api/subscriptions", {
+      await request("/api/subscriptions", {
+        baseURL: process.env.NEXT_PUBLIC_DOMAIN_URL || DOMAIN_URL,
         method: "POST",
         data: {
           email,
