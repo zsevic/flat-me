@@ -2,6 +2,8 @@ import { message } from "antd";
 import { rgba } from "polished";
 import React, { useState } from "react";
 import { Box, Button, Container, Flex, Grid, Input } from "theme-ui";
+import { tooManyRequestsErrorMessage } from "constants/error-messages";
+import { TOO_MANY_REQUESTS_STATUS_CODE } from "constants/status-codes";
 import { SectionHeading } from "landing/components/section-heading";
 import { subscribeByEmail } from "services/subscriptions";
 
@@ -83,8 +85,11 @@ export const Subscription = () => {
       await subscribeByEmail(email);
       message.success("Uspešno ste se prijavili na FlatMe newsletter");
     } catch (error) {
-      message.error("Prijava nije uspela");
-      console.error(error);
+      if (error?.response?.status === TOO_MANY_REQUESTS_STATUS_CODE) {
+        message.error(tooManyRequestsErrorMessage);
+      } else {
+        message.error("Prijava nije uspela");
+      }
     }
   };
 
