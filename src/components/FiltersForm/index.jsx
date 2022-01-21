@@ -83,7 +83,7 @@ export const FiltersForm = ({
   const otherFiltersKey = "1";
   const [activeKey, setActiveKey] = useState(null);
   const [places, setPlaces] = useState([]);
-  const [showFurnishedFilter, setShowFurnishedFilter] = useState(false);
+  const [showRentFilters, setShowRentFilters] = useState(false);
 
   const validateFields = (storedFilters) => {
     form
@@ -120,9 +120,9 @@ export const FiltersForm = ({
       setMinPriceField(SALE_MIN_PRICE);
       setMaxPriceField(SALE_MAX_PRICE);
       setIsInitialRentOrSale(false);
-      setShowFurnishedFilter(false);
+      setShowRentFilters(false);
     } else {
-      setShowFurnishedFilter(true);
+      setShowRentFilters(true);
     }
 
     if (filters?.floor?.length > 0) {
@@ -183,7 +183,7 @@ export const FiltersForm = ({
         case "rent":
           setMinPriceField(RENT_MIN_PRICE);
           setMaxPriceField(RENT_MAX_PRICE);
-          setShowFurnishedFilter(true);
+          setShowRentFilters(true);
           if (isInitialRentOrSale) {
             setIsInitialRentOrSale(false);
             form.setFieldsValue({
@@ -202,7 +202,7 @@ export const FiltersForm = ({
           setMaxPriceField(SALE_MAX_PRICE);
           setMinRentPriceField(minPrice);
           setMaxRentPriceField(maxPrice);
-          setShowFurnishedFilter(false);
+          setShowRentFilters(false);
           if (isInitialRentOrSale) {
             setIsInitialRentOrSale(false);
             form.setFieldsValue({
@@ -358,12 +358,12 @@ export const FiltersForm = ({
             hasFeedback
             rules={[
               {
-                required: !!showFurnishedFilter,
+                required: !!showRentFilters,
                 message: "Izaberi opremljenost stana",
                 type: "array",
               },
             ]}
-            hidden={!showFurnishedFilter}
+            hidden={!showRentFilters}
           >
             <Checkbox.Group>
               <Row>
@@ -425,18 +425,21 @@ export const FiltersForm = ({
               <Form.Item name="advertiserTypes" label="Oglašivač" hasFeedback>
                 <Checkbox.Group>
                   <Row>
-                    {ADVERTISER_TYPES.map((advertiserType) => (
-                      <Col span={24} key={advertiserType.locale}>
-                        <Checkbox
-                          value={advertiserType.value}
-                          style={{
-                            lineHeight: "32px",
-                          }}
-                        >
-                          {advertiserType.locale}
-                        </Checkbox>
-                      </Col>
-                    ))}
+                    {ADVERTISER_TYPES.map((advertiserType) =>
+                      showRentFilters &&
+                      advertiserType.value === "investor" ? null : (
+                        <Col span={24} key={advertiserType.locale}>
+                          <Checkbox
+                            value={advertiserType.value}
+                            style={{
+                              lineHeight: "32px",
+                            }}
+                          >
+                            {advertiserType.locale}
+                          </Checkbox>
+                        </Col>
+                      )
+                    )}
                   </Row>
                 </Checkbox.Group>
               </Form.Item>
