@@ -15,6 +15,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { TrackFiltersModal } from "components/TrackFiltersModal";
+import { ADVERTISER_TYPES } from "constants/advertiser-types";
 import {
   INITIAL_FILTERS,
   PAGE_SIZE,
@@ -416,6 +417,26 @@ export const FiltersForm = ({
                         Nije u potkrovlju
                       </Checkbox>
                     </Col>
+                  </Row>
+                </Checkbox.Group>
+              </Form.Item>
+            </Col>
+            <Col>
+              <Form.Item name="advertiserTypes" label="Oglašivač" hasFeedback>
+                <Checkbox.Group>
+                  <Row>
+                    {ADVERTISER_TYPES.map((advertiserType) => (
+                      <Col span={24} key={advertiserType.locale}>
+                        <Checkbox
+                          value={advertiserType.value}
+                          style={{
+                            lineHeight: "32px",
+                          }}
+                        >
+                          {advertiserType.locale}
+                        </Checkbox>
+                      </Col>
+                    ))}
                   </Row>
                 </Checkbox.Group>
               </Form.Item>

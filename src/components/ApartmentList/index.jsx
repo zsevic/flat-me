@@ -7,11 +7,13 @@ import { FaMapMarkedAlt } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import {
+  RiContactsFill,
   RiDoorOpenFill,
   RiExternalLinkLine,
   RiPencilRuler2Fill,
 } from "react-icons/ri";
 import { priceFormatter } from "components/FiltersForm/utils";
+import { advertiserTypesMap } from "constants/advertiser-types";
 import {
   APARTMENT_CARD_LOCALE,
   APARTMENT_LIST_LOADER_TEXT,
@@ -243,6 +245,10 @@ export const ApartmentList = ({
                           </li>
                         </Row>
                         <Row>
+                          <li className="inline-block px-2">
+                            <RiContactsFill className="inline mb-1" />{" "}
+                            {advertiserTypesMap[apartment.advertiserType]}
+                          </li>
                           {apartment.rentOrSale === "rent" && (
                             <li className="inline-block px-2">
                               <GiSofa className="inline mb-1" />{" "}
