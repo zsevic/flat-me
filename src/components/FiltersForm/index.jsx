@@ -404,7 +404,7 @@ export const FiltersForm = ({
                           lineHeight: "32px",
                         }}
                       >
-                        Nije na prizemlju
+                        Nije na prizemlju ni u suterenu
                       </Checkbox>
                     </Col>
                     <Col span={24} key="not-attic">
