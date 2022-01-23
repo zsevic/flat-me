@@ -125,7 +125,7 @@ export const FiltersForm = ({
       setShowRentFilters(true);
     }
 
-    if (filters?.floor?.length > 0) {
+    if (filters?.floor?.length > 0 || filters?.advertiserTypes?.length > 0) {
       setActiveKey(otherFiltersKey);
     }
 
