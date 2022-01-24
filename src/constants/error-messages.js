@@ -1,3 +1,4 @@
+export const emailNotValidErrorMessage = "Unesite ispravan email";
 export const filtersLimitErrorMessage =
   "Nije dozvoljeno sačuvati još pretraga za unetu e-mail adresu";
 export const tooManyRequestsErrorMessage =

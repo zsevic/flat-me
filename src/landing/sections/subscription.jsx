@@ -2,7 +2,10 @@ import { message } from "antd";
 import { rgba } from "polished";
 import React, { useState } from "react";
 import { Box, Button, Container, Flex, Grid, Input } from "theme-ui";
-import { tooManyRequestsErrorMessage } from "constants/error-messages";
+import {
+  emailNotValidErrorMessage,
+  tooManyRequestsErrorMessage,
+} from "constants/error-messages";
 import {
   BAD_REQUEST_STATUS_CODE,
   TOO_MANY_REQUESTS_STATUS_CODE,
@@ -78,6 +81,11 @@ const styles = {
   },
 };
 
+const errorMessages = {
+  [BAD_REQUEST_STATUS_CODE]: emailNotValidErrorMessage,
+  [TOO_MANY_REQUESTS_STATUS_CODE]: tooManyRequestsErrorMessage,
+};
+
 export const Subscription = () => {
   const [email, setEmail] = useState("");
 
@@ -88,13 +96,9 @@ export const Subscription = () => {
       await subscribeByEmail(email);
       return message.success("Uspešno ste se prijavili na FlatMe newsletter");
     } catch (error) {
-      if (error?.response?.status === TOO_MANY_REQUESTS_STATUS_CODE) {
-        return message.error(tooManyRequestsErrorMessage);
-      }
-      if (error?.response?.status === BAD_REQUEST_STATUS_CODE) {
-        return message.error("Unesite ispravan email");
-      }
-      return message.error("Prijava nije uspela");
+      const errorMessage =
+        errorMessages[error?.response?.status] || "Prijava nije uspela";
+      return message.error(errorMessage);
     }
   };
 

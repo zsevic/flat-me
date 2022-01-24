@@ -7,10 +7,12 @@ import {
   TRACK_FILTERS_SUCCESS_MESSAGE,
 } from "constants/config";
 import {
+  emailNotValidErrorMessage,
   filtersLimitErrorMessage,
   tooManyRequestsErrorMessage,
 } from "constants/error-messages";
 import {
+  BAD_REQUEST_STATUS_CODE,
   FILTERS_LIMIT_STATUS_CODE,
   TOO_MANY_REQUESTS_STATUS_CODE,
   USER_IS_NOT_VERIFIED_STATUS_CODE,
@@ -26,6 +28,13 @@ const formItemLayout = {
   wrapperCol: {
     span: 14,
   },
+};
+
+const errorMessages = {
+  [BAD_REQUEST_STATUS_CODE]: emailNotValidErrorMessage,
+  [FILTERS_LIMIT_STATUS_CODE]: filtersLimitErrorMessage,
+  [TOO_MANY_REQUESTS_STATUS_CODE]: tooManyRequestsErrorMessage,
+  [USER_IS_NOT_VERIFIED_STATUS_CODE]: filtersLimitErrorMessage,
 };
 
 export const TrackFiltersModal = () => {
@@ -46,17 +55,9 @@ export const TrackFiltersModal = () => {
       });
       message.info(TRACK_FILTERS_SUCCESS_MESSAGE);
     } catch (error) {
-      if (error?.response?.status === TOO_MANY_REQUESTS_STATUS_CODE) {
-        message.error(tooManyRequestsErrorMessage);
-      } else if (
-        [USER_IS_NOT_VERIFIED_STATUS_CODE, FILTERS_LIMIT_STATUS_CODE].includes(
-          error?.response?.status
-        )
-      ) {
-        message.error(filtersLimitErrorMessage);
-      } else {
-        message.error("Pretraga nije sačuvana");
-      }
+      const errorMessage =
+        errorMessages[error?.response?.status] || "Pretraga nije sačuvana";
+      message.error(errorMessage);
     }
   };
 
