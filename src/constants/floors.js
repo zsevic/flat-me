@@ -10,3 +10,18 @@ export const floorsLocaleMap = {
   "5-10": "5-10. sprat",
   "11+": "11+. sprat",
 };
+
+export const floorFilters = [
+  {
+    value: "not-basement",
+    locale: "Nije u suterenu",
+  },
+  {
+    value: "not-ground-floor",
+    locale: "Nije na prizemlju",
+  },
+  {
+    value: "not-attic",
+    locale: "Nije u potkrovlju",
+  },
+];

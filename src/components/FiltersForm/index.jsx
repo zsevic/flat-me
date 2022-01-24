@@ -28,6 +28,7 @@ import {
   SALE_SELECTED_MAX_PRICE,
   SALE_SELECTED_MIN_PRICE,
 } from "constants/config";
+import { floorFilters } from "constants/floors";
 import { FURNISHED } from "constants/furnished";
 import { STRUCTURES } from "constants/structures";
 import * as apartmentsService from "services/apartments";
@@ -397,36 +398,18 @@ export const FiltersForm = ({
               <Form.Item name="floor" label="Spratnost stana">
                 <Checkbox.Group>
                   <Row>
-                    <Col span={24} key="not-basement">
-                      <Checkbox
-                        value="not-basement"
-                        style={{
-                          lineHeight: "32px",
-                        }}
-                      >
-                        Nije u suterenu
-                      </Checkbox>
-                    </Col>
-                    <Col span={24} key="not-ground-floor">
-                      <Checkbox
-                        value="not-ground-floor"
-                        style={{
-                          lineHeight: "32px",
-                        }}
-                      >
-                        Nije na prizemlju
-                      </Checkbox>
-                    </Col>
-                    <Col span={24} key="not-attic">
-                      <Checkbox
-                        value="not-attic"
-                        style={{
-                          lineHeight: "32px",
-                        }}
-                      >
-                        Nije u potkrovlju
-                      </Checkbox>
-                    </Col>
+                    {floorFilters.map((floorFilter) => (
+                      <Col span={24} key={floorFilter.value}>
+                        <Checkbox
+                          value={floorFilter.value}
+                          style={{
+                            lineHeight: "32px",
+                          }}
+                        >
+                          {floorFilter.locale}
+                        </Checkbox>
+                      </Col>
+                    ))}
                   </Row>
                 </Checkbox.Group>
               </Form.Item>
