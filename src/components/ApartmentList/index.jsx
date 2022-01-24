@@ -7,9 +7,9 @@ import { FaMapMarkedAlt } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import {
-  RiContactsFill,
   RiDoorOpenFill,
   RiExternalLinkLine,
+  RiFileEditFill,
   RiPencilRuler2Fill,
 } from "react-icons/ri";
 import { priceFormatter } from "components/FiltersForm/utils";
@@ -246,7 +246,7 @@ export const ApartmentList = ({
                         </Row>
                         <Row>
                           <li className="inline-block px-2">
-                            <RiContactsFill className="inline mb-1" />{" "}
+                            <RiFileEditFill className="inline mb-1" />{" "}
                             {advertiserTypesMap[apartment.advertiserType]}
                           </li>
                           {apartment.rentOrSale === "rent" && (
