@@ -397,6 +397,16 @@ export const FiltersForm = ({
               <Form.Item name="floor" label="Spratnost stana">
                 <Checkbox.Group>
                   <Row>
+                    <Col span={24} key="not-basement">
+                      <Checkbox
+                        value="not-basement"
+                        style={{
+                          lineHeight: "32px",
+                        }}
+                      >
+                        Nije u suterenu
+                      </Checkbox>
+                    </Col>
                     <Col span={24} key="not-ground-floor">
                       <Checkbox
                         value="not-ground-floor"
@@ -404,7 +414,7 @@ export const FiltersForm = ({
                           lineHeight: "32px",
                         }}
                       >
-                        Nije na prizemlju ni u suterenu
+                        Nije na prizemlju
                       </Checkbox>
                     </Col>
                     <Col span={24} key="not-attic">
