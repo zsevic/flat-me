@@ -6,6 +6,11 @@ import { SectionHeading } from "landing/components/section-heading";
 import { Feature } from "landing/components/cards/feature";
 import { Image } from "landing/components/image";
 
+const getNumberOfApartmentsInLastHour = () => {
+  const numbersOfApartmentsInLastHour = ["5", "6", "6", "6", "6"];
+  return numbersOfApartmentsInLastHour[Math.floor(Math.random() * numbersOfApartmentsInLastHour.length)];
+}
+
 const data = [
   {
     id: 1,
@@ -28,7 +33,7 @@ const data = [
   {
     id: 4,
     color: "#28DCB2",
-    value: "6",
+    value: getNumberOfApartmentsInLastHour(),
     title: "novih stanova u poslednjih sat vremena",
   },
 ];

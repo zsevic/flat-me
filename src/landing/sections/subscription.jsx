@@ -94,7 +94,7 @@ export const Subscription = () => {
     try {
       if (!email) return message.error("Unesite svoj email");
       await subscribeByEmail(email);
-      return message.success("Uspešno ste se prijavili na FlatMe newsletter");
+      return message.success("Uspešno ste se prijavili na FlatMe obaveštenja");
     } catch (error) {
       const errorMessage =
         errorMessages[error?.response?.status] || "Prijava nije uspela";
@@ -110,7 +110,7 @@ export const Subscription = () => {
         <Box sx={styles.content}>
           <SectionHeading
             sx={styles.heading}
-            title={<>Prijavite se na FlatMe newsletter</>}
+            title={<>Prijavite se na FlatMe obaveštenja</>}
             description="Budite prvi koji će saznati sve o novostima u vezi FlatMe aplikacije"
           />
           <Flex as="form" sx={styles.form} onSubmit={handleSubmit}>
