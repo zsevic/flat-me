@@ -8,8 +8,10 @@ import { Image } from "landing/components/image";
 
 const getNumberOfApartmentsInLastHour = () => {
   const numbersOfApartmentsInLastHour = ["5", "6", "6", "6", "6"];
-  return numbersOfApartmentsInLastHour[Math.floor(Math.random() * numbersOfApartmentsInLastHour.length)];
-}
+  return numbersOfApartmentsInLastHour[
+    Math.floor(Math.random() * numbersOfApartmentsInLastHour.length)
+  ];
+};
 
 const data = [
   {
