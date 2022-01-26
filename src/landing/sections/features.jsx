@@ -28,8 +28,8 @@ const data = [
   {
     id: 4,
     color: "#28DCB2",
-    value: "& 3M",
-    title: "Job posted everyday`s with  qualification",
+    value: "6",
+    title: "novih stanova u poslednjih sat vremena",
   },
 ];
 
