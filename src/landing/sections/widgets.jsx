@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Container, Text } from "theme-ui";
+import { CHECK_CIRCLE_FILLED } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { Image } from "landing/components/image";
 import { InstallableButton } from "landing/components/button/installable";
@@ -55,17 +56,11 @@ export const Widgets = () => {
               description="FlatMe Vam javlja kad pronađe stan po Vašoj meri slanjem mejla u Vaše prijemno sanduče."
             />
             <Text sx={styles.listItem} as="p">
-              <Image
-                src="/assets/images/icons/check-circle-filled.png"
-                alt="check icon"
-              />
+              <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
               Pretraga različitih platformi
             </Text>
             <Text sx={styles.listItem} as="p">
-              <Image
-                src="/assets/images/icons/check-circle-filled.png"
-                alt="check icon"
-              />
+              <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
               Automatizovana obaveštenja
             </Text>
             <InstallableButton sx={styles.joinNow} />

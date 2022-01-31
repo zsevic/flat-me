@@ -1,7 +1,11 @@
 import React, { Fragment } from "react";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { Box, Container, Link, Text } from "theme-ui";
-import { APP_RELATIVE_URL, CTA_TEXT } from "constants/config";
+import {
+  APP_RELATIVE_URL,
+  CHECK_CIRCLE_FILLED,
+  CTA_TEXT,
+} from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { Feature } from "landing/components/cards/feature";
 import { Image } from "landing/components/image";
@@ -142,17 +146,11 @@ export const Features = () => {
               description="Get your tests delivered at let home collect sample from the victory of the managements that supplies best design system guidelines ever."
             />
             <Text sx={styles.listItem} as="p">
-              <Image
-                src="/assets/images/icons/check-circle-filled.png"
-                alt="check icon"
-              />
+              <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
               Unlimited design possibility
             </Text>
             <Text sx={styles.listItem} as="p">
-              <Image
-                src="/assets/images/icons/check-circle-filled.png"
-                alt="check icon"
-              />
+              <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
               Completely responsive features
             </Text>
             <Box sx={styles.explore}>
