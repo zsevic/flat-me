@@ -53,5 +53,5 @@ export const PROVIDER_LOGO_URLS = {
     "https://www.halooglasi.com/Content/assets/frontend/layout/img/halo-oglasi-nek-aplikacija-icon.png",
 };
 
-export const APP_RELATIVE_URL = "/";
+export const APP_RELATIVE_URL = "/app";
 export const CTA_TEXT = "Pronađi stan";

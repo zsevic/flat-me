@@ -1,72 +1,60 @@
-import { BackTop } from "antd";
 import Head from "next/head";
-import React, { useRef, useState } from "react";
-import { ApartmentList } from "components/ApartmentList";
+import React from "react";
+import { ThemeProvider } from "theme-ui";
 import CommonHead from "components/CommonHead";
-import { FiltersForm } from "components/FiltersForm";
 import {
   DOMAIN_URL,
   HOMEPAGE_META_DESCRIPTION,
   HOMEPAGE_TITLE,
 } from "constants/config";
+import { theme } from "landing/theme";
+import { Layout } from "landing/components/layout";
+import { Banner } from "landing/sections/banner";
+import { UltimateFeatures } from "landing/sections/ultimate-features";
+import { Features } from "landing/sections/features";
+import { UsefulFeatures } from "landing/sections/useful-features";
+import { Widgets } from "landing/sections/widgets";
+import { Subscription } from "landing/sections/subscription";
 
-const AppPage = () => {
-  const [apartmentList, setApartmentList] = useState([]);
-  const [filters, setFilters] = useState({});
-  const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
-  const [isInitialSearchDone, setIsInitialSearchDone] = useState(false);
-  const listRef = useRef();
-
+export default function LandingPage() {
   return (
-    <div className="px-2 mt-2">
-      <CommonHead />
-      <Head>
-        <meta name="description" content={HOMEPAGE_META_DESCRIPTION} />
+    <ThemeProvider theme={theme}>
+      <Layout>
+        <CommonHead />
+        <Head>
+          <meta name="description" content={HOMEPAGE_META_DESCRIPTION} />
 
-        <meta property="og:description" content={HOMEPAGE_META_DESCRIPTION} />
-        <meta
-          property="og:image"
-          content={`${DOMAIN_URL}/assets/logo-main.png`}
-        />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+          <meta property="og:description" content={HOMEPAGE_META_DESCRIPTION} />
+          <meta
+            property="og:image"
+            content={`${DOMAIN_URL}/assets/logo-main.png`}
+          />
+          <meta property="og:image:type" content="image/png" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
 
-        <meta
-          property="og:image"
-          content={`${DOMAIN_URL}/assets/logo-whatsapp.png`}
-        />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="400" />
-        <meta property="og:image:height" content="400" />
+          <meta
+            property="og:image"
+            content={`${DOMAIN_URL}/assets/logo-whatsapp.png`}
+          />
+          <meta property="og:image:type" content="image/png" />
+          <meta property="og:image:width" content="400" />
+          <meta property="og:image:height" content="400" />
 
-        <meta property="og:title" content={HOMEPAGE_TITLE} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={DOMAIN_URL} />
+          <meta property="og:title" content={HOMEPAGE_TITLE} />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={DOMAIN_URL} />
 
-        <link rel="canonical" href={DOMAIN_URL} />
-        <title>{HOMEPAGE_TITLE}</title>
-      </Head>
-      <FiltersForm
-        setApartmentList={setApartmentList}
-        setFilters={setFilters}
-        setIsLoadingApartmentList={setIsLoadingApartmentList}
-        setIsInitialSearchDone={setIsInitialSearchDone}
-        isInitialSearchDone={isInitialSearchDone}
-        listRef={listRef}
-      />
-      <ApartmentList
-        apartmentList={apartmentList}
-        setApartmentList={setApartmentList}
-        isLoadingApartmentList={isLoadingApartmentList}
-        setIsLoadingApartmentList={setIsLoadingApartmentList}
-        filters={filters}
-        listRef={listRef}
-        isInitialSearchDone={isInitialSearchDone}
-      />
-      {!isLoadingApartmentList && <BackTop />}
-    </div>
+          <link rel="canonical" href={DOMAIN_URL} />
+          <title>{HOMEPAGE_TITLE}</title>
+        </Head>
+        <Banner />
+        <UltimateFeatures />
+        <Features />
+        <UsefulFeatures />
+        <Widgets />
+        <Subscription />
+      </Layout>
+    </ThemeProvider>
   );
-};
-
-export default AppPage;
+}
