@@ -33,7 +33,7 @@ const styles = {
     p: {
       fontSize: 16,
       lineHeight: [1.6, 1.6, 1.6, 1.88],
-      color: "text",
+      color: "muted",
     },
   },
 };
