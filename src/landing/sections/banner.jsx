@@ -59,7 +59,9 @@ export const Banner = () => {
       <Container>
         <Box sx={styles.contentWrapper}>
           <Box sx={styles.content}>
-            <Heading sx={styles.title}>FlatMe</Heading>
+            <Heading sx={styles.title}>
+              Jednostavan nacin da pronađete idealan stan
+            </Heading>
             <Text as="p" sx={styles.text}>
               {HOMEPAGE_META_DESCRIPTION}
             </Text>
