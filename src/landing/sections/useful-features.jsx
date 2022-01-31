@@ -18,13 +18,13 @@ const data = [
   },
   {
     id: 3,
-    icon: "/assets/images/icons/help.png",
+    icon: "/assets/images/icons/time-saver.png",
     title: "Ušteda vremena",
     description: `Vreme koje biste proveli tražeći stan sada možete iskoristiti za druge aktivnosti dok FlatMe za Vas pronalazi savršeni stan.`,
   },
   {
     id: 4,
-    icon: "/assets/images/icons/award.png",
+    icon: "/assets/images/icons/help.png",
     title: "Korisnička podrška",
     description: `Briga o korisnicima i njihovom pozitivnom utisku o aplikaciji nam je prioritet. Za sve komentare, pohvale, kritike i sugestije nas možete kontaktirati na info@flat-me.com`,
   },
