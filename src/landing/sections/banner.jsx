@@ -60,7 +60,7 @@ export const Banner = () => {
         <Box sx={styles.contentWrapper}>
           <Box sx={styles.content}>
             <Heading sx={styles.title}>
-              Jednostavan nacin da pronađete idealan stan
+              Jednostavan način da pronađete idealan stan
             </Heading>
             <Text as="p" sx={styles.text}>
               {HOMEPAGE_META_DESCRIPTION}

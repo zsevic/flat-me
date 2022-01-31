@@ -57,7 +57,7 @@ export const UltimateFeatures = () => {
       <Container>
         <SectionHeading
           sx={styles.heading}
-          title={<>Jednostavan nacin da pronađete idealan stan</>}
+          title={<>Jednostavan način da pronađete idealan stan</>}
           description="Umorni ste od stresnog i dugotrajnog traženja stana za iznajmljivanje ili kupovinu u Beogradu? Uz FlatMe za manje od 2 minuta dolazite do svih dostupnih oglasa koji odgovaraju Vašim kriterijumima."
         />
         <Box sx={styles.features}>
