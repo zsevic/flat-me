@@ -25,25 +25,29 @@ const data = [
     id: 1,
     icon: "/assets/images/icons/bulb.png",
     title: "Lako za instalaciju",
-    description: "See where you’re making and spending money in real.",
+    description:
+      "Klikom na dugme za instalaciju dodajete FlatMe aplikaciju na ekran svog mobilnog telefona odakle joj možete pristupiti bilo kada.",
   },
   {
     id: 2,
     title: "Lako za korišćenje",
     icon: "/assets/images/icons/rocket.png",
-    description: "Send money with three clicks by wire, check, or ACH.",
+    description:
+      "Klikom na Pronađi stan pristupate stranici gde možete izlistati više hiljada trenutno dostupnih stanova za kupovinu i iznajmljivanje na teritoriji Beograda.",
   },
   {
     id: 3,
     title: "Lako filtriranje stanova",
     icon: "/assets/images/icons/dart.png",
-    description: "Choose the right tone and fast formality level.",
+    description:
+      "Odabirom vrste pretrage, opsega cene, strukture, spratnosti stana, lokacije i ostalih filtera sužavate pretragu na stanove koji Vam odgovaraju.",
   },
   {
     id: 4,
     title: "Lak pronalazak stana",
     icon: "/assets/images/icons/trophy.png",
-    description: `Keep secure with fluent 2-factor authentication full activity.`,
+    description:
+      "FlatMe za Vas pretražuje različite platforme i šalje Vam email sa svim novim stanovima koji se pojave na tržištu, a uklapaju se u Vaše želje i mogućnosti.",
   },
 ];
 
@@ -53,8 +57,8 @@ export const UltimateFeatures = () => {
       <Container>
         <SectionHeading
           sx={styles.heading}
-          title={<>Go Beyond unlimited features</>}
-          description="Focus only on the meaning, we take care of the design. As soon as the meeting end you can export in one click into your preferred format."
+          title={<>Jednostavan nacin da pronađete idealan stan</>}
+          description="Umorni ste od stresnog i dugotrajnog traženja stana za iznajmljivanje ili kupovinu u Beogradu? Uz FlatMe za manje od 2 minuta dolazite do svih dostupnih oglasa koji odgovaraju Vašim kriterijumima."
         />
         <Box sx={styles.features}>
           {data?.map((item) => (

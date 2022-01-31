@@ -139,11 +139,11 @@ export const Features = () => {
               sx={styles.heading}
               title={
                 <Fragment>
-                  Smart Jackpots <br />
-                  that you may love this anytime &amp; anywhere
+                  Automatizovana pretraga stanova koja će Vam olakšati
+                  pronalazak novog doma
                 </Fragment>
               }
-              description="Get your tests delivered at let home collect sample from the victory of the managements that supplies best design system guidelines ever."
+              description="Traženje stana za kupovinu ili iznajmljivanje ne mora da bude mukotrpno iskustvo. Umesto da svakodnevno trošite po nekoliko sati na proveravanje novih oglasa na različitim platformama, aktivirajte FlatMe obaveštenja i mi ćemo to raditi za Vas, a rezultate pretrage ćemo Vam slati direktno u Vaše prijemno sanduče."
             />
             <Text sx={styles.listItem} as="p">
               <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />

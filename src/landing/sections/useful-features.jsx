@@ -63,7 +63,7 @@ export const UsefulFeatures = () => {
         <SectionHeading
           sx={styles.heading}
           title={<>Šta dobijam aplikacijom FlatMe</>}
-          description="Focus only on the meaning, we take care of the design. As soon as the meeting end you can export in one click into your preferred format."
+          description="Svesni činjenice da je mali broj ljudi imao sreće da pronađe idealan stan u kratkom vremenskom periodu, razvili smo FlatMe aplikaciju koja proces pretrage stanova koji su dostupni na teritoriji Beograda čini jednostavnijom i lakšom."
         />
         <Box sx={styles.features}>
           {data?.map((item) => (
