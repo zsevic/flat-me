@@ -27,7 +27,7 @@ const data = [
     icon: "/assets/images/icons/bulb.png",
     title: "Lako za instalaciju",
     description:
-      "Klikom na dugme za instalaciju dodajete FlatMe aplikaciju na ekran svog mobilnog telefona odakle joj možete pristupiti bilo kada.",
+      "Otvaranjem aplikacije preko Chrome ili Edge pretraživača i klikom na dugme za instalaciju dodajete FlatMe na ekran svog mobilnog telefona ili računara odakle joj možete pristupiti.",
   },
   {
     id: 2,
@@ -57,7 +57,7 @@ export const UltimateFeatures = () => {
       <Container>
         <SectionHeading
           sx={styles.heading}
-          title={<>Jednostavan način da pronađete idealan stan</>}
+          title={<>Na nekoliko klikova od svog novog doma</>}
           description="Umorni ste od stresnog i dugotrajnog traženja stana za iznajmljivanje ili kupovinu u Beogradu? Uz FlatMe za manje od 2 minuta dolazite do svih dostupnih oglasa koji odgovaraju Vašim kriterijumima."
         />
         <Box sx={styles.features}>
