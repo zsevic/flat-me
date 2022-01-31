@@ -62,9 +62,13 @@ export const Banner = () => {
             <Heading sx={styles.title}>
               Jednostavan način da pronađete idealan stan
             </Heading>
-            <Text as="p" sx={styles.text}>
-              {HOMEPAGE_META_DESCRIPTION}
-            </Text>
+            <Text
+              as="p"
+              sx={styles.text}
+              dangerouslySetInnerHTML={{
+                __html: HOMEPAGE_META_DESCRIPTION.replace("-", "&#8209;"),
+              }}
+            />
             <InstallableButton sx={styles.button} />
           </Box>
           <Box sx={styles.illustration}>
