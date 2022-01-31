@@ -233,10 +233,14 @@ const TermsAndConditionsPage = () => (
               />
             </Text>
             <Heading sx={styles.subtitle}>PITANJA I SUGESTIJE</Heading>
-            <Text as="p" sx={styles.subdescription}>
-              Ukoliko imate bilo kakvih pitanja ili sugestija, možete nas
-              kontaktirati na: info@flat-me.com.
-            </Text>
+            <Text
+              as="p"
+              sx={styles.subdescription}
+              dangerouslySetInnerHTML={{
+                __html: `Ukoliko imate bilo kakvih pitanja ili sugestija, možete nas
+              kontaktirati na: <a href="mailto:info@flat-me.com">info@flat-me.com</a>.`,
+              }}
+            />
           </Box>
         </Container>
       </Box>
