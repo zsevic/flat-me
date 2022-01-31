@@ -26,7 +26,7 @@ const data = [
     id: 4,
     icon: "/assets/images/icons/help.png",
     title: "Korisnička podrška",
-    description: `Briga o korisnicima i njihovom pozitivnom utisku o aplikaciji nam je prioritet. Za sve komentare, pohvale, kritike i sugestije nas možete kontaktirati na info@flat-me.com`,
+    description: `Briga o korisnicima i njihovom pozitivnom utisku o aplikaciji nam je prioritet. Za sve komentare, pohvale, kritike i sugestije nas možete kontaktirati na <a href="mailto:info@flat-me.com">info@flat-me.com</a>.`,
   },
 ];
 

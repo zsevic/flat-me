@@ -46,7 +46,7 @@ export const UltimateFeature = ({ data, ...props }) => {
       </figure>
       <Box>
         <Heading as="h4">{data?.title}</Heading>
-        <Text as="p">{data?.description}</Text>
+        <Text as="p" dangerouslySetInnerHTML={{ __html: data?.description }} />
       </Box>
     </Box>
   );
