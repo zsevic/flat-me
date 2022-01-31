@@ -1,14 +1,9 @@
 import React, { Fragment } from "react";
 import { HiOutlineChevronRight } from "react-icons/hi";
-import { Box, Container, Link, Text } from "theme-ui";
-import {
-  APP_RELATIVE_URL,
-  CHECK_CIRCLE_FILLED,
-  CTA_TEXT,
-} from "constants/config";
+import { Box, Container, Link } from "theme-ui";
+import { APP_RELATIVE_URL, CTA_TEXT } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { Feature } from "landing/components/cards/feature";
-import { Image } from "landing/components/image";
 
 const getNumberOfApartmentsInLastHour = () => {
   const numbersOfApartmentsInLastHour = ["5", "6", "6", "6", "6"];
@@ -145,14 +140,6 @@ export const Features = () => {
               }
               description="Traženje stana za kupovinu ili iznajmljivanje ne mora da bude mukotrpno iskustvo. Umesto da svakodnevno trošite po nekoliko sati na proveravanje novih oglasa na različitim platformama, aktivirajte FlatMe obaveštenja i mi ćemo to raditi za Vas, a rezultate pretrage ćemo Vam slati direktno u Vaše prijemno sanduče."
             />
-            <Text sx={styles.listItem} as="p">
-              <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
-              Unlimited design possibility
-            </Text>
-            <Text sx={styles.listItem} as="p">
-              <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
-              Completely responsive features
-            </Text>
             <Box sx={styles.explore}>
               <Link href={APP_RELATIVE_URL} sx={styles.learnMore}>
                 {CTA_TEXT} <HiOutlineChevronRight />
