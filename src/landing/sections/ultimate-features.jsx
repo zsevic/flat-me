@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Container } from "theme-ui";
+import { APP_RELATIVE_URL } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { UltimateFeature } from "landing/components/cards/ultimate-feature";
 
@@ -32,8 +33,7 @@ const data = [
     id: 2,
     title: "Lako za korišćenje",
     icon: "/assets/images/icons/rocket.png",
-    description:
-      "Klikom na Pronađi stan pristupate stranici gde možete izlistati više hiljada trenutno dostupnih stanova za kupovinu i iznajmljivanje na teritoriji Beograda.",
+    description: `Klikom na <a href="${APP_RELATIVE_URL}">Pronađi stan</a> pristupate stranici gde možete izlistati više hiljada trenutno dostupnih stanova za kupovinu i iznajmljivanje na teritoriji Beograda.`,
   },
   {
     id: 3,

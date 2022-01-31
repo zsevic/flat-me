@@ -62,8 +62,8 @@ export const UsefulFeatures = () => {
       <Container>
         <SectionHeading
           sx={styles.heading}
-          title={<>Šta dobijam aplikacijom FlatMe</>}
-          description="Svesni činjenice da je mali broj ljudi imao sreće da pronađe idealan stan u kratkom vremenskom periodu, razvili smo FlatMe aplikaciju koja proces pretrage stanova koji su dostupni na teritoriji Beograda čini jednostavnijom i lakšom."
+          title={<>Šta dobijam aplikacijom FlatMe?</>}
+          description="Svesni činjenice da je mali broj ljudi imao sreće da pronađe savršen stan u kratkom vremenskom periodu, razvili smo FlatMe aplikaciju koja proces pretrage stanova u Beogradu čini jednostavnijim i lakšim."
         />
         <Box sx={styles.features}>
           {data?.map((item) => (
