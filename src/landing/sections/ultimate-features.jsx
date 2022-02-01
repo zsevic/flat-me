@@ -27,7 +27,7 @@ const data = [
     icon: "/assets/images/icons/bulb.png",
     title: "Lako za instalaciju",
     description:
-      "Otvaranjem aplikacije preko Chrome ili Edge pretraživača i klikom na dugme za instalaciju dodajete FlatMe na ekran svog mobilnog telefona ili računara odakle joj možete pristupiti.",
+      "Otvaranjem aplikacije preko Chrome ili Edge pretraživača i klikom na dugme za instalaciju dodajete FlatMe na ekran svog mobilnog telefona ili računara odakle mu možete pristupiti.",
   },
   {
     id: 2,
