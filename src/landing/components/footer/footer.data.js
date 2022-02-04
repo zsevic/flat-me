@@ -1,6 +1,6 @@
 export const footerNav = [
   {
-    path: "#!",
+    path: "/",
     label: "Početna",
   },
   {
@@ -8,7 +8,7 @@ export const footerNav = [
     label: "Uslovi korišćenja",
   },
   {
-    path: "#!",
+    path: "/privacy-policy",
     label: "Politika privatnosti",
   },
 ];
