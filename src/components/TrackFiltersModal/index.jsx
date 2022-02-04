@@ -19,6 +19,7 @@ import {
 } from "constants/status-codes";
 import React, { useEffect, useState } from "react";
 import * as filtersService from "services/filters";
+import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 
 const formItemLayout = {
@@ -53,6 +54,7 @@ export const TrackFiltersModal = () => {
         ...(filters.rentOrSale !== "rent" && { furnished: [] }),
         email,
       });
+      trackEvent("notifications", "registration-by-email");
       message.info(TRACK_FILTERS_SUCCESS_MESSAGE);
     } catch (error) {
       const errorMessage =
@@ -68,6 +70,7 @@ export const TrackFiltersModal = () => {
 
   const showModal = () => {
     setVisible(true);
+    trackEvent("notifications", "turn-on-notifications");
   };
 
   useEffect(() => {
