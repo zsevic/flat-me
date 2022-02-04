@@ -31,7 +31,7 @@ export const InstallableButton = ({ sx, buttonId }) => {
 
     window.addEventListener("appinstalled", () => {
       setInstallable(false);
-      console.log("INSTALL: Success");
+      trackEvent("app-installed", "app-installed", "installation");
     });
   }, []);
 
