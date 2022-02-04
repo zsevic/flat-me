@@ -138,7 +138,16 @@ export const ApartmentList = ({
               {structuresMap[apartment.structure]}
             </div>,
             <div key={`apartment-details-link-${apartment.id}`}>
-              <Button type="primary" size="small">
+              <Button
+                type="primary"
+                size="small"
+                onClick={() =>
+                  trackEvent(
+                    `apartment-details-${apartment.providerName}`,
+                    `apartment-details-${apartment.id}`
+                  )
+                }
+              >
                 <Link href={apartment.url} passHref>
                   <a target="_blank" rel="noopener noreferrer">
                     <RiExternalLinkLine className="inline mb-1" /> saznaj više
