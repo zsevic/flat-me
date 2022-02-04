@@ -141,7 +141,6 @@ export const FiltersForm = ({
 
   const onFinish = async (values) => {
     handleMunicipalities(values);
-    trackEvent("search", "search-apartments");
 
     const storedFilters = localStorage.getItem("initial-filters");
     if (storedFilters && isInitialSearchDone) {
@@ -170,6 +169,7 @@ export const FiltersForm = ({
       hasNextPage: pageInfo.hasNextPage,
       endCursor: pageInfo.endCursor,
     });
+    trackEvent("search", "search-apartments");
   };
 
   const onValuesChange = (changedField) => {

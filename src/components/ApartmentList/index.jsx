@@ -51,7 +51,6 @@ export const ApartmentList = ({
     useState(null);
 
   const handleLoadMore = async () => {
-    trackEvent("search", "load-more");
     setIsLoadingApartmentList(true);
     listRef?.current?.scrollIntoView();
     const { data, pageInfo } = await apartmentsService.getApartmentList({
@@ -66,6 +65,7 @@ export const ApartmentList = ({
     setApartmentList([...apartmentList, ...data]);
     setIsLoadingApartmentList(false);
     newSublistStartRef?.current?.scrollIntoView();
+    trackEvent("search", "load-more");
   };
 
   const handleFloor = (floor) =>
