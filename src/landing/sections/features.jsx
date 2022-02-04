@@ -4,6 +4,7 @@ import { Box, Container, Link } from "theme-ui";
 import { APP_RELATIVE_URL, CTA_TEXT } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { Feature } from "landing/components/cards/feature";
+import { trackEvent } from "utils/analytics";
 
 const getNumberOfApartmentsInLastHour = () => {
   const numbersOfApartmentsInLastHour = ["5", "6", "6", "6", "6"];
@@ -140,7 +141,12 @@ export const Features = () => {
               }
               description="Traženje stana za kupovinu ili iznajmljivanje ne mora da bude mukotrpno iskustvo. Umesto da svakodnevno trošite po nekoliko sati na proveravanje novih oglasa na različitim platformama, aktivirajte FlatMe obaveštenja i mi ćemo to raditi za Vas, a rezultate pretrage ćemo Vam slati direktno u Vaše prijemno sanduče."
             />
-            <Box sx={styles.explore}>
+            <Box
+              sx={styles.explore}
+              onClick={() =>
+                trackEvent("find-apartment", "find-apartment-statistics")
+              }
+            >
               <Link href={APP_RELATIVE_URL} sx={styles.learnMore}>
                 {CTA_TEXT} <HiOutlineChevronRight />
               </Link>

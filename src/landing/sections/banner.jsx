@@ -69,7 +69,7 @@ export const Banner = () => {
                 __html: HOMEPAGE_META_DESCRIPTION.replace("-", "&#8209;"),
               }}
             />
-            <InstallableButton sx={styles.button} />
+            <InstallableButton sx={styles.button} buttonId="banner" />
           </Box>
           <Box sx={styles.illustration}>
             <Image src="/assets/banner.jpg" alt="banner" />

@@ -2,6 +2,7 @@ import React from "react";
 import Sticky from "react-stickynode";
 import { Box, Button, Container, Link } from "theme-ui";
 import { APP_RELATIVE_URL, CTA_TEXT } from "constants/config";
+import { trackEvent } from "utils/analytics";
 
 const styles = {
   headerWrapper: {
@@ -72,7 +73,13 @@ export const Header = () => {
             <Box sx={styles.headerInner}>
               <Link href="/">FlatMe</Link>
               <Link href={APP_RELATIVE_URL}>
-                <Button sx={styles.joinNow} aria-label={CTA_TEXT}>
+                <Button
+                  sx={styles.joinNow}
+                  onClick={() =>
+                    trackEvent("find-apartment", "find-apartment-header")
+                  }
+                  aria-label={CTA_TEXT}
+                >
                   {CTA_TEXT}
                 </Button>
               </Link>

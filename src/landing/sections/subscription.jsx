@@ -10,6 +10,7 @@ import {
   BAD_REQUEST_STATUS_CODE,
   TOO_MANY_REQUESTS_STATUS_CODE,
 } from "constants/status-codes";
+import { trackEvent } from "utils/analytics";
 import { SectionHeading } from "landing/components/section-heading";
 import { subscribeByEmail } from "services/subscriptions";
 
@@ -94,6 +95,7 @@ export const Subscription = () => {
     try {
       if (!email) return message.error("Unesite svoj email");
       await subscribeByEmail(email);
+      trackEvent("email-subscription", "email-subscription");
       return message.success("Uspešno ste se prijavili na FlatMe obaveštenja");
     } catch (error) {
       const errorMessage =
