@@ -63,7 +63,7 @@ export const Widgets = () => {
               <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
               Automatizovana obaveštenja
             </Text>
-            <InstallableButton sx={styles.joinNow} buttonId="app" />
+            <InstallableButton sx={styles.joinNow} buttonId="notifications" />
           </Box>
         </Box>
       </Container>
