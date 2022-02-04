@@ -32,6 +32,7 @@ import { floorFilters } from "constants/floors";
 import { FURNISHED } from "constants/furnished";
 import { STRUCTURES } from "constants/structures";
 import * as apartmentsService from "services/apartments";
+import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
 import { scroll } from "utils/scrolling";
@@ -140,6 +141,7 @@ export const FiltersForm = ({
 
   const onFinish = async (values) => {
     handleMunicipalities(values);
+    trackEvent("search", "search-apartments");
 
     const storedFilters = localStorage.getItem("initial-filters");
     if (storedFilters && isInitialSearchDone) {

@@ -16,7 +16,6 @@ export const InstallableButton = ({ sx, buttonId }) => {
     deferredPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === "accepted") {
         console.log("User accepted the install prompt");
-        trackEvent("app-installed", "app-installed", "installation");
       } else {
         console.log("User dismissed the install prompt");
       }

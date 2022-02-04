@@ -27,6 +27,7 @@ import { floorsLocaleMap } from "constants/floors";
 import { furnishedMap } from "constants/furnished";
 import { structuresMap } from "constants/structures";
 import * as apartmentsService from "services/apartments";
+import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getLocationUrl } from "utils/location";
 import { apartmentListPropType, filtersPropType } from "utils/prop-types";
@@ -50,6 +51,7 @@ export const ApartmentList = ({
     useState(null);
 
   const handleLoadMore = async () => {
+    trackEvent("search", "load-more");
     setIsLoadingApartmentList(true);
     listRef?.current?.scrollIntoView();
     const { data, pageInfo } = await apartmentsService.getApartmentList({
