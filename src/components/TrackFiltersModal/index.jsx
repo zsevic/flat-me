@@ -44,6 +44,14 @@ export const TrackFiltersModal = () => {
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
 
+  const closeModal = (track = true) => {
+    if (track) {
+      trackEvent("notifications", "cancel-registration");
+    }
+    setVisible(false);
+    form.resetFields();
+  };
+
   const onFinish = async (values) => {
     const { email } = values;
 
@@ -54,18 +62,14 @@ export const TrackFiltersModal = () => {
         ...(filters.rentOrSale !== "rent" && { furnished: [] }),
         email,
       });
-      trackEvent("notifications", "registration-by-email");
       message.info(TRACK_FILTERS_SUCCESS_MESSAGE);
+      closeModal(false);
+      trackEvent("notifications", "registration-by-email");
     } catch (error) {
       const errorMessage =
         errorMessages[error?.response?.status] || "Pretraga nije sačuvana";
       message.error(errorMessage);
     }
-  };
-
-  const closeModal = () => {
-    setVisible(false);
-    form.resetFields();
   };
 
   const showModal = () => {
