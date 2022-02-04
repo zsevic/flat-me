@@ -109,9 +109,16 @@ export const TrackFiltersModal = () => {
               Unošenjem email adrese, slažete sa FlatMe{" "}
               <Link href="/terms-and-conditions" passHref>
                 <a target="_blank" rel="noopener noreferrer">
-                  Uslovima korišćenja.
+                  Uslovima korišćenja
+                </a>
+              </Link>{" "}
+              i{" "}
+              <Link href="/privacy-policy" passHref>
+                <a target="_blank" rel="noopener noreferrer">
+                  Politikom privatnosti
                 </a>
               </Link>
+              .
             </small>
           </div>
         }

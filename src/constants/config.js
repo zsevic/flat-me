@@ -4,6 +4,7 @@ export const API_BASE_URL =
 export const HOMEPAGE_META_DESCRIPTION =
   "FlatMe prikuplja sve aktuelne oglase za kupovinu i iznajmljivanje stanova u Beogradu sa različitih veb-sajtova i pretražuje ih za Vas. Prvi saznajte kada se novi stan nađe na tržištu.";
 export const HOMEPAGE_TITLE = "FlatMe";
+export const POLICY_PRIVACY_PAGE_TITLE = "FlatMe | Politika privatnosti";
 export const TERMS_AND_CONDITIONS_PAGE_TITLE = "FlatMe | Uslovi korišćenja";
 export const DOMAIN_URL = "https://www.flat-me.com";
 

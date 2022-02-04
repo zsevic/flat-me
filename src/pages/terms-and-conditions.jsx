@@ -46,7 +46,6 @@ const styles = {
     fontSize: ["18px", "24px"],
     lineHeight: [1.25, 1.5],
     letterSpacing: "heading",
-    textAlign: "center",
     mt: "1rem",
   },
   subdescription: {
@@ -113,7 +112,7 @@ const TermsAndConditionsPage = () => (
               uvek aktuelne, ispravne i/ili potpune.
             </Text>
             <Text as="p" sx={styles.subdescription}>
-              Datum poslednjeg ažuriranja: 16.1.2022.
+              Datum poslednjeg ažuriranja: 6.2.2022.
             </Text>
             <Heading sx={styles.subtitle}>OPŠTI USLOVI KORIŠĆENJA</Heading>
             <Text as="p" sx={styles.subdescription}>
@@ -209,7 +208,12 @@ const TermsAndConditionsPage = () => (
               koja predstavlja sastavni deo ovih Uslova korišćenja. Korišćenje
               FlatMe platforme ili bilo kog njenog dela podrazumeva da je
               Korisnik pročitao, razumeo i složio se sa uslovima Politike
-              zaštite privatnosti.
+              zaštite privatnosti koja je objavljena na adresi:{" "}
+              <Link
+                path="https://www.flat-me.com/privacy-policy"
+                label="https://www.flat-me.com/privacy-policy"
+              />
+              .
             </Text>
             <Heading sx={styles.subtitle}>
               PREKID / OGRANIČENJE PRISTUPA
