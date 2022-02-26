@@ -48,6 +48,15 @@ const styles = {
     letterSpacing: "heading",
     mt: "1rem",
   },
+  smalltitle: {
+    color: "heading",
+    fontWeight: 200,
+    fontSize: ["16px", "22px"],
+    lineHeight: [1.25, 1.5],
+    letterSpacing: "heading",
+    mt: "1rem",
+    textDecoration: "underline",
+  },
   subdescription: {
     color: "heading",
     fontSize: ["14px", "16px"],
@@ -309,7 +318,9 @@ const PrivacyPolicyPage = () => (
               Google Analytics. Podaci prikupljeni od strane Google Analytics-a
               nisu ni na koji način povezani sa ličnim podacima Korisnika.{" "}
             </Text>
-            <Heading sx={styles.subtitle}>FlatMe obaveštenja i poruke</Heading>
+            <Heading sx={styles.smalltitle}>
+              FlatMe obaveštenja i poruke
+            </Heading>
             <Text as="p" sx={styles.subdescription}>
               Ukoliko želite da redovno budete informisani o novostima u vezi
               FlatMe aplikacije, odnosno o novim nekretninama koje se pojave na
@@ -342,7 +353,7 @@ const PrivacyPolicyPage = () => (
               načine, u skladu sa svojim legitimnim interesom, shodno članu 12.
               stavu 1. tački 6) Zakona o zaštiti podataka o ličnosti.
             </Text>
-            <Heading sx={styles.subtitle}>Veza sa drugim portalima</Heading>
+            <Heading sx={styles.smalltitle}>Veza sa drugim portalima</Heading>
             <Text as="p" sx={styles.subdescription}>
               FlatMe sadrži veze prema trećim internet stranicama. Ukoliko
               Korisnik izabere da poseti takvu stranu klikom na vezu biće
@@ -443,7 +454,7 @@ const PrivacyPolicyPage = () => (
             <Heading sx={styles.subtitle}>
               Prava lica na koje se podaci o ličnosti odnose
             </Heading>
-            <Heading sx={styles.subtitle}>
+            <Heading sx={styles.smalltitle}>
               Transparentnost i načini ostvarivanja prava
             </Heading>
             <Text as="p" sx={styles.subdescription}>
@@ -473,7 +484,7 @@ const PrivacyPolicyPage = () => (
               zahteva dostavljanje dodatnih informacija neophodnih za potvrdu
               identiteta lica.
             </Text>
-            <Heading sx={styles.subtitle}>Pravo na informisanje</Heading>
+            <Heading sx={styles.smalltitle}>Pravo na informisanje</Heading>
             <Text as="p" sx={styles.subdescription}>
               Rukovalac je dužan da, u trenutku prikupljanja podataka o
               ličnosti, licu na koje se podaci odnose, pruži informacije o
@@ -485,7 +496,7 @@ const PrivacyPolicyPage = () => (
               koje su vezane za iznošenje podataka o ličnosti u drugu državu ili
               međunarodnu organizaciju.{" "}
             </Text>
-            <Heading sx={styles.subtitle}>Pravo pristupa</Heading>
+            <Heading sx={styles.smalltitle}>Pravo pristupa</Heading>
             <Text as="p" sx={styles.subdescription}>
               Lice na koje se podaci odnose ima pravo da od rukovaoca zahteva
               informaciju o tome da li obrađuje njegove podatke o ličnosti,
@@ -530,7 +541,7 @@ const PrivacyPolicyPage = () => (
               podataka, ukoliko se podaci o ličnosti prenose u drugu državu ili
               međunarodnu organizaciju.
             </Text>
-            <Heading sx={styles.subtitle}>Pravo na ispravku i dopunu</Heading>
+            <Heading sx={styles.smalltitle}>Pravo na ispravku i dopunu</Heading>
             <Text as="p" sx={styles.subdescription}>
               Lice na koje se podaci odnose ima pravo da se njegovi netačni
               podaci o ličnosti bez nepotrebnog odlaganja isprave. U zavisnosti
@@ -539,7 +550,7 @@ const PrivacyPolicyPage = () => (
               dodatne izjave.{" "}
             </Text>
 
-            <Heading sx={styles.subtitle}>
+            <Heading sx={styles.smalltitle}>
               Pravo na brisanje podataka o ličnosti
             </Heading>
             <Text as="p" sx={styles.subdescription}>
@@ -560,7 +571,9 @@ const PrivacyPolicyPage = () => (
               u skladu sa relevantnim zakonskim odredbama.{" "}
             </Text>
 
-            <Heading sx={styles.subtitle}>Pravo na ograničenje obrade</Heading>
+            <Heading sx={styles.smalltitle}>
+              Pravo na ograničenje obrade
+            </Heading>
             <Text as="p" sx={styles.subdescription}>
               U posebnim okolnostima, koje su propisane Zakonom o zaštiti
               podataka o ličnosti, imate pravo na ograničenje obrade Vaših
@@ -570,7 +583,7 @@ const PrivacyPolicyPage = () => (
               Poverenik).
             </Text>
 
-            <Heading sx={styles.subtitle}>
+            <Heading sx={styles.smalltitle}>
               Pravo na prenosivost podataka
             </Heading>
             <Text as="p" sx={styles.subdescription}>
@@ -586,7 +599,7 @@ const PrivacyPolicyPage = () => (
               tehnički izvodljivo.
             </Text>
 
-            <Heading sx={styles.subtitle}>Pravo na prigovor</Heading>
+            <Heading sx={styles.smalltitle}>Pravo na prigovor</Heading>
             <Text as="p" sx={styles.subdescription}>
               Lice na koje se podaci odnose ima pravo da u svakom trenutku
               podnese rukovaocu prigovor na obradu svojih podataka o ličnosti,
@@ -597,7 +610,7 @@ const PrivacyPolicyPage = () => (
               opravdano u odnosu na posebnu situaciju u kojoj se nalazi.
             </Text>
 
-            <Heading sx={styles.subtitle}>
+            <Heading sx={styles.smalltitle}>
               Automatizovano donošenje pojedinačnih odluka i profilisanje
             </Heading>
             <Text as="p" sx={styles.subdescription}>
@@ -608,7 +621,7 @@ const PrivacyPolicyPage = () => (
               položaj.
             </Text>
 
-            <Heading sx={styles.subtitle}>
+            <Heading sx={styles.smalltitle}>
               Pravo na povlačenje pristanka
             </Heading>
             <Text as="p" sx={styles.subdescription}>
@@ -617,7 +630,7 @@ const PrivacyPolicyPage = () => (
               zakonitost obrade za period pre povlačenja pristanka.
             </Text>
 
-            <Heading sx={styles.subtitle}>
+            <Heading sx={styles.smalltitle}>
               Pravo na pritužbu i sudsku zaštitu
             </Heading>
             <Text as="p" sx={styles.subdescription}>
@@ -631,7 +644,7 @@ const PrivacyPolicyPage = () => (
               upravne ili sudske zaštite.
             </Text>
 
-            <Heading sx={styles.subtitle}>
+            <Heading sx={styles.smalltitle}>
               Način ostvarivanja Vaših prava
             </Heading>
             <Text as="p" sx={styles.subdescription}>
