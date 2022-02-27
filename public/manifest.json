@@ -1,7 +1,7 @@
 {
   "name": "FlatMe",
   "short_name": "FlatMe",
-  "description": "Umorni ste od stresnog i dugotrajnog traženja stana za iznajmljivanje ili kupovinu u Beogradu? Uz FlatMe za manje od 2 minuta dolazite do svih dostupnih oglasa koji odgovaraju Vašim kriterijumima.",
+  "description": "Tražite stan za kupovinu ili iznajmljivanje u Beogradu? Instalirajte FlatMe i za manje od 2 minuta dođite do svih dostupnih oglasa koji odgovaraju Vašim kriterijumima.",
   "icons": [
     {
       "src": "icons/icon-128x128.png",
