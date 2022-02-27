@@ -42,6 +42,10 @@
     "sizes": "1080x2400",
     "type": "image/jpg"
   }, {
+    "src": "screenshots/results.jpg",
+    "sizes": "1080x2400",
+    "type": "image/jpg"
+  }, {
     "src": "screenshots/notifications-modal.jpg",
     "sizes": "1080x2400",
     "type": "image/jpg"
