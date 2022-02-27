@@ -5,7 +5,7 @@ function main(workbox) {
     expiration: { ExpirationPlugin },
     precaching: { cleanupOutdatedCaches },
     routing: { registerRoute },
-    strategies: { CacheFirst, StaleWhileRevalidate },
+    strategies: { NetworkFirst },
   } = workbox;
 
   clientsClaim();
@@ -16,7 +16,7 @@ function main(workbox) {
 
   registerRoute(
     ({ request }) => request.mode === "navigate",
-    new StaleWhileRevalidate({
+    new NetworkFirst({
       cacheName: "pages",
       plugins: [
         new CacheableResponsePlugin({
@@ -28,7 +28,7 @@ function main(workbox) {
 
   registerRoute(
     ({ request }) => ["script", "style"].includes(request.destination),
-    new StaleWhileRevalidate({
+    new NetworkFirst({
       cacheName: "static-resources",
       plugins: [
         new CacheableResponsePlugin({
@@ -40,7 +40,7 @@ function main(workbox) {
 
   registerRoute(
     ({ request }) => request.destination === "image",
-    new CacheFirst({
+    new NetworkFirst({
       cacheName: "images",
       plugins: [
         new CacheableResponsePlugin({
@@ -58,7 +58,7 @@ function main(workbox) {
     ({ url }) =>
       url.origin === self.location.origin &&
       url.pathname.startsWith("/_next/static/"),
-    new StaleWhileRevalidate({
+    new NetworkFirst({
       cacheName: "static-caches",
     })
   );
