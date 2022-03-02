@@ -5,6 +5,7 @@ import { handleMunicipalities } from "components/FiltersForm/utils";
 import {
   TRACK_FILTERS_MODAL_TITLE,
   TRACK_FILTERS_SUCCESS_MESSAGE,
+  TRACK_FILTERS_SUCCESS_DURATION_SECONDS,
 } from "constants/config";
 import {
   emailNotValidErrorMessage,
@@ -62,7 +63,10 @@ export const TrackFiltersModal = () => {
         ...(filters.rentOrSale !== "rent" && { furnished: [] }),
         email,
       });
-      message.info(TRACK_FILTERS_SUCCESS_MESSAGE);
+      message.info(
+        TRACK_FILTERS_SUCCESS_MESSAGE,
+        TRACK_FILTERS_SUCCESS_DURATION_SECONDS
+      );
       closeModal(false);
       trackEvent("notifications", "registration-by-email");
     } catch (error) {
