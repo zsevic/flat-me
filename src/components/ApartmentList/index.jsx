@@ -131,16 +131,17 @@ export const ApartmentList = ({
 
           const actions = [
             <div key={`apartment-postedat-${apartment.id}`}>
-              <CgPlayListAdd className="inline mb-1" /> {postedAt}
+              <CgPlayListAdd className="block mx-auto" /> {postedAt}
             </div>,
             <div key={`apartment-structure-${apartment.id}`}>
-              <RiDoorOpenFill className="inline mb-1" />{" "}
+              <RiDoorOpenFill className="block mx-auto" />{" "}
               {structuresMap[apartment.structure]}
             </div>,
             <div key={`apartment-details-link-${apartment.id}`}>
               <Button
                 type="primary"
                 size="small"
+                className="find-more-btn"
                 onClick={() =>
                   trackEvent(
                     `apartment-details-${apartment.providerName}`,
@@ -150,7 +151,7 @@ export const ApartmentList = ({
               >
                 <Link href={apartment.url} passHref>
                   <a target="_blank" rel="noopener noreferrer">
-                    <RiExternalLinkLine className="inline mb-1" /> saznaj više
+                    <RiExternalLinkLine className="block mx-auto" /> saznaj više
                   </a>
                 </Link>
               </Button>

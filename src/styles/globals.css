@@ -49,3 +49,7 @@ a[target="_blank"]:visited {
     margin-left: 8rem;
   }
 }
+
+.find-more-btn {
+  height: 2.5rem !important;
+}
