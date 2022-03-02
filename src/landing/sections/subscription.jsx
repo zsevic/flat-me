@@ -95,7 +95,8 @@ export const Subscription = () => {
     try {
       if (!email) return message.error("Unesite svoj email");
       await subscribeByEmail(email);
-      trackEvent("email-subscription", "email-subscription");
+      const newsletterSubscription = "newsletter-subscription";
+      trackEvent(newsletterSubscription, newsletterSubscription);
       return message.success("Uspešno ste se prijavili na FlatMe obaveštenja");
     } catch (error) {
       const errorMessage =
