@@ -10,6 +10,7 @@ import {
 import { theme } from "landing/theme";
 import { Layout } from "landing/components/layout";
 import { Banner } from "landing/sections/banner";
+import { ShareSection } from "landing/sections/share";
 import { UltimateFeatures } from "landing/sections/ultimate-features";
 import { Features } from "landing/sections/features";
 import { UsefulFeatures } from "landing/sections/useful-features";
@@ -49,6 +50,7 @@ export default function LandingPage() {
           <title>{HOMEPAGE_TITLE}</title>
         </Head>
         <Banner />
+        <ShareSection />
         <UltimateFeatures />
         <Features />
         <UsefulFeatures />

@@ -84,6 +84,10 @@ export const theme = {
   },
   section: {
     banner: {},
+    shareSection: {
+      pt: "2rem",
+      backgroundColor: "backgroundSecondary",
+    },
     ultimateFeature: {
       pt: [0, 7, 7, 8, 8, 7, 7],
       pb: [7, 7, 7, 8, 9, 130, 150],
