@@ -1,5 +1,6 @@
 import React from "react";
 import { VerificationPage } from "components/VerificationPage";
+import { activationType } from "constants/config";
 import * as filtersService from "services/filters";
 
 const ERROR_MESSAGE = "Čuvanje pretrage nije uspelo";
@@ -14,6 +15,7 @@ const FilterVerificationPage = () => (
     successMessageDescription={VERIFICATION_SUCCESS_MESSAGE}
     verify={filtersService.verifyFilter}
     title="FlatMe | Čuvanje pretrage"
+    type={activationType}
   />
 );
 

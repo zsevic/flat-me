@@ -1,5 +1,6 @@
 import React from "react";
 import { VerificationPage } from "components/VerificationPage";
+import { deactivationType } from "constants/config";
 import * as filtersService from "services/filters";
 
 const ERROR_MESSAGE = "Brisanje pretrage nije uspelo";
@@ -14,6 +15,7 @@ const FilterDeactivationPage = () => (
     successMessageDescription={DEACTIVATION_SUCCESS_MESSAGE}
     verify={filtersService.deactivateFilter}
     title="FlatMe | Brisanje pretrage"
+    type={deactivationType}
   />
 );
 

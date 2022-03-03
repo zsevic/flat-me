@@ -45,4 +45,5 @@ export const verificationPagePropTypes = {
   successMessageDescription: PropTypes.string.isRequired,
   verify: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };

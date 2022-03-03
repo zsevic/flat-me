@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Header } from "components/Header";
-import { DOMAIN_URL } from "constants/config";
+import { activationType, deactivationType, DOMAIN_URL } from "constants/config";
 import {
   tokenAlreadyUsedErrorMessage,
   tooManyRequestsErrorMessage,
@@ -13,6 +13,7 @@ import {
   TOKEN_ALREADY_USED_STATUS_CODE,
   TOO_MANY_REQUESTS_STATUS_CODE,
 } from "constants/status-codes";
+import { trackEvent } from "utils/analytics";
 import { verificationPagePropTypes } from "utils/prop-types";
 
 export const VerificationPage = ({
@@ -21,6 +22,7 @@ export const VerificationPage = ({
   successMessageDescription,
   verify,
   title,
+  type,
 }) => {
   const router = useRouter();
   const { token } = router.query;
@@ -29,6 +31,10 @@ export const VerificationPage = ({
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMsg, setSuccessMsg] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const typeKeys = {
+    [activationType]: "email-notifications-activated",
+    [deactivationType]: "email-notifications-deactivated",
+  };
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -38,6 +44,8 @@ export const VerificationPage = ({
         setIsLoading(false);
         setShowSuccessMessage(true);
         setSuccessMsg(successMessageDescription);
+        const typeKey = typeKeys[type];
+        trackEvent(typeKey, typeKey, "filter-change");
       })
       .catch((error) => {
         if (error?.response?.status === TOO_MANY_REQUESTS_STATUS_CODE) {
@@ -55,7 +63,7 @@ export const VerificationPage = ({
   const action = (
     <Space direction="vertical">
       <Button size="small" type="primary">
-        <Link href={DOMAIN_URL} passHref>
+        <Link href={`${DOMAIN_URL}/app`} passHref>
           <a className="links">Pronađi stan</a>
         </Link>
       </Button>
