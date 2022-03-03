@@ -15,9 +15,11 @@ export const InstallableButton = ({ sx, buttonId }) => {
 
     deferredPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === "accepted") {
-        console.log("User accepted the install prompt");
-      } else {
-        console.log("User dismissed the install prompt");
+        trackEvent(
+          "app-installed",
+          "app-installed-successfully",
+          "installation"
+        );
       }
     });
   };
@@ -31,7 +33,6 @@ export const InstallableButton = ({ sx, buttonId }) => {
 
     window.addEventListener("appinstalled", () => {
       setInstallable(false);
-      trackEvent("app-installed", "app-installed-successfully", "installation");
     });
   }, []);
 
