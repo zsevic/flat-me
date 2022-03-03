@@ -89,7 +89,7 @@ export const theme = {
       backgroundColor: "backgroundSecondary",
     },
     ultimateFeature: {
-      pt: [0, 7, 7, 8, 8, 7, 7],
+      pt: [7, 7, 7, 8, 8, 7, 7],
       pb: [7, 7, 7, 8, 9, 130, 150],
     },
     features: {
