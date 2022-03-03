@@ -9,6 +9,16 @@ export function priceFormatter(value) {
   return `${value}€`;
 }
 
+export function getInitialFilters() {
+  let filters;
+  try {
+    filters = localStorage.getItem("initial-filters");
+  } catch (err) {
+    console.error(err);
+  }
+  return filters;
+}
+
 export function getPriceStep(maxPriceField) {
   if (maxPriceField === SALE_MAX_PRICE) return SALE_PRICE_STEP;
 

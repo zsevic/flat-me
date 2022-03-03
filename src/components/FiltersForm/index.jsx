@@ -37,7 +37,12 @@ import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
 import { scroll } from "utils/scrolling";
 import { placesData } from "./data";
-import { getPriceStep, handleMunicipalities, priceFormatter } from "./utils";
+import {
+  getInitialFilters,
+  getPriceStep,
+  handleMunicipalities,
+  priceFormatter,
+} from "./utils";
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -108,7 +113,8 @@ export const FiltersForm = ({
   };
 
   useEffect(() => {
-    const storedFilters = localStorage.getItem("initial-filters");
+    const storedFilters = getInitialFilters();
+
     if (!storedFilters) {
       form.setFieldsValue(INITIAL_FILTERS);
       const [minPrice, maxPrice] = form.getFieldValue("price");
@@ -142,7 +148,7 @@ export const FiltersForm = ({
   const onFinish = async (values) => {
     handleMunicipalities(values);
 
-    const storedFilters = localStorage.getItem("initial-filters");
+    const storedFilters = getInitialFilters();
     if (storedFilters && isInitialSearchDone) {
       const isSameFilter = deepEqual(JSON.parse(storedFilters), values);
       if (isSameFilter) {
@@ -153,7 +159,11 @@ export const FiltersForm = ({
 
     const newFilters = getFilters(values);
     setFilters(newFilters);
-    localStorage.setItem("initial-filters", JSON.stringify(values));
+    try {
+      localStorage.setItem("initial-filters", JSON.stringify(values));
+    } catch (error) {
+      console.error(error);
+    }
 
     setIsLoadingApartmentList(true);
     scroll(listRef);
