@@ -45,7 +45,7 @@ export const VerificationPage = ({
         setShowSuccessMessage(true);
         setSuccessMsg(successMessageDescription);
         const typeKey = typeKeys[type];
-        trackEvent(typeKey, typeKey, "filter-change");
+        trackEvent(typeKey, typeKey);
       })
       .catch((error) => {
         if (error?.response?.status === TOO_MANY_REQUESTS_STATUS_CODE) {
