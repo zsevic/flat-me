@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
+    "@sentry/nextjs": "^6.18.1",
     "antd": "^4.15.6",
     "axios": "^0.21.1",
     "fast-deep-equal": "^3.1.3",
