@@ -36,7 +36,7 @@ const socialMediaData = [
   {
     name: "viber",
     icon: <FaViber color={THEME_COLOR} />,
-    link: "viber://forward?text=Pogledaj%20ovu%20aplikaciju%2C%20moze%20dosta%20da%20ti%20pomogne%20u%20potrazi%20za%20stanom%20u%20Beogradu%20https%3A%2F%2Fwww.flat-me.com%2F%3Futm_source%3Dviber%26utm_medium%3Dsocial-media-share%26utm_campaign%3Dshare-buttons",
+    link: "viber://forward?text=Pogledaj%20ovu%20aplikaciju%2C%20mo%C5%BEe%20dosta%20da%20ti%20pomogne%20u%20potrazi%20za%20stanom%20u%20Beogradu%20https%3A%2F%2Fwww.flat-me.com%2F%3Futm_source%3Dviber%26utm_medium%3Dsocial-media-share%26utm_campaign%3Dshare-buttons",
   },
 ];
 
