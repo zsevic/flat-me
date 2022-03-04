@@ -125,14 +125,16 @@ export const ApartmentList = ({
         }}
         loadMore={loadMore}
         renderItem={(apartment) => {
-          const postedAt = new Intl.DateTimeFormat(
-            APARTMENT_CARD_LOCALE
-          ).format(new Date(apartment.postedAt));
+          let postedAt;
+          try {
+            postedAt = new Intl.DateTimeFormat(APARTMENT_CARD_LOCALE).format(
+              new Date(apartment.postedAt)
+            );
+          } catch (error) {
+            console.error(error);
+          }
 
           const actions = [
-            <div key={`apartment-postedat-${apartment.id}`}>
-              <CgPlayListAdd className="block mx-auto" /> {postedAt}
-            </div>,
             <div key={`apartment-structure-${apartment.id}`}>
               <RiDoorOpenFill className="block mx-auto" />{" "}
               {structuresMap[apartment.structure]}
@@ -157,6 +159,15 @@ export const ApartmentList = ({
               </Button>
             </div>,
           ];
+          if (postedAt) {
+            const postedAtAction = (
+              <div key={`apartment-postedat-${apartment.id}`}>
+                <CgPlayListAdd className="block mx-auto" /> {postedAt}
+              </div>
+            );
+
+            actions.unshift(postedAtAction);
+          }
 
           const locationUrl =
             apartment.location && getLocationUrl(apartment.location);
