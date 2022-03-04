@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, message } from "antd";
+import { Button, Form, Input, Modal, notification } from "antd";
 import Link from "next/link";
 import { RiMailLine } from "react-icons/ri";
 import { handleMunicipalities } from "components/FiltersForm/utils";
@@ -63,16 +63,18 @@ export const TrackFiltersModal = () => {
         ...(filters.rentOrSale !== "rent" && { furnished: [] }),
         email,
       });
-      message.info(
-        TRACK_FILTERS_SUCCESS_MESSAGE,
-        TRACK_FILTERS_SUCCESS_DURATION_SECONDS
-      );
+      notification.info({
+        description: TRACK_FILTERS_SUCCESS_MESSAGE,
+        duration: TRACK_FILTERS_SUCCESS_DURATION_SECONDS,
+      });
       closeModal(false);
       trackEvent("notifications", "registration-by-email");
     } catch (error) {
       const errorMessage =
         errorMessages[error?.response?.status] || "Pretraga nije sačuvana";
-      message.error(errorMessage);
+      notification.error({
+        description: errorMessage,
+      });
     }
   };
 
