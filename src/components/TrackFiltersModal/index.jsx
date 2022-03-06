@@ -11,6 +11,7 @@ import {
   emailNotValidErrorMessage,
   filtersLimitErrorMessage,
   tooManyRequestsErrorMessage,
+  userNotVerifiedErrorMessage,
 } from "constants/error-messages";
 import {
   BAD_REQUEST_STATUS_CODE,
@@ -36,7 +37,7 @@ const errorMessages = {
   [BAD_REQUEST_STATUS_CODE]: emailNotValidErrorMessage,
   [FILTERS_LIMIT_STATUS_CODE]: filtersLimitErrorMessage,
   [TOO_MANY_REQUESTS_STATUS_CODE]: tooManyRequestsErrorMessage,
-  [USER_IS_NOT_VERIFIED_STATUS_CODE]: filtersLimitErrorMessage,
+  [USER_IS_NOT_VERIFIED_STATUS_CODE]: userNotVerifiedErrorMessage,
 };
 
 export const TrackFiltersModal = () => {
@@ -74,6 +75,7 @@ export const TrackFiltersModal = () => {
         errorMessages[error?.response?.status] || "Pretraga nije sačuvana";
       notification.error({
         description: errorMessage,
+        duration: 0,
       });
     }
   };
