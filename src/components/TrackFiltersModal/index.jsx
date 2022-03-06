@@ -5,7 +5,6 @@ import { handleMunicipalities } from "components/FiltersForm/utils";
 import {
   TRACK_FILTERS_MODAL_TITLE,
   TRACK_FILTERS_SUCCESS_MESSAGE,
-  TRACK_FILTERS_SUCCESS_DURATION_SECONDS,
 } from "constants/config";
 import {
   emailNotValidErrorMessage,
@@ -66,7 +65,7 @@ export const TrackFiltersModal = () => {
       });
       notification.info({
         description: TRACK_FILTERS_SUCCESS_MESSAGE,
-        duration: TRACK_FILTERS_SUCCESS_DURATION_SECONDS,
+        duration: 0,
       });
       closeModal(false);
       trackEvent("notifications", "registration-by-email");

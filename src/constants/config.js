@@ -10,7 +10,6 @@ export const DOMAIN_URL = "https://www.flat-me.com";
 
 export const TRACK_FILTERS_SUCCESS_MESSAGE =
   "Proverite mejl (uključujući i deo sa promocijama) za detalje oko potvrde sačuvane pretrage.";
-export const TRACK_FILTERS_SUCCESS_DURATION_SECONDS = 10;
 
 export const APARTMENT_CARD_LOCALE = "sr";
 export const PAGE_SIZE = 12;
