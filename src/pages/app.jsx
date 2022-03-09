@@ -5,9 +5,9 @@ import { ApartmentList } from "components/ApartmentList";
 import CommonHead from "components/CommonHead";
 import { FiltersForm } from "components/FiltersForm";
 import {
+  APP_TITLE,
   DOMAIN_URL,
   HOMEPAGE_META_DESCRIPTION,
-  HOMEPAGE_TITLE,
 } from "constants/config";
 
 const AppPage = () => {
@@ -40,12 +40,12 @@ const AppPage = () => {
         <meta property="og:image:width" content="400" />
         <meta property="og:image:height" content="400" />
 
-        <meta property="og:title" content={HOMEPAGE_TITLE} />
+        <meta property="og:title" content={APP_TITLE} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={DOMAIN_URL} />
 
         <link rel="canonical" href={DOMAIN_URL} />
-        <title>{HOMEPAGE_TITLE}</title>
+        <title>{APP_TITLE}</title>
       </Head>
       <FiltersForm
         setApartmentList={setApartmentList}
