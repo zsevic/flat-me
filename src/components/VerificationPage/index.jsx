@@ -1,10 +1,9 @@
-import { Alert, Button, Col, Row, Space, Spin } from "antd";
+import { Alert, Col, Row, Spin } from "antd";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Header } from "components/Header";
-import { activationType, deactivationType, DOMAIN_URL } from "constants/config";
+import { activationType, deactivationType } from "constants/config";
 import {
   tokenAlreadyUsedErrorMessage,
   tooManyRequestsErrorMessage,
@@ -14,6 +13,7 @@ import {
   TOO_MANY_REQUESTS_STATUS_CODE,
 } from "constants/status-codes";
 import { trackEvent } from "utils/analytics";
+import { commonProps, rowGutter } from "utils/common";
 import { verificationPagePropTypes } from "utils/prop-types";
 
 export const VerificationPage = ({
@@ -57,23 +57,6 @@ export const VerificationPage = ({
         setShowErrorMessage(true);
       });
   }, [errorMessage, router.isReady, successMessage, token, verify]);
-
-  const rowGutter = { xs: 8, sm: 16, md: 24, lg: 32 };
-
-  const action = (
-    <Space direction="vertical">
-      <Button size="small" type="primary">
-        <Link href={`${DOMAIN_URL}/app`} passHref>
-          <a className="links">Pronađi stan</a>
-        </Link>
-      </Button>
-    </Space>
-  );
-
-  const commonProps = {
-    showIcon: true,
-    action,
-  };
 
   const errorAlertProps = {
     ...commonProps,

@@ -17,3 +17,9 @@ export const getApartmentList = async (filters) => {
     };
   }
 };
+
+export const getApartmentStatus = async (id) => {
+  const apartmentStatus = await request.get(`/apartments/${id}`);
+
+  return apartmentStatus.data;
+};
