@@ -17,7 +17,9 @@ const moduleExports = withAntdLess({
       "resizer.4zida.rs",
       "www.4zida.rs",
       "img.halooglasi.com",
-      "www.halooglasi.com"
+      "www.halooglasi.com",
+      "medias.sasomange.rs",
+      "sasomange.rs",
     ],
   },
   src: "./src",

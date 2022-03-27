@@ -56,6 +56,8 @@ export const PROVIDER_LOGO_URLS = {
   cityExpert: "https://cityexpert.rs/images/cxlogo/cityexpert-logo-header.svg",
   haloOglasi:
     "https://www.halooglasi.com/Content/assets/frontend/layout/img/halo-oglasi-nek-aplikacija-icon.png",
+  sasoMange:
+    "https://sasomange.rs/assets/static/images/favicon/favicon-128.png",
 };
 
 export const APP_RELATIVE_URL = "/app";

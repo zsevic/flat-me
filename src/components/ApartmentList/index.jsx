@@ -218,7 +218,7 @@ export const ApartmentList = ({
                     avatar={
                       <Avatar
                         size={{
-                          xs: 50,
+                          xs: 45,
                           sm: 45,
                           md: 45,
                           lg: 45,
@@ -235,7 +235,7 @@ export const ApartmentList = ({
                             }
                             preview={false}
                             className="bg-white"
-                            height={50}
+                            height={45}
                           />
                         }
                       />
