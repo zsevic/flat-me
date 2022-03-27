@@ -15,6 +15,7 @@ const ApartmentStatus = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
+  const spinTip = "Učitavanje oglasa u toku...";
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -39,7 +40,7 @@ const ApartmentStatus = () => {
           setErrorMessage("Nepostojeći oglas");
           setErrorMsg("Pogrešna URL adresa");
         } else {
-          setErrorMessage("Greška, pokušajte ponovo kasnije");
+          setErrorMessage("Došlo je do greške, pokušajte ponovo kasnije");
         }
         setIsLoading(false);
         return setShowErrorMessage(true);
@@ -60,7 +61,7 @@ const ApartmentStatus = () => {
       </Head>
       <Header />
       <div className="text-center">
-        <Spin spinning={isLoading} />
+        <Spin spinning={isLoading} tip={spinTip} />
       </div>
       {!isLoading && showErrorMessage && (
         <Row gutter={rowGutter}>
