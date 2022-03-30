@@ -17,7 +17,7 @@ const data = [
   {
     id: 1,
     color: "#28D1DC",
-    value: "2000+",
+    value: "4000+",
     title: "stanova za iznajmljivanje u ponudi",
   },
   {

@@ -133,7 +133,8 @@ export const TrackFiltersModal = () => {
         <p>
           Ukoliko želite da primate informacije o novim stanovima koji
           odgovaraju Vašim izabranim kriterijumima, nakon što se pojave na
-          FlatMe, unesite svoju email adresu.
+          FlatMe, unesite svoju email adresu. Nakon registracije stići će Vam
+          email preko kog je neophodno da potvrdite svoju email adresu.
         </p>
         <Form
           name="email-form"
