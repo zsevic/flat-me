@@ -26,8 +26,9 @@ const ApartmentStatus = () => {
 
         const { isValid } = result;
         if (isValid) {
+          const [providerName] = id.split("_");
           trackEvent(
-            "email-notifications-visited-ad",
+            `email-notifications-visited-ad-${providerName}`,
             `email-notifications-visited-ad-${id}`
           );
           return router.push(result.url);
