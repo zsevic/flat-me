@@ -58,7 +58,7 @@ const ApartmentStatus = () => {
   return (
     <div className="px-2">
       <Head>
-        <title>FlatMe | Provera oglasa</title>
+        <title>FlatMe | Učitavanje oglasa</title>
       </Head>
       <Header />
       <div className="text-center">
