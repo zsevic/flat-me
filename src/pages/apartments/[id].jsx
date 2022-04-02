@@ -22,8 +22,6 @@ const ApartmentStatus = () => {
 
     getApartmentStatus(id)
       .then((result) => {
-        setIsLoading(false);
-
         const { isValid } = result;
         if (isValid) {
           const [providerName] = id.split("_");
@@ -33,6 +31,8 @@ const ApartmentStatus = () => {
           );
           return router.push(result.url);
         }
+
+        setIsLoading(false);
         setErrorMessage("Oglas je istekao");
         return setShowErrorMessage(true);
       })
