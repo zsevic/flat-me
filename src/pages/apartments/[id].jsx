@@ -20,32 +20,34 @@ const ApartmentStatus = () => {
   useEffect(() => {
     if (!router.isReady) return;
 
-    getApartmentStatus(id)
-      .then((result) => {
-        const { isValid } = result;
-        if (isValid) {
+    async function loadApartment(apartmentId) {
+      try {
+        const apartmentStatus = await getApartmentStatus(apartmentId);
+        if (apartmentStatus.isValid) {
           const [providerName] = id.split("_");
           trackEvent(
             `email-notifications-visited-ad-${providerName}`,
             `email-notifications-visited-ad-${id}`
           );
-          return router.push(result.url);
+          return router.push(apartmentStatus.url);
         }
-
         setIsLoading(false);
         setErrorMessage("Oglas je istekao");
         return setShowErrorMessage(true);
-      })
-      .catch((error) => {
+      } catch (error) {
         if (error?.response?.status === BAD_REQUEST_STATUS_CODE) {
           setErrorMessage("Nepostojeći oglas");
           setErrorMsg("Pogrešna URL adresa");
         } else {
+          console.error(error);
           setErrorMessage("Došlo je do greške, pokušajte ponovo kasnije");
         }
         setIsLoading(false);
         return setShowErrorMessage(true);
-      });
+      }
+    }
+
+    loadApartment(id).catch(console.error);
   }, [router.isReady]);
 
   const errorAlertProps = {
