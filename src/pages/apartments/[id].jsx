@@ -29,7 +29,7 @@ const ApartmentStatus = () => {
             `email-notifications-visited-ad-${providerName}`,
             `email-notifications-visited-ad-${id}`
           );
-          return router.push(apartmentStatus.url);
+          return router.replace(apartmentStatus.url);
         }
         setIsLoading(false);
         setErrorMessage("Oglas je istekao");
