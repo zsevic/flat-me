@@ -1,4 +1,5 @@
 {
+  "id": "flatme-v1.0.1",
   "name": "FlatMe",
   "short_name": "FlatMe",
   "description": "Tražite stan za kupovinu ili iznajmljivanje u Beogradu? Instalirajte FlatMe i za manje od 2 minuta dođite do svih dostupnih oglasa koji odgovaraju Vašim kriterijumima.",
@@ -30,7 +31,7 @@
     }
   ],
   "start_url": "/app?utm_source=pwa&utm_medium=pwa&utm_campaign=pwa",
-  "scope": "/app",
+  "scope": "/app?utm_source=pwa&utm_medium=pwa&utm_campaign=pwa",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#3366cc",
