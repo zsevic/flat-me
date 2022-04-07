@@ -2,6 +2,7 @@ import { Alert, Col, Row, Spin } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { FeedbackForm } from "components/FeedbackForm";
 import { Header } from "components/Header";
 import { activationType, deactivationType } from "constants/config";
 import {
@@ -95,6 +96,10 @@ export const VerificationPage = ({
           </Col>
         </Row>
       )}
+      {!isLoading &&
+        !showErrorMessage &&
+        showSuccessMessage &&
+        type === deactivationType && <FeedbackForm />}
     </div>
   );
 };
