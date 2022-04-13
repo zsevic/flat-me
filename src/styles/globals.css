@@ -53,3 +53,8 @@ a[target="_blank"]:visited {
 .find-more-btn {
   height: 2.5rem !important;
 }
+
+.site-custom-tab-bar {
+  z-index: 1;
+  background: #fff;
+}

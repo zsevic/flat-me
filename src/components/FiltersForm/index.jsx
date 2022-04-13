@@ -13,7 +13,7 @@ import {
 import deepEqual from "fast-deep-equal/react";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { GoSearch } from "react-icons/go";
+import { HiSearch } from "react-icons/hi";
 import { TrackFiltersModal } from "components/TrackFiltersModal";
 import { ADVERTISER_TYPES } from "constants/advertiser-types";
 import {
@@ -456,7 +456,7 @@ export const FiltersForm = ({
           <Col className="mx-1">
             <Form.Item>
               <Button type="primary" htmlType="submit" size="large">
-                <GoSearch className="mb-1 mr-1 inline" />
+                <HiSearch className="mb-1 mr-1 inline" />
                 Pretraži stanove
               </Button>
             </Form.Item>
