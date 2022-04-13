@@ -118,7 +118,12 @@ const AppPage = () => {
             }
             key="2"
           >
-            <p className="text-center">U izradi...</p>
+            <p className="text-center">
+              <span role="img" aria-label="construction">
+                🚧
+              </span>
+              U izradi...
+            </p>
           </TabPane>
         </Tabs>
       </StickyContainer>
