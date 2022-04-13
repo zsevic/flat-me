@@ -117,7 +117,9 @@ const AppPage = () => {
               </span>
             }
             key="2"
-          />
+          >
+            <p className="text-center">U izradi...</p>
+          </TabPane>
         </Tabs>
       </StickyContainer>
     </div>
