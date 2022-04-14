@@ -113,16 +113,17 @@ const AppPage = () => {
             tab={
               <span>
                 <IoMdNotificationsOutline className="mr-1 mb-1 inline" />
-                Obaveštenja
+                Pronađeni stanovi
               </span>
             }
             key="2"
           >
-            <p className="text-center">
-              <span role="img" aria-label="construction">
-                🚧
-              </span>{" "}
-              U izradi...
+            <p className="text-center mx-10">
+              Drago nam je što možemo da Vas obavestimo da ćete uskoro moći da
+              koristite novu funkcionalnost u okviru FlatMe veb aplikacije.
+              Aktiviranjem obaveštenja u okviru aplikacije, nezavisno od
+              trenutnih email obaveštenja, ćete na ovoj stranici moći da vidite
+              sve stanove koje je FlatMe aplikacija pronašla za Vas.
             </p>
           </TabPane>
         </Tabs>
