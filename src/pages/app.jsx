@@ -118,7 +118,7 @@ const AppPage = () => {
             }
             key="2"
           >
-            <p className="text-center mx-10">
+            <p className="text-center pt-20 mx-10">
               Drago nam je što možemo da Vas obavestimo da ćete uskoro moći da
               koristite novu funkcionalnost u okviru FlatMe veb aplikacije.
               Aktiviranjem obaveštenja u okviru aplikacije, nezavisno od
