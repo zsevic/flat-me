@@ -121,7 +121,7 @@ const AppPage = () => {
             <p className="text-center">
               <span role="img" aria-label="construction">
                 🚧
-              </span>
+              </span>{" "}
               U izradi...
             </p>
           </TabPane>
