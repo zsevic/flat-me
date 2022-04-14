@@ -123,7 +123,7 @@ const AppPage = () => {
               koristite novu funkcionalnost u okviru FlatMe veb aplikacije.
               Aktiviranjem obaveštenja u okviru aplikacije, nezavisno od
               trenutnih email obaveštenja, ćete na ovoj stranici moći da vidite
-              sve stanove koje je FlatMe aplikacija pronašla za Vas.
+              sve stanove koje je FlatMe pronašao za Vas.
             </p>
           </TabPane>
         </Tabs>
