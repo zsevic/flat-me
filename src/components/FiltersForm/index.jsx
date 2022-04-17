@@ -13,6 +13,7 @@ import {
 import deepEqual from "fast-deep-equal/react";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { IoMdNotificationsOutline } from "react-icons/io";
 import { HiSearch } from "react-icons/hi";
 import { TrackFiltersModal } from "components/TrackFiltersModal";
 import { ADVERTISER_TYPES } from "constants/advertiser-types";
@@ -27,14 +28,17 @@ import {
   SALE_MIN_PRICE,
   SALE_SELECTED_MAX_PRICE,
   SALE_SELECTED_MIN_PRICE,
+  TRACK_FILTERS_SUCCESS_MESSAGE,
 } from "constants/config";
 import { floorFilters } from "constants/floors";
 import { FURNISHED } from "constants/furnished";
 import { STRUCTURES } from "constants/structures";
 import * as apartmentsService from "services/apartments";
+import { subscribeForNotifications } from "services/subscriptions";
 import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
+import { filtersPropType } from 'utils/prop-types';
 import { scroll } from "utils/scrolling";
 import { placesData } from "./data";
 import {
@@ -43,6 +47,7 @@ import {
   handleMunicipalities,
   priceFormatter,
 } from "./utils";
+import { urlBase64ToUint8Array } from 'utils/transformer';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -64,8 +69,10 @@ export const FiltersForm = ({
   setIsInitialSearchDone,
   isInitialSearchDone,
   listRef,
+  filters,
 }) => {
   const [form] = Form.useForm();
+  const [isPushNotificationDisabled, setIsPushNotificationDisabled] = useState(true);
   const [isInitialRentOrSale, setIsInitialRentOrSale] = useState(true);
   const [minPriceField, setMinPriceField] = useState(RENT_MIN_PRICE);
   const [maxPriceField, setMaxPriceField] = useState(RENT_MAX_PRICE);
@@ -99,7 +106,9 @@ export const FiltersForm = ({
         const filters = storedFilters || form.getFieldsValue();
         const updatedFilters = getFilters(filters);
         eventBus.dispatch("filters-changed", { filters: updatedFilters });
-        eventBus.dispatch("trackFilters-changed", { isDisabled: false });
+        const isDisabled = false;
+        eventBus.dispatch("trackFilters-changed", { isDisabled });
+        setIsPushNotificationDisabled(isDisabled);
       })
       .catch((error) => {
         const isDisabled = error?.errorFields?.length > 0;
@@ -109,8 +118,73 @@ export const FiltersForm = ({
           eventBus.dispatch("filters-changed", { filters: updatedFilters });
         }
         eventBus.dispatch("trackFilters-changed", { isDisabled });
+        setIsPushNotificationDisabled(isDisabled);
       });
   };
+
+  const turnOnPushNotificationsHandler = () => {
+    eventBus.dispatch("turn-on-push-notifications");
+  }
+
+  useEffect(() => {
+    const turnOnPushNotifications = async () => {
+      try {
+        if (!("serviceWorker" in navigator)) {
+          alert('can\'t register');
+          return;
+        }
+  
+        let registration;
+        registration = await navigator.serviceWorker.getRegistration();
+        if (!registration) {
+          console.log("Registering service worker...");
+          registration = await navigator.serviceWorker.register("/service-worker.js");
+          console.log("Service worker registered...");
+        }
+  
+        const appServerKey = urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_KEY);
+        console.log("Registering push...", appServerKey);
+        let subscription;
+        subscription = await registration.pushManager.getSubscription();
+        if (!subscription) {
+          console.log('subscribing...');
+          subscription = await registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: appServerKey,
+          });
+          if (!subscription) {
+            alert('not subscribed');
+            return;
+          }
+          console.log('new subscription...');
+        }
+  
+        handleMunicipalities(filters);
+        await subscribeForNotifications({
+          filters: {
+            ...filters,
+            ...(filters.rentOrSale !== "rent" && { furnished: [] }),
+          },
+          subscription,
+        });
+        notification.info({
+          description: TRACK_FILTERS_SUCCESS_MESSAGE,
+          duration: 0,
+        });
+        trackEvent("push-notifications", "push-notifications-activated");
+      } catch (error) {
+        const errorMessage = "Obaveštenja nisu uključena";
+        notification.error({
+          description: errorMessage,
+          duration: 0,
+        });
+      }
+    };
+
+    eventBus.on("turn-on-push-notifications", () => {
+      turnOnPushNotifications();
+    });
+  }, []);
 
   useEffect(() => {
     const storedFilters = getInitialFilters();
@@ -463,6 +537,19 @@ export const FiltersForm = ({
           </Col>
           <Col className="mx-1">
             <Form.Item>
+              <Button
+                type="primary"
+                onClick={turnOnPushNotificationsHandler}
+                size="large"
+                disabled={isPushNotificationDisabled}
+              >
+                <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
+                Uključi obaveštenja
+              </Button>
+            </Form.Item>
+          </Col>
+          <Col className="mx-1">
+            <Form.Item>
               <TrackFiltersModal />
             </Form.Item>
           </Col>
@@ -479,4 +566,5 @@ FiltersForm.propTypes = {
   setIsInitialSearchDone: PropTypes.func.isRequired,
   isInitialSearchDone: PropTypes.bool.isRequired,
   listRef: PropTypes.object.isRequired,
+  filters: filtersPropType.isRequired,
 };

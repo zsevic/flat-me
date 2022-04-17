@@ -38,7 +38,7 @@ export const INITIAL_FILTERS = {
   structures: [],
 };
 
-export const TRACK_FILTERS_MODAL_TITLE = "Uključi obaveštenja";
+export const TRACK_FILTERS_MODAL_TITLE = "Uključi email obaveštenja";
 export const APARTMENT_LIST_LOADER_TEXT = "Prikupljaju se rezultati...";
 
 export const activationType = "activation";
