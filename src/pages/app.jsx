@@ -97,7 +97,6 @@ const AppPage = () => {
               setIsInitialSearchDone={setIsInitialSearchDone}
               isInitialSearchDone={isInitialSearchDone}
               listRef={listRef}
-              filters={filters}
             />
             <ApartmentList
               apartmentList={apartmentList}

@@ -70,7 +70,6 @@ export const FiltersForm = ({
   setIsInitialSearchDone,
   isInitialSearchDone,
   listRef,
-  filters,
 }) => {
   const [form] = Form.useForm();
   const [isPushNotificationDisabled, setIsPushNotificationDisabled] = useState(true);
@@ -127,11 +126,13 @@ export const FiltersForm = ({
     try {
       const token = await getTokenForPushNotifications();
 
-      handleMunicipalities(filters);
+      const filters = form.getFieldsValue();
+      const formFilters = getFilters(filters);
+      handleMunicipalities(formFilters);
       await subscribeForNotifications({
         filters: {
-          ...filters,
-          ...(filters.rentOrSale !== "rent" && { furnished: [] }),
+          ...formFilters,
+          ...(formFilters.rentOrSale !== "rent" && { furnished: [] }),
         },
         token,
       });
@@ -530,5 +531,4 @@ FiltersForm.propTypes = {
   setIsInitialSearchDone: PropTypes.func.isRequired,
   isInitialSearchDone: PropTypes.bool.isRequired,
   listRef: PropTypes.object.isRequired,
-  filters: filtersPropType.isRequired,
 };
