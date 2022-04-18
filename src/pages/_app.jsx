@@ -6,10 +6,13 @@ import "antd/dist/antd.css";
 import "../styles/globals.css";
 import { GOOGLE_ANALYTICS_TRACKING_ID } from "constants/config";
 import { registerServiceWorker } from "services/service-worker-registration";
+import { initializeFirebase } from 'utils/push-notifications';
 
 if (process.env.NODE_ENV !== "development") {
   ReactGA.initialize(GOOGLE_ANALYTICS_TRACKING_ID);
 }
+
+initializeFirebase();
 
 function App({ Component, pageProps }) {
   useEffect(() => registerServiceWorker(), []);

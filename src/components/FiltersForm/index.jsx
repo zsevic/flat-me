@@ -9,6 +9,7 @@ import {
   Select,
   Slider,
   TreeSelect,
+  notification,
 } from "antd";
 import deepEqual from "fast-deep-equal/react";
 import PropTypes from "prop-types";
@@ -39,6 +40,7 @@ import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
 import { filtersPropType } from 'utils/prop-types';
+import { getTokenForPushNotifications } from 'utils/push-notifications';
 import { scroll } from "utils/scrolling";
 import { placesData } from "./data";
 import {
@@ -47,7 +49,6 @@ import {
   handleMunicipalities,
   priceFormatter,
 } from "./utils";
-import { urlBase64ToUint8Array } from 'utils/transformer';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -122,69 +123,32 @@ export const FiltersForm = ({
       });
   };
 
-  const turnOnPushNotificationsHandler = () => {
-    eventBus.dispatch("turn-on-push-notifications");
-  }
+  const turnOnPushNotifications = async () => {
+    try {
+      const token = await getTokenForPushNotifications();
 
-  useEffect(() => {
-    const turnOnPushNotifications = async () => {
-      try {
-        if (!("serviceWorker" in navigator)) {
-          alert('can\'t register');
-          return;
-        }
-  
-        let registration;
-        registration = await navigator.serviceWorker.getRegistration();
-        if (!registration) {
-          console.log("Registering service worker...");
-          registration = await navigator.serviceWorker.register("/service-worker.js");
-          console.log("Service worker registered...");
-        }
-  
-        const appServerKey = urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_KEY);
-        console.log("Registering push...", appServerKey);
-        let subscription;
-        subscription = await registration.pushManager.getSubscription();
-        if (!subscription) {
-          console.log('subscribing...');
-          subscription = await registration.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: appServerKey,
-          });
-          if (!subscription) {
-            alert('not subscribed');
-            return;
-          }
-          console.log('new subscription...');
-        }
-  
-        handleMunicipalities(filters);
-        await subscribeForNotifications({
-          filters: {
-            ...filters,
-            ...(filters.rentOrSale !== "rent" && { furnished: [] }),
-          },
-          subscription,
-        });
-        notification.info({
-          description: TRACK_FILTERS_SUCCESS_MESSAGE,
-          duration: 0,
-        });
-        trackEvent("push-notifications", "push-notifications-activated");
-      } catch (error) {
-        const errorMessage = "Obaveštenja nisu uključena";
-        notification.error({
-          description: errorMessage,
-          duration: 0,
-        });
-      }
-    };
-
-    eventBus.on("turn-on-push-notifications", () => {
-      turnOnPushNotifications();
-    });
-  }, []);
+      handleMunicipalities(filters);
+      await subscribeForNotifications({
+        filters: {
+          ...filters,
+          ...(filters.rentOrSale !== "rent" && { furnished: [] }),
+        },
+        token,
+      });
+      notification.info({
+        description: TRACK_FILTERS_SUCCESS_MESSAGE,
+        duration: 0,
+      });
+      trackEvent("push-notifications", "push-notifications-activated");
+    } catch (error) {
+      console.error(error);
+      const errorMessage = "Obaveštenja nisu uključena";
+      notification.error({
+        description: errorMessage,
+        duration: 0,
+      });
+    }
+  };
 
   useEffect(() => {
     const storedFilters = getInitialFilters();
@@ -539,7 +503,7 @@ export const FiltersForm = ({
             <Form.Item>
               <Button
                 type="primary"
-                onClick={turnOnPushNotificationsHandler}
+                onClick={turnOnPushNotifications}
                 size="large"
                 disabled={isPushNotificationDisabled}
               >
