@@ -77,8 +77,10 @@ if (typeof importScripts === "function") {
 self.addEventListener("push", (event) => {
   // const data = event.data.json();
 
-  event.waitUntil(self.registration.showNotification("FlatMe notification", {
-    body: "new notification",
-    icon: "https://picsum.photos/200",
-  }));
+  event.waitUntil(
+    self.registration.showNotification("FlatMe notification", {
+      body: "new notification",
+      icon: "https://picsum.photos/200",
+    })
+  );
 });
