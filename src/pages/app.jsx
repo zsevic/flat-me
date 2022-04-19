@@ -1,7 +1,8 @@
 import { BackTop, Tabs } from "antd";
 import { isSupported } from "firebase/messaging";
 import Head from "next/head";
-import React, { useRef, useState } from "react";
+import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { StickyContainer, Sticky } from "react-sticky";
@@ -16,17 +17,26 @@ import {
 import { trackEvent } from "utils/analytics";
 
 const { TabPane } = Tabs;
+const SEARCH_TAB = "1";
+const APARTMENT_LIST_TAB = "2";
 
-const AppPage = () => {
+const AppPage = ({ query }) => {
   const [apartmentList, setApartmentList] = useState([]);
+  const [tabKey, setTabKey] = useState(SEARCH_TAB);
   const [filters, setFilters] = useState({});
   const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
   const [isInitialSearchDone, setIsInitialSearchDone] = useState(false);
   const listRef = useRef();
 
+  useEffect(() => {
+    if (query.tab === APARTMENT_LIST_TAB) {
+      setTabKey(query.tab);
+    }
+  }, []);
+
   const onTabChange = (key) => {
     // eslint-disable-next-line
-    if (key == 2) {
+    if (key === APARTMENT_LIST_TAB) {
       trackEvent("notifications-tab", "notifications-tab-not-ready");
     }
   };
@@ -70,7 +80,8 @@ const AppPage = () => {
     <StickyContainer>
       <Tabs
         onChange={onTabChange}
-        defaultActiveKey="1"
+        defaultActiveKey={SEARCH_TAB}
+        activeKey={tabKey}
         centered
         size="large"
         type="card"
@@ -83,7 +94,7 @@ const AppPage = () => {
               Pretraga
             </span>
           }
-          key="1"
+          key={SEARCH_TAB}
         >
           {searchTab()}
         </TabPane>
@@ -94,7 +105,7 @@ const AppPage = () => {
               Pronađeni stanovi
             </span>
           }
-          key="2"
+          key={APARTMENT_LIST_TAB}
         >
           <p className="text-center pt-20 mx-10">
             Drago nam je što možemo da Vas obavestimo da ćete uskoro moći da
@@ -143,6 +154,20 @@ const AppPage = () => {
       {appPage()}
     </div>
   );
+};
+
+AppPage.getInitialProps = ({ query }) => ({ query });
+
+AppPage.propTypes = {
+  query: PropTypes.shape({
+    tab: PropTypes.string,
+  }),
+};
+
+AppPage.defaultProps = {
+  query: {
+    tabs: SEARCH_TAB,
+  },
 };
 
 export default AppPage;
