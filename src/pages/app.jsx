@@ -35,6 +35,7 @@ const AppPage = ({ query }) => {
   }, []);
 
   const onTabChange = (key) => {
+    setTabKey(key);
     // eslint-disable-next-line
     if (key === APARTMENT_LIST_TAB) {
       trackEvent("notifications-tab", "notifications-tab-not-ready");
