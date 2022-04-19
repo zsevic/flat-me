@@ -1,4 +1,5 @@
 import { BackTop, Tabs } from "antd";
+import { isSupported } from "firebase/messaging";
 import Head from "next/head";
 import React, { useRef, useState } from "react";
 import { HiSearch } from "react-icons/hi";
@@ -42,6 +43,73 @@ const AppPage = () => {
     </Sticky>
   );
 
+  const searchTab = () => (
+    <>
+      <FiltersForm
+        setApartmentList={setApartmentList}
+        setFilters={setFilters}
+        setIsLoadingApartmentList={setIsLoadingApartmentList}
+        setIsInitialSearchDone={setIsInitialSearchDone}
+        isInitialSearchDone={isInitialSearchDone}
+        listRef={listRef}
+      />
+      <ApartmentList
+        apartmentList={apartmentList}
+        setApartmentList={setApartmentList}
+        isLoadingApartmentList={isLoadingApartmentList}
+        setIsLoadingApartmentList={setIsLoadingApartmentList}
+        filters={filters}
+        listRef={listRef}
+        isInitialSearchDone={isInitialSearchDone}
+      />
+      {!isLoadingApartmentList && <BackTop />}
+    </>
+  );
+
+  const tabs = () => (
+    <StickyContainer>
+      <Tabs
+        onChange={onTabChange}
+        defaultActiveKey="1"
+        centered
+        size="large"
+        type="card"
+        renderTabBar={renderTabBar}
+      >
+        <TabPane
+          tab={
+            <span>
+              <HiSearch className="mr-1 mb-1 inline" />
+              Pretraga
+            </span>
+          }
+          key="1"
+        >
+          {searchTab()}
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <IoMdNotificationsOutline className="mr-1 mb-1 inline" />
+              Pronađeni stanovi
+            </span>
+          }
+          key="2"
+        >
+          <p className="text-center pt-20 mx-10">
+            Drago nam je što možemo da Vas obavestimo da ćete uskoro moći da
+            koristite novu funkcionalnost u okviru FlatMe veb aplikacije.
+            Aktiviranjem obaveštenja u okviru aplikacije, nezavisno od trenutnih
+            email obaveštenja, ćete na ovoj stranici moći da vidite sve stanove
+            koje je FlatMe pronašao za Vas.
+          </p>
+        </TabPane>
+      </Tabs>
+    </StickyContainer>
+  );
+
+  const appPage = () => (isSupported() ? tabs() : searchTab());
+
   return (
     <div className="px-2 mt-2">
       <CommonHead />
@@ -72,62 +140,7 @@ const AppPage = () => {
         <link rel="canonical" href={DOMAIN_URL} />
         <title>{APP_TITLE}</title>
       </Head>
-      <StickyContainer>
-        <Tabs
-          onChange={onTabChange}
-          defaultActiveKey="1"
-          centered
-          size="large"
-          type="card"
-          renderTabBar={renderTabBar}
-        >
-          <TabPane
-            tab={
-              <span>
-                <HiSearch className="mr-1 mb-1 inline" />
-                Pretraga
-              </span>
-            }
-            key="1"
-          >
-            <FiltersForm
-              setApartmentList={setApartmentList}
-              setFilters={setFilters}
-              setIsLoadingApartmentList={setIsLoadingApartmentList}
-              setIsInitialSearchDone={setIsInitialSearchDone}
-              isInitialSearchDone={isInitialSearchDone}
-              listRef={listRef}
-            />
-            <ApartmentList
-              apartmentList={apartmentList}
-              setApartmentList={setApartmentList}
-              isLoadingApartmentList={isLoadingApartmentList}
-              setIsLoadingApartmentList={setIsLoadingApartmentList}
-              filters={filters}
-              listRef={listRef}
-              isInitialSearchDone={isInitialSearchDone}
-            />
-            {!isLoadingApartmentList && <BackTop />}
-          </TabPane>
-          <TabPane
-            tab={
-              <span>
-                <IoMdNotificationsOutline className="mr-1 mb-1 inline" />
-                Pronađeni stanovi
-              </span>
-            }
-            key="2"
-          >
-            <p className="text-center pt-20 mx-10">
-              Drago nam je što možemo da Vas obavestimo da ćete uskoro moći da
-              koristite novu funkcionalnost u okviru FlatMe veb aplikacije.
-              Aktiviranjem obaveštenja u okviru aplikacije, nezavisno od
-              trenutnih email obaveštenja, ćete na ovoj stranici moći da vidite
-              sve stanove koje je FlatMe pronašao za Vas.
-            </p>
-          </TabPane>
-        </Tabs>
-      </StickyContainer>
+      {appPage()}
     </div>
   );
 };

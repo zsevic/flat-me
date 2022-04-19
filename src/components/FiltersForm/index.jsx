@@ -12,6 +12,7 @@ import {
   notification,
 } from "antd";
 import deepEqual from "fast-deep-equal/react";
+import { isSupported } from "firebase/messaging";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -500,19 +501,21 @@ export const FiltersForm = ({
               </Button>
             </Form.Item>
           </Col>
-          <Col className="mx-1">
-            <Form.Item>
-              <Button
-                type="primary"
-                onClick={turnOnPushNotifications}
-                size="large"
-                disabled={isPushNotificationDisabled}
-              >
-                <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
-                Uključi obaveštenja
-              </Button>
-            </Form.Item>
-          </Col>
+          {isSupported() && (
+            <Col className="mx-1">
+              <Form.Item>
+                <Button
+                  type="primary"
+                  onClick={turnOnPushNotifications}
+                  size="large"
+                  disabled={isPushNotificationDisabled}
+                >
+                  <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
+                  Uključi obaveštenja
+                </Button>
+              </Form.Item>
+            </Col>
+          )}
           <Col className="mx-1">
             <Form.Item>
               <TrackFiltersModal />
