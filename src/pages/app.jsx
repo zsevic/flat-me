@@ -1,4 +1,4 @@
-import { BackTop, Tabs } from "antd";
+import { BackTop, Badge, Tabs } from "antd";
 import { isSupported } from "firebase/messaging";
 import Head from "next/head";
 import PropTypes from "prop-types";
@@ -19,10 +19,14 @@ import { trackEvent } from "utils/analytics";
 const { TabPane } = Tabs;
 const SEARCH_TAB = "1";
 const APARTMENT_LIST_TAB = "2";
+const INITIAL_FOUND_COUNTER = 0;
 
 const AppPage = ({ query }) => {
   const [apartmentList, setApartmentList] = useState([]);
   const [tabKey, setTabKey] = useState(SEARCH_TAB);
+  const [foundApartmentsCounter, setFoundApartmentsCounter] = useState(
+    INITIAL_FOUND_COUNTER
+  );
   const [filters, setFilters] = useState({});
   const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
   const [isInitialSearchDone, setIsInitialSearchDone] = useState(false);
@@ -31,6 +35,15 @@ const AppPage = ({ query }) => {
   useEffect(() => {
     if (query.tab === APARTMENT_LIST_TAB) {
       setTabKey(query.tab);
+    }
+
+    const { foundCounter } = query;
+    if (
+      foundCounter &&
+      !Number.isNaN(Number(foundCounter)) &&
+      Number.isInteger(Number(foundCounter))
+    ) {
+      setFoundApartmentsCounter(foundCounter);
     }
   }, []);
 
@@ -101,10 +114,12 @@ const AppPage = ({ query }) => {
         </TabPane>
         <TabPane
           tab={
-            <span>
-              <IoMdNotificationsOutline className="mr-1 mb-1 inline" />
-              Pronađeni stanovi
-            </span>
+            <Badge count={foundApartmentsCounter} offset={[10, 0]}>
+              <span>
+                <IoMdNotificationsOutline className="mr-1 mb-1 inline" />
+                Pronađeni stanovi
+              </span>
+            </Badge>
           }
           key={APARTMENT_LIST_TAB}
         >
@@ -162,12 +177,14 @@ AppPage.getInitialProps = ({ query }) => ({ query });
 AppPage.propTypes = {
   query: PropTypes.shape({
     tab: PropTypes.string,
+    foundCounter: PropTypes.number,
   }),
 };
 
 AppPage.defaultProps = {
   query: {
     tabs: SEARCH_TAB,
+    foundCounter: INITIAL_FOUND_COUNTER,
   },
 };
 
