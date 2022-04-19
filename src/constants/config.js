@@ -11,6 +11,8 @@ export const DOMAIN_URL = "https://www.flat-me.com";
 
 export const TRACK_FILTERS_SUCCESS_MESSAGE =
   "Proverite mejl (uključujući i deo sa promocijama) za detalje oko potvrde sačuvane pretrage.";
+export const VERIFICATION_SUCCESS_MESSAGE =
+  "Jednom dnevno ćete primati obaveštenja o novim stanovima na osnovu sačuvane pretrage.";
 
 export const APARTMENT_CARD_LOCALE = "sr";
 export const PAGE_SIZE = 12;
@@ -45,7 +47,7 @@ export const firebaseConfig = {
   storageBucket: "flat-me-2b34d.appspot.com",
   messagingSenderId: "238414106033",
   appId: "1:238414106033:web:e38eca44a89cfe3d0ec190",
-  measurementId: "G-1F2ED6J80T"
+  measurementId: "G-1F2ED6J80T",
 };
 
 export const TRACK_FILTERS_MODAL_TITLE = "Uključi email obaveštenja";

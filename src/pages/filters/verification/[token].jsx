@@ -1,12 +1,10 @@
 import React from "react";
 import { VerificationPage } from "components/VerificationPage";
-import { activationType } from "constants/config";
+import { activationType, VERIFICATION_SUCCESS_MESSAGE } from "constants/config";
 import * as filtersService from "services/filters";
 
 const ERROR_MESSAGE = "Čuvanje pretrage nije uspelo";
 const SUCCESS_MESSAGE = "Uspešno sačuvana pretraga";
-const VERIFICATION_SUCCESS_MESSAGE =
-  "Jednom dnevno ćete primati obaveštenja o novim stanovima na osnovu sačuvane pretrage.";
 
 const FilterVerificationPage = () => (
   <VerificationPage

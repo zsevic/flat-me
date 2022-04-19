@@ -29,7 +29,7 @@ import {
   SALE_MIN_PRICE,
   SALE_SELECTED_MAX_PRICE,
   SALE_SELECTED_MIN_PRICE,
-  TRACK_FILTERS_SUCCESS_MESSAGE,
+  VERIFICATION_SUCCESS_MESSAGE,
 } from "constants/config";
 import { floorFilters } from "constants/floors";
 import { FURNISHED } from "constants/furnished";
@@ -39,8 +39,7 @@ import { subscribeForNotifications } from "services/subscriptions";
 import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
-import { filtersPropType } from 'utils/prop-types';
-import { getTokenForPushNotifications } from 'utils/push-notifications';
+import { getTokenForPushNotifications } from "utils/push-notifications";
 import { scroll } from "utils/scrolling";
 import { placesData } from "./data";
 import {
@@ -72,7 +71,8 @@ export const FiltersForm = ({
   listRef,
 }) => {
   const [form] = Form.useForm();
-  const [isPushNotificationDisabled, setIsPushNotificationDisabled] = useState(true);
+  const [isPushNotificationDisabled, setIsPushNotificationDisabled] =
+    useState(true);
   const [isInitialRentOrSale, setIsInitialRentOrSale] = useState(true);
   const [minPriceField, setMinPriceField] = useState(RENT_MIN_PRICE);
   const [maxPriceField, setMaxPriceField] = useState(RENT_MAX_PRICE);
@@ -130,14 +130,14 @@ export const FiltersForm = ({
       const formFilters = getFilters(filters);
       handleMunicipalities(formFilters);
       await subscribeForNotifications({
-        filters: {
+        filter: {
           ...formFilters,
           ...(formFilters.rentOrSale !== "rent" && { furnished: [] }),
         },
         token,
       });
       notification.info({
-        description: TRACK_FILTERS_SUCCESS_MESSAGE,
+        description: VERIFICATION_SUCCESS_MESSAGE,
         duration: 0,
       });
       trackEvent("push-notifications", "push-notifications-activated");

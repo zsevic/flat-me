@@ -9,4 +9,5 @@ firebase.initializeApp({
   appId: "1:238414106033:web:e38eca44a89cfe3d0ec190",
   measurementId: "G-1F2ED6J80T"
 });
+// eslint-disable-next-line
 const messaging = firebase.messaging();
