@@ -114,7 +114,7 @@ const AppPage = ({ query }) => {
         </TabPane>
         <TabPane
           tab={
-            <Badge count={foundApartmentsCounter} offset={[10, 0]}>
+            <Badge count={foundApartmentsCounter}>
               <span>
                 <IoMdNotificationsOutline className="mr-1 mb-1 inline" />
                 Pronađeni stanovi
