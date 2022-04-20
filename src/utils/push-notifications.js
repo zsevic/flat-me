@@ -9,5 +9,6 @@ export const getTokenForPushNotifications = async () => {
   const token = await getToken(messaging, {
     vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
   });
+  console.log("token", token);
   return token;
 };

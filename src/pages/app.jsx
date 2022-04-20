@@ -9,12 +9,15 @@ import { StickyContainer, Sticky } from "react-sticky";
 import { ApartmentList } from "components/ApartmentList";
 import CommonHead from "components/CommonHead";
 import { FiltersForm } from "components/FiltersForm";
+import { FoundApartmentList } from "components/FoundApartmentList";
 import {
   APP_TITLE,
   DOMAIN_URL,
   HOMEPAGE_META_DESCRIPTION,
 } from "constants/config";
 import { trackEvent } from "utils/analytics";
+import { getTokenForPushNotifications } from "utils/push-notifications";
+import { getFoundApartmentList } from "services/apartments";
 
 const { TabPane } = Tabs;
 const SEARCH_TAB = "1";
@@ -23,12 +26,15 @@ const INITIAL_FOUND_COUNTER = 0;
 
 const AppPage = ({ query }) => {
   const [apartmentList, setApartmentList] = useState([]);
+  const [foundApartmentList, setFoundApartmentList] = useState([]);
   const [tabKey, setTabKey] = useState(SEARCH_TAB);
   const [foundApartmentsCounter, setFoundApartmentsCounter] = useState(
     INITIAL_FOUND_COUNTER
   );
   const [filters, setFilters] = useState({});
   const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
+  const [isLoadingFoundApartmentList, setIsLoadingFoundApartmentList] =
+    useState(false);
   const [isInitialSearchDone, setIsInitialSearchDone] = useState(false);
   const listRef = useRef();
 
@@ -47,10 +53,15 @@ const AppPage = ({ query }) => {
     }
   }, []);
 
-  const onTabChange = (key) => {
+  const onTabChange = async (key) => {
     setTabKey(key);
     // eslint-disable-next-line
     if (key === APARTMENT_LIST_TAB) {
+      const token = await getTokenForPushNotifications();
+      const list = await getFoundApartmentList(token);
+      setIsLoadingFoundApartmentList(false);
+      console.log("list", list);
+      setFoundApartmentList(list.data);
       trackEvent("notifications-tab", "notifications-tab-not-ready");
     }
   };
@@ -130,6 +141,10 @@ const AppPage = ({ query }) => {
             email obaveštenja, ćete na ovoj stranici moći da vidite sve stanove
             koje je FlatMe pronašao za Vas.
           </p>
+          <FoundApartmentList
+            apartmentList={foundApartmentList}
+            isLoadingFoundApartmentList={isLoadingFoundApartmentList}
+          />
         </TabPane>
       </Tabs>
     </StickyContainer>
