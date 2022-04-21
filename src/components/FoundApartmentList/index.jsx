@@ -16,6 +16,7 @@ import { priceFormatter } from "components/FiltersForm/utils";
 import { advertiserTypesMap } from "constants/advertiser-types";
 import {
   APARTMENT_CARD_LOCALE,
+  APARTMENT_LIST_LOADER_TEXT,
   LOGO_ENCODED,
   LOGO_URL,
   NO_RESULTS_TEXT,
@@ -56,6 +57,11 @@ export const FoundApartmentList = ({
         }}
         dataSource={apartmentList}
         itemLayout="horizontal"
+        loading={{
+          tip: APARTMENT_LIST_LOADER_TEXT,
+          spinning: isLoadingFoundApartmentList,
+          className: "mt-2",
+        }}
         locale={{
           emptyText: (
             <Empty

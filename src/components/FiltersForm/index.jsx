@@ -40,6 +40,7 @@ import { subscribeForNotifications } from "services/subscriptions";
 import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
+import { setItem } from "utils/local-storage";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { scroll } from "utils/scrolling";
 import { placesData } from "./data";
@@ -199,11 +200,7 @@ export const FiltersForm = ({
 
     const newFilters = getFilters(values);
     setFilters(newFilters);
-    try {
-      localStorage.setItem("initial-filters", JSON.stringify(values));
-    } catch (error) {
-      console.error(error);
-    }
+    setItem("initial-filters", JSON.stringify(values));
 
     setIsLoadingApartmentList(true);
     scroll(listRef);

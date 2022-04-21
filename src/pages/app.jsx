@@ -18,6 +18,7 @@ import {
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { getFoundApartmentList } from "services/apartments";
+import { getItem, TOKEN_KEY } from "utils/local-storage";
 
 const { TabPane } = Tabs;
 const SEARCH_TAB = "1";
@@ -31,10 +32,14 @@ const AppPage = ({ query }) => {
   const [foundApartmentsCounter, setFoundApartmentsCounter] = useState(
     INITIAL_FOUND_COUNTER
   );
+  const [
+    showDefaultTextForFoundApartmentsTab,
+    setShowDefaultTextForFoundApartmentsTab,
+  ] = useState(true);
   const [filters, setFilters] = useState({});
   const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
   const [isLoadingFoundApartmentList, setIsLoadingFoundApartmentList] =
-    useState(false);
+    useState(true);
   const [isInitialSearchDone, setIsInitialSearchDone] = useState(false);
   const listRef = useRef();
 
@@ -57,11 +62,22 @@ const AppPage = ({ query }) => {
     setTabKey(key);
     // eslint-disable-next-line
     if (key === APARTMENT_LIST_TAB) {
+      const storedToken = getItem(TOKEN_KEY);
+      if (!storedToken) {
+        setIsLoadingFoundApartmentList(false);
+        setShowDefaultTextForFoundApartmentsTab(true);
+        return;
+      }
+      setShowDefaultTextForFoundApartmentsTab(false);
+      if (isInitialSearchDone) return;
+      console.log("Loading found apartments");
+      setIsLoadingFoundApartmentList(true);
       const token = await getTokenForPushNotifications();
       const list = await getFoundApartmentList(token);
       setIsLoadingFoundApartmentList(false);
       console.log("list", list);
       setFoundApartmentList(list.data);
+      setIsInitialSearchDone(true);
       trackEvent("notifications-tab", "notifications-tab-not-ready");
     }
   };
@@ -134,17 +150,16 @@ const AppPage = ({ query }) => {
           }
           key={APARTMENT_LIST_TAB}
         >
-          <p className="text-center pt-20 mx-10">
-            Drago nam je što možemo da Vas obavestimo da ćete uskoro moći da
-            koristite novu funkcionalnost u okviru FlatMe veb aplikacije.
-            Aktiviranjem obaveštenja u okviru aplikacije, nezavisno od trenutnih
-            email obaveštenja, ćete na ovoj stranici moći da vidite sve stanove
-            koje je FlatMe pronašao za Vas.
-          </p>
-          <FoundApartmentList
-            apartmentList={foundApartmentList}
-            isLoadingFoundApartmentList={isLoadingFoundApartmentList}
-          />
+          {showDefaultTextForFoundApartmentsTab ? (
+            <p className="text-center pt-20 mx-10">
+              Obaveštenja nisu uključena.
+            </p>
+          ) : (
+            <FoundApartmentList
+              apartmentList={foundApartmentList}
+              isLoadingFoundApartmentList={isLoadingFoundApartmentList}
+            />
+          )}
         </TabPane>
       </Tabs>
     </StickyContainer>
