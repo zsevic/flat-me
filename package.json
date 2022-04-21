@@ -6,6 +6,7 @@
     "prebuild": "npm run clean",
     "build": "next build",
     "clean": "rimraf .next",
+    "predev": ". ~/.nvm/nvm.sh && nvm use",
     "dev": "next dev -p 1234",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"{public,src}/**/*.{js,jsx}\"",
