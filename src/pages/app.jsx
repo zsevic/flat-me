@@ -17,7 +17,7 @@ import {
 } from "constants/config";
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
-import { getFoundApartmentList } from "services/apartments";
+import { getFoundApartmentList } from "services/found-apartments";
 import { getItem, TOKEN_KEY } from "utils/local-storage";
 
 const { TabPane } = Tabs;
