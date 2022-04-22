@@ -43,11 +43,26 @@ const AppPage = ({ query }) => {
   const [isInitialSearchDone, setIsInitialSearchDone] = useState(false);
   const listRef = useRef();
 
-  useEffect(() => {
-    if (query.tab === APARTMENT_LIST_TAB) {
-      setTabKey(query.tab);
+  const handleFoundApartmentsTab = async () => {
+    const storedToken = getItem(TOKEN_KEY);
+    if (!storedToken) {
+      setIsLoadingFoundApartmentList(false);
+      setShowDefaultTextForFoundApartmentsTab(true);
+      return;
     }
+    setShowDefaultTextForFoundApartmentsTab(false);
+    if (isInitialSearchDone) return;
+    console.log("Loading found apartments");
+    setIsLoadingFoundApartmentList(true);
+    const token = await getTokenForPushNotifications();
+    const list = await getFoundApartmentList(token);
+    setIsLoadingFoundApartmentList(false);
+    console.log("list", list);
+    setFoundApartmentList(list.data);
+    setIsInitialSearchDone(true);
+  };
 
+  useEffect(() => {
     const { foundCounter } = query;
     if (
       foundCounter &&
@@ -56,28 +71,18 @@ const AppPage = ({ query }) => {
     ) {
       setFoundApartmentsCounter(foundCounter);
     }
+
+    if (query.tab === APARTMENT_LIST_TAB) {
+      setTabKey(query.tab);
+      handleFoundApartmentsTab().catch(console.error);
+    }
   }, []);
 
   const onTabChange = async (key) => {
     setTabKey(key);
     // eslint-disable-next-line
     if (key === APARTMENT_LIST_TAB) {
-      const storedToken = getItem(TOKEN_KEY);
-      if (!storedToken) {
-        setIsLoadingFoundApartmentList(false);
-        setShowDefaultTextForFoundApartmentsTab(true);
-        return;
-      }
-      setShowDefaultTextForFoundApartmentsTab(false);
-      if (isInitialSearchDone) return;
-      console.log("Loading found apartments");
-      setIsLoadingFoundApartmentList(true);
-      const token = await getTokenForPushNotifications();
-      const list = await getFoundApartmentList(token);
-      setIsLoadingFoundApartmentList(false);
-      console.log("list", list);
-      setFoundApartmentList(list.data);
-      setIsInitialSearchDone(true);
+      await handleFoundApartmentsTab();
       trackEvent("notifications-tab", "notifications-tab-not-ready");
     }
   };
