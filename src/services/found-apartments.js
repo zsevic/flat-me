@@ -1,11 +1,9 @@
 import request from "utils/request";
 
-export const getFoundApartmentList = async (token) => {
+export const getFoundApartmentList = async (params) => {
   try {
     const apartmentList = await request.get("/found-apartments", {
-      params: {
-        token,
-      },
+      params,
     });
 
     return apartmentList.data;

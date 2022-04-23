@@ -14,6 +14,7 @@ import {
   APP_TITLE,
   DOMAIN_URL,
   HOMEPAGE_META_DESCRIPTION,
+  PAGE_SIZE,
 } from "constants/config";
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
@@ -55,7 +56,10 @@ const AppPage = ({ query }) => {
     console.log("Loading found apartments");
     setIsLoadingFoundApartmentList(true);
     const token = await getTokenForPushNotifications();
-    const list = await getFoundApartmentList(token);
+    const list = await getFoundApartmentList({
+      token,
+      limitPerPage: PAGE_SIZE,
+    });
     setIsLoadingFoundApartmentList(false);
     console.log("list", list);
     setFoundApartmentList(list.data);
