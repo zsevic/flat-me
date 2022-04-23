@@ -1,7 +1,7 @@
 import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
 import Link from "next/link";
 import PropTypes from "prop-types";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CgPlayListAdd } from "react-icons/cg";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
@@ -20,28 +20,71 @@ import {
   LOGO_ENCODED,
   LOGO_URL,
   NO_RESULTS_TEXT,
+  PAGE_SIZE,
   PROVIDER_LOGO_URLS,
 } from "constants/config";
-import { floorsLocaleMap } from "constants/floors";
 import { furnishedMap } from "constants/furnished";
 import { structuresMap } from "constants/structures";
 import { trackEvent } from "utils/analytics";
 import { getLocationUrl } from "utils/location";
 import { apartmentListPropType } from "utils/prop-types";
-import { getAddressValue } from "../ApartmentList/utils";
+import { getFoundApartmentList } from "services/apartments";
+import eventBus from "utils/event-bus";
+import { getAddressValue, handleFloor } from "../ApartmentList/utils";
 
 const { Meta } = Card;
 
 export const FoundApartmentList = ({
   apartmentList,
+  setApartmentList,
   isLoadingFoundApartmentList,
+  setIsLoadingFoundApartmentList,
+  token,
 }) => {
   const listRef = useRef();
+  const [endCursor, setEndCursor] = useState(null);
+  const [hasNextPage, setHasNextPage] = useState(false);
   const newSublistStartRef = useRef();
-  const [newSublistStartApartmentId] = useState(null);
+  const [newSublistStartApartmentId, setNewSublistStartApartmentId] =
+    useState(null);
 
-  const handleFloor = (floor) =>
-    floorsLocaleMap[floor] || `na ${floor}. spratu`;
+  const handleLoadMore = async () => {
+    setIsLoadingFoundApartmentList(true);
+    listRef?.current?.scrollIntoView();
+    const { data, pageInfo } = await getFoundApartmentList({
+      token,
+      limitPerPage: PAGE_SIZE,
+      cursor: endCursor,
+    });
+    setHasNextPage(pageInfo.hasNextPage);
+    setEndCursor(pageInfo.endCursor);
+    const [firstSublistApartment] = data;
+    setNewSublistStartApartmentId(firstSublistApartment?.id);
+    setApartmentList([...apartmentList, ...data]);
+    setIsLoadingFoundApartmentList(false);
+    newSublistStartRef?.current?.scrollIntoView();
+    trackEvent("found-apartments-load-more", "found-apartments-load-more");
+  };
+
+  const loadMore = !isLoadingFoundApartmentList && hasNextPage && (
+    <div
+      style={{
+        textAlign: "center",
+        marginTop: 12,
+        height: 32,
+        lineHeight: "32px",
+      }}
+    >
+      <Button onClick={handleLoadMore}>Učitaj još</Button>
+    </div>
+  );
+
+  useEffect(() => {
+    eventBus.on("found-apartment-list-page-changed", (data) => {
+      setHasNextPage(data.hasNextPage);
+      setEndCursor(data.endCursor);
+    });
+  }, []);
 
   return (
     <div ref={listRef} className="paginated-list">
@@ -71,6 +114,7 @@ export const FoundApartmentList = ({
             />
           ),
         }}
+        loadMore={loadMore}
         renderItem={(apartment) => {
           let postedAt;
           try {
@@ -241,5 +285,8 @@ export const FoundApartmentList = ({
 
 FoundApartmentList.propTypes = {
   apartmentList: apartmentListPropType.isRequired,
+  setApartmentList: PropTypes.func.isRequired,
   isLoadingFoundApartmentList: PropTypes.bool.isRequired,
+  setIsLoadingFoundApartmentList: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
 };

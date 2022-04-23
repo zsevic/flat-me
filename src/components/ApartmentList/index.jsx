@@ -23,7 +23,6 @@ import {
   PAGE_SIZE,
   PROVIDER_LOGO_URLS,
 } from "constants/config";
-import { floorsLocaleMap } from "constants/floors";
 import { furnishedMap } from "constants/furnished";
 import { structuresMap } from "constants/structures";
 import * as apartmentsService from "services/apartments";
@@ -31,7 +30,7 @@ import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getLocationUrl } from "utils/location";
 import { apartmentListPropType, filtersPropType } from "utils/prop-types";
-import { getAddressValue } from "./utils";
+import { getAddressValue, handleFloor } from "./utils";
 
 const { Meta } = Card;
 
@@ -67,9 +66,6 @@ export const ApartmentList = ({
     newSublistStartRef?.current?.scrollIntoView();
     trackEvent("search", "load-more");
   };
-
-  const handleFloor = (floor) =>
-    floorsLocaleMap[floor] || `na ${floor}. spratu`;
 
   useEffect(() => {
     eventBus.on("apartment-list-page-changed", (data) => {

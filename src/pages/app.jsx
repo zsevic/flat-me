@@ -18,8 +18,9 @@ import {
 } from "constants/config";
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
-import { getFoundApartmentList } from "services/found-apartments";
+import { getFoundApartmentList } from "services/apartments";
 import { getItem, TOKEN_KEY } from "utils/local-storage";
+import eventBus from "utils/event-bus";
 
 const { TabPane } = Tabs;
 const SEARCH_TAB = "1";
@@ -38,6 +39,7 @@ const AppPage = ({ query }) => {
     setShowDefaultTextForFoundApartmentsTab,
   ] = useState(true);
   const [filters, setFilters] = useState({});
+  const [token, setToken] = useState(null);
   const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
   const [isLoadingFoundApartmentList, setIsLoadingFoundApartmentList] =
     useState(true);
@@ -53,16 +55,19 @@ const AppPage = ({ query }) => {
     }
     setShowDefaultTextForFoundApartmentsTab(false);
     if (isInitialSearchDone) return;
-    console.log("Loading found apartments");
     setIsLoadingFoundApartmentList(true);
-    const token = await getTokenForPushNotifications();
-    const list = await getFoundApartmentList({
-      token,
+    const accessToken = await getTokenForPushNotifications();
+    setToken(accessToken);
+    const { data, pageInfo } = await getFoundApartmentList({
+      token: accessToken,
       limitPerPage: PAGE_SIZE,
     });
+    eventBus.dispatch("found-apartment-list-page-changed", {
+      hasNextPage: pageInfo.hasNextPage,
+      endCursor: pageInfo.endCursor,
+    });
     setIsLoadingFoundApartmentList(false);
-    console.log("list", list);
-    setFoundApartmentList(list.data);
+    setFoundApartmentList(data);
     setIsInitialSearchDone(true);
   };
 
@@ -166,7 +171,10 @@ const AppPage = ({ query }) => {
           ) : (
             <FoundApartmentList
               apartmentList={foundApartmentList}
+              setApartmentList={setFoundApartmentList}
               isLoadingFoundApartmentList={isLoadingFoundApartmentList}
+              setIsLoadingFoundApartmentList={setIsLoadingFoundApartmentList}
+              token={token}
             />
           )}
         </TabPane>
