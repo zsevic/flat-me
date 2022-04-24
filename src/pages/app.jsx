@@ -21,6 +21,7 @@ import { getTokenForPushNotifications } from "utils/push-notifications";
 import { getFoundApartmentList } from "services/apartments";
 import { getItem, TOKEN_KEY } from "utils/local-storage";
 import eventBus from "utils/event-bus";
+import { scroll } from "utils/scrolling";
 
 const { TabPane } = Tabs;
 const SEARCH_TAB = "1";
@@ -45,6 +46,7 @@ const AppPage = ({ query }) => {
     useState(true);
   const [isInitialSearchDone, setIsInitialSearchDone] = useState(false);
   const listRef = useRef();
+  const headerRef = useRef();
 
   const handleFoundApartmentsTab = async () => {
     const storedToken = getItem(TOKEN_KEY);
@@ -69,6 +71,7 @@ const AppPage = ({ query }) => {
     setIsLoadingFoundApartmentList(false);
     setFoundApartmentList(data);
     setIsInitialSearchDone(true);
+    scroll(headerRef);
   };
 
   useEffect(() => {
@@ -219,7 +222,7 @@ const AppPage = ({ query }) => {
         <link rel="canonical" href={DOMAIN_URL} />
         <title>{APP_TITLE}</title>
       </Head>
-      {appPage()}
+      <div ref={headerRef}>{appPage()}</div>
     </div>
   );
 };
