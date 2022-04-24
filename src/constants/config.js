@@ -18,6 +18,9 @@ export const APARTMENT_CARD_LOCALE = "sr";
 export const PAGE_SIZE = 12;
 export const NO_RESULTS_TEXT = "Nema rezultata";
 
+export const SEARCH_TAB = "1";
+export const APARTMENT_LIST_TAB = "2";
+
 export const RENT_MIN_PRICE = 0;
 export const RENT_MAX_PRICE = 2000;
 export const RENT_SELECTED_MIN_PRICE = 300;

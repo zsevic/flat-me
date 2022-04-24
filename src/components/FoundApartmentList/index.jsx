@@ -1,5 +1,6 @@
 import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { CgPlayListAdd } from "react-icons/cg";
@@ -17,6 +18,7 @@ import { advertiserTypesMap } from "constants/advertiser-types";
 import {
   APARTMENT_CARD_LOCALE,
   APARTMENT_LIST_LOADER_TEXT,
+  APARTMENT_LIST_TAB,
   LOGO_ENCODED,
   LOGO_URL,
   NO_RESULTS_TEXT,
@@ -41,13 +43,17 @@ export const FoundApartmentList = ({
   isLoadingFoundApartmentList,
   setIsLoadingFoundApartmentList,
   token,
+  initialFoundCounter,
   foundCounter,
+  setFoundCounter,
 }) => {
+  const router = useRouter();
   const [endCursor, setEndCursor] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(false);
   const newSublistStartRef = useRef();
   const [newSublistStartApartmentId, setNewSublistStartApartmentId] =
     useState(null);
+  const [clickedFound, setClickedFound] = useState([]);
 
   const handleLoadMore = async () => {
     setIsLoadingFoundApartmentList(true);
@@ -116,6 +122,8 @@ export const FoundApartmentList = ({
         }}
         loadMore={loadMore}
         renderItem={(apartment, index) => {
+          const isFound = () =>
+            index < initialFoundCounter && !clickedFound.includes(index);
           let postedAt;
           try {
             postedAt = new Intl.DateTimeFormat(APARTMENT_CARD_LOCALE).format(
@@ -135,12 +143,31 @@ export const FoundApartmentList = ({
                 type="primary"
                 size="small"
                 className="find-more-btn"
-                onClick={() =>
+                onClick={() => {
+                  if (isFound()) {
+                    setClickedFound([...clickedFound, index]);
+                    const isAlreadyClicked = clickedFound.includes(index);
+                    if (!isAlreadyClicked && foundCounter >= 1) {
+                      const newCounter = foundCounter - 1;
+                      setFoundCounter(newCounter);
+                      router.push(
+                        {
+                          pathname: "/app",
+                          query: {
+                            tab: APARTMENT_LIST_TAB,
+                            foundCounter: newCounter,
+                          },
+                        },
+                        undefined,
+                        { shallow: true }
+                      );
+                    }
+                  }
                   trackEvent(
                     `apartment-details-${apartment.providerName}`,
                     `apartment-details-${apartment.id}`
-                  )
-                }
+                  );
+                }}
               >
                 <Link href={apartment.url} passHref>
                   <a target="_blank" rel="noopener noreferrer">
@@ -177,7 +204,7 @@ export const FoundApartmentList = ({
           );
           const apartmentImageAlt = `stan: ${getAddressValue(apartment)}`;
           const notificationCardStyle = {
-            ...(index < foundCounter && {
+            ...(isFound() && {
               style: {
                 borderColor: THEME_COLOR,
               },
@@ -297,7 +324,9 @@ FoundApartmentList.propTypes = {
   isLoadingFoundApartmentList: PropTypes.bool.isRequired,
   setIsLoadingFoundApartmentList: PropTypes.func.isRequired,
   token: PropTypes.string,
+  initialFoundCounter: PropTypes.number.isRequired,
   foundCounter: PropTypes.number.isRequired,
+  setFoundCounter: PropTypes.func.isRequired,
 };
 
 FoundApartmentList.defaultProps = {

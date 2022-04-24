@@ -11,10 +11,12 @@ import CommonHead from "components/CommonHead";
 import { FiltersForm } from "components/FiltersForm";
 import { FoundApartmentList } from "components/FoundApartmentList";
 import {
+  APARTMENT_LIST_TAB,
   APP_TITLE,
   DOMAIN_URL,
   HOMEPAGE_META_DESCRIPTION,
   PAGE_SIZE,
+  SEARCH_TAB,
 } from "constants/config";
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
@@ -24,8 +26,6 @@ import eventBus from "utils/event-bus";
 import { scroll } from "utils/scrolling";
 
 const { TabPane } = Tabs;
-const SEARCH_TAB = "1";
-const APARTMENT_LIST_TAB = "2";
 const INITIAL_FOUND_COUNTER = 0;
 
 const AppPage = ({ query }) => {
@@ -33,6 +33,9 @@ const AppPage = ({ query }) => {
   const [foundApartmentList, setFoundApartmentList] = useState([]);
   const [tabKey, setTabKey] = useState(SEARCH_TAB);
   const [foundApartmentsCounter, setFoundApartmentsCounter] = useState(
+    INITIAL_FOUND_COUNTER
+  );
+  const [initialFoundCounter, setInitialFoundCounter] = useState(
     INITIAL_FOUND_COUNTER
   );
   const [
@@ -84,6 +87,7 @@ const AppPage = ({ query }) => {
       Number.isInteger(Number(foundCounter))
     ) {
       setFoundApartmentsCounter(foundCounter);
+      setInitialFoundCounter(foundCounter);
     }
 
     if (query.tab === APARTMENT_LIST_TAB) {
@@ -183,7 +187,9 @@ const AppPage = ({ query }) => {
                 isLoadingFoundApartmentList={isLoadingFoundApartmentList}
                 setIsLoadingFoundApartmentList={setIsLoadingFoundApartmentList}
                 token={token}
+                initialFoundCounter={initialFoundCounter}
                 foundCounter={foundApartmentsCounter}
+                setFoundCounter={setFoundApartmentsCounter}
               />
               {!isLoadingFoundApartmentList && <BackTop />}
             </>
