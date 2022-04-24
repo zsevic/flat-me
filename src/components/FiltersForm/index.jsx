@@ -134,15 +134,18 @@ export const FiltersForm = ({
       const filters = form.getFieldsValue();
       const formFilters = getFilters(filters);
       handleMunicipalities(formFilters);
-      await subscribeForNotifications({
+      const { isUpdated } = await subscribeForNotifications({
         filter: {
           ...formFilters,
           ...(formFilters.rentOrSale !== "rent" && { furnished: [] }),
         },
         token,
       });
+      const updatedFilterMessage = `Pretraga je uspešno promenjena. ${VERIFICATION_SUCCESS_MESSAGE}`;
       notification.info({
-        description: VERIFICATION_SUCCESS_MESSAGE,
+        description: isUpdated
+          ? updatedFilterMessage
+          : VERIFICATION_SUCCESS_MESSAGE,
         duration: 0,
       });
       trackEvent("push-notifications", "push-notifications-activated");
