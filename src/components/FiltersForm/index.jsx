@@ -139,7 +139,7 @@ export const FiltersForm = ({
           ...formFilters,
           ...(formFilters.rentOrSale !== "rent" && { furnished: [] }),
         },
-        token,
+        token: accessToken,
       });
       const updatedFilterMessage = `Pretraga je uspešno promenjena. ${VERIFICATION_SUCCESS_MESSAGE}`;
       notification.info({
