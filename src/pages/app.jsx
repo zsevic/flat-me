@@ -117,6 +117,8 @@ const AppPage = ({ query }) => {
         setIsInitialSearchDone={setIsInitialSearchDone}
         isInitialSearchDone={isInitialSearchDone}
         listRef={listRef}
+        token={token}
+        setToken={setToken}
       />
       <ApartmentList
         apartmentList={apartmentList}
@@ -169,13 +171,16 @@ const AppPage = ({ query }) => {
               Obaveštenja nisu uključena.
             </p>
           ) : (
-            <FoundApartmentList
-              apartmentList={foundApartmentList}
-              setApartmentList={setFoundApartmentList}
-              isLoadingFoundApartmentList={isLoadingFoundApartmentList}
-              setIsLoadingFoundApartmentList={setIsLoadingFoundApartmentList}
-              token={token}
-            />
+            <>
+              <FoundApartmentList
+                apartmentList={foundApartmentList}
+                setApartmentList={setFoundApartmentList}
+                isLoadingFoundApartmentList={isLoadingFoundApartmentList}
+                setIsLoadingFoundApartmentList={setIsLoadingFoundApartmentList}
+                token={token}
+              />
+              {!isLoadingFoundApartmentList && <BackTop />}
+            </>
           )}
         </TabPane>
       </Tabs>

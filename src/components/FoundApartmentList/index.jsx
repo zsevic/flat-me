@@ -41,7 +41,6 @@ export const FoundApartmentList = ({
   setIsLoadingFoundApartmentList,
   token,
 }) => {
-  const listRef = useRef();
   const [endCursor, setEndCursor] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(false);
   const newSublistStartRef = useRef();
@@ -50,7 +49,6 @@ export const FoundApartmentList = ({
 
   const handleLoadMore = async () => {
     setIsLoadingFoundApartmentList(true);
-    listRef?.current?.scrollIntoView();
     const { data, pageInfo } = await getFoundApartmentList({
       token,
       limitPerPage: PAGE_SIZE,
@@ -87,7 +85,7 @@ export const FoundApartmentList = ({
   }, []);
 
   return (
-    <div ref={listRef} className="paginated-list">
+    <div className="paginated-list">
       <List
         grid={{
           gutter: 16,

@@ -40,7 +40,7 @@ import { subscribeForNotifications } from "services/subscriptions";
 import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
-import { setItem } from "utils/local-storage";
+import { getItem, setItem, TOKEN_KEY } from "utils/local-storage";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { scroll } from "utils/scrolling";
 import { placesData } from "./data";
@@ -71,6 +71,8 @@ export const FiltersForm = ({
   setIsInitialSearchDone,
   isInitialSearchDone,
   listRef,
+  token,
+  setToken,
 }) => {
   const [form] = Form.useForm();
   const [isPushNotificationDisabled, setIsPushNotificationDisabled] =
@@ -126,7 +128,8 @@ export const FiltersForm = ({
 
   const turnOnPushNotifications = async () => {
     try {
-      const token = await getTokenForPushNotifications();
+      const accessToken = await getTokenForPushNotifications();
+      setToken(accessToken);
 
       const filters = form.getFieldsValue();
       const formFilters = getFilters(filters);
@@ -508,7 +511,9 @@ export const FiltersForm = ({
                   disabled={isPushNotificationDisabled}
                 >
                   <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
-                  Uključi obaveštenja
+                  {token || getItem(TOKEN_KEY)
+                    ? "Promeni sačuvanu pretragu"
+                    : "Uključi obaveštenja"}
                 </Button>
               </Form.Item>
             </Col>
@@ -531,4 +536,10 @@ FiltersForm.propTypes = {
   setIsInitialSearchDone: PropTypes.func.isRequired,
   isInitialSearchDone: PropTypes.bool.isRequired,
   listRef: PropTypes.object.isRequired,
+  token: PropTypes.string,
+  setToken: PropTypes.func.isRequired,
+};
+
+FiltersForm.defaultProps = {
+  token: null,
 };
