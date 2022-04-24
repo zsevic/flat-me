@@ -286,5 +286,9 @@ FoundApartmentList.propTypes = {
   setApartmentList: PropTypes.func.isRequired,
   isLoadingFoundApartmentList: PropTypes.bool.isRequired,
   setIsLoadingFoundApartmentList: PropTypes.func.isRequired,
-  token: PropTypes.string.isRequired,
+  token: PropTypes.string,
+};
+
+FoundApartmentList.defaultProps = {
+  token: null,
 };

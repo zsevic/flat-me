@@ -45,6 +45,8 @@ const AppPage = ({ query }) => {
   const [isLoadingFoundApartmentList, setIsLoadingFoundApartmentList] =
     useState(true);
   const [isInitialSearchDone, setIsInitialSearchDone] = useState(false);
+  const [isInitialFoundSearchDone, setIsInitialFoundSearchDone] =
+    useState(false);
   const listRef = useRef();
   const headerRef = useRef();
 
@@ -56,7 +58,7 @@ const AppPage = ({ query }) => {
       return;
     }
     setShowDefaultTextForFoundApartmentsTab(false);
-    if (isInitialSearchDone) return;
+    if (isInitialFoundSearchDone) return;
     setIsLoadingFoundApartmentList(true);
     const accessToken = await getTokenForPushNotifications();
     setToken(accessToken);
@@ -70,7 +72,7 @@ const AppPage = ({ query }) => {
     });
     setIsLoadingFoundApartmentList(false);
     setFoundApartmentList(data);
-    setIsInitialSearchDone(true);
+    setIsInitialFoundSearchDone(true);
     scroll(headerRef);
   };
 
