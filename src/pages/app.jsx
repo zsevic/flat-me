@@ -31,11 +31,9 @@ const INITIAL_FOUND_COUNTER = 0;
 const AppPage = ({ query }) => {
   const [apartmentList, setApartmentList] = useState([]);
   const [foundApartmentList, setFoundApartmentList] = useState([]);
+  const [clickedFoundApartments, setClickedFoundApartments] = useState([]);
   const [tabKey, setTabKey] = useState(SEARCH_TAB);
   const [foundApartmentsCounter, setFoundApartmentsCounter] = useState(
-    INITIAL_FOUND_COUNTER
-  );
-  const [initialFoundCounter, setInitialFoundCounter] = useState(
     INITIAL_FOUND_COUNTER
   );
   const [
@@ -80,14 +78,24 @@ const AppPage = ({ query }) => {
   };
 
   useEffect(() => {
-    const { foundCounter } = query;
+    const { foundCounter, clicked } = query;
+    if (
+      !Number.isNaN(clicked) ||
+      (Array.isArray(clicked) &&
+        clicked.filter((index) => Number.isInteger(Number(index))).length > 0)
+    ) {
+      const clickedArray = !Array.isArray(clicked) ? [clicked] : clicked;
+      setClickedFoundApartments(
+        clickedArray.map((clickedIndex) => Number(clickedIndex))
+      );
+    }
+
     if (
       foundCounter &&
       !Number.isNaN(Number(foundCounter)) &&
       Number.isInteger(Number(foundCounter))
     ) {
       setFoundApartmentsCounter(foundCounter);
-      setInitialFoundCounter(foundCounter);
     }
 
     if (query.tab === APARTMENT_LIST_TAB) {
@@ -187,9 +195,9 @@ const AppPage = ({ query }) => {
                 isLoadingFoundApartmentList={isLoadingFoundApartmentList}
                 setIsLoadingFoundApartmentList={setIsLoadingFoundApartmentList}
                 token={token}
-                initialFoundCounter={initialFoundCounter}
                 foundCounter={foundApartmentsCounter}
                 setFoundCounter={setFoundApartmentsCounter}
+                clickedFoundApartments={clickedFoundApartments}
               />
               {!isLoadingFoundApartmentList && <BackTop />}
             </>
@@ -242,6 +250,7 @@ AppPage.propTypes = {
   query: PropTypes.shape({
     tab: PropTypes.string,
     foundCounter: PropTypes.number,
+    clicked: PropTypes.arrayOf(PropTypes.string),
   }),
 };
 
@@ -249,6 +258,7 @@ AppPage.defaultProps = {
   query: {
     tabs: SEARCH_TAB,
     foundCounter: INITIAL_FOUND_COUNTER,
+    clicked: [],
   },
 };
 

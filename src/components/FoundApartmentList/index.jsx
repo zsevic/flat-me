@@ -43,9 +43,9 @@ export const FoundApartmentList = ({
   isLoadingFoundApartmentList,
   setIsLoadingFoundApartmentList,
   token,
-  initialFoundCounter,
   foundCounter,
   setFoundCounter,
+  clickedFoundApartments,
 }) => {
   const router = useRouter();
   const [endCursor, setEndCursor] = useState(null);
@@ -92,6 +92,8 @@ export const FoundApartmentList = ({
     });
   }, []);
 
+  let clickedCounter = 0;
+
   return (
     <div className="paginated-list">
       <List
@@ -122,8 +124,13 @@ export const FoundApartmentList = ({
         }}
         loadMore={loadMore}
         renderItem={(apartment, index) => {
-          const isFound = () =>
-            index < initialFoundCounter && !clickedFound.includes(index);
+          const isFound =
+            clickedCounter < foundCounter &&
+            !clickedFound.includes(index) &&
+            !clickedFoundApartments.includes(index);
+          if (isFound) {
+            clickedCounter += 1;
+          }
           let postedAt;
           try {
             postedAt = new Intl.DateTimeFormat(APARTMENT_CARD_LOCALE).format(
@@ -144,8 +151,9 @@ export const FoundApartmentList = ({
                 size="small"
                 className="find-more-btn"
                 onClick={() => {
-                  if (isFound()) {
-                    setClickedFound([...clickedFound, index]);
+                  if (isFound) {
+                    const updatedClickedFound = [...clickedFound, index];
+                    setClickedFound(updatedClickedFound);
                     const isAlreadyClicked = clickedFound.includes(index);
                     if (!isAlreadyClicked && foundCounter >= 1) {
                       const newCounter = foundCounter - 1;
@@ -156,6 +164,7 @@ export const FoundApartmentList = ({
                           query: {
                             tab: APARTMENT_LIST_TAB,
                             foundCounter: newCounter,
+                            clicked: updatedClickedFound,
                           },
                         },
                         undefined,
@@ -204,7 +213,7 @@ export const FoundApartmentList = ({
           );
           const apartmentImageAlt = `stan: ${getAddressValue(apartment)}`;
           const notificationCardStyle = {
-            ...(isFound() && {
+            ...(isFound && {
               style: {
                 borderColor: THEME_COLOR,
               },
@@ -324,11 +333,12 @@ FoundApartmentList.propTypes = {
   isLoadingFoundApartmentList: PropTypes.bool.isRequired,
   setIsLoadingFoundApartmentList: PropTypes.func.isRequired,
   token: PropTypes.string,
-  initialFoundCounter: PropTypes.number.isRequired,
   foundCounter: PropTypes.number.isRequired,
   setFoundCounter: PropTypes.func.isRequired,
+  clickedFoundApartments: PropTypes.arrayOf(PropTypes.number),
 };
 
 FoundApartmentList.defaultProps = {
   token: null,
+  clickedFoundApartments: [],
 };
