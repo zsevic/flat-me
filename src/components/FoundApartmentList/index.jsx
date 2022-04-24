@@ -22,6 +22,7 @@ import {
   NO_RESULTS_TEXT,
   PAGE_SIZE,
   PROVIDER_LOGO_URLS,
+  THEME_COLOR,
 } from "constants/config";
 import { furnishedMap } from "constants/furnished";
 import { structuresMap } from "constants/structures";
@@ -40,6 +41,7 @@ export const FoundApartmentList = ({
   isLoadingFoundApartmentList,
   setIsLoadingFoundApartmentList,
   token,
+  foundCounter,
 }) => {
   const [endCursor, setEndCursor] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -113,7 +115,7 @@ export const FoundApartmentList = ({
           ),
         }}
         loadMore={loadMore}
-        renderItem={(apartment) => {
+        renderItem={(apartment, index) => {
           let postedAt;
           try {
             postedAt = new Intl.DateTimeFormat(APARTMENT_CARD_LOCALE).format(
@@ -174,6 +176,13 @@ export const FoundApartmentList = ({
             locationTextComponent
           );
           const apartmentImageAlt = `stan: ${getAddressValue(apartment)}`;
+          const notificationCardStyle = {
+            ...(index < foundCounter && {
+              style: {
+                borderColor: THEME_COLOR,
+              },
+            }),
+          };
 
           return (
             <List.Item>
@@ -184,6 +193,7 @@ export const FoundApartmentList = ({
                 active
               >
                 <Card
+                  {...notificationCardStyle}
                   cover={
                     apartment.coverPhotoUrl && (
                       <>
@@ -287,6 +297,7 @@ FoundApartmentList.propTypes = {
   isLoadingFoundApartmentList: PropTypes.bool.isRequired,
   setIsLoadingFoundApartmentList: PropTypes.func.isRequired,
   token: PropTypes.string,
+  foundCounter: PropTypes.number.isRequired,
 };
 
 FoundApartmentList.defaultProps = {

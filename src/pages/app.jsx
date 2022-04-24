@@ -183,6 +183,7 @@ const AppPage = ({ query }) => {
                 isLoadingFoundApartmentList={isLoadingFoundApartmentList}
                 setIsLoadingFoundApartmentList={setIsLoadingFoundApartmentList}
                 token={token}
+                foundCounter={foundApartmentsCounter}
               />
               {!isLoadingFoundApartmentList && <BackTop />}
             </>
