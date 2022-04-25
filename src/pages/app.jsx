@@ -18,11 +18,13 @@ import {
   PAGE_SIZE,
   SEARCH_TAB,
 } from "constants/config";
+import { defaultNotificationsBlockedErrorMessage } from "constants/error-messages";
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { getFoundApartmentList } from "services/apartments";
-import { getItem, TOKEN_KEY } from "utils/local-storage";
+import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
+import { getItem, TOKEN_KEY } from "utils/local-storage";
 import { scroll } from "utils/scrolling";
 
 const { TabPane } = Tabs;
@@ -40,6 +42,10 @@ const AppPage = ({ query }) => {
     showDefaultTextForFoundApartmentsTab,
     setShowDefaultTextForFoundApartmentsTab,
   ] = useState(true);
+  const [
+    defaultTextForFoundApartmentsTab,
+    setDefaultTextForFoundApartmentsTab,
+  ] = useState(defaultNotificationsBlockedErrorMessage);
   const [filters, setFilters] = useState({});
   const [token, setToken] = useState(null);
   const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
@@ -52,29 +58,36 @@ const AppPage = ({ query }) => {
   const headerRef = useRef();
 
   const handleFoundApartmentsTab = async () => {
-    const storedToken = getItem(TOKEN_KEY);
-    if (!storedToken) {
+    try {
+      const storedToken = getItem(TOKEN_KEY);
+      if (!storedToken) {
+        setIsLoadingFoundApartmentList(false);
+        setShowDefaultTextForFoundApartmentsTab(true);
+        return;
+      }
+      setShowDefaultTextForFoundApartmentsTab(false);
+      if (isInitialFoundSearchDone) return;
+      setIsLoadingFoundApartmentList(true);
+      const accessToken = await getTokenForPushNotifications();
+      setToken(accessToken);
+      const { data, pageInfo } = await getFoundApartmentList({
+        token: accessToken,
+        limitPerPage: PAGE_SIZE,
+      });
+      eventBus.dispatch("found-apartment-list-page-changed", {
+        hasNextPage: pageInfo.hasNextPage,
+        endCursor: pageInfo.endCursor,
+      });
+      setIsLoadingFoundApartmentList(false);
+      setFoundApartmentList(data);
+      setIsInitialFoundSearchDone(true);
+      scroll(headerRef);
+    } catch (error) {
+      const errorMessage = getErrorMessageForBlockedNotifications(error);
       setIsLoadingFoundApartmentList(false);
       setShowDefaultTextForFoundApartmentsTab(true);
-      return;
+      setDefaultTextForFoundApartmentsTab(errorMessage);
     }
-    setShowDefaultTextForFoundApartmentsTab(false);
-    if (isInitialFoundSearchDone) return;
-    setIsLoadingFoundApartmentList(true);
-    const accessToken = await getTokenForPushNotifications();
-    setToken(accessToken);
-    const { data, pageInfo } = await getFoundApartmentList({
-      token: accessToken,
-      limitPerPage: PAGE_SIZE,
-    });
-    eventBus.dispatch("found-apartment-list-page-changed", {
-      hasNextPage: pageInfo.hasNextPage,
-      endCursor: pageInfo.endCursor,
-    });
-    setIsLoadingFoundApartmentList(false);
-    setFoundApartmentList(data);
-    setIsInitialFoundSearchDone(true);
-    scroll(headerRef);
   };
 
   useEffect(() => {
@@ -185,7 +198,7 @@ const AppPage = ({ query }) => {
         >
           {showDefaultTextForFoundApartmentsTab ? (
             <p className="text-center pt-20 mx-10">
-              Obaveštenja nisu uključena.
+              {defaultTextForFoundApartmentsTab}
             </p>
           ) : (
             <>

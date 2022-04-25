@@ -38,6 +38,7 @@ import { STRUCTURES } from "constants/structures";
 import * as apartmentsService from "services/apartments";
 import { subscribeForNotifications } from "services/subscriptions";
 import { trackEvent } from "utils/analytics";
+import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
 import { getItem, setItem, TOKEN_KEY } from "utils/local-storage";
@@ -150,8 +151,7 @@ export const FiltersForm = ({
       });
       trackEvent("push-notifications", "push-notifications-activated");
     } catch (error) {
-      console.error(error);
-      const errorMessage = "Obaveštenja nisu uključena";
+      const errorMessage = getErrorMessageForBlockedNotifications(error);
       notification.error({
         description: errorMessage,
         duration: 0,
