@@ -3,11 +3,7 @@ self.addEventListener('notificationclick', (event) => {
 
   const url = event.notification?.data?.FCM_MSG?.notification?.click_action || 'https://www.flat-me.com/app?tab=2';
 
-  event.waitUntil(clients.matchAll({ type: 'window' }).then(clientsArray => {
-    const hadWindowToFocus = clientsArray.some(windowClient => windowClient.url === url ? (windowClient.focus(), true) : false);
-
-    if (!hadWindowToFocus) clients.openWindow(url).then(windowClient => windowClient ? windowClient.focus() : null);
-  }));
+  event.waitUntil(clients.matchAll({ type: 'window' }).then(() => clients.openWindow(url)));
 });
 
 importScripts("https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js");

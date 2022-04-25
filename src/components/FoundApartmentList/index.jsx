@@ -156,14 +156,13 @@ export const FoundApartmentList = ({
                     setClickedFound(updatedClickedFound);
                     const isAlreadyClicked = clickedFound.includes(index);
                     if (!isAlreadyClicked && foundCounter >= 1) {
-                      const newCounter = foundCounter - 1;
-                      setFoundCounter(newCounter);
+                      setFoundCounter(foundCounter - 1);
                       router.push(
                         {
                           pathname: "/app",
                           query: {
                             tab: APARTMENT_LIST_TAB,
-                            foundCounter: newCounter,
+                            foundCounter: foundCounter - 1,
                             clicked: updatedClickedFound,
                           },
                         },
