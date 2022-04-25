@@ -1,9 +1,13 @@
-self.addEventListener('notificationclick', (event) => {
+self.addEventListener("notificationclick", (event) => {
   event.notification.close();
 
-  const url = event.notification?.data?.FCM_MSG?.notification?.click_action || 'https://www.flat-me.com/app?tab=2';
+  const url =
+    event.notification?.data?.FCM_MSG?.notification?.click_action ||
+    "https://www.flat-me.com/app?tab=2";
 
-  event.waitUntil(clients.matchAll({ type: 'window' }).then(() => clients.openWindow(url)));
+  event.waitUntil(
+    clients.matchAll({ type: "window" }).then(() => clients.openWindow(url))
+  );
 });
 
 importScripts("https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js");
