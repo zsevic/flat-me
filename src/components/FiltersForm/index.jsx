@@ -36,7 +36,7 @@ import { floorFilters } from "constants/floors";
 import { FURNISHED } from "constants/furnished";
 import { STRUCTURES } from "constants/structures";
 import * as apartmentsService from "services/apartments";
-import { subscribeForNotifications } from "services/subscriptions";
+import { subscribeForPushNotifications } from "services/subscriptions";
 import { trackEvent } from "utils/analytics";
 import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
@@ -135,7 +135,7 @@ export const FiltersForm = ({
       const filters = form.getFieldsValue();
       const formFilters = getFilters(filters);
       handleMunicipalities(formFilters);
-      const { isUpdated } = await subscribeForNotifications({
+      const { isUpdated } = await subscribeForPushNotifications({
         filter: {
           ...formFilters,
           ...(formFilters.rentOrSale !== "rent" && { furnished: [] }),

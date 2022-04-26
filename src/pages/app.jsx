@@ -1,4 +1,4 @@
-import { BackTop, Badge, Tabs } from "antd";
+import { BackTop, Badge, Button, notification, Tabs } from "antd";
 import { isSupported } from "firebase/messaging";
 import Head from "next/head";
 import PropTypes from "prop-types";
@@ -22,9 +22,15 @@ import { defaultNotificationsBlockedErrorMessage } from "constants/error-message
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { getFoundApartmentList } from "services/apartments";
+import { unsubscribeFromPushNotifications } from "services/subscriptions";
 import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
-import { getItem, TOKEN_KEY } from "utils/local-storage";
+import {
+  getItem,
+  setItem,
+  TOKEN_KEY,
+  UNSUBSCRIBED_KEY,
+} from "utils/local-storage";
 import { scroll } from "utils/scrolling";
 
 const { TabPane } = Tabs;
@@ -46,6 +52,7 @@ const AppPage = ({ query }) => {
     defaultTextForFoundApartmentsTab,
     setDefaultTextForFoundApartmentsTab,
   ] = useState(defaultNotificationsBlockedErrorMessage);
+  const [showUnsubscribeButton, setShowUnsubscribeButton] = useState(true);
   const [filters, setFilters] = useState({});
   const [token, setToken] = useState(null);
   const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
@@ -85,8 +92,8 @@ const AppPage = ({ query }) => {
     } catch (error) {
       const errorMessage = getErrorMessageForBlockedNotifications(error);
       setIsLoadingFoundApartmentList(false);
-      setShowDefaultTextForFoundApartmentsTab(true);
       setDefaultTextForFoundApartmentsTab(errorMessage);
+      setShowDefaultTextForFoundApartmentsTab(true);
     }
   };
 
@@ -113,7 +120,7 @@ const AppPage = ({ query }) => {
 
     if (query.tab === APARTMENT_LIST_TAB) {
       setTabKey(query.tab);
-      handleFoundApartmentsTab().catch(console.error);
+      handleFoundApartmentsTab();
     }
   }, []);
 
@@ -162,6 +169,22 @@ const AppPage = ({ query }) => {
       {!isLoadingApartmentList && <BackTop />}
     </>
   );
+
+  const handleUnsubscribe = async () => {
+    try {
+      const accessToken = await getTokenForPushNotifications();
+      await unsubscribeFromPushNotifications({
+        token: accessToken,
+      });
+      setItem(UNSUBSCRIBED_KEY, true);
+      setShowUnsubscribeButton(false);
+    } catch (error) {
+      notification.error({
+        description: "Obaveštenja nisu isključena",
+        duration: 0,
+      });
+    }
+  };
 
   const tabs = () => (
     <StickyContainer>
@@ -212,6 +235,15 @@ const AppPage = ({ query }) => {
                 setFoundCounter={setFoundApartmentsCounter}
                 clickedFoundApartments={clickedFoundApartments}
               />
+              {!isLoadingFoundApartmentList &&
+                showUnsubscribeButton &&
+                !getItem(UNSUBSCRIBED_KEY) && (
+                  <div className="text-center mb-3">
+                    <Button size="small" danger onClick={handleUnsubscribe}>
+                      Isključi obaveštenja
+                    </Button>
+                  </div>
+                )}
               {!isLoadingFoundApartmentList && <BackTop />}
             </>
           )}
