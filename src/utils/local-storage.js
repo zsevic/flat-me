@@ -17,3 +17,11 @@ export function setItem(key, value) {
     console.error("Local storage is not supported", error);
   }
 }
+
+export function removeItem(key) {
+  try {
+    localStorage.removeItem(key);
+  } catch (error) {
+    console.error("Local storage is not supported", error);
+  }
+}

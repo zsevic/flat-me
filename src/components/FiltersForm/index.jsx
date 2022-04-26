@@ -41,7 +41,13 @@ import { trackEvent } from "utils/analytics";
 import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
-import { getItem, setItem, TOKEN_KEY } from "utils/local-storage";
+import {
+  getItem,
+  removeItem,
+  setItem,
+  TOKEN_KEY,
+  UNSUBSCRIBED_KEY,
+} from "utils/local-storage";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { scroll } from "utils/scrolling";
 import { placesData } from "./data";
@@ -78,6 +84,7 @@ export const FiltersForm = ({
   const [form] = Form.useForm();
   const [isPushNotificationDisabled, setIsPushNotificationDisabled] =
     useState(true);
+  const [isUnsubscribed, setIsUnsubscribed] = useState(false);
   const [isInitialRentOrSale, setIsInitialRentOrSale] = useState(true);
   const [minPriceField, setMinPriceField] = useState(RENT_MIN_PRICE);
   const [maxPriceField, setMaxPriceField] = useState(RENT_MAX_PRICE);
@@ -149,6 +156,8 @@ export const FiltersForm = ({
           : VERIFICATION_SUCCESS_MESSAGE,
         duration: 0,
       });
+      removeItem(UNSUBSCRIBED_KEY);
+      setIsUnsubscribed(false);
       trackEvent("push-notifications", "push-notifications-activated");
     } catch (error) {
       const errorMessage = getErrorMessageForBlockedNotifications(error);
@@ -514,7 +523,9 @@ export const FiltersForm = ({
                   disabled={isPushNotificationDisabled}
                 >
                   <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
-                  {token || getItem(TOKEN_KEY)
+                  {(token || getItem(TOKEN_KEY)) &&
+                  !getItem(UNSUBSCRIBED_KEY) &&
+                  !isUnsubscribed
                     ? "Promeni sačuvanu pretragu"
                     : "Uključi obaveštenja"}
                 </Button>

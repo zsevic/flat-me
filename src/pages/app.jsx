@@ -178,6 +178,10 @@ const AppPage = ({ query }) => {
       });
       setItem(UNSUBSCRIBED_KEY, true);
       setShowUnsubscribeButton(false);
+      notification.info({
+        description: "Obaveštenja su uspešno isključena",
+        duration: 0,
+      });
     } catch (error) {
       notification.error({
         description: "Obaveštenja nisu isključena",
