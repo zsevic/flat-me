@@ -75,8 +75,8 @@ export const FeedbackForm = () => {
           <Spin spinning={isLoading}>
             <Form name="feedback-form" onFinish={onFinish}>
               <p className="text-center my-4">
-                Ukoliko želiš da podeliš sa nama razlog za isključivanje
-                obaveštenja, ispod možeš da uneseš utiske
+                Ukoliko želite da podelite sa nama razlog za isključivanje
+                obaveštenja, ispod možete da unesete utiske
               </p>
               <Col>
                 <Form.Item
@@ -112,8 +112,8 @@ export const FeedbackForm = () => {
 
               <Col className="text-center mx-1">
                 <Form.Item>
-                  <Button type="primary" htmlType="submit" size="small">
-                    Pošalji utiske
+                  <Button type="primary" htmlType="submit" size="large">
+                    Pošaljite utiske
                   </Button>
                 </Form.Item>
               </Col>
