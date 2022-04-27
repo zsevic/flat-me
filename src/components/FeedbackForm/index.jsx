@@ -28,7 +28,8 @@ export const FeedbackForm = () => {
 
   const FEEDBACK_OPTIONS = [
     "Hoću da promenim sačuvani filter",
-    "Našao/našla sam stan",
+    "Našao/našla sam stan preko FlatMe aplikacije",
+    "Našao/našla sam stan van FlatMe aplikacije",
     "Nisam zadovoljan/zadovoljna stanovima koji stižu u obaveštenjima",
     "Ništa od navedenog",
   ];
