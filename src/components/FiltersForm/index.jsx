@@ -9,12 +9,14 @@ import {
   Select,
   Slider,
   TreeSelect,
+  Tooltip,
   notification,
 } from "antd";
 import deepEqual from "fast-deep-equal/react";
 import { isSupported } from "firebase/messaging";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { HiSearch } from "react-icons/hi";
 import { TrackFiltersModal } from "components/TrackFiltersModal";
@@ -515,7 +517,7 @@ export const FiltersForm = ({
           </Col>
           {isSupported() && (
             <Col className="mx-1">
-              <Form.Item>
+              <Row className="mb-6">
                 <Button
                   type="primary"
                   onClick={turnOnPushNotifications}
@@ -529,7 +531,13 @@ export const FiltersForm = ({
                     ? "Promeni sačuvanu pretragu"
                     : "Uključi obaveštenja"}
                 </Button>
-              </Form.Item>
+                <Tooltip
+                  title="Obaveštenja ćete dobijati jednom dnevno kad se pojavi novi stan na osnovu sačuvane pretrage"
+                  className="ml-1"
+                >
+                  <AiOutlineInfoCircle />
+                </Tooltip>
+              </Row>
             </Col>
           )}
           <Col className="mx-1">
