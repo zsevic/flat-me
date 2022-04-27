@@ -103,7 +103,7 @@ export const FeedbackForm = () => {
                     </Radio.Group>
                   </Row>
                 </Form.Item>
-                {feedbackValue === 3 && (
+                {feedbackValue === FEEDBACK_OPTIONS.length - 1 && (
                   <Form.Item name="feedbackText">
                     <Input.TextArea />
                   </Form.Item>
