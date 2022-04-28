@@ -9,18 +9,16 @@ import {
   Select,
   Slider,
   TreeSelect,
-  Tooltip,
   notification,
 } from "antd";
 import deepEqual from "fast-deep-equal/react";
 import { isSupported } from "firebase/messaging";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { AiOutlineInfoCircle } from "react-icons/ai";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import { HiSearch } from "react-icons/hi";
 import { EmailNotificationsModal } from "components/modals/EmailNotificationsModal";
 import { PushNotificationsActivationModal } from "components/modals/PushNotificationsActivation";
+import { PushNotificationsUpdateModal } from "components/modals/PushNotificationsUpdate";
 import { ADVERTISER_TYPES } from "constants/advertiser-types";
 import {
   INITIAL_FILTERS,
@@ -85,8 +83,6 @@ export const FiltersForm = ({
   setToken,
 }) => {
   const [form] = Form.useForm();
-  const [isPushNotificationDisabled, setIsPushNotificationDisabled] =
-    useState(true);
   const [isUnsubscribed, setIsUnsubscribed] = useState(false);
   const [isInitialRentOrSale, setIsInitialRentOrSale] = useState(true);
   const [minPriceField, setMinPriceField] = useState(RENT_MIN_PRICE);
@@ -123,7 +119,6 @@ export const FiltersForm = ({
         eventBus.dispatch("filters-changed", { filters: updatedFilters });
         const isDisabled = false;
         eventBus.dispatch("trackFilters-changed", { isDisabled });
-        setIsPushNotificationDisabled(isDisabled);
       })
       .catch((error) => {
         const isDisabled = error?.errorFields?.length > 0;
@@ -133,7 +128,6 @@ export const FiltersForm = ({
           eventBus.dispatch("filters-changed", { filters: updatedFilters });
         }
         eventBus.dispatch("trackFilters-changed", { isDisabled });
-        setIsPushNotificationDisabled(isDisabled);
       });
   };
 
@@ -518,31 +512,17 @@ export const FiltersForm = ({
           </Col>
           {isSupported() && (
             <Col className="mx-1">
-              <Row className="mb-6">
-                <Button
-                  type="primary"
-                  onClick={turnOnPushNotifications}
-                  size="large"
-                  disabled={isPushNotificationDisabled}
-                >
-                  <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
-                  {(token || getItem(TOKEN_KEY)) &&
-                  !getItem(UNSUBSCRIBED_KEY) &&
-                  !isUnsubscribed ? (
-                    "Promeni sačuvanu pretragu"
-                  ) : (
-                    <PushNotificationsActivationModal
-                      handler={turnOnPushNotifications}
-                    />
-                  )}
-                </Button>
-                <Tooltip
-                  title="Obaveštenja ćete dobijati jednom dnevno kad se pojavi novi stan na osnovu sačuvane pretrage"
-                  className="ml-1"
-                >
-                  <AiOutlineInfoCircle />
-                </Tooltip>
-              </Row>
+              {(token || getItem(TOKEN_KEY)) &&
+              !getItem(UNSUBSCRIBED_KEY) &&
+              !isUnsubscribed ? (
+                <PushNotificationsUpdateModal
+                  handler={turnOnPushNotifications}
+                />
+              ) : (
+                <PushNotificationsActivationModal
+                  handler={turnOnPushNotifications}
+                />
+              )}
             </Col>
           )}
           <Col className="mx-1">

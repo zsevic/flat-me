@@ -55,6 +55,8 @@ export const firebaseConfig = {
 
 export const EMAIL_NOTIFICATIONS_MODAL_TITLE = "Uključi email obaveštenja";
 export const PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE = "Uključi obaveštenja";
+export const PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE =
+  "Promeni sačuvanu pretragu";
 export const APARTMENT_LIST_LOADER_TEXT = "Prikupljaju se rezultati...";
 
 export const activationType = "activation";

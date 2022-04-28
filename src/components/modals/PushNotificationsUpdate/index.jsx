@@ -1,20 +1,23 @@
 import { Button, Form, Modal } from "antd";
 import Link from "next/link";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE } from "constants/config";
+import { PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE } from "constants/config";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 
-export const PushNotificationsActivationModal = ({ handler }) => {
+export const PushNotificationsUpdateModal = ({ handler }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
 
   const closeModal = (track = true) => {
     if (track) {
-      trackEvent("push-notifications", "cancel-push-notifications");
+      trackEvent(
+        "push-notifications-update",
+        "cancel-updating-push-notifications"
+      );
     }
     setVisible(false);
     form.resetFields();
@@ -22,7 +25,7 @@ export const PushNotificationsActivationModal = ({ handler }) => {
 
   const showModal = () => {
     setVisible(true);
-    trackEvent("push-notifications", "turn-on-push-notifications");
+    trackEvent("push-notifications-update", "update-push-notifications");
   };
 
   useEffect(() => {
@@ -40,17 +43,17 @@ export const PushNotificationsActivationModal = ({ handler }) => {
         disabled={isDisabled}
       >
         <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
-        {PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
+        {PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE}
       </Button>
       <Modal
-        title={PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
+        title={PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE}
         visible={visible}
         forceRender
         onCancel={closeModal}
         footer={
           <div>
             <small>
-              Aktiviranjem obaveštenja, slažete sa FlatMe{" "}
+              Promenom obaveštenja, slažete sa FlatMe{" "}
               <Link href="/terms-and-conditions" passHref>
                 <a target="_blank" rel="noopener noreferrer">
                   Uslovima korišćenja
@@ -68,13 +71,13 @@ export const PushNotificationsActivationModal = ({ handler }) => {
         }
       >
         <p>
-          Ukoliko želite da primate informacije o novim stanovima koji
-          odgovaraju Vašim izabranim kriterijumima, nakon što se pojave na
-          FlatMe, aktivirajte obaveštenja.
+          Ukoliko želite da promenite sačuvanu pretragu kojom dobijate
+          informacije o novim stanovima koji odgovaraju Vašim izabranim
+          kriterijumima, nakon što se pojave na FlatMe, aktivirajte obaveštenja.
         </p>
         <div className="text-center">
           <Button type="primary" onClick={handler}>
-            {PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
+            {PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE}
           </Button>
         </div>
       </Modal>
@@ -82,6 +85,6 @@ export const PushNotificationsActivationModal = ({ handler }) => {
   );
 };
 
-PushNotificationsActivationModal.propTypes = {
+PushNotificationsUpdateModal.propTypes = {
   handler: PropTypes.func.isRequired,
 };
