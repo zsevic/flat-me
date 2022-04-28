@@ -39,7 +39,7 @@ const errorMessages = {
   [USER_IS_NOT_VERIFIED_STATUS_CODE]: userNotVerifiedErrorMessage,
 };
 
-export const TrackFiltersModal = () => {
+export const EmailNotificationsModal = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [filters, setFilters] = useState({});
   const [visible, setVisible] = useState(false);

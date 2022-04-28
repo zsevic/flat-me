@@ -19,7 +19,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { HiSearch } from "react-icons/hi";
-import { TrackFiltersModal } from "components/TrackFiltersModal";
+import { EmailNotificationsModal } from "components/modals/EmailNotificationsModal";
 import { ADVERTISER_TYPES } from "constants/advertiser-types";
 import {
   INITIAL_FILTERS,
@@ -542,7 +542,7 @@ export const FiltersForm = ({
           )}
           <Col className="mx-1">
             <Form.Item>
-              <TrackFiltersModal />
+              <EmailNotificationsModal />
             </Form.Item>
           </Col>
         </Row>
