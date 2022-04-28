@@ -4,12 +4,34 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE } from "constants/config";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { isDesktop, isMobile, isTablet } from "react-device-detect";
 import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
+
+const PHONE = "phone";
+const TABLET = "tablet";
+const DESKTOP = "desktop";
+
+const deviceTypesMap = {
+  [PHONE]: "telefonu",
+  [TABLET]: "tabletu",
+  [DESKTOP]: "računaru",
+};
 
 export const PushNotificationsActivationModal = ({ handler }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [visible, setVisible] = useState(false);
+  const [deviceType, setDeviceType] = useState(PHONE);
+
+  useEffect(() => {
+    if (isTablet) {
+      setDeviceType(TABLET);
+    } else if (isDesktop) {
+      setDeviceType(DESKTOP);
+    } else if (isMobile) {
+      setDeviceType(PHONE);
+    }
+  }, []);
 
   const closeModal = (track = true) => {
     if (track) {
@@ -44,11 +66,8 @@ export const PushNotificationsActivationModal = ({ handler }) => {
           disabled={isDisabled}
         >
           <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
-          {PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
+          {`Uključi obaveštenja na ${deviceTypesMap[deviceType]}`}
         </Button>
-        <p className="block text-gray-400" style={{ maxWidth: "12rem" }}>
-          Obaveštenja na uređaju o novim stanovima
-        </p>
       </div>
       <Modal
         title={PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
