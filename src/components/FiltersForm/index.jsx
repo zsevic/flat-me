@@ -513,7 +513,7 @@ export const FiltersForm = ({
             </Form.Item>
           </Col>
           {isSupported() && (
-            <Col className="mx-1">
+            <Col className="mx-1 mb-5">
               {(token || getItem(TOKEN_KEY)) &&
               !getItem(UNSUBSCRIBED_KEY) &&
               !isUnsubscribed ? (
