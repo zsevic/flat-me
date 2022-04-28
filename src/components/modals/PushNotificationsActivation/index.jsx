@@ -46,8 +46,8 @@ export const PushNotificationsActivationModal = ({ handler }) => {
           <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
           {PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
         </Button>
-        <p className="block text-gray-600" style={{ maxWidth: "12rem" }}>
-          obaveštenja na uređaju o novim stanovima
+        <p className="block text-gray-400" style={{ maxWidth: "12rem" }}>
+          Obaveštenja na uređaju o novim stanovima
         </p>
       </div>
       <Modal
