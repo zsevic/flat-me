@@ -24,6 +24,7 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
+    "consistent-return": "warn",
     "import/no-default-export": "warn",
     "import/no-extraneous-dependencies": "warn",
     "import/prefer-default-export": "off",

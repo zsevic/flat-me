@@ -1,4 +1,4 @@
-import { Button, Form, Modal } from "antd";
+import { Button, Modal } from "antd";
 import Link from "next/link";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE } from "constants/config";
@@ -10,19 +10,22 @@ import eventBus from "utils/event-bus";
 export const PushNotificationsActivationModal = ({ handler }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [visible, setVisible] = useState(false);
-  const [form] = Form.useForm();
 
   const closeModal = (track = true) => {
     if (track) {
       trackEvent("push-notifications", "cancel-push-notifications");
     }
     setVisible(false);
-    form.resetFields();
   };
 
   const showModal = () => {
     setVisible(true);
     trackEvent("push-notifications", "turn-on-push-notifications");
+  };
+
+  const onClickHandler = async () => {
+    const { isDone } = await handler();
+    if (isDone) return closeModal(false);
   };
 
   useEffect(() => {
@@ -73,7 +76,7 @@ export const PushNotificationsActivationModal = ({ handler }) => {
           FlatMe, aktivirajte obaveštenja.
         </p>
         <div className="text-center">
-          <Button type="primary" onClick={handler}>
+          <Button type="primary" onClick={onClickHandler}>
             {PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
           </Button>
         </div>

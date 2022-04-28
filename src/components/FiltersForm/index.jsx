@@ -156,12 +156,14 @@ export const FiltersForm = ({
       removeItem(UNSUBSCRIBED_KEY);
       setIsUnsubscribed(false);
       trackEvent("push-notifications", "push-notifications-activated");
+      return { isDone: true };
     } catch (error) {
       const errorMessage = getErrorMessageForBlockedNotifications(error);
       notification.error({
         description: errorMessage,
         duration: 0,
       });
+      return { isDone: false };
     }
   };
 

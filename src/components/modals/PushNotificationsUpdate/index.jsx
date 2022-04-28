@@ -23,6 +23,11 @@ export const PushNotificationsUpdateModal = ({ handler }) => {
     form.resetFields();
   };
 
+  const onClickHandler = async () => {
+    const { isDone } = await handler();
+    if (isDone) return closeModal(false);
+  };
+
   const showModal = () => {
     setVisible(true);
     trackEvent("push-notifications-update", "update-push-notifications");
@@ -76,7 +81,7 @@ export const PushNotificationsUpdateModal = ({ handler }) => {
           kriterijumima, nakon što se pojave na FlatMe, aktivirajte obaveštenja.
         </p>
         <div className="text-center">
-          <Button type="primary" onClick={handler}>
+          <Button type="primary" onClick={onClickHandler}>
             {PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE}
           </Button>
         </div>
