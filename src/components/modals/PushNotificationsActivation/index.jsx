@@ -36,15 +36,20 @@ export const PushNotificationsActivationModal = ({ handler }) => {
 
   return (
     <>
-      <Button
-        type="primary"
-        onClick={showModal}
-        size="large"
-        disabled={isDisabled}
-      >
-        <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
-        {PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
-      </Button>
+      <div className="text-center">
+        <Button
+          type="primary"
+          onClick={showModal}
+          size="large"
+          disabled={isDisabled}
+        >
+          <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
+          {PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
+        </Button>
+        <p className="block text-gray-600" style={{ maxWidth: "12rem" }}>
+          obaveštenja na uređaju o novim stanovima
+        </p>
+      </div>
       <Modal
         title={PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
         visible={visible}
