@@ -20,6 +20,7 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { HiSearch } from "react-icons/hi";
 import { EmailNotificationsModal } from "components/modals/EmailNotificationsModal";
+import { PushNotificationsActivationModal } from "components/modals/PushNotificationsActivation";
 import { ADVERTISER_TYPES } from "constants/advertiser-types";
 import {
   INITIAL_FILTERS,
@@ -527,9 +528,13 @@ export const FiltersForm = ({
                   <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
                   {(token || getItem(TOKEN_KEY)) &&
                   !getItem(UNSUBSCRIBED_KEY) &&
-                  !isUnsubscribed
-                    ? "Promeni sačuvanu pretragu"
-                    : "Uključi obaveštenja"}
+                  !isUnsubscribed ? (
+                    "Promeni sačuvanu pretragu"
+                  ) : (
+                    <PushNotificationsActivationModal
+                      handler={turnOnPushNotifications}
+                    />
+                  )}
                 </Button>
                 <Tooltip
                   title="Obaveštenja ćete dobijati jednom dnevno kad se pojavi novi stan na osnovu sačuvane pretrage"
