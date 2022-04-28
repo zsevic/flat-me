@@ -9,7 +9,7 @@ export const POLICY_PRIVACY_PAGE_TITLE = "FlatMe | Politika privatnosti";
 export const TERMS_AND_CONDITIONS_PAGE_TITLE = "FlatMe | Uslovi korišćenja";
 export const DOMAIN_URL = "https://www.flat-me.com";
 
-export const TRACK_FILTERS_SUCCESS_MESSAGE =
+export const EMAIL_NOTIFICATIONS_SUCCESS_MESSAGE =
   "Proverite mejl (uključujući i deo sa promocijama) za detalje oko potvrde sačuvane pretrage.";
 export const VERIFICATION_SUCCESS_MESSAGE =
   "Jednom dnevno ćete primati obaveštenja o novim stanovima na osnovu sačuvane pretrage.";
@@ -53,7 +53,7 @@ export const firebaseConfig = {
   measurementId: "G-1F2ED6J80T",
 };
 
-export const TRACK_FILTERS_MODAL_TITLE = "Uključi email obaveštenja";
+export const EMAIL_NOTIFICATIONS_MODAL_TITLE = "Uključi email obaveštenja";
 export const APARTMENT_LIST_LOADER_TEXT = "Prikupljaju se rezultati...";
 
 export const activationType = "activation";

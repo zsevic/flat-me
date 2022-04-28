@@ -39,7 +39,7 @@ const errorMessages = {
   [USER_IS_NOT_VERIFIED_STATUS_CODE]: userNotVerifiedErrorMessage,
 };
 
-export const EmailNotificationsModal = () => {
+export const PushNotificationsModal = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [filters, setFilters] = useState({});
   const [visible, setVisible] = useState(false);
@@ -47,7 +47,7 @@ export const EmailNotificationsModal = () => {
 
   const closeModal = (track = true) => {
     if (track) {
-      trackEvent("notifications", "cancel-registration");
+      trackEvent("push-notifications", "cancel-push-notifications");
     }
     setVisible(false);
     form.resetFields();
@@ -68,7 +68,7 @@ export const EmailNotificationsModal = () => {
         duration: 0,
       });
       closeModal(false);
-      trackEvent("notifications", "registration-by-email");
+      trackEvent("push-notifications", "push-notifications-activated");
     } catch (error) {
       const errorMessage =
         errorMessages[error?.response?.status] || "Pretraga nije sačuvana";
@@ -81,7 +81,7 @@ export const EmailNotificationsModal = () => {
 
   const showModal = () => {
     setVisible(true);
-    trackEvent("notifications", "turn-on-notifications");
+    trackEvent("push-notifications", "turn-on-push-notifications");
   };
 
   useEffect(() => {
