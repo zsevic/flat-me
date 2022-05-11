@@ -117,8 +117,7 @@ export const FiltersForm = ({
         const filters = storedFilters || form.getFieldsValue();
         const updatedFilters = getFilters(filters);
         eventBus.dispatch("filters-changed", { filters: updatedFilters });
-        const isDisabled = false;
-        eventBus.dispatch("trackFilters-changed", { isDisabled });
+        eventBus.dispatch("trackFilters-changed", { isDisabled: false });
       })
       .catch((error) => {
         const isDisabled = error?.errorFields?.length > 0;
@@ -134,7 +133,6 @@ export const FiltersForm = ({
   const turnOnPushNotifications = async () => {
     try {
       const accessToken = await getTokenForPushNotifications();
-      setToken(accessToken);
 
       const filters = form.getFieldsValue();
       const formFilters = getFilters(filters);
@@ -153,6 +151,7 @@ export const FiltersForm = ({
           : VERIFICATION_SUCCESS_MESSAGE,
         duration: 0,
       });
+      setToken(accessToken);
       removeItem(UNSUBSCRIBED_KEY);
       setIsUnsubscribed(false);
       trackEvent("push-notifications", "push-notifications-activated");

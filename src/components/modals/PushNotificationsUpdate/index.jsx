@@ -1,4 +1,4 @@
-import { Button, Form, Modal } from "antd";
+import { Button, Modal } from "antd";
 import Link from "next/link";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE } from "constants/config";
@@ -10,7 +10,6 @@ import eventBus from "utils/event-bus";
 export const PushNotificationsUpdateModal = ({ handler }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [visible, setVisible] = useState(false);
-  const [form] = Form.useForm();
 
   const closeModal = (track = true) => {
     if (track) {
@@ -20,7 +19,6 @@ export const PushNotificationsUpdateModal = ({ handler }) => {
       );
     }
     setVisible(false);
-    form.resetFields();
   };
 
   const onClickHandler = async () => {
@@ -41,15 +39,17 @@ export const PushNotificationsUpdateModal = ({ handler }) => {
 
   return (
     <>
-      <Button
-        type="primary"
-        onClick={showModal}
-        size="large"
-        disabled={isDisabled}
-      >
-        <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
-        {PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE}
-      </Button>
+      <div className="text-center">
+        <Button
+          type="primary"
+          onClick={showModal}
+          size="large"
+          disabled={isDisabled}
+        >
+          <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
+          {PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE}
+        </Button>
+      </div>
       <Modal
         title={PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE}
         visible={visible}
