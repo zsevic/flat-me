@@ -151,11 +151,9 @@ export const FiltersForm = ({
           : VERIFICATION_SUCCESS_MESSAGE,
         duration: 0,
       });
-      setToken(accessToken);
       removeItem(UNSUBSCRIBED_KEY);
-      setIsUnsubscribed(false);
       trackEvent("push-notifications", "push-notifications-activated");
-      return { isDone: true };
+      return { isDone: true, token: accessToken };
     } catch (error) {
       const errorMessage = getErrorMessageForBlockedNotifications(error);
       notification.error({
@@ -165,6 +163,13 @@ export const FiltersForm = ({
       return { isDone: false };
     }
   };
+
+  useEffect(() => {
+    eventBus.on("pushNotificationUpdate", (data) => {
+      setToken(data.token);
+      setIsUnsubscribed(false);
+    });
+  }, []);
 
   useEffect(() => {
     const storedFilters = getInitialFilters();

@@ -22,8 +22,11 @@ export const PushNotificationsUpdateModal = ({ handler }) => {
   };
 
   const onClickHandler = async () => {
-    const { isDone } = await handler();
-    if (isDone) return closeModal(false);
+    const data = await handler();
+    if (data.isDone) {
+      closeModal(false);
+      eventBus.dispatch("pushNotificationUpdate", { token: data.token });
+    }
   };
 
   const showModal = () => {
