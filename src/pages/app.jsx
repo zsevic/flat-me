@@ -61,6 +61,7 @@ const AppPage = ({ query }) => {
   const [isInitialSearchDone, setIsInitialSearchDone] = useState(false);
   const [isInitialFoundSearchDone, setIsInitialFoundSearchDone] =
     useState(false);
+  const [showTabs, setShowTabs] = useState(false);
   const listRef = useRef();
   const headerRef = useRef();
 
@@ -256,7 +257,11 @@ const AppPage = ({ query }) => {
     </StickyContainer>
   );
 
-  const appPage = () => (isSupported() ? tabs() : searchTab());
+  useEffect(() => {
+    if (isSupported()) {
+      setShowTabs(true);
+    }
+  }, []);
 
   return (
     <div className="px-2 mt-2">
@@ -288,7 +293,7 @@ const AppPage = ({ query }) => {
         <link rel="canonical" href={DOMAIN_URL} />
         <title>{APP_TITLE}</title>
       </Head>
-      <div ref={headerRef}>{appPage()}</div>
+      <div ref={headerRef}>{showTabs ? tabs() : searchTab()}</div>
     </div>
   );
 };

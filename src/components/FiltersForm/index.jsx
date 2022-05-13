@@ -111,6 +111,8 @@ export const FiltersForm = ({
   const [showRentFilters, setShowRentFilters] = useState(false);
   const [isPushNotificationActivated, setIsPushNotificationUpdated] =
     useState(false);
+  const [isPushNotificationSupported, setIsPushNotificationSupported] =
+    useState(false);
 
   const validateFields = (storedFilters) => {
     form
@@ -175,6 +177,12 @@ export const FiltersForm = ({
       setIsPushNotificationUpdated(true);
     }
   }, [token, isUnsubscribed]);
+
+  useEffect(() => {
+    if (isSupported()) {
+      setIsPushNotificationSupported(true);
+    }
+  }, []);
 
   useEffect(() => {
     eventBus.on("pushNotificationUpdate", (data) => {
@@ -528,7 +536,7 @@ export const FiltersForm = ({
               </Button>
             </Form.Item>
           </Col>
-          {isSupported() && (
+          {isPushNotificationSupported && (
             <Col className="mx-1 mb-5">
               {isPushNotificationActivated ? (
                 <PushNotificationsUpdateModal
