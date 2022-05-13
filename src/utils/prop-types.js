@@ -32,11 +32,11 @@ const apartmentPropType = PropTypes.shape({
 export const apartmentListPropType = PropTypes.arrayOf(apartmentPropType);
 
 export const filtersPropType = PropTypes.shape({
-  minPrice: PropTypes.number.isRequired,
-  maxPrice: PropTypes.number.isRequired,
-  municipalities: PropTypes.arrayOf(PropTypes.string).isRequired,
-  rentOrSale: PropTypes.string.isRequired,
-  structures: PropTypes.arrayOf(stringOrNumberPropType).isRequired,
+  minPrice: PropTypes.number,
+  maxPrice: PropTypes.number,
+  municipalities: PropTypes.arrayOf(PropTypes.string),
+  rentOrSale: PropTypes.string,
+  structures: PropTypes.arrayOf(stringOrNumberPropType),
 });
 
 export const verificationPagePropTypes = {
