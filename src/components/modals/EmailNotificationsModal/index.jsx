@@ -22,6 +22,7 @@ import React, { useEffect, useState } from "react";
 import * as filtersService from "services/filters";
 import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
+import { useAppContext } from "context/AppContext";
 
 const formItemLayout = {
   labelCol: {
@@ -40,9 +41,9 @@ const errorMessages = {
 };
 
 export const EmailNotificationsModal = () => {
-  const [isDisabled, setIsDisabled] = useState(true);
   const [filters, setFilters] = useState({});
   const [visible, setVisible] = useState(false);
+  const { state } = useAppContext();
   const [form] = Form.useForm();
 
   const closeModal = (track = true) => {
@@ -85,10 +86,6 @@ export const EmailNotificationsModal = () => {
   };
 
   useEffect(() => {
-    eventBus.on("trackFilters-changed", (data) => {
-      setIsDisabled(data.isDisabled);
-    });
-
     eventBus.on("filters-changed", (data) => {
       setFilters(data.filters);
     });
@@ -100,7 +97,7 @@ export const EmailNotificationsModal = () => {
         type="primary"
         onClick={showModal}
         size="large"
-        disabled={isDisabled}
+        disabled={state.isNotificationActivationDisabled}
       >
         <RiMailLine className="mb-1 mr-1 inline" />
         {EMAIL_NOTIFICATIONS_MODAL_TITLE}

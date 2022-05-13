@@ -1,14 +1,15 @@
 import { Button, Modal } from "antd";
+import { useAppContext } from "context/AppContext";
 import Link from "next/link";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE } from "constants/config";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 
 export const PushNotificationsUpdateModal = ({ handler }) => {
-  const [isDisabled, setIsDisabled] = useState(true);
+  const { state } = useAppContext();
   const [visible, setVisible] = useState(false);
 
   const closeModal = (track = true) => {
@@ -34,12 +35,6 @@ export const PushNotificationsUpdateModal = ({ handler }) => {
     trackEvent("push-notifications-update", "update-push-notifications");
   };
 
-  useEffect(() => {
-    eventBus.on("trackFilters-changed", (data) => {
-      setIsDisabled(data.isDisabled);
-    });
-  }, []);
-
   return (
     <>
       <div className="text-center">
@@ -47,7 +42,7 @@ export const PushNotificationsUpdateModal = ({ handler }) => {
           type="primary"
           onClick={showModal}
           size="large"
-          disabled={isDisabled}
+          disabled={state.isNotificationActivationDisabled}
         >
           <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
           {PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE}

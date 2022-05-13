@@ -121,7 +121,10 @@ export const FiltersForm = ({
         const filters = storedFilters || form.getFieldsValue();
         const updatedFilters = getFilters(filters);
         eventBus.dispatch("filters-changed", { filters: updatedFilters });
-        eventBus.dispatch("trackFilters-changed", { isDisabled: false });
+        dispatch({
+          type: "notificationActivationUpdate",
+          payload: { isDisabled: false },
+        });
       })
       .catch((error) => {
         const isDisabled = error?.errorFields?.length > 0;
@@ -130,7 +133,10 @@ export const FiltersForm = ({
           const updatedFilters = getFilters(filters);
           eventBus.dispatch("filters-changed", { filters: updatedFilters });
         }
-        eventBus.dispatch("trackFilters-changed", { isDisabled });
+        dispatch({
+          type: "notificationActivationUpdate",
+          payload: { isDisabled },
+        });
       });
   };
 

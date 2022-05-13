@@ -2,6 +2,7 @@ import { Button, Modal } from "antd";
 import Link from "next/link";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE } from "constants/config";
+import { useAppContext } from "context/AppContext";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { isDesktop, isMobile, isTablet } from "react-device-detect";
@@ -19,9 +20,9 @@ const deviceTypesMap = {
 };
 
 export const PushNotificationsActivationModal = ({ handler }) => {
-  const [isDisabled, setIsDisabled] = useState(true);
   const [visible, setVisible] = useState(false);
   const [deviceType, setDeviceType] = useState(PHONE);
+  const { state } = useAppContext();
   const [turnOnNotificationsText, setTurnOnNotificationsText] = useState(
     "Uključi obaveštenja"
   );
@@ -62,12 +63,6 @@ export const PushNotificationsActivationModal = ({ handler }) => {
     }
   };
 
-  useEffect(() => {
-    eventBus.on("trackFilters-changed", (data) => {
-      setIsDisabled(data.isDisabled);
-    });
-  }, []);
-
   return (
     <>
       <div className="text-center">
@@ -75,7 +70,7 @@ export const PushNotificationsActivationModal = ({ handler }) => {
           type="primary"
           onClick={showModal}
           size="large"
-          disabled={isDisabled}
+          disabled={state.isNotificationActivationDisabled}
         >
           <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
           {turnOnNotificationsText}

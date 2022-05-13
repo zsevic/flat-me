@@ -1,5 +1,6 @@
 export const initialState = {
   isPushNotificationActivated: false,
+  isNotificationActivationDisabled: true,
 };
 
 export const AppReducer = (state, action) => {
@@ -12,6 +13,13 @@ export const AppReducer = (state, action) => {
       return {
         ...state,
         isPushNotificationActivated: true,
+      };
+    }
+
+    case "notificationActivationUpdate": {
+      return {
+        ...state,
+        isNotificationActivationDisabled: action.payload.isDisabled,
       };
     }
 
