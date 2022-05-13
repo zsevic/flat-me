@@ -61,7 +61,8 @@ const AppPage = ({ query }) => {
   const [isInitialSearchDone, setIsInitialSearchDone] = useState(false);
   const [isInitialFoundSearchDone, setIsInitialFoundSearchDone] =
     useState(false);
-  const [showTabs, setShowTabs] = useState(false);
+  const [isPushNotificationSupported, setIsPushNotificationSupported] =
+    useState(false);
   const listRef = useRef();
   const headerRef = useRef();
 
@@ -259,7 +260,7 @@ const AppPage = ({ query }) => {
 
   useEffect(() => {
     if (isSupported()) {
-      setShowTabs(true);
+      setIsPushNotificationSupported(true);
     }
   }, []);
 
@@ -293,7 +294,9 @@ const AppPage = ({ query }) => {
         <link rel="canonical" href={DOMAIN_URL} />
         <title>{APP_TITLE}</title>
       </Head>
-      <div ref={headerRef}>{showTabs ? tabs() : searchTab()}</div>
+      <div ref={headerRef}>
+        {isPushNotificationSupported ? tabs() : searchTab()}
+      </div>
     </div>
   );
 };
