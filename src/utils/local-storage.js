@@ -5,7 +5,7 @@ export function getItem(key) {
   try {
     return localStorage.getItem(key);
   } catch (error) {
-    console.error("Local storage is not supported", error);
+    console.error("Local storage (getItem) is not supported", error);
     return null;
   }
 }
@@ -14,7 +14,7 @@ export function setItem(key, value) {
   try {
     localStorage.setItem(key, value);
   } catch (error) {
-    console.error("Local storage is not supported", error);
+    console.error("Local storage (setItem) is not supported", error);
   }
 }
 
