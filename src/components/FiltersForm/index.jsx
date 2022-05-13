@@ -36,6 +36,7 @@ import {
 import { floorFilters } from "constants/floors";
 import { FURNISHED } from "constants/furnished";
 import { STRUCTURES } from "constants/structures";
+import { useAppContext } from "context/AppContext";
 import * as apartmentsService from "services/apartments";
 import { subscribeForPushNotifications } from "services/subscriptions";
 import { trackEvent } from "utils/analytics";
@@ -109,8 +110,7 @@ export const FiltersForm = ({
   const [activeKey, setActiveKey] = useState(null);
   const [places, setPlaces] = useState([]);
   const [showRentFilters, setShowRentFilters] = useState(false);
-  const [isPushNotificationActivated, setIsPushNotificationUpdated] =
-    useState(false);
+  const { state, dispatch } = useAppContext();
   const [isPushNotificationSupported, setIsPushNotificationSupported] =
     useState(false);
 
@@ -174,7 +174,7 @@ export const FiltersForm = ({
       !getItem(UNSUBSCRIBED_KEY) &&
       !isUnsubscribed
     ) {
-      setIsPushNotificationUpdated(true);
+      dispatch({ type: "pushNotificationActivate" });
     }
   }, [token, isUnsubscribed]);
 
@@ -538,7 +538,7 @@ export const FiltersForm = ({
           </Col>
           {isPushNotificationSupported && (
             <Col className="mx-1 mb-5">
-              {isPushNotificationActivated ? (
+              {state.isPushNotificationActivated ? (
                 <PushNotificationsUpdateModal
                   handler={turnOnPushNotifications}
                 />
