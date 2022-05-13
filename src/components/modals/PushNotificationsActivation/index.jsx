@@ -22,6 +22,9 @@ export const PushNotificationsActivationModal = ({ handler }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [visible, setVisible] = useState(false);
   const [deviceType, setDeviceType] = useState(PHONE);
+  const [turnOnNotificationsText, setTurnOnNotificationsText] = useState(
+    "Uključi obaveštenja"
+  );
 
   useEffect(() => {
     if (isTablet) {
@@ -32,6 +35,12 @@ export const PushNotificationsActivationModal = ({ handler }) => {
       setDeviceType(PHONE);
     }
   }, []);
+
+  useEffect(() => {
+    setTurnOnNotificationsText(
+      `Uključi obaveštenja na ${deviceTypesMap[deviceType]}`
+    );
+  }, [deviceType]);
 
   const closeModal = (track = true) => {
     if (track) {
@@ -69,7 +78,7 @@ export const PushNotificationsActivationModal = ({ handler }) => {
           disabled={isDisabled}
         >
           <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
-          {`Uključi obaveštenja na ${deviceTypesMap[deviceType]}`}
+          {turnOnNotificationsText}
         </Button>
       </div>
       <Modal
