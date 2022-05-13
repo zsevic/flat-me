@@ -108,7 +108,6 @@ export const EmailNotificationsModal = () => {
       <Modal
         title={EMAIL_NOTIFICATIONS_MODAL_TITLE}
         visible={visible}
-        forceRender
         onCancel={closeModal}
         footer={
           <div>
