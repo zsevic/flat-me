@@ -43,6 +43,7 @@ import {
   SET_ACCESS_TOKEN,
   SET_APARTMENT_LIST,
   SET_FILTERS,
+  TOGGLE_NOTIFICATION_ACTIVATION_ALLOWANCE,
 } from "context/constants";
 import * as apartmentsService from "services/apartments";
 import { subscribeForPushNotifications } from "services/subscriptions";
@@ -119,7 +120,7 @@ export const FiltersForm = ({ listRef }) => {
         const updatedFilters = getFilters(filters);
         dispatch({ type: SET_FILTERS, payload: { filters: updatedFilters } });
         dispatch({
-          type: "notificationActivationUpdate",
+          type: TOGGLE_NOTIFICATION_ACTIVATION_ALLOWANCE,
           payload: { isDisabled: false },
         });
       })
@@ -134,7 +135,7 @@ export const FiltersForm = ({ listRef }) => {
           });
         }
         dispatch({
-          type: "notificationActivationUpdate",
+          type: TOGGLE_NOTIFICATION_ACTIVATION_ALLOWANCE,
           payload: { isDisabled },
         });
       });

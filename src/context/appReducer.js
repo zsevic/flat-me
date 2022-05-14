@@ -8,6 +8,7 @@ import {
   SET_APARTMENT_LIST,
   SET_FILTERS,
   SET_FOUND_APARTMENT_LIST,
+  TOGGLE_NOTIFICATION_ACTIVATION_ALLOWANCE,
 } from "./constants";
 
 export const initialState = {
@@ -35,7 +36,7 @@ export const appReducer = (state, action) => {
       };
     }
 
-    case "notificationActivationUpdate": {
+    case TOGGLE_NOTIFICATION_ACTIVATION_ALLOWANCE: {
       return {
         ...state,
         isNotificationActivationDisabled: action.payload.isDisabled,
