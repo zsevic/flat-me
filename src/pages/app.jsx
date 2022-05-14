@@ -71,7 +71,7 @@ const AppPage = ({ query }) => {
     } else {
       setIsSubscribed(false);
     }
-  }, [state.isLoadingApartmentList, showUnsubscribeButton]);
+  }, [state.isLoadingFoundApartmentList, showUnsubscribeButton]);
 
   const handleFoundApartmentsTab = async () => {
     try {
