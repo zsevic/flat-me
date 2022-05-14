@@ -30,6 +30,7 @@ import * as apartmentsService from "services/apartments";
 import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getLocationUrl } from "utils/location";
+import { scroll } from "utils/scrolling";
 import { getAddressValue, handleFloor } from "./utils";
 
 const { Meta } = Card;
@@ -47,7 +48,7 @@ export const ApartmentList = ({ listRef }) => {
       type: "apartmentListLoadingSet",
       payload: { isLoadingApartmentList: true },
     });
-    listRef?.current?.scrollIntoView();
+    scroll(listRef);
     const { data, pageInfo } = await apartmentsService.getApartmentList({
       ...state.filters,
       limitPerPage: PAGE_SIZE,
