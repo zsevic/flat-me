@@ -2,6 +2,8 @@ export const initialState = {
   isPushNotificationActivated: false,
   isNotificationActivationDisabled: true,
   apartmentList: [],
+  foundApartmentList: [],
+  accessToken: null,
 };
 
 export const AppReducer = (state, action) => {
@@ -24,6 +26,13 @@ export const AppReducer = (state, action) => {
       };
     }
 
+    case "accessTokenSet": {
+      return {
+        ...state,
+        accessToken: action.payload.accessToken,
+      };
+    }
+
     case "apartmentListAppend": {
       return {
         ...state,
@@ -38,6 +47,23 @@ export const AppReducer = (state, action) => {
       return {
         ...state,
         apartmentList: action.payload.apartmentList,
+      };
+    }
+
+    case "foundApartmentListAppend": {
+      return {
+        ...state,
+        foundApartmentList: [
+          ...state.foundApartmentList,
+          ...action.payload.foundApartmentList,
+        ],
+      };
+    }
+
+    case "foundApartmentListSet": {
+      return {
+        ...state,
+        foundApartmentList: action.payload.foundApartmentList,
       };
     }
 

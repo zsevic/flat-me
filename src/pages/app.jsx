@@ -19,6 +19,7 @@ import {
   SEARCH_TAB,
 } from "constants/config";
 import { defaultNotificationsBlockedErrorMessage } from "constants/error-messages";
+import { useAppContext } from "context/AppContext";
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { getFoundApartmentList } from "services/apartments";
@@ -37,7 +38,6 @@ const { TabPane } = Tabs;
 const INITIAL_FOUND_COUNTER = 0;
 
 const AppPage = ({ query }) => {
-  const [foundApartmentList, setFoundApartmentList] = useState([]);
   const [clickedFoundApartments, setClickedFoundApartments] = useState([]);
   const [tabKey, setTabKey] = useState(SEARCH_TAB);
   const [foundApartmentsCounter, setFoundApartmentsCounter] = useState(
@@ -53,7 +53,6 @@ const AppPage = ({ query }) => {
   ] = useState(defaultNotificationsBlockedErrorMessage);
   const [showUnsubscribeButton, setShowUnsubscribeButton] = useState(true);
   const [filters, setFilters] = useState({});
-  const [token, setToken] = useState(null);
   const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
   const [isLoadingFoundApartmentList, setIsLoadingFoundApartmentList] =
     useState(true);
@@ -62,6 +61,7 @@ const AppPage = ({ query }) => {
     useState(false);
   const [isPushNotificationSupported, setIsPushNotificationSupported] =
     useState(false);
+  const { dispatch } = useAppContext();
   const listRef = useRef();
   const headerRef = useRef();
 
@@ -77,7 +77,7 @@ const AppPage = ({ query }) => {
       if (isInitialFoundSearchDone) return;
       setIsLoadingFoundApartmentList(true);
       const accessToken = await getTokenForPushNotifications();
-      setToken(accessToken);
+      dispatch({ type: "accessTokenSet", payload: { accessToken } });
       const { data, pageInfo } = await getFoundApartmentList({
         token: accessToken,
         limitPerPage: PAGE_SIZE,
@@ -87,7 +87,10 @@ const AppPage = ({ query }) => {
         endCursor: pageInfo.endCursor,
       });
       setIsLoadingFoundApartmentList(false);
-      setFoundApartmentList(data);
+      dispatch({
+        type: "foundApartmentListAppend",
+        payload: { foundApartmentList: data },
+      });
       setIsInitialFoundSearchDone(true);
       scroll(headerRef);
     } catch (error) {
@@ -154,8 +157,6 @@ const AppPage = ({ query }) => {
         setIsInitialSearchDone={setIsInitialSearchDone}
         isInitialSearchDone={isInitialSearchDone}
         listRef={listRef}
-        token={token}
-        setToken={setToken}
       />
       <ApartmentList
         isLoadingApartmentList={isLoadingApartmentList}
@@ -228,11 +229,8 @@ const AppPage = ({ query }) => {
           ) : (
             <>
               <FoundApartmentList
-                apartmentList={foundApartmentList}
-                setApartmentList={setFoundApartmentList}
                 isLoadingFoundApartmentList={isLoadingFoundApartmentList}
                 setIsLoadingFoundApartmentList={setIsLoadingFoundApartmentList}
-                token={token}
                 foundCounter={foundApartmentsCounter}
                 setFoundCounter={setFoundApartmentsCounter}
                 clickedFoundApartments={clickedFoundApartments}

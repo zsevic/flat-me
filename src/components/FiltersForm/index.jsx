@@ -79,8 +79,6 @@ export const FiltersForm = ({
   setIsInitialSearchDone,
   isInitialSearchDone,
   listRef,
-  token,
-  setToken,
 }) => {
   const [form] = Form.useForm();
   const [isUnsubscribed, setIsUnsubscribed] = useState(false);
@@ -175,13 +173,13 @@ export const FiltersForm = ({
 
   useEffect(() => {
     if (
-      (token || getItem(TOKEN_KEY)) &&
+      (state.accessToken || getItem(TOKEN_KEY)) &&
       !getItem(UNSUBSCRIBED_KEY) &&
       !isUnsubscribed
     ) {
       dispatch({ type: "pushNotificationActivate" });
     }
-  }, [token, isUnsubscribed]);
+  }, [state.accessToken, isUnsubscribed]);
 
   useEffect(() => {
     if (isSupported()) {
@@ -191,7 +189,10 @@ export const FiltersForm = ({
 
   useEffect(() => {
     eventBus.on("pushNotificationUpdate", (data) => {
-      setToken(data.token);
+      dispatch({
+        type: "accessTokenSet",
+        payload: { accessToken: data.token },
+      });
       setIsUnsubscribed(false);
     });
   }, []);
@@ -571,10 +572,4 @@ FiltersForm.propTypes = {
   setIsInitialSearchDone: PropTypes.func.isRequired,
   isInitialSearchDone: PropTypes.bool.isRequired,
   listRef: PropTypes.object.isRequired,
-  token: PropTypes.string,
-  setToken: PropTypes.func.isRequired,
-};
-
-FiltersForm.defaultProps = {
-  token: null,
 };

@@ -28,9 +28,9 @@ import {
 } from "constants/config";
 import { furnishedMap } from "constants/furnished";
 import { structuresMap } from "constants/structures";
+import { useAppContext } from "context/AppContext";
 import { trackEvent } from "utils/analytics";
 import { getLocationUrl } from "utils/location";
-import { apartmentListPropType } from "utils/prop-types";
 import { getFoundApartmentList } from "services/apartments";
 import eventBus from "utils/event-bus";
 import { getAddressValue, handleFloor } from "../ApartmentList/utils";
@@ -38,11 +38,8 @@ import { getAddressValue, handleFloor } from "../ApartmentList/utils";
 const { Meta } = Card;
 
 export const FoundApartmentList = ({
-  apartmentList,
-  setApartmentList,
   isLoadingFoundApartmentList,
   setIsLoadingFoundApartmentList,
-  token,
   foundCounter,
   setFoundCounter,
   clickedFoundApartments,
@@ -54,11 +51,12 @@ export const FoundApartmentList = ({
   const [newSublistStartApartmentId, setNewSublistStartApartmentId] =
     useState(null);
   const [clickedFound, setClickedFound] = useState([]);
+  const { state, dispatch } = useAppContext();
 
   const handleLoadMore = async () => {
     setIsLoadingFoundApartmentList(true);
     const { data, pageInfo } = await getFoundApartmentList({
-      token,
+      token: state.accessToken,
       limitPerPage: PAGE_SIZE,
       cursor: endCursor,
     });
@@ -66,7 +64,10 @@ export const FoundApartmentList = ({
     setEndCursor(pageInfo.endCursor);
     const [firstSublistApartment] = data;
     setNewSublistStartApartmentId(firstSublistApartment?.id);
-    setApartmentList([...apartmentList, ...data]);
+    dispatch({
+      type: "foundApartmentListAppend",
+      payload: { foundApartmentList: data },
+    });
     setIsLoadingFoundApartmentList(false);
     newSublistStartRef?.current?.scrollIntoView();
     trackEvent("found-apartments-load-more", "found-apartments-load-more");
@@ -106,7 +107,7 @@ export const FoundApartmentList = ({
           xl: 3,
           xxl: 3,
         }}
-        dataSource={apartmentList}
+        dataSource={state.foundApartmentList}
         itemLayout="horizontal"
         loading={{
           tip: APARTMENT_LIST_LOADER_TEXT,
@@ -116,7 +117,7 @@ export const FoundApartmentList = ({
         locale={{
           emptyText: (
             <Empty
-              className={!apartmentList.length ? "block" : "hidden"}
+              className={!state.foundApartmentList.length ? "block" : "hidden"}
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={NO_RESULTS_TEXT}
             />
@@ -327,17 +328,13 @@ export const FoundApartmentList = ({
 };
 
 FoundApartmentList.propTypes = {
-  apartmentList: apartmentListPropType.isRequired,
-  setApartmentList: PropTypes.func.isRequired,
   isLoadingFoundApartmentList: PropTypes.bool.isRequired,
   setIsLoadingFoundApartmentList: PropTypes.func.isRequired,
-  token: PropTypes.string,
   foundCounter: PropTypes.number.isRequired,
   setFoundCounter: PropTypes.func.isRequired,
   clickedFoundApartments: PropTypes.arrayOf(PropTypes.number),
 };
 
 FoundApartmentList.defaultProps = {
-  token: null,
   clickedFoundApartments: [],
 };
