@@ -52,8 +52,6 @@ const AppPage = ({ query }) => {
     setDefaultTextForFoundApartmentsTab,
   ] = useState(defaultNotificationsBlockedErrorMessage);
   const [showUnsubscribeButton, setShowUnsubscribeButton] = useState(true);
-  const [isLoadingFoundApartmentList, setIsLoadingFoundApartmentList] =
-    useState(true);
   const [isInitialFoundSearchDone, setIsInitialFoundSearchDone] =
     useState(false);
   const [isPushNotificationSupported, setIsPushNotificationSupported] =
@@ -66,13 +64,19 @@ const AppPage = ({ query }) => {
     try {
       const storedToken = getItem(TOKEN_KEY);
       if (!storedToken) {
-        setIsLoadingFoundApartmentList(false);
+        dispatch({
+          type: "foundApartmentListLoadingSet",
+          payload: { isLoadingFoundApartmentList: false },
+        });
         setShowDefaultTextForFoundApartmentsTab(true);
         return;
       }
       setShowDefaultTextForFoundApartmentsTab(false);
       if (isInitialFoundSearchDone) return;
-      setIsLoadingFoundApartmentList(true);
+      dispatch({
+        type: "foundApartmentListLoadingSet",
+        payload: { isLoadingFoundApartmentList: true },
+      });
       const accessToken = await getTokenForPushNotifications();
       dispatch({ type: "accessTokenSet", payload: { accessToken } });
       const { data, pageInfo } = await getFoundApartmentList({
@@ -83,16 +87,22 @@ const AppPage = ({ query }) => {
         hasNextPage: pageInfo.hasNextPage,
         endCursor: pageInfo.endCursor,
       });
-      setIsLoadingFoundApartmentList(false);
       dispatch({
-        type: "foundApartmentListAppend",
+        type: "foundApartmentListLoadingSet",
+        payload: { isLoadingFoundApartmentList: false },
+      });
+      dispatch({
+        type: "foundApartmentListSet",
         payload: { foundApartmentList: data },
       });
       setIsInitialFoundSearchDone(true);
       scroll(headerRef);
     } catch (error) {
       const errorMessage = getErrorMessageForBlockedNotifications(error);
-      setIsLoadingFoundApartmentList(false);
+      dispatch({
+        type: "foundApartmentListLoadingSet",
+        payload: { isLoadingFoundApartmentList: false },
+      });
       setDefaultTextForFoundApartmentsTab(errorMessage);
       setShowDefaultTextForFoundApartmentsTab(true);
     }
@@ -214,13 +224,11 @@ const AppPage = ({ query }) => {
           ) : (
             <>
               <FoundApartmentList
-                isLoadingFoundApartmentList={isLoadingFoundApartmentList}
-                setIsLoadingFoundApartmentList={setIsLoadingFoundApartmentList}
                 foundCounter={foundApartmentsCounter}
                 setFoundCounter={setFoundApartmentsCounter}
                 clickedFoundApartments={clickedFoundApartments}
               />
-              {!isLoadingFoundApartmentList &&
+              {!state.isLoadingFoundApartmentList &&
                 showUnsubscribeButton &&
                 !getItem(UNSUBSCRIBED_KEY) && (
                   <div className="text-center mb-3">
@@ -229,7 +237,7 @@ const AppPage = ({ query }) => {
                     </Button>
                   </div>
                 )}
-              {!isLoadingFoundApartmentList && <BackTop />}
+              {!state.isLoadingFoundApartmentList && <BackTop />}
             </>
           )}
         </TabPane>

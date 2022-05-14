@@ -38,8 +38,6 @@ import { getAddressValue, handleFloor } from "../ApartmentList/utils";
 const { Meta } = Card;
 
 export const FoundApartmentList = ({
-  isLoadingFoundApartmentList,
-  setIsLoadingFoundApartmentList,
   foundCounter,
   setFoundCounter,
   clickedFoundApartments,
@@ -54,7 +52,10 @@ export const FoundApartmentList = ({
   const { state, dispatch } = useAppContext();
 
   const handleLoadMore = async () => {
-    setIsLoadingFoundApartmentList(true);
+    dispatch({
+      type: "foundApartmentListLoadingSet",
+      payload: { isLoadingFoundApartmentList: true },
+    });
     const { data, pageInfo } = await getFoundApartmentList({
       token: state.accessToken,
       limitPerPage: PAGE_SIZE,
@@ -68,12 +69,15 @@ export const FoundApartmentList = ({
       type: "foundApartmentListAppend",
       payload: { foundApartmentList: data },
     });
-    setIsLoadingFoundApartmentList(false);
+    dispatch({
+      type: "foundApartmentListLoadingSet",
+      payload: { isLoadingFoundApartmentList: false },
+    });
     newSublistStartRef?.current?.scrollIntoView();
     trackEvent("found-apartments-load-more", "found-apartments-load-more");
   };
 
-  const loadMore = !isLoadingFoundApartmentList && hasNextPage && (
+  const loadMore = !state.isLoadingFoundApartmentList && hasNextPage && (
     <div
       style={{
         textAlign: "center",
@@ -111,7 +115,7 @@ export const FoundApartmentList = ({
         itemLayout="horizontal"
         loading={{
           tip: APARTMENT_LIST_LOADER_TEXT,
-          spinning: isLoadingFoundApartmentList,
+          spinning: state.isLoadingFoundApartmentList,
           className: "mt-2",
         }}
         locale={{
@@ -224,7 +228,7 @@ export const FoundApartmentList = ({
             <List.Item>
               <Skeleton
                 avatar
-                loading={isLoadingFoundApartmentList}
+                loading={state.isLoadingFoundApartmentList}
                 title={false}
                 active
               >
@@ -328,8 +332,6 @@ export const FoundApartmentList = ({
 };
 
 FoundApartmentList.propTypes = {
-  isLoadingFoundApartmentList: PropTypes.bool.isRequired,
-  setIsLoadingFoundApartmentList: PropTypes.func.isRequired,
   foundCounter: PropTypes.number.isRequired,
   setFoundCounter: PropTypes.func.isRequired,
   clickedFoundApartments: PropTypes.arrayOf(PropTypes.number),
