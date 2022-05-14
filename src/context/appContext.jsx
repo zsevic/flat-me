@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { getItem, setItem } from "utils/local-storage";
 import { appReducer, initialState } from "./appReducer";
+import { INITIALIZE_STORE } from "./constants";
 
 const appContext = createContext(initialState);
 
@@ -22,7 +23,7 @@ export function AppWrapper({ children }) {
     const stateItem = getItem("state");
     if (stateItem && JSON.parse(stateItem)) {
       dispatch({
-        type: "initStored",
+        type: INITIALIZE_STORE,
         payload: JSON.parse(stateItem),
       });
     }

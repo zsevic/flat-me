@@ -37,6 +37,12 @@ import { floorFilters } from "constants/floors";
 import { FURNISHED } from "constants/furnished";
 import { STRUCTURES } from "constants/structures";
 import { useAppContext } from "context/appContext";
+import {
+  ACTIVATE_PUSH_NOTIFICATIONS,
+  INITIAL_SEARCH,
+  SET_ACCESS_TOKEN,
+  SET_FILTERS,
+} from "context/constants";
 import * as apartmentsService from "services/apartments";
 import { subscribeForPushNotifications } from "services/subscriptions";
 import { trackEvent } from "utils/analytics";
@@ -110,7 +116,7 @@ export const FiltersForm = ({ listRef }) => {
       .then(() => {
         const filters = storedFilters || form.getFieldsValue();
         const updatedFilters = getFilters(filters);
-        dispatch({ type: "filtersSet", payload: { filters: updatedFilters } });
+        dispatch({ type: SET_FILTERS, payload: { filters: updatedFilters } });
         dispatch({
           type: "notificationActivationUpdate",
           payload: { isDisabled: false },
@@ -122,7 +128,7 @@ export const FiltersForm = ({ listRef }) => {
           const filters = form.getFieldsValue();
           const updatedFilters = getFilters(filters);
           dispatch({
-            type: "filtersSet",
+            type: SET_FILTERS,
             payload: { filters: updatedFilters },
           });
         }
@@ -154,7 +160,7 @@ export const FiltersForm = ({ listRef }) => {
           : VERIFICATION_SUCCESS_MESSAGE,
         duration: 0,
       });
-      dispatch({ type: "accessTokenSet", payload: { accessToken } });
+      dispatch({ type: SET_ACCESS_TOKEN, payload: { accessToken } });
       removeItem(UNSUBSCRIBED_KEY);
       dispatch({
         type: "isPushNotificationActivated",
@@ -178,7 +184,7 @@ export const FiltersForm = ({ listRef }) => {
       !getItem(UNSUBSCRIBED_KEY) &&
       state.isPushNotificationActivated
     ) {
-      dispatch({ type: "pushNotificationActivate" });
+      dispatch({ type: ACTIVATE_PUSH_NOTIFICATIONS });
     }
   }, [state.accessToken, state.isPushNotificationActivated]);
 
@@ -234,7 +240,7 @@ export const FiltersForm = ({ listRef }) => {
     }
 
     const newFilters = getFilters(values);
-    dispatch({ type: "filtersSet", payload: { filters: newFilters } });
+    dispatch({ type: SET_FILTERS, payload: { filters: newFilters } });
     setItem("initial-filters", JSON.stringify(values));
 
     dispatch({
@@ -252,7 +258,7 @@ export const FiltersForm = ({ listRef }) => {
       payload: { isLoadingApartmentList: false },
     });
     dispatch({
-      type: "initialSearchDone",
+      type: INITIAL_SEARCH,
     });
     scroll(listRef);
     eventBus.dispatch("apartment-list-page-changed", {

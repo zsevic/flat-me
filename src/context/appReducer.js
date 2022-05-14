@@ -1,3 +1,11 @@
+import {
+  ACTIVATE_PUSH_NOTIFICATIONS,
+  INITIALIZE_STORE,
+  INITIAL_SEARCH,
+  SET_ACCESS_TOKEN,
+  SET_FILTERS,
+} from "./constants";
+
 export const initialState = {
   isInitialSearchDone: false,
   isLoadingApartmentList: false,
@@ -12,11 +20,11 @@ export const initialState = {
 
 export const appReducer = (state, action) => {
   switch (action.type) {
-    case "initStored": {
+    case INITIALIZE_STORE: {
       return action.payload;
     }
 
-    case "pushNotificationActivate": {
+    case ACTIVATE_PUSH_NOTIFICATIONS: {
       return {
         ...state,
         isPushNotificationActivated: true,
@@ -30,7 +38,7 @@ export const appReducer = (state, action) => {
       };
     }
 
-    case "accessTokenSet": {
+    case SET_ACCESS_TOKEN: {
       return {
         ...state,
         accessToken: action.payload.accessToken,
@@ -71,7 +79,7 @@ export const appReducer = (state, action) => {
       };
     }
 
-    case "filtersSet": {
+    case SET_FILTERS: {
       return {
         ...state,
         filters: action.payload.filters,
@@ -92,7 +100,7 @@ export const appReducer = (state, action) => {
       };
     }
 
-    case "initialSearchDone": {
+    case INITIAL_SEARCH: {
       return {
         ...state,
         isInitialSearchDone: true,

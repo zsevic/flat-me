@@ -20,6 +20,7 @@ import {
 } from "constants/config";
 import { defaultNotificationsBlockedErrorMessage } from "constants/error-messages";
 import { useAppContext } from "context/appContext";
+import { SET_ACCESS_TOKEN } from "context/constants";
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { getFoundApartmentList } from "services/apartments";
@@ -91,7 +92,7 @@ const AppPage = ({ query }) => {
         payload: { isLoadingFoundApartmentList: true },
       });
       const accessToken = await getTokenForPushNotifications();
-      dispatch({ type: "accessTokenSet", payload: { accessToken } });
+      dispatch({ type: SET_ACCESS_TOKEN, payload: { accessToken } });
       const { data, pageInfo } = await getFoundApartmentList({
         token: accessToken,
         limitPerPage: PAGE_SIZE,
