@@ -73,11 +73,7 @@ const formItemLayout = {
   },
 };
 
-export const FiltersForm = ({
-  setIsInitialSearchDone,
-  isInitialSearchDone,
-  listRef,
-}) => {
+export const FiltersForm = ({ listRef }) => {
   const [form] = Form.useForm();
   const [isUnsubscribed, setIsUnsubscribed] = useState(false);
   const [isInitialRentOrSale, setIsInitialRentOrSale] = useState(true);
@@ -232,7 +228,7 @@ export const FiltersForm = ({
     handleMunicipalities(values);
 
     const storedFilters = getInitialFilters();
-    if (storedFilters && isInitialSearchDone) {
+    if (storedFilters && state.isInitialSearchDone) {
       const isSameFilter = deepEqual(JSON.parse(storedFilters), values);
       if (isSameFilter) {
         scroll(listRef);
@@ -258,7 +254,9 @@ export const FiltersForm = ({
       type: "apartmentListLoadingSet",
       payload: { isLoadingApartmentList: false },
     });
-    setIsInitialSearchDone(true);
+    dispatch({
+      type: "initialSearchDone",
+    });
     scroll(listRef);
     eventBus.dispatch("apartment-list-page-changed", {
       hasNextPage: pageInfo.hasNextPage,
@@ -571,7 +569,5 @@ export const FiltersForm = ({
 };
 
 FiltersForm.propTypes = {
-  setIsInitialSearchDone: PropTypes.func.isRequired,
-  isInitialSearchDone: PropTypes.bool.isRequired,
   listRef: PropTypes.object.isRequired,
 };

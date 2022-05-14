@@ -1,4 +1,5 @@
 export const initialState = {
+  isInitialSearchDone: false,
   isLoadingApartmentList: false,
   isPushNotificationActivated: false,
   isNotificationActivationDisabled: true,
@@ -80,6 +81,13 @@ export const AppReducer = (state, action) => {
       return {
         ...state,
         isLoadingApartmentList: action.payload.isLoadingApartmentList,
+      };
+    }
+
+    case "initialSearchDone": {
+      return {
+        ...state,
+        isInitialSearchDone: true,
       };
     }
 

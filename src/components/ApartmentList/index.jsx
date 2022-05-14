@@ -34,7 +34,7 @@ import { getAddressValue, handleFloor } from "./utils";
 
 const { Meta } = Card;
 
-export const ApartmentList = ({ listRef, isInitialSearchDone }) => {
+export const ApartmentList = ({ listRef }) => {
   const [endCursor, setEndCursor] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(false);
   const newSublistStartRef = useRef();
@@ -109,7 +109,7 @@ export const ApartmentList = ({ listRef, isInitialSearchDone }) => {
           emptyText: (
             <Empty
               className={
-                isInitialSearchDone && !state.apartmentList.length
+                state.isInitialSearchDone && !state.apartmentList.length
                   ? "block"
                   : "hidden"
               }
@@ -289,5 +289,4 @@ export const ApartmentList = ({ listRef, isInitialSearchDone }) => {
 
 ApartmentList.propTypes = {
   listRef: PropTypes.object.isRequired,
-  isInitialSearchDone: PropTypes.bool.isRequired,
 };

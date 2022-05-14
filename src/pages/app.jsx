@@ -54,7 +54,6 @@ const AppPage = ({ query }) => {
   const [showUnsubscribeButton, setShowUnsubscribeButton] = useState(true);
   const [isLoadingFoundApartmentList, setIsLoadingFoundApartmentList] =
     useState(true);
-  const [isInitialSearchDone, setIsInitialSearchDone] = useState(false);
   const [isInitialFoundSearchDone, setIsInitialFoundSearchDone] =
     useState(false);
   const [isPushNotificationSupported, setIsPushNotificationSupported] =
@@ -149,15 +148,8 @@ const AppPage = ({ query }) => {
 
   const searchTab = () => (
     <>
-      <FiltersForm
-        setIsInitialSearchDone={setIsInitialSearchDone}
-        isInitialSearchDone={isInitialSearchDone}
-        listRef={listRef}
-      />
-      <ApartmentList
-        listRef={listRef}
-        isInitialSearchDone={isInitialSearchDone}
-      />
+      <FiltersForm listRef={listRef} />
+      <ApartmentList listRef={listRef} />
       {!state.isLoadingApartmentList && <BackTop />}
     </>
   );
