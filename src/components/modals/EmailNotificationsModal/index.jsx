@@ -18,10 +18,9 @@ import {
   TOO_MANY_REQUESTS_STATUS_CODE,
   USER_IS_NOT_VERIFIED_STATUS_CODE,
 } from "constants/status-codes";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as filtersService from "services/filters";
 import { trackEvent } from "utils/analytics";
-import eventBus from "utils/event-bus";
 import { useAppContext } from "context/AppContext";
 
 const formItemLayout = {
@@ -41,7 +40,6 @@ const errorMessages = {
 };
 
 export const EmailNotificationsModal = () => {
-  const [filters, setFilters] = useState({});
   const [visible, setVisible] = useState(false);
   const { state } = useAppContext();
   const [form] = Form.useForm();
@@ -58,10 +56,10 @@ export const EmailNotificationsModal = () => {
     const { email } = values;
 
     try {
-      handleMunicipalities(filters);
+      handleMunicipalities(state.filters);
       await filtersService.saveFilter({
-        ...filters,
-        ...(filters.rentOrSale !== "rent" && { furnished: [] }),
+        ...state.filters,
+        ...(state.filters.rentOrSale !== "rent" && { furnished: [] }),
         email,
       });
       notification.info({
@@ -84,12 +82,6 @@ export const EmailNotificationsModal = () => {
     setVisible(true);
     trackEvent("notifications", "turn-on-notifications");
   };
-
-  useEffect(() => {
-    eventBus.on("filters-changed", (data) => {
-      setFilters(data.filters);
-    });
-  }, []);
 
   return (
     <>

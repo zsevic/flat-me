@@ -6,7 +6,6 @@ import { PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE } from "constants/config";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { trackEvent } from "utils/analytics";
-import eventBus from "utils/event-bus";
 
 export const PushNotificationsUpdateModal = ({ handler }) => {
   const { state } = useAppContext();
@@ -26,7 +25,6 @@ export const PushNotificationsUpdateModal = ({ handler }) => {
     const data = await handler();
     if (data.isDone) {
       closeModal(false);
-      eventBus.dispatch("pushNotificationUpdate", { token: data.token });
     }
   };
 

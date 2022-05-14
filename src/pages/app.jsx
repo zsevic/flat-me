@@ -56,9 +56,22 @@ const AppPage = ({ query }) => {
     useState(false);
   const [isPushNotificationSupported, setIsPushNotificationSupported] =
     useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const { state, dispatch } = useAppContext();
   const listRef = useRef();
   const headerRef = useRef();
+
+  useEffect(() => {
+    if (
+      !state.isLoadingFoundApartmentList &&
+      showUnsubscribeButton &&
+      !getItem(UNSUBSCRIBED_KEY)
+    ) {
+      setIsSubscribed(true);
+    } else {
+      setIsSubscribed(false);
+    }
+  }, [state.isLoadingApartmentList, showUnsubscribeButton]);
 
   const handleFoundApartmentsTab = async () => {
     try {
@@ -228,15 +241,13 @@ const AppPage = ({ query }) => {
                 setFoundCounter={setFoundApartmentsCounter}
                 clickedFoundApartments={clickedFoundApartments}
               />
-              {!state.isLoadingFoundApartmentList &&
-                showUnsubscribeButton &&
-                !getItem(UNSUBSCRIBED_KEY) && (
-                  <div className="text-center mb-3">
-                    <Button size="small" danger onClick={handleUnsubscribe}>
-                      Isključi obaveštenja
-                    </Button>
-                  </div>
-                )}
+              {isSubscribed && (
+                <div className="text-center mb-3">
+                  <Button size="small" danger onClick={handleUnsubscribe}>
+                    Isključi obaveštenja
+                  </Button>
+                </div>
+              )}
               {!state.isLoadingFoundApartmentList && <BackTop />}
             </>
           )}

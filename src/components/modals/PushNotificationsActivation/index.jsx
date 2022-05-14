@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { isDesktop, isMobile, isTablet } from "react-device-detect";
 import { trackEvent } from "utils/analytics";
-import eventBus from "utils/event-bus";
 
 const PHONE = "phone";
 const TABLET = "tablet";
@@ -59,7 +58,6 @@ export const PushNotificationsActivationModal = ({ handler }) => {
     const data = await handler();
     if (data.isDone) {
       closeModal(false);
-      eventBus.dispatch("pushNotificationUpdate", { token: data.token });
     }
   };
 

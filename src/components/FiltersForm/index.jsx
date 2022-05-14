@@ -75,7 +75,6 @@ const formItemLayout = {
 
 export const FiltersForm = ({ listRef }) => {
   const [form] = Form.useForm();
-  const [isUnsubscribed, setIsUnsubscribed] = useState(false);
   const [isInitialRentOrSale, setIsInitialRentOrSale] = useState(true);
   const [minPriceField, setMinPriceField] = useState(RENT_MIN_PRICE);
   const [maxPriceField, setMaxPriceField] = useState(RENT_MAX_PRICE);
@@ -111,7 +110,7 @@ export const FiltersForm = ({ listRef }) => {
       .then(() => {
         const filters = storedFilters || form.getFieldsValue();
         const updatedFilters = getFilters(filters);
-        eventBus.dispatch("filters-changed", { filters: updatedFilters });
+        dispatch({ type: "filtersSet", payload: { filters: updatedFilters } });
         dispatch({
           type: "notificationActivationUpdate",
           payload: { isDisabled: false },
@@ -122,7 +121,10 @@ export const FiltersForm = ({ listRef }) => {
         if (!isDisabled) {
           const filters = form.getFieldsValue();
           const updatedFilters = getFilters(filters);
-          eventBus.dispatch("filters-changed", { filters: updatedFilters });
+          dispatch({
+            type: "filtersSet",
+            payload: { filters: updatedFilters },
+          });
         }
         dispatch({
           type: "notificationActivationUpdate",
@@ -152,7 +154,12 @@ export const FiltersForm = ({ listRef }) => {
           : VERIFICATION_SUCCESS_MESSAGE,
         duration: 0,
       });
+      dispatch({ type: "accessTokenSet", payload: { accessToken } });
       removeItem(UNSUBSCRIBED_KEY);
+      dispatch({
+        type: "isPushNotificationActivated",
+        payload: { isPushNotificationActivated: true },
+      });
       trackEvent("push-notifications", "push-notifications-activated");
       return { isDone: true, token: accessToken };
     } catch (error) {
@@ -169,26 +176,16 @@ export const FiltersForm = ({ listRef }) => {
     if (
       (state.accessToken || getItem(TOKEN_KEY)) &&
       !getItem(UNSUBSCRIBED_KEY) &&
-      !isUnsubscribed
+      state.isPushNotificationActivated
     ) {
       dispatch({ type: "pushNotificationActivate" });
     }
-  }, [state.accessToken, isUnsubscribed]);
+  }, [state.accessToken, state.isPushNotificationActivated]);
 
   useEffect(() => {
     if (isSupported()) {
       setIsPushNotificationSupported(true);
     }
-  }, []);
-
-  useEffect(() => {
-    eventBus.on("pushNotificationUpdate", (data) => {
-      dispatch({
-        type: "accessTokenSet",
-        payload: { accessToken: data.token },
-      });
-      setIsUnsubscribed(false);
-    });
   }, []);
 
   useEffect(() => {
