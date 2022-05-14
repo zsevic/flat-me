@@ -41,6 +41,7 @@ import {
   ACTIVATE_PUSH_NOTIFICATIONS,
   INITIAL_SEARCH,
   SET_ACCESS_TOKEN,
+  SET_APARTMENT_LIST,
   SET_FILTERS,
 } from "context/constants";
 import * as apartmentsService from "services/apartments";
@@ -252,7 +253,7 @@ export const FiltersForm = ({ listRef }) => {
       ...newFilters,
       limitPerPage: PAGE_SIZE,
     });
-    dispatch({ type: "apartmentListSet", payload: { apartmentList: data } });
+    dispatch({ type: SET_APARTMENT_LIST, payload: { apartmentList: data } });
     dispatch({
       type: "apartmentListLoadingSet",
       payload: { isLoadingApartmentList: false },

@@ -31,6 +31,7 @@ import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getLocationUrl } from "utils/location";
 import { scroll } from "utils/scrolling";
+import { APPEND_APARTMENT_LIST } from "context/constants";
 import { getAddressValue, handleFloor } from "./utils";
 
 const { Meta } = Card;
@@ -58,7 +59,7 @@ export const ApartmentList = ({ listRef }) => {
     setEndCursor(pageInfo.endCursor);
     const [firstSublistApartment] = data;
     setNewSublistStartApartmentId(firstSublistApartment?.id);
-    dispatch({ type: "apartmentListAppend", payload: { apartmentList: data } });
+    dispatch({ type: APPEND_APARTMENT_LIST, payload: { apartmentList: data } });
     dispatch({
       type: "apartmentListLoadingSet",
       payload: { isLoadingApartmentList: false },

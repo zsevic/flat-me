@@ -33,6 +33,7 @@ import { trackEvent } from "utils/analytics";
 import { getLocationUrl } from "utils/location";
 import { getFoundApartmentList } from "services/apartments";
 import eventBus from "utils/event-bus";
+import { APPEND_FOUND_APARTMENT_LIST } from "context/constants";
 import { getAddressValue, handleFloor } from "../ApartmentList/utils";
 
 const { Meta } = Card;
@@ -66,7 +67,7 @@ export const FoundApartmentList = ({
     const [firstSublistApartment] = data;
     setNewSublistStartApartmentId(firstSublistApartment?.id);
     dispatch({
-      type: "foundApartmentListAppend",
+      type: APPEND_FOUND_APARTMENT_LIST,
       payload: { foundApartmentList: data },
     });
     dispatch({

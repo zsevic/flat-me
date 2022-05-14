@@ -1,9 +1,13 @@
 import {
   ACTIVATE_PUSH_NOTIFICATIONS,
+  APPEND_APARTMENT_LIST,
+  APPEND_FOUND_APARTMENT_LIST,
   INITIALIZE_STORE,
   INITIAL_SEARCH,
   SET_ACCESS_TOKEN,
+  SET_APARTMENT_LIST,
   SET_FILTERS,
+  SET_FOUND_APARTMENT_LIST,
 } from "./constants";
 
 export const initialState = {
@@ -45,7 +49,7 @@ export const appReducer = (state, action) => {
       };
     }
 
-    case "apartmentListAppend": {
+    case APPEND_APARTMENT_LIST: {
       return {
         ...state,
         apartmentList: [
@@ -55,14 +59,14 @@ export const appReducer = (state, action) => {
       };
     }
 
-    case "apartmentListSet": {
+    case SET_APARTMENT_LIST: {
       return {
         ...state,
         apartmentList: action.payload.apartmentList,
       };
     }
 
-    case "foundApartmentListAppend": {
+    case APPEND_FOUND_APARTMENT_LIST: {
       return {
         ...state,
         foundApartmentList: [
@@ -72,7 +76,7 @@ export const appReducer = (state, action) => {
       };
     }
 
-    case "foundApartmentListSet": {
+    case SET_FOUND_APARTMENT_LIST: {
       return {
         ...state,
         foundApartmentList: action.payload.foundApartmentList,
