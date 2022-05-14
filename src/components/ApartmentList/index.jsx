@@ -34,12 +34,7 @@ import { getAddressValue, handleFloor } from "./utils";
 
 const { Meta } = Card;
 
-export const ApartmentList = ({
-  isLoadingApartmentList,
-  setIsLoadingApartmentList,
-  listRef,
-  isInitialSearchDone,
-}) => {
+export const ApartmentList = ({ listRef, isInitialSearchDone }) => {
   const [endCursor, setEndCursor] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(false);
   const newSublistStartRef = useRef();
@@ -48,7 +43,10 @@ export const ApartmentList = ({
   const { state, dispatch } = useAppContext();
 
   const handleLoadMore = async () => {
-    setIsLoadingApartmentList(true);
+    dispatch({
+      type: "apartmentListLoadingSet",
+      payload: { isLoadingApartmentList: true },
+    });
     listRef?.current?.scrollIntoView();
     const { data, pageInfo } = await apartmentsService.getApartmentList({
       ...state.filters,
@@ -60,7 +58,10 @@ export const ApartmentList = ({
     const [firstSublistApartment] = data;
     setNewSublistStartApartmentId(firstSublistApartment?.id);
     dispatch({ type: "apartmentListAppend", payload: { apartmentList: data } });
-    setIsLoadingApartmentList(false);
+    dispatch({
+      type: "apartmentListLoadingSet",
+      payload: { isLoadingApartmentList: false },
+    });
     newSublistStartRef?.current?.scrollIntoView();
     trackEvent("search", "load-more");
   };
@@ -72,7 +73,7 @@ export const ApartmentList = ({
     });
   }, []);
 
-  const loadMore = !isLoadingApartmentList && hasNextPage && (
+  const loadMore = !state.isLoadingApartmentList && hasNextPage && (
     <div
       style={{
         textAlign: "center",
@@ -101,7 +102,7 @@ export const ApartmentList = ({
         itemLayout="horizontal"
         loading={{
           tip: APARTMENT_LIST_LOADER_TEXT,
-          spinning: isLoadingApartmentList,
+          spinning: state.isLoadingApartmentList,
           className: "mt-2",
         }}
         locale={{
@@ -184,7 +185,7 @@ export const ApartmentList = ({
             <List.Item>
               <Skeleton
                 avatar
-                loading={isLoadingApartmentList}
+                loading={state.isLoadingApartmentList}
                 title={false}
                 active
               >
@@ -287,8 +288,6 @@ export const ApartmentList = ({
 };
 
 ApartmentList.propTypes = {
-  isLoadingApartmentList: PropTypes.bool.isRequired,
-  setIsLoadingApartmentList: PropTypes.func.isRequired,
   listRef: PropTypes.object.isRequired,
   isInitialSearchDone: PropTypes.bool.isRequired,
 };

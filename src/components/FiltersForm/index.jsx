@@ -74,7 +74,6 @@ const formItemLayout = {
 };
 
 export const FiltersForm = ({
-  setIsLoadingApartmentList,
   setIsInitialSearchDone,
   isInitialSearchDone,
   listRef,
@@ -245,14 +244,20 @@ export const FiltersForm = ({
     dispatch({ type: "filtersSet", payload: { filters: newFilters } });
     setItem("initial-filters", JSON.stringify(values));
 
-    setIsLoadingApartmentList(true);
+    dispatch({
+      type: "apartmentListLoadingSet",
+      payload: { isLoadingApartmentList: true },
+    });
     scroll(listRef);
     const { data, pageInfo } = await apartmentsService.getApartmentList({
       ...newFilters,
       limitPerPage: PAGE_SIZE,
     });
     dispatch({ type: "apartmentListSet", payload: { apartmentList: data } });
-    setIsLoadingApartmentList(false);
+    dispatch({
+      type: "apartmentListLoadingSet",
+      payload: { isLoadingApartmentList: false },
+    });
     setIsInitialSearchDone(true);
     scroll(listRef);
     eventBus.dispatch("apartment-list-page-changed", {
@@ -566,7 +571,6 @@ export const FiltersForm = ({
 };
 
 FiltersForm.propTypes = {
-  setIsLoadingApartmentList: PropTypes.func.isRequired,
   setIsInitialSearchDone: PropTypes.func.isRequired,
   isInitialSearchDone: PropTypes.bool.isRequired,
   listRef: PropTypes.object.isRequired,
