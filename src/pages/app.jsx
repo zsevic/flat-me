@@ -52,7 +52,6 @@ const AppPage = ({ query }) => {
     setDefaultTextForFoundApartmentsTab,
   ] = useState(defaultNotificationsBlockedErrorMessage);
   const [showUnsubscribeButton, setShowUnsubscribeButton] = useState(true);
-  const [filters, setFilters] = useState({});
   const [isLoadingApartmentList, setIsLoadingApartmentList] = useState(false);
   const [isLoadingFoundApartmentList, setIsLoadingFoundApartmentList] =
     useState(true);
@@ -152,7 +151,6 @@ const AppPage = ({ query }) => {
   const searchTab = () => (
     <>
       <FiltersForm
-        setFilters={setFilters}
         setIsLoadingApartmentList={setIsLoadingApartmentList}
         setIsInitialSearchDone={setIsInitialSearchDone}
         isInitialSearchDone={isInitialSearchDone}
@@ -161,7 +159,6 @@ const AppPage = ({ query }) => {
       <ApartmentList
         isLoadingApartmentList={isLoadingApartmentList}
         setIsLoadingApartmentList={setIsLoadingApartmentList}
-        filters={filters}
         listRef={listRef}
         isInitialSearchDone={isInitialSearchDone}
       />

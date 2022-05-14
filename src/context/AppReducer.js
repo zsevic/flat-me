@@ -4,6 +4,7 @@ export const initialState = {
   apartmentList: [],
   foundApartmentList: [],
   accessToken: null,
+  filters: {},
 };
 
 export const AppReducer = (state, action) => {
@@ -64,6 +65,13 @@ export const AppReducer = (state, action) => {
       return {
         ...state,
         foundApartmentList: action.payload.foundApartmentList,
+      };
+    }
+
+    case "filtersSet": {
+      return {
+        ...state,
+        filters: action.payload.filters,
       };
     }
 

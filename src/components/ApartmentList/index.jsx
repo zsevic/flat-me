@@ -30,7 +30,6 @@ import * as apartmentsService from "services/apartments";
 import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getLocationUrl } from "utils/location";
-import { filtersPropType } from "utils/prop-types";
 import { getAddressValue, handleFloor } from "./utils";
 
 const { Meta } = Card;
@@ -38,7 +37,6 @@ const { Meta } = Card;
 export const ApartmentList = ({
   isLoadingApartmentList,
   setIsLoadingApartmentList,
-  filters,
   listRef,
   isInitialSearchDone,
 }) => {
@@ -53,7 +51,7 @@ export const ApartmentList = ({
     setIsLoadingApartmentList(true);
     listRef?.current?.scrollIntoView();
     const { data, pageInfo } = await apartmentsService.getApartmentList({
-      ...filters,
+      ...state.filters,
       limitPerPage: PAGE_SIZE,
       cursor: endCursor,
     });
@@ -291,7 +289,6 @@ export const ApartmentList = ({
 ApartmentList.propTypes = {
   isLoadingApartmentList: PropTypes.bool.isRequired,
   setIsLoadingApartmentList: PropTypes.func.isRequired,
-  filters: filtersPropType.isRequired,
   listRef: PropTypes.object.isRequired,
   isInitialSearchDone: PropTypes.bool.isRequired,
 };

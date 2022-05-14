@@ -74,7 +74,6 @@ const formItemLayout = {
 };
 
 export const FiltersForm = ({
-  setFilters,
   setIsLoadingApartmentList,
   setIsInitialSearchDone,
   isInitialSearchDone,
@@ -243,7 +242,7 @@ export const FiltersForm = ({
     }
 
     const newFilters = getFilters(values);
-    setFilters(newFilters);
+    dispatch({ type: "filtersSet", payload: { filters: newFilters } });
     setItem("initial-filters", JSON.stringify(values));
 
     setIsLoadingApartmentList(true);
@@ -567,7 +566,6 @@ export const FiltersForm = ({
 };
 
 FiltersForm.propTypes = {
-  setFilters: PropTypes.func.isRequired,
   setIsLoadingApartmentList: PropTypes.func.isRequired,
   setIsInitialSearchDone: PropTypes.func.isRequired,
   isInitialSearchDone: PropTypes.bool.isRequired,
