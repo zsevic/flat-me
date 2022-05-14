@@ -20,7 +20,11 @@ import {
 } from "constants/config";
 import { defaultNotificationsBlockedErrorMessage } from "constants/error-messages";
 import { useAppContext } from "context/appContext";
-import { SET_ACCESS_TOKEN } from "context/constants";
+import {
+  SET_ACCESS_TOKEN,
+  SET_FOUND_APARTMENT_LIST,
+  SET_LOADING_FOUND_APARTMENT_LIST,
+} from "context/constants";
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { getFoundApartmentList } from "services/apartments";
@@ -79,7 +83,7 @@ const AppPage = ({ query }) => {
       const storedToken = getItem(TOKEN_KEY);
       if (!storedToken) {
         dispatch({
-          type: "foundApartmentListLoadingSet",
+          type: SET_LOADING_FOUND_APARTMENT_LIST,
           payload: { isLoadingFoundApartmentList: false },
         });
         setShowDefaultTextForFoundApartmentsTab(true);
@@ -88,7 +92,7 @@ const AppPage = ({ query }) => {
       setShowDefaultTextForFoundApartmentsTab(false);
       if (isInitialFoundSearchDone) return;
       dispatch({
-        type: "foundApartmentListLoadingSet",
+        type: SET_LOADING_FOUND_APARTMENT_LIST,
         payload: { isLoadingFoundApartmentList: true },
       });
       const accessToken = await getTokenForPushNotifications();
@@ -102,11 +106,11 @@ const AppPage = ({ query }) => {
         endCursor: pageInfo.endCursor,
       });
       dispatch({
-        type: "foundApartmentListLoadingSet",
+        type: SET_LOADING_FOUND_APARTMENT_LIST,
         payload: { isLoadingFoundApartmentList: false },
       });
       dispatch({
-        type: "foundApartmentListSet",
+        type: SET_FOUND_APARTMENT_LIST,
         payload: { foundApartmentList: data },
       });
       setIsInitialFoundSearchDone(true);
@@ -114,7 +118,7 @@ const AppPage = ({ query }) => {
     } catch (error) {
       const errorMessage = getErrorMessageForBlockedNotifications(error);
       dispatch({
-        type: "foundApartmentListLoadingSet",
+        type: SET_LOADING_FOUND_APARTMENT_LIST,
         payload: { isLoadingFoundApartmentList: false },
       });
       setDefaultTextForFoundApartmentsTab(errorMessage);

@@ -8,7 +8,9 @@ import {
   SET_APARTMENT_LIST,
   SET_FILTERS,
   SET_FOUND_APARTMENT_LIST,
-  TOGGLE_NOTIFICATION_ACTIVATION_ALLOWANCE,
+  SET_LOADING_APARTMENT_LIST,
+  SET_LOADING_FOUND_APARTMENT_LIST,
+  UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE,
 } from "./constants";
 
 export const initialState = {
@@ -36,7 +38,7 @@ export const appReducer = (state, action) => {
       };
     }
 
-    case TOGGLE_NOTIFICATION_ACTIVATION_ALLOWANCE: {
+    case UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE: {
       return {
         ...state,
         isNotificationActivationDisabled: action.payload.isDisabled,
@@ -91,14 +93,14 @@ export const appReducer = (state, action) => {
       };
     }
 
-    case "apartmentListLoadingSet": {
+    case SET_LOADING_APARTMENT_LIST: {
       return {
         ...state,
         isLoadingApartmentList: action.payload.isLoadingApartmentList,
       };
     }
 
-    case "foundApartmentListLoadingSet": {
+    case SET_LOADING_FOUND_APARTMENT_LIST: {
       return {
         ...state,
         isLoadingFoundApartmentList: action.payload.isLoadingFoundApartmentList,

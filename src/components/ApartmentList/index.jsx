@@ -31,7 +31,10 @@ import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getLocationUrl } from "utils/location";
 import { scroll } from "utils/scrolling";
-import { APPEND_APARTMENT_LIST } from "context/constants";
+import {
+  APPEND_APARTMENT_LIST,
+  SET_LOADING_APARTMENT_LIST,
+} from "context/constants";
 import { getAddressValue, handleFloor } from "./utils";
 
 const { Meta } = Card;
@@ -46,7 +49,7 @@ export const ApartmentList = ({ listRef }) => {
 
   const handleLoadMore = async () => {
     dispatch({
-      type: "apartmentListLoadingSet",
+      type: SET_LOADING_APARTMENT_LIST,
       payload: { isLoadingApartmentList: true },
     });
     scroll(listRef);
@@ -61,7 +64,7 @@ export const ApartmentList = ({ listRef }) => {
     setNewSublistStartApartmentId(firstSublistApartment?.id);
     dispatch({ type: APPEND_APARTMENT_LIST, payload: { apartmentList: data } });
     dispatch({
-      type: "apartmentListLoadingSet",
+      type: SET_LOADING_APARTMENT_LIST,
       payload: { isLoadingApartmentList: false },
     });
     newSublistStartRef?.current?.scrollIntoView();

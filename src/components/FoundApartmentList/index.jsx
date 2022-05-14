@@ -33,7 +33,10 @@ import { trackEvent } from "utils/analytics";
 import { getLocationUrl } from "utils/location";
 import { getFoundApartmentList } from "services/apartments";
 import eventBus from "utils/event-bus";
-import { APPEND_FOUND_APARTMENT_LIST } from "context/constants";
+import {
+  APPEND_FOUND_APARTMENT_LIST,
+  SET_LOADING_FOUND_APARTMENT_LIST,
+} from "context/constants";
 import { getAddressValue, handleFloor } from "../ApartmentList/utils";
 
 const { Meta } = Card;
@@ -54,7 +57,7 @@ export const FoundApartmentList = ({
 
   const handleLoadMore = async () => {
     dispatch({
-      type: "foundApartmentListLoadingSet",
+      type: SET_LOADING_FOUND_APARTMENT_LIST,
       payload: { isLoadingFoundApartmentList: true },
     });
     const { data, pageInfo } = await getFoundApartmentList({
@@ -71,7 +74,7 @@ export const FoundApartmentList = ({
       payload: { foundApartmentList: data },
     });
     dispatch({
-      type: "foundApartmentListLoadingSet",
+      type: SET_LOADING_FOUND_APARTMENT_LIST,
       payload: { isLoadingFoundApartmentList: false },
     });
     newSublistStartRef?.current?.scrollIntoView();

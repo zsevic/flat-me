@@ -43,7 +43,8 @@ import {
   SET_ACCESS_TOKEN,
   SET_APARTMENT_LIST,
   SET_FILTERS,
-  TOGGLE_NOTIFICATION_ACTIVATION_ALLOWANCE,
+  SET_LOADING_APARTMENT_LIST,
+  UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE,
 } from "context/constants";
 import * as apartmentsService from "services/apartments";
 import { subscribeForPushNotifications } from "services/subscriptions";
@@ -120,7 +121,7 @@ export const FiltersForm = ({ listRef }) => {
         const updatedFilters = getFilters(filters);
         dispatch({ type: SET_FILTERS, payload: { filters: updatedFilters } });
         dispatch({
-          type: TOGGLE_NOTIFICATION_ACTIVATION_ALLOWANCE,
+          type: UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE,
           payload: { isDisabled: false },
         });
       })
@@ -135,7 +136,7 @@ export const FiltersForm = ({ listRef }) => {
           });
         }
         dispatch({
-          type: TOGGLE_NOTIFICATION_ACTIVATION_ALLOWANCE,
+          type: UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE,
           payload: { isDisabled },
         });
       });
@@ -165,7 +166,7 @@ export const FiltersForm = ({ listRef }) => {
       dispatch({ type: SET_ACCESS_TOKEN, payload: { accessToken } });
       removeItem(UNSUBSCRIBED_KEY);
       dispatch({
-        type: "isPushNotificationActivated",
+        type: ACTIVATE_PUSH_NOTIFICATIONS,
         payload: { isPushNotificationActivated: true },
       });
       trackEvent("push-notifications", "push-notifications-activated");
@@ -246,7 +247,7 @@ export const FiltersForm = ({ listRef }) => {
     setItem("initial-filters", JSON.stringify(values));
 
     dispatch({
-      type: "apartmentListLoadingSet",
+      type: SET_LOADING_APARTMENT_LIST,
       payload: { isLoadingApartmentList: true },
     });
     scroll(listRef);
@@ -256,7 +257,7 @@ export const FiltersForm = ({ listRef }) => {
     });
     dispatch({ type: SET_APARTMENT_LIST, payload: { apartmentList: data } });
     dispatch({
-      type: "apartmentListLoadingSet",
+      type: SET_LOADING_APARTMENT_LIST,
       payload: { isLoadingApartmentList: false },
     });
     dispatch({
