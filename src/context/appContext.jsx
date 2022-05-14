@@ -7,12 +7,12 @@ import React, {
   useReducer,
 } from "react";
 import { getItem, setItem } from "utils/local-storage";
-import { AppReducer, initialState } from "./AppReducer";
+import { appReducer, initialState } from "./appReducer";
 
-const AppContext = createContext(initialState);
+const appContext = createContext(initialState);
 
 export function AppWrapper({ children }) {
-  const [state, dispatch] = useReducer(AppReducer, initialState);
+  const [state, dispatch] = useReducer(appReducer, initialState);
 
   const contextValue = useMemo(() => {
     return { state, dispatch };
@@ -35,7 +35,7 @@ export function AppWrapper({ children }) {
   }, [state]);
 
   return (
-    <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
+    <appContext.Provider value={contextValue}>{children}</appContext.Provider>
   );
 }
 
@@ -44,5 +44,5 @@ AppWrapper.propTypes = {
 };
 
 export function useAppContext() {
-  return useContext(AppContext);
+  return useContext(appContext);
 }

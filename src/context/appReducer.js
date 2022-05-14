@@ -10,7 +10,7 @@ export const initialState = {
   filters: {},
 };
 
-export const AppReducer = (state, action) => {
+export const appReducer = (state, action) => {
   switch (action.type) {
     case "initStored": {
       return action.payload;

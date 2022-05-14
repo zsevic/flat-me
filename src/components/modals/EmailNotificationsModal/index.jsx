@@ -21,7 +21,7 @@ import {
 import React, { useState } from "react";
 import * as filtersService from "services/filters";
 import { trackEvent } from "utils/analytics";
-import { useAppContext } from "context/AppContext";
+import { useAppContext } from "context/appContext";
 
 const formItemLayout = {
   labelCol: {
