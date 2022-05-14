@@ -1,6 +1,7 @@
 export const initialState = {
   isPushNotificationActivated: false,
   isNotificationActivationDisabled: true,
+  apartmentList: [],
 };
 
 export const AppReducer = (state, action) => {
@@ -20,6 +21,23 @@ export const AppReducer = (state, action) => {
       return {
         ...state,
         isNotificationActivationDisabled: action.payload.isDisabled,
+      };
+    }
+
+    case "apartmentListAppend": {
+      return {
+        ...state,
+        apartmentList: [
+          ...state.apartmentList,
+          ...action.payload.apartmentList,
+        ],
+      };
+    }
+
+    case "apartmentListSet": {
+      return {
+        ...state,
+        apartmentList: action.payload.apartmentList,
       };
     }
 

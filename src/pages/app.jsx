@@ -37,7 +37,6 @@ const { TabPane } = Tabs;
 const INITIAL_FOUND_COUNTER = 0;
 
 const AppPage = ({ query }) => {
-  const [apartmentList, setApartmentList] = useState([]);
   const [foundApartmentList, setFoundApartmentList] = useState([]);
   const [clickedFoundApartments, setClickedFoundApartments] = useState([]);
   const [tabKey, setTabKey] = useState(SEARCH_TAB);
@@ -150,7 +149,6 @@ const AppPage = ({ query }) => {
   const searchTab = () => (
     <>
       <FiltersForm
-        setApartmentList={setApartmentList}
         setFilters={setFilters}
         setIsLoadingApartmentList={setIsLoadingApartmentList}
         setIsInitialSearchDone={setIsInitialSearchDone}
@@ -160,8 +158,6 @@ const AppPage = ({ query }) => {
         setToken={setToken}
       />
       <ApartmentList
-        apartmentList={apartmentList}
-        setApartmentList={setApartmentList}
         isLoadingApartmentList={isLoadingApartmentList}
         setIsLoadingApartmentList={setIsLoadingApartmentList}
         filters={filters}

@@ -74,7 +74,6 @@ const formItemLayout = {
 };
 
 export const FiltersForm = ({
-  setApartmentList,
   setFilters,
   setIsLoadingApartmentList,
   setIsInitialSearchDone,
@@ -252,7 +251,7 @@ export const FiltersForm = ({
       ...newFilters,
       limitPerPage: PAGE_SIZE,
     });
-    setApartmentList(data);
+    dispatch({ type: "apartmentListSet", payload: { apartmentList: data } });
     setIsLoadingApartmentList(false);
     setIsInitialSearchDone(true);
     scroll(listRef);
@@ -567,7 +566,6 @@ export const FiltersForm = ({
 };
 
 FiltersForm.propTypes = {
-  setApartmentList: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired,
   setIsLoadingApartmentList: PropTypes.func.isRequired,
   setIsInitialSearchDone: PropTypes.func.isRequired,

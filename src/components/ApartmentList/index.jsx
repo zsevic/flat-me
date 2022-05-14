@@ -25,18 +25,17 @@ import {
 } from "constants/config";
 import { furnishedMap } from "constants/furnished";
 import { structuresMap } from "constants/structures";
+import { useAppContext } from "context/AppContext";
 import * as apartmentsService from "services/apartments";
 import { trackEvent } from "utils/analytics";
 import eventBus from "utils/event-bus";
 import { getLocationUrl } from "utils/location";
-import { apartmentListPropType, filtersPropType } from "utils/prop-types";
+import { filtersPropType } from "utils/prop-types";
 import { getAddressValue, handleFloor } from "./utils";
 
 const { Meta } = Card;
 
 export const ApartmentList = ({
-  apartmentList,
-  setApartmentList,
   isLoadingApartmentList,
   setIsLoadingApartmentList,
   filters,
@@ -48,6 +47,7 @@ export const ApartmentList = ({
   const newSublistStartRef = useRef();
   const [newSublistStartApartmentId, setNewSublistStartApartmentId] =
     useState(null);
+  const { state, dispatch } = useAppContext();
 
   const handleLoadMore = async () => {
     setIsLoadingApartmentList(true);
@@ -61,7 +61,7 @@ export const ApartmentList = ({
     setEndCursor(pageInfo.endCursor);
     const [firstSublistApartment] = data;
     setNewSublistStartApartmentId(firstSublistApartment?.id);
-    setApartmentList([...apartmentList, ...data]);
+    dispatch({ type: "apartmentListAppend", payload: { apartmentList: data } });
     setIsLoadingApartmentList(false);
     newSublistStartRef?.current?.scrollIntoView();
     trackEvent("search", "load-more");
@@ -99,7 +99,7 @@ export const ApartmentList = ({
           xl: 3,
           xxl: 3,
         }}
-        dataSource={apartmentList}
+        dataSource={state.apartmentList}
         itemLayout="horizontal"
         loading={{
           tip: APARTMENT_LIST_LOADER_TEXT,
@@ -110,7 +110,7 @@ export const ApartmentList = ({
           emptyText: (
             <Empty
               className={
-                isInitialSearchDone && !apartmentList.length
+                isInitialSearchDone && !state.apartmentList.length
                   ? "block"
                   : "hidden"
               }
@@ -289,8 +289,6 @@ export const ApartmentList = ({
 };
 
 ApartmentList.propTypes = {
-  apartmentList: apartmentListPropType.isRequired,
-  setApartmentList: PropTypes.func.isRequired,
   isLoadingApartmentList: PropTypes.bool.isRequired,
   setIsLoadingApartmentList: PropTypes.func.isRequired,
   filters: filtersPropType.isRequired,
