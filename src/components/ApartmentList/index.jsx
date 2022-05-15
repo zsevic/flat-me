@@ -73,7 +73,7 @@ export const ApartmentList = () => {
       type: SET_LOADING_APARTMENT_LIST,
       payload: { isLoadingApartmentList: false },
     });
-    newSublistStartRef?.current?.scrollIntoView();
+    scroll(newSublistStartRef);
     trackEvent("search", "load-more");
   };
 
