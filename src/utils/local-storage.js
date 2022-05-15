@@ -1,5 +1,3 @@
-export const TOKEN_KEY = "flat-me-token";
-
 export function getItem(key) {
   try {
     return localStorage.getItem(key);
@@ -21,6 +19,6 @@ export function removeItem(key) {
   try {
     localStorage.removeItem(key);
   } catch (error) {
-    console.error("Local storage is not supported", error);
+    console.error("Local storage (removeItem) is not supported", error);
   }
 }
