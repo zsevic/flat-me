@@ -13,7 +13,6 @@ import {
 } from "antd";
 import deepEqual from "fast-deep-equal/react";
 import { isSupported } from "firebase/messaging";
-import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { EmailNotificationsModal } from "components/modals/EmailNotificationsModal";
@@ -76,7 +75,7 @@ const formItemLayout = {
   },
 };
 
-export const FiltersForm = ({ listRef }) => {
+export const FiltersForm = () => {
   const [form] = Form.useForm();
   const [isInitialRentOrSale, setIsInitialRentOrSale] = useState(true);
   const [minPriceField, setMinPriceField] = useState(RENT_MIN_PRICE);
@@ -106,6 +105,13 @@ export const FiltersForm = ({ listRef }) => {
   const { state, dispatch } = useAppContext();
   const [isPushNotificationSupported, setIsPushNotificationSupported] =
     useState(false);
+  const [listRef, setListRef] = useState(null);
+
+  useEffect(() => {
+    eventBus.on("list-ref", (data) => {
+      setListRef(data.listRef);
+    });
+  }, []);
 
   const validateFields = (storedFilters) => {
     form
@@ -555,8 +561,4 @@ export const FiltersForm = ({ listRef }) => {
       </Form>
     </Row>
   );
-};
-
-FiltersForm.propTypes = {
-  listRef: PropTypes.object.isRequired,
 };

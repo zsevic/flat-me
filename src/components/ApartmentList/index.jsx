@@ -1,6 +1,5 @@
 import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
 import Link from "next/link";
-import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { CgPlayListAdd } from "react-icons/cg";
 import { FaMapMarkedAlt } from "react-icons/fa";
@@ -39,13 +38,20 @@ import { getAddressValue, handleFloor } from "./utils";
 
 const { Meta } = Card;
 
-export const ApartmentList = ({ listRef }) => {
+export const ApartmentList = () => {
   const [endCursor, setEndCursor] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(false);
   const newSublistStartRef = useRef();
   const [newSublistStartApartmentId, setNewSublistStartApartmentId] =
     useState(null);
+  const listRef = useRef();
   const { state, dispatch } = useAppContext();
+
+  useEffect(() => {
+    eventBus.dispatch("list-ref", {
+      listRef,
+    });
+  }, []);
 
   const handleLoadMore = async () => {
     dispatch({
@@ -290,8 +296,4 @@ export const ApartmentList = ({ listRef }) => {
       />
     </div>
   );
-};
-
-ApartmentList.propTypes = {
-  listRef: PropTypes.object.isRequired,
 };

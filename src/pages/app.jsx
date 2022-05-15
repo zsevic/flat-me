@@ -56,7 +56,6 @@ const AppPage = ({ query }) => {
   const [isPushNotificationSupported, setIsPushNotificationSupported] =
     useState(false);
   const { state, dispatch } = useAppContext();
-  const listRef = useRef();
   const headerRef = useRef();
 
   const handleFoundApartmentsTab = async () => {
@@ -157,8 +156,8 @@ const AppPage = ({ query }) => {
 
   const searchTab = () => (
     <>
-      <FiltersForm listRef={listRef} />
-      <ApartmentList listRef={listRef} />
+      <FiltersForm />
+      <ApartmentList />
       {!state.isLoadingApartmentList && <BackTop />}
     </>
   );
