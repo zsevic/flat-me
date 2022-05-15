@@ -292,7 +292,7 @@ AppPage.getInitialProps = ({ query }) => ({ query });
 AppPage.propTypes = {
   query: PropTypes.shape({
     tab: PropTypes.string,
-    foundCounter: PropTypes.number,
+    foundCounter: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     clicked: PropTypes.arrayOf(PropTypes.string),
   }),
 };
