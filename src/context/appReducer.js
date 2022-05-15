@@ -27,31 +27,6 @@ export const initialState = {
 
 export const appReducer = (state, action) => {
   switch (action.type) {
-    case INITIALIZE_STORE: {
-      return action.payload;
-    }
-
-    case UPDATE_PUSH_NOTIFICATIONS: {
-      return {
-        ...state,
-        isPushNotificationActivated: action.payload.isPushNotificationActivated,
-      };
-    }
-
-    case UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE: {
-      return {
-        ...state,
-        isNotificationActivationDisabled: action.payload.isDisabled,
-      };
-    }
-
-    case SET_ACCESS_TOKEN: {
-      return {
-        ...state,
-        accessToken: action.payload.accessToken,
-      };
-    }
-
     case APPEND_APARTMENT_LIST: {
       return {
         ...state,
@@ -59,13 +34,6 @@ export const appReducer = (state, action) => {
           ...state.apartmentList,
           ...action.payload.apartmentList,
         ],
-      };
-    }
-
-    case SET_APARTMENT_LIST: {
-      return {
-        ...state,
-        apartmentList: action.payload.apartmentList,
       };
     }
 
@@ -79,10 +47,28 @@ export const appReducer = (state, action) => {
       };
     }
 
-    case SET_FOUND_APARTMENT_LIST: {
+    case INITIAL_SEARCH: {
       return {
         ...state,
-        foundApartmentList: action.payload.foundApartmentList,
+        isInitialSearchDone: true,
+      };
+    }
+
+    case INITIALIZE_STORE: {
+      return action.payload;
+    }
+
+    case SET_ACCESS_TOKEN: {
+      return {
+        ...state,
+        accessToken: action.payload.accessToken,
+      };
+    }
+
+    case SET_APARTMENT_LIST: {
+      return {
+        ...state,
+        apartmentList: action.payload.apartmentList,
       };
     }
 
@@ -90,6 +76,13 @@ export const appReducer = (state, action) => {
       return {
         ...state,
         filters: action.payload.filters,
+      };
+    }
+
+    case SET_FOUND_APARTMENT_LIST: {
+      return {
+        ...state,
+        foundApartmentList: action.payload.foundApartmentList,
       };
     }
 
@@ -107,10 +100,17 @@ export const appReducer = (state, action) => {
       };
     }
 
-    case INITIAL_SEARCH: {
+    case UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE: {
       return {
         ...state,
-        isInitialSearchDone: true,
+        isNotificationActivationDisabled: action.payload.isDisabled,
+      };
+    }
+
+    case UPDATE_PUSH_NOTIFICATIONS: {
+      return {
+        ...state,
+        isPushNotificationActivated: action.payload.isPushNotificationActivated,
       };
     }
 
