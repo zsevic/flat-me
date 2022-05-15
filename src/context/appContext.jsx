@@ -6,7 +6,7 @@ import React, {
   useMemo,
   useReducer,
 } from "react";
-import { getItem, setItem } from "utils/local-storage";
+import { getItem, setItem, STATE_KEY } from "utils/local-storage";
 import { appReducer, initialState } from "./appReducer";
 import { INITIALIZE_STORE } from "./constants";
 
@@ -20,7 +20,7 @@ export function AppWrapper({ children }) {
   }, [state, dispatch]);
 
   useEffect(() => {
-    const stateItem = getItem("state");
+    const stateItem = getItem(STATE_KEY);
     if (!stateItem) return;
 
     const parsedStateItem = JSON.parse(stateItem);
@@ -38,7 +38,7 @@ export function AppWrapper({ children }) {
 
   useEffect(() => {
     if (state !== initialState) {
-      setItem("state", JSON.stringify(state));
+      setItem(STATE_KEY, JSON.stringify(state));
     }
   }, [state]);
 

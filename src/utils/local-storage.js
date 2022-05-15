@@ -1,3 +1,5 @@
+export const STATE_KEY = "state";
+
 export function getItem(key) {
   try {
     return localStorage.getItem(key);
