@@ -15,6 +15,7 @@ import {
   APP_TITLE,
   DOMAIN_URL,
   HOMEPAGE_META_DESCRIPTION,
+  INITIAL_FOUND_APARTMENTS_COUNTER,
   PAGE_SIZE,
   SEARCH_TAB,
 } from "constants/config";
@@ -23,27 +24,26 @@ import { useAppContext } from "context";
 import {
   SET_ACCESS_TOKEN,
   SET_FOUND_APARTMENT_LIST,
+  SET_FOUND_APARTMENTS_COUNTER,
   SET_LOADING_FOUND_APARTMENT_LIST,
   UPDATE_PUSH_NOTIFICATIONS,
+  INITIALIZE_STORE,
 } from "context/constants";
+import { initialState } from "context/reducer";
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { getFoundApartmentList } from "services/apartments";
 import { unsubscribeFromPushNotifications } from "services/subscriptions";
 import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
-import { getItem, TOKEN_KEY } from "utils/local-storage";
+import { getItem, STATE_KEY, TOKEN_KEY } from "utils/local-storage";
 import { scroll } from "utils/scrolling";
 
 const { TabPane } = Tabs;
-const INITIAL_FOUND_COUNTER = 0;
 
 const AppPage = ({ query }) => {
   const [clickedFoundApartments, setClickedFoundApartments] = useState([]);
   const [tabKey, setTabKey] = useState(SEARCH_TAB);
-  const [foundApartmentsCounter, setFoundApartmentsCounter] = useState(
-    INITIAL_FOUND_COUNTER
-  );
   const [
     showDefaultTextForFoundApartmentsTab,
     setShowDefaultTextForFoundApartmentsTab,
@@ -109,6 +109,23 @@ const AppPage = ({ query }) => {
   };
 
   useEffect(() => {
+    const stateItem = getItem(STATE_KEY);
+    if (!stateItem) return;
+
+    const parsedStateItem = JSON.parse(stateItem);
+    const updatedState = {
+      ...initialState,
+      accessToken: parsedStateItem.accessToken,
+      filters: parsedStateItem.filters,
+      isPushNotificationActivated: parsedStateItem.isPushNotificationActivated,
+    };
+    dispatch({
+      type: INITIALIZE_STORE,
+      payload: updatedState,
+    });
+  }, []);
+
+  useEffect(() => {
     const { foundCounter, clicked } = query;
     if (
       !Number.isNaN(clicked) ||
@@ -126,7 +143,10 @@ const AppPage = ({ query }) => {
       !Number.isNaN(Number(foundCounter)) &&
       Number.isInteger(Number(foundCounter))
     ) {
-      setFoundApartmentsCounter(foundCounter);
+      dispatch({
+        type: SET_FOUND_APARTMENTS_COUNTER,
+        payload: { foundApartmentsCounter: foundCounter },
+      });
     }
 
     if (query.tab === APARTMENT_LIST_TAB) {
@@ -210,7 +230,7 @@ const AppPage = ({ query }) => {
         </TabPane>
         <TabPane
           tab={
-            <Badge count={foundApartmentsCounter}>
+            <Badge count={state.foundApartmentsCounter}>
               <span>
                 <IoMdNotificationsOutline className="mr-1 mb-1 inline" />
                 Pronađeni stanovi
@@ -226,8 +246,6 @@ const AppPage = ({ query }) => {
           ) : (
             <>
               <FoundApartmentList
-                foundCounter={foundApartmentsCounter}
-                setFoundCounter={setFoundApartmentsCounter}
                 clickedFoundApartments={clickedFoundApartments}
               />
               {!state.isLoadingFoundApartmentList &&
@@ -302,7 +320,7 @@ AppPage.propTypes = {
 AppPage.defaultProps = {
   query: {
     tabs: SEARCH_TAB,
-    foundCounter: INITIAL_FOUND_COUNTER,
+    foundCounter: INITIAL_FOUND_APARTMENTS_COUNTER,
     clicked: [],
   },
 };

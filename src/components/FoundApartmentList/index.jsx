@@ -35,17 +35,14 @@ import { getFoundApartmentList } from "services/apartments";
 import eventBus from "utils/event-bus";
 import {
   APPEND_FOUND_APARTMENT_LIST,
+  DECREASE_FOUND_APARTMENTS_COUNTER,
   SET_LOADING_FOUND_APARTMENT_LIST,
 } from "context/constants";
 import { getAddressValue, handleFloor } from "../ApartmentList/utils";
 
 const { Meta } = Card;
 
-export const FoundApartmentList = ({
-  foundCounter,
-  setFoundCounter,
-  clickedFoundApartments,
-}) => {
+export const FoundApartmentList = ({ clickedFoundApartments }) => {
   const router = useRouter();
   const [endCursor, setEndCursor] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -134,7 +131,7 @@ export const FoundApartmentList = ({
         loadMore={loadMore}
         renderItem={(apartment, index) => {
           const isFound =
-            clickedCounter < foundCounter &&
+            clickedCounter < state.foundApartmentsCounter &&
             !clickedFound.includes(index) &&
             !clickedFoundApartments.includes(index);
           if (isFound) {
@@ -164,14 +161,17 @@ export const FoundApartmentList = ({
                     const updatedClickedFound = [...clickedFound, index];
                     setClickedFound(updatedClickedFound);
                     const isAlreadyClicked = clickedFound.includes(index);
-                    if (!isAlreadyClicked && foundCounter >= 1) {
-                      setFoundCounter(foundCounter - 1);
+                    if (
+                      !isAlreadyClicked &&
+                      state.foundApartmentsCounter >= 1
+                    ) {
+                      dispatch({ type: DECREASE_FOUND_APARTMENTS_COUNTER });
                       router.push(
                         {
                           pathname: "/app",
                           query: {
                             tab: APARTMENT_LIST_TAB,
-                            foundCounter: foundCounter - 1,
+                            foundCounter: state.foundApartmentsCounter,
                             clicked: updatedClickedFound,
                           },
                         },
@@ -336,9 +336,6 @@ export const FoundApartmentList = ({
 };
 
 FoundApartmentList.propTypes = {
-  foundCounter: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-    .isRequired,
-  setFoundCounter: PropTypes.func.isRequired,
   clickedFoundApartments: PropTypes.arrayOf(PropTypes.number),
 };
 

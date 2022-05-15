@@ -1,11 +1,14 @@
+import { INITIAL_FOUND_APARTMENTS_COUNTER } from "constants/config";
 import {
   APPEND_APARTMENT_LIST,
   APPEND_FOUND_APARTMENT_LIST,
+  DECREASE_FOUND_APARTMENTS_COUNTER,
   INITIALIZE_STORE,
   INITIAL_SEARCH,
   SET_ACCESS_TOKEN,
   SET_APARTMENT_LIST,
   SET_FILTERS,
+  SET_FOUND_APARTMENTS_COUNTER,
   SET_FOUND_APARTMENT_LIST,
   SET_LOADING_APARTMENT_LIST,
   SET_LOADING_FOUND_APARTMENT_LIST,
@@ -21,6 +24,7 @@ export const initialState = {
   isNotificationActivationDisabled: true,
   apartmentList: [],
   foundApartmentList: [],
+  foundApartmentsCounter: INITIAL_FOUND_APARTMENTS_COUNTER,
   accessToken: null,
   filters: {},
 };
@@ -44,6 +48,13 @@ export const appReducer = (state, action) => {
           ...state.foundApartmentList,
           ...action.payload.foundApartmentList,
         ],
+      };
+    }
+
+    case DECREASE_FOUND_APARTMENTS_COUNTER: {
+      return {
+        ...state,
+        foundApartmentsCounter: state.foundApartmentsCounter - 1,
       };
     }
 
@@ -83,6 +94,13 @@ export const appReducer = (state, action) => {
       return {
         ...state,
         foundApartmentList: action.payload.foundApartmentList,
+      };
+    }
+
+    case SET_FOUND_APARTMENTS_COUNTER: {
+      return {
+        ...state,
+        foundApartmentsCounter: action.payload.foundApartmentsCounter,
       };
     }
 
