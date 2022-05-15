@@ -543,7 +543,7 @@ export const FiltersForm = () => {
             </Form.Item>
           </Col>
           {isPushNotificationSupported && (
-            <Col className="mx-1 mb-5">
+            <Col className="mx-1 mb-6">
               {state.isPushNotificationActivated ? (
                 <PushNotificationsUpdateModal
                   handler={turnOnPushNotifications}
