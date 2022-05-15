@@ -315,7 +315,10 @@ AppPage.propTypes = {
   query: PropTypes.shape({
     tab: PropTypes.string,
     foundCounter: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    clicked: PropTypes.arrayOf(PropTypes.string),
+    clicked: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string),
+    ]),
   }),
 };
 
