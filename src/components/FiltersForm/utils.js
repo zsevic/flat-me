@@ -3,7 +3,7 @@ import {
   SALE_MAX_PRICE,
   SALE_PRICE_STEP,
 } from "constants/config";
-import { getItem } from "utils/local-storage";
+import { getItem, INITIAL_FILTERS_KEY } from "utils/local-storage";
 import { placesMap } from "./data";
 
 export function priceFormatter(value) {
