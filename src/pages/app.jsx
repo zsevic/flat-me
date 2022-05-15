@@ -112,12 +112,12 @@ const AppPage = ({ query }) => {
     const stateItem = getItem(STATE_KEY);
     if (!stateItem) return;
 
-    const parsedStateItem = JSON.parse(stateItem);
+    const parsedState = JSON.parse(stateItem);
     const updatedState = {
       ...initialState,
-      accessToken: parsedStateItem.accessToken,
-      filters: parsedStateItem.filters,
-      isPushNotificationActivated: parsedStateItem.isPushNotificationActivated,
+      accessToken: parsedState.accessToken,
+      filters: parsedState.filters,
+      isPushNotificationActivated: parsedState.isPushNotificationActivated,
     };
     dispatch({
       type: INITIALIZE_STORE,
