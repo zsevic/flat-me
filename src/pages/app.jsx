@@ -60,7 +60,7 @@ const AppPage = ({ query }) => {
 
   const handleFoundApartmentsTab = async () => {
     try {
-      if (!state.accessToken) {
+      if (!state.isPushNotificationActivated) {
         dispatch({
           type: SET_LOADING_FOUND_APARTMENT_LIST,
           payload: { isLoadingFoundApartmentList: false },

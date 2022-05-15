@@ -336,7 +336,8 @@ export const FoundApartmentList = ({
 };
 
 FoundApartmentList.propTypes = {
-  foundCounter: PropTypes.number.isRequired,
+  foundCounter: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
   setFoundCounter: PropTypes.func.isRequired,
   clickedFoundApartments: PropTypes.arrayOf(PropTypes.number),
 };
