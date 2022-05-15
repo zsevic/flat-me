@@ -1,5 +1,6 @@
 export const INITIAL_FILTERS_KEY = "initial-filters";
 export const STATE_KEY = "state";
+export const TOKEN_KEY = "flat-me-token";
 
 export function getItem(key) {
   try {

@@ -32,6 +32,7 @@ import { getFoundApartmentList } from "services/apartments";
 import { unsubscribeFromPushNotifications } from "services/subscriptions";
 import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
+import { getItem, TOKEN_KEY } from "utils/local-storage";
 import { scroll } from "utils/scrolling";
 
 const { TabPane } = Tabs;
@@ -60,7 +61,8 @@ const AppPage = ({ query }) => {
 
   const handleFoundApartmentsTab = async () => {
     try {
-      if (!state.isPushNotificationActivated) {
+      const storedToken = getItem(TOKEN_KEY);
+      if (!storedToken) {
         dispatch({
           type: SET_LOADING_FOUND_APARTMENT_LIST,
           payload: { isLoadingFoundApartmentList: false },
