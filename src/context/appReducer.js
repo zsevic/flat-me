@@ -1,5 +1,4 @@
 import {
-  ACTIVATE_PUSH_NOTIFICATIONS,
   APPEND_APARTMENT_LIST,
   APPEND_FOUND_APARTMENT_LIST,
   INITIALIZE_STORE,
@@ -11,6 +10,7 @@ import {
   SET_LOADING_APARTMENT_LIST,
   SET_LOADING_FOUND_APARTMENT_LIST,
   UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE,
+  UPDATE_PUSH_NOTIFICATIONS,
 } from "./constants";
 
 export const initialState = {
@@ -31,10 +31,10 @@ export const appReducer = (state, action) => {
       return action.payload;
     }
 
-    case ACTIVATE_PUSH_NOTIFICATIONS: {
+    case UPDATE_PUSH_NOTIFICATIONS: {
       return {
         ...state,
-        isPushNotificationActivated: true,
+        isPushNotificationActivated: action.payload.isPushNotificationActivated,
       };
     }
 

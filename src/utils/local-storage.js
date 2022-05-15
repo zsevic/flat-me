@@ -1,5 +1,4 @@
 export const TOKEN_KEY = "flat-me-token";
-export const UNSUBSCRIBED_KEY = "flat-me-unsubscribed";
 
 export function getItem(key) {
   try {

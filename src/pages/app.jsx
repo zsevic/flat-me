@@ -24,6 +24,7 @@ import {
   SET_ACCESS_TOKEN,
   SET_FOUND_APARTMENT_LIST,
   SET_LOADING_FOUND_APARTMENT_LIST,
+  UPDATE_PUSH_NOTIFICATIONS,
 } from "context/constants";
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
@@ -31,12 +32,7 @@ import { getFoundApartmentList } from "services/apartments";
 import { unsubscribeFromPushNotifications } from "services/subscriptions";
 import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
-import {
-  getItem,
-  setItem,
-  TOKEN_KEY,
-  UNSUBSCRIBED_KEY,
-} from "utils/local-storage";
+import { getItem, TOKEN_KEY } from "utils/local-storage";
 import { scroll } from "utils/scrolling";
 
 const { TabPane } = Tabs;
@@ -56,27 +52,13 @@ const AppPage = ({ query }) => {
     defaultTextForFoundApartmentsTab,
     setDefaultTextForFoundApartmentsTab,
   ] = useState(defaultNotificationsBlockedErrorMessage);
-  const [showUnsubscribeButton, setShowUnsubscribeButton] = useState(true);
   const [isInitialFoundSearchDone, setIsInitialFoundSearchDone] =
     useState(false);
   const [isPushNotificationSupported, setIsPushNotificationSupported] =
     useState(false);
-  const [isSubscribed, setIsSubscribed] = useState(false);
   const { state, dispatch } = useAppContext();
   const listRef = useRef();
   const headerRef = useRef();
-
-  useEffect(() => {
-    if (
-      !state.isLoadingFoundApartmentList &&
-      showUnsubscribeButton &&
-      !getItem(UNSUBSCRIBED_KEY)
-    ) {
-      setIsSubscribed(true);
-    } else {
-      setIsSubscribed(false);
-    }
-  }, [state.isLoadingFoundApartmentList, showUnsubscribeButton]);
 
   const handleFoundApartmentsTab = async () => {
     try {
@@ -188,8 +170,10 @@ const AppPage = ({ query }) => {
       await unsubscribeFromPushNotifications({
         token: accessToken,
       });
-      setItem(UNSUBSCRIBED_KEY, true);
-      setShowUnsubscribeButton(false);
+      dispatch({
+        type: UPDATE_PUSH_NOTIFICATIONS,
+        payload: { isPushNotificationActivated: false },
+      });
       notification.info({
         description: "Obaveštenja su uspešno isključena",
         duration: 0,
@@ -246,13 +230,14 @@ const AppPage = ({ query }) => {
                 setFoundCounter={setFoundApartmentsCounter}
                 clickedFoundApartments={clickedFoundApartments}
               />
-              {isSubscribed && (
-                <div className="text-center mb-3">
-                  <Button size="small" danger onClick={handleUnsubscribe}>
-                    Isključi obaveštenja
-                  </Button>
-                </div>
-              )}
+              {!state.isLoadingFoundApartmentList &&
+                state.isPushNotificationActivated && (
+                  <div className="text-center mb-3">
+                    <Button size="small" danger onClick={handleUnsubscribe}>
+                      Isključi obaveštenja
+                    </Button>
+                  </div>
+                )}
               {!state.isLoadingFoundApartmentList && <BackTop />}
             </>
           )}

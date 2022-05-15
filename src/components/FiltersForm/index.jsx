@@ -38,13 +38,13 @@ import { FURNISHED } from "constants/furnished";
 import { STRUCTURES } from "constants/structures";
 import { useAppContext } from "context/appContext";
 import {
-  ACTIVATE_PUSH_NOTIFICATIONS,
   INITIAL_SEARCH,
   SET_ACCESS_TOKEN,
   SET_APARTMENT_LIST,
   SET_FILTERS,
   SET_LOADING_APARTMENT_LIST,
   UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE,
+  UPDATE_PUSH_NOTIFICATIONS,
 } from "context/constants";
 import * as apartmentsService from "services/apartments";
 import { subscribeForPushNotifications } from "services/subscriptions";
@@ -52,13 +52,7 @@ import { trackEvent } from "utils/analytics";
 import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
-import {
-  getItem,
-  removeItem,
-  setItem,
-  TOKEN_KEY,
-  UNSUBSCRIBED_KEY,
-} from "utils/local-storage";
+import { setItem } from "utils/local-storage";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { scroll } from "utils/scrolling";
 import { placesData } from "./data";
@@ -164,9 +158,8 @@ export const FiltersForm = ({ listRef }) => {
         duration: 0,
       });
       dispatch({ type: SET_ACCESS_TOKEN, payload: { accessToken } });
-      removeItem(UNSUBSCRIBED_KEY);
       dispatch({
-        type: ACTIVATE_PUSH_NOTIFICATIONS,
+        type: UPDATE_PUSH_NOTIFICATIONS,
         payload: { isPushNotificationActivated: true },
       });
       trackEvent("push-notifications", "push-notifications-activated");
@@ -180,16 +173,6 @@ export const FiltersForm = ({ listRef }) => {
       return { isDone: false };
     }
   };
-
-  useEffect(() => {
-    if (
-      (state.accessToken || getItem(TOKEN_KEY)) &&
-      !getItem(UNSUBSCRIBED_KEY) &&
-      state.isPushNotificationActivated
-    ) {
-      dispatch({ type: ACTIVATE_PUSH_NOTIFICATIONS });
-    }
-  }, [state.accessToken, state.isPushNotificationActivated]);
 
   useEffect(() => {
     if (isSupported()) {

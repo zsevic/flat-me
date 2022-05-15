@@ -21,10 +21,18 @@ export function AppWrapper({ children }) {
 
   useEffect(() => {
     const stateItem = getItem("state");
-    if (stateItem && JSON.parse(stateItem)) {
+    if (stateItem) {
+      const parsedStateItem = JSON.parse(stateItem);
+      const updatedState = {
+        ...initialState,
+        accessToken: parsedStateItem.accessToken,
+        filters: parsedStateItem.filters,
+        isPushNotificationActivated:
+          parsedStateItem.isPushNotificationActivated,
+      };
       dispatch({
         type: INITIALIZE_STORE,
-        payload: JSON.parse(stateItem),
+        payload: updatedState,
       });
     }
   }, []);
