@@ -18,10 +18,10 @@ import {
   TOO_MANY_REQUESTS_STATUS_CODE,
   USER_IS_NOT_VERIFIED_STATUS_CODE,
 } from "constants/status-codes";
+import { useAppContext } from "context";
 import React, { useState } from "react";
 import * as filtersService from "services/filters";
 import { trackEvent } from "utils/analytics";
-import { useAppContext } from "context/appContext";
 
 const formItemLayout = {
   labelCol: {

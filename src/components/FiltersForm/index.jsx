@@ -35,7 +35,7 @@ import {
 import { floorFilters } from "constants/floors";
 import { FURNISHED } from "constants/furnished";
 import { STRUCTURES } from "constants/structures";
-import { useAppContext } from "context/appContext";
+import { useAppContext } from "context";
 import {
   INITIAL_SEARCH,
   SET_ACCESS_TOKEN,

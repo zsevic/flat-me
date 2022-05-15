@@ -28,7 +28,7 @@ import {
 } from "constants/config";
 import { furnishedMap } from "constants/furnished";
 import { structuresMap } from "constants/structures";
-import { useAppContext } from "context/appContext";
+import { useAppContext } from "context";
 import { trackEvent } from "utils/analytics";
 import { getLocationUrl } from "utils/location";
 import { getFoundApartmentList } from "services/apartments";

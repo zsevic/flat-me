@@ -19,7 +19,7 @@ import {
   SEARCH_TAB,
 } from "constants/config";
 import { defaultNotificationsBlockedErrorMessage } from "constants/error-messages";
-import { useAppContext } from "context/appContext";
+import { useAppContext } from "context";
 import {
   SET_ACCESS_TOKEN,
   SET_FOUND_APARTMENT_LIST,

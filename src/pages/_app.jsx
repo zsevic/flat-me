@@ -5,7 +5,7 @@ import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
 import "../styles/globals.css";
 import { GOOGLE_ANALYTICS_TRACKING_ID } from "constants/config";
-import { AppWrapper } from "context/appContext";
+import { AppWrapper } from "context";
 import { registerServiceWorker } from "services/service-worker-registration";
 import { initializeFirebase } from "utils/push-notifications";
 

@@ -1,5 +1,5 @@
 import { Button, Modal } from "antd";
-import { useAppContext } from "context/appContext";
+import { useAppContext } from "context";
 import Link from "next/link";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE } from "constants/config";

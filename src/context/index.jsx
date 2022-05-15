@@ -7,7 +7,7 @@ import React, {
   useReducer,
 } from "react";
 import { getItem, setItem, STATE_KEY } from "utils/local-storage";
-import { appReducer, initialState } from "./appReducer";
+import { appReducer, initialState } from "./reducer";
 import { INITIALIZE_STORE } from "./constants";
 
 const appContext = createContext(initialState);
