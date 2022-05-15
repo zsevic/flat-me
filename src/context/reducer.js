@@ -20,6 +20,8 @@ import {
 export const initialState = {
   accessToken: null,
   apartmentList: [],
+  apartmentListHasNextPage: false,
+  apartmentListEndCursor: null,
   clickedFoundApartments: [],
   filters: {},
   foundApartmentList: [],
@@ -40,6 +42,8 @@ export const appReducer = (state, action) => {
           ...state.apartmentList,
           ...action.payload.apartmentList,
         ],
+        apartmentListHasNextPage: action.payload.apartmentListHasNextPage,
+        apartmentListEndCursor: action.payload.apartmentListEndCursor,
       };
     }
 
@@ -81,7 +85,7 @@ export const appReducer = (state, action) => {
     case SET_APARTMENT_LIST: {
       return {
         ...state,
-        apartmentList: action.payload.apartmentList,
+        ...action.payload,
       };
     }
 

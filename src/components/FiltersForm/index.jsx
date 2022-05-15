@@ -244,7 +244,14 @@ export const FiltersForm = () => {
       ...newFilters,
       limitPerPage: PAGE_SIZE,
     });
-    dispatch({ type: SET_APARTMENT_LIST, payload: { apartmentList: data } });
+    dispatch({
+      type: SET_APARTMENT_LIST,
+      payload: {
+        apartmentList: data,
+        apartmentListHasNextPage: pageInfo.hasNextPage,
+        apartmentListEndCursor: pageInfo.endCursor,
+      },
+    });
     dispatch({
       type: SET_LOADING_APARTMENT_LIST,
       payload: { isLoadingApartmentList: false },
@@ -253,10 +260,6 @@ export const FiltersForm = () => {
       type: INITIAL_SEARCH,
     });
     scroll(listRef);
-    eventBus.dispatch("apartment-list-page-changed", {
-      hasNextPage: pageInfo.hasNextPage,
-      endCursor: pageInfo.endCursor,
-    });
     trackEvent("search", "search-apartments");
   };
 

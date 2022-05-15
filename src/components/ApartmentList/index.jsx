@@ -39,8 +39,6 @@ import { getAddressValue, handleFloor } from "./utils";
 const { Meta } = Card;
 
 export const ApartmentList = () => {
-  const [endCursor, setEndCursor] = useState(null);
-  const [hasNextPage, setHasNextPage] = useState(false);
   const newSublistStartRef = useRef();
   const [newSublistStartApartmentId, setNewSublistStartApartmentId] =
     useState(null);
@@ -62,13 +60,18 @@ export const ApartmentList = () => {
     const { data, pageInfo } = await apartmentsService.getApartmentList({
       ...state.filters,
       limitPerPage: PAGE_SIZE,
-      cursor: endCursor,
+      cursor: state.apartmentListEndCursor,
     });
-    setHasNextPage(pageInfo.hasNextPage);
-    setEndCursor(pageInfo.endCursor);
     const [firstSublistApartment] = data;
     setNewSublistStartApartmentId(firstSublistApartment?.id);
-    dispatch({ type: APPEND_APARTMENT_LIST, payload: { apartmentList: data } });
+    dispatch({
+      type: APPEND_APARTMENT_LIST,
+      payload: {
+        apartmentList: data,
+        apartmentListHasNextPage: pageInfo.hasNextPage,
+        apartmentListEndCursor: pageInfo.endCursor,
+      },
+    });
     dispatch({
       type: SET_LOADING_APARTMENT_LIST,
       payload: { isLoadingApartmentList: false },
@@ -77,25 +80,19 @@ export const ApartmentList = () => {
     trackEvent("search", "load-more");
   };
 
-  useEffect(() => {
-    eventBus.on("apartment-list-page-changed", (data) => {
-      setHasNextPage(data.hasNextPage);
-      setEndCursor(data.endCursor);
-    });
-  }, []);
-
-  const loadMore = !state.isLoadingApartmentList && hasNextPage && (
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: 12,
-        height: 32,
-        lineHeight: "32px",
-      }}
-    >
-      <Button onClick={handleLoadMore}>Pretraži još</Button>
-    </div>
-  );
+  const loadMore = !state.isLoadingApartmentList &&
+    state.apartmentListHasNextPage && (
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: 12,
+          height: 32,
+          lineHeight: "32px",
+        }}
+      >
+        <Button onClick={handleLoadMore}>Pretraži još</Button>
+      </div>
+    );
 
   return (
     <div ref={listRef} className="paginated-list">
