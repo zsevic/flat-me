@@ -7,6 +7,7 @@ import {
   INITIAL_SEARCH,
   SET_ACCESS_TOKEN,
   SET_APARTMENT_LIST,
+  SET_CLICKED_FOUND_APARTMENTS,
   SET_FILTERS,
   SET_FOUND_APARTMENTS_COUNTER,
   SET_FOUND_APARTMENT_LIST,
@@ -17,16 +18,17 @@ import {
 } from "./constants";
 
 export const initialState = {
+  accessToken: null,
+  apartmentList: [],
+  clickedFoundApartments: [],
+  filters: {},
+  foundApartmentList: [],
+  foundApartmentsCounter: INITIAL_FOUND_APARTMENTS_COUNTER,
   isInitialSearchDone: false,
   isLoadingApartmentList: false,
   isLoadingFoundApartmentList: true,
-  isPushNotificationActivated: false,
   isNotificationActivationDisabled: true,
-  apartmentList: [],
-  foundApartmentList: [],
-  foundApartmentsCounter: INITIAL_FOUND_APARTMENTS_COUNTER,
-  accessToken: null,
-  filters: {},
+  isPushNotificationActivated: false,
 };
 
 export const appReducer = (state, action) => {
@@ -94,6 +96,13 @@ export const appReducer = (state, action) => {
       return {
         ...state,
         foundApartmentList: action.payload.foundApartmentList,
+      };
+    }
+
+    case SET_CLICKED_FOUND_APARTMENTS: {
+      return {
+        ...state,
+        clickedFoundApartments: action.payload.clickedFoundApartments,
       };
     }
 

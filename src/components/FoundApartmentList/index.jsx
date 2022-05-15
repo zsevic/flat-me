@@ -1,7 +1,6 @@
 import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { CgPlayListAdd } from "react-icons/cg";
 import { FaMapMarkedAlt } from "react-icons/fa";
@@ -42,7 +41,7 @@ import { getAddressValue, handleFloor } from "../ApartmentList/utils";
 
 const { Meta } = Card;
 
-export const FoundApartmentList = ({ clickedFoundApartments }) => {
+export const FoundApartmentList = () => {
   const router = useRouter();
   const [endCursor, setEndCursor] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -133,7 +132,7 @@ export const FoundApartmentList = ({ clickedFoundApartments }) => {
           const isFound =
             clickedCounter < state.foundApartmentsCounter &&
             !clickedFound.includes(index) &&
-            !clickedFoundApartments.includes(index);
+            !state.clickedFoundApartments.includes(index);
           if (isFound) {
             clickedCounter += 1;
           }
@@ -333,12 +332,4 @@ export const FoundApartmentList = ({ clickedFoundApartments }) => {
       />
     </div>
   );
-};
-
-FoundApartmentList.propTypes = {
-  clickedFoundApartments: PropTypes.arrayOf(PropTypes.number),
-};
-
-FoundApartmentList.defaultProps = {
-  clickedFoundApartments: [],
 };

@@ -28,6 +28,7 @@ import {
   SET_LOADING_FOUND_APARTMENT_LIST,
   UPDATE_PUSH_NOTIFICATIONS,
   INITIALIZE_STORE,
+  SET_CLICKED_FOUND_APARTMENTS,
 } from "context/constants";
 import { initialState } from "context/reducer";
 import { trackEvent } from "utils/analytics";
@@ -42,7 +43,6 @@ import { scroll } from "utils/scrolling";
 const { TabPane } = Tabs;
 
 const AppPage = ({ query }) => {
-  const [clickedFoundApartments, setClickedFoundApartments] = useState([]);
   const [tabKey, setTabKey] = useState(SEARCH_TAB);
   const [
     showDefaultTextForFoundApartmentsTab,
@@ -133,9 +133,13 @@ const AppPage = ({ query }) => {
         clicked.filter((index) => Number.isInteger(Number(index))).length > 0)
     ) {
       const clickedArray = !Array.isArray(clicked) ? [clicked] : clicked;
-      setClickedFoundApartments(
-        clickedArray.map((clickedIndex) => Number(clickedIndex))
+      const clickedFoundApartments = clickedArray.map((clickedIndex) =>
+        Number(clickedIndex)
       );
+      dispatch({
+        type: SET_CLICKED_FOUND_APARTMENTS,
+        payload: { clickedFoundApartments },
+      });
     }
 
     if (
@@ -245,9 +249,7 @@ const AppPage = ({ query }) => {
             </p>
           ) : (
             <>
-              <FoundApartmentList
-                clickedFoundApartments={clickedFoundApartments}
-              />
+              <FoundApartmentList />
               {!state.isLoadingFoundApartmentList &&
                 state.isPushNotificationActivated && (
                   <div className="text-center mb-3">
