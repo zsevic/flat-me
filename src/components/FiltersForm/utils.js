@@ -11,7 +11,7 @@ export function priceFormatter(value) {
 }
 
 export function getInitialFilters() {
-  return getItem("initial-filters");
+  return getItem(INITIAL_FILTERS_KEY);
 }
 
 export function getPriceStep(maxPriceField) {

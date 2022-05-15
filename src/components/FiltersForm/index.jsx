@@ -52,7 +52,7 @@ import { trackEvent } from "utils/analytics";
 import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
-import { setItem } from "utils/local-storage";
+import { INITIAL_FILTERS_KEY, setItem } from "utils/local-storage";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { scroll } from "utils/scrolling";
 import { placesData } from "./data";
@@ -227,7 +227,7 @@ export const FiltersForm = ({ listRef }) => {
 
     const newFilters = getFilters(values);
     dispatch({ type: SET_FILTERS, payload: { filters: newFilters } });
-    setItem("initial-filters", JSON.stringify(values));
+    setItem(INITIAL_FILTERS_KEY, JSON.stringify(values));
 
     dispatch({
       type: SET_LOADING_APARTMENT_LIST,

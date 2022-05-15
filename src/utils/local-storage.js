@@ -1,3 +1,4 @@
+export const INITIAL_FILTERS_KEY = "initial-filters";
 export const STATE_KEY = "state";
 
 export function getItem(key) {
