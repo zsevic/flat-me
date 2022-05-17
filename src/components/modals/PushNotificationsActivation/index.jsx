@@ -44,14 +44,17 @@ export const PushNotificationsActivationModal = ({ handler }) => {
 
   const closeModal = (track = true) => {
     if (track) {
-      trackEvent("push-notifications", "cancel-push-notifications");
+      trackEvent(
+        "push-notifications-activation",
+        "cancel-activating-push-notifications"
+      );
     }
     setVisible(false);
   };
 
   const showModal = () => {
     setVisible(true);
-    trackEvent("push-notifications", "turn-on-push-notifications");
+    trackEvent("push-notifications-activation", "turn-on-push-notifications");
   };
 
   const onClickHandler = async () => {
@@ -102,7 +105,7 @@ export const PushNotificationsActivationModal = ({ handler }) => {
         <p>
           Ukoliko želite da primate informacije o novim stanovima koji
           odgovaraju Vašim izabranim kriterijumima, nakon što se pojave na
-          FlatMe, aktivirajte obaveštenja.
+          FlatMe, aktivirajte obaveštenja na {deviceTypesMap[deviceType]}.
         </p>
         <div className="text-center">
           <Button type="primary" onClick={onClickHandler}>

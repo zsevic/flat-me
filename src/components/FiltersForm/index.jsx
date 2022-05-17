@@ -168,7 +168,14 @@ export const FiltersForm = () => {
         type: UPDATE_PUSH_NOTIFICATIONS,
         payload: { isPushNotificationActivated: true },
       });
-      trackEvent("push-notifications", "push-notifications-activated");
+      if (isUpdated) {
+        trackEvent("push-notifications-update", "push-notifications-updated");
+      } else {
+        trackEvent(
+          "push-notifications-activation",
+          "push-notifications-activated"
+        );
+      }
       return { isDone: true, token: accessToken };
     } catch (error) {
       const errorMessage = getErrorMessageForBlockedNotifications(error);
