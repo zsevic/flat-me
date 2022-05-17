@@ -78,7 +78,7 @@ export const PushNotificationsActivationModal = ({ handler }) => {
         </Button>
       </div>
       <Modal
-        title={PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
+        title={`${PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE} na ${deviceTypesMap[deviceType]}`}
         visible={visible}
         forceRender
         onCancel={closeModal}

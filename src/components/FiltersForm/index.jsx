@@ -156,11 +156,11 @@ export const FiltersForm = () => {
         },
         token: accessToken,
       });
-      const updatedFilterMessage = `Pretraga je uspešno promenjena. ${VERIFICATION_SUCCESS_MESSAGE}`;
+      const responseMessage = `Pretraga je uspešno ${
+        isUpdated ? "promenjena. " : "sačuvana. "
+      }${VERIFICATION_SUCCESS_MESSAGE}`;
       notification.info({
-        description: isUpdated
-          ? updatedFilterMessage
-          : VERIFICATION_SUCCESS_MESSAGE,
+        description: responseMessage,
         duration: 0,
       });
       dispatch({ type: SET_ACCESS_TOKEN, payload: { accessToken } });
