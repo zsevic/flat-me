@@ -157,8 +157,8 @@ export const FiltersForm = () => {
         token: accessToken,
       });
       const responseMessage = `Pretraga je uspešno ${
-        isUpdated ? "promenjena. " : "sačuvana. "
-      }${VERIFICATION_SUCCESS_MESSAGE}`;
+        isUpdated ? "promenjena" : "sačuvana"
+      }. ${VERIFICATION_SUCCESS_MESSAGE}`;
       notification.info({
         description: responseMessage,
         duration: 0,
