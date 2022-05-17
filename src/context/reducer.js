@@ -25,6 +25,8 @@ export const initialState = {
   clickedFoundApartments: [],
   filters: {},
   foundApartmentList: [],
+  foundApartmentListHasNextPage: false,
+  foundApartmentListEndCursor: null,
   foundApartmentsCounter: INITIAL_FOUND_APARTMENTS_COUNTER,
   isInitialSearchDone: false,
   isLoadingApartmentList: false,
@@ -54,6 +56,9 @@ export const appReducer = (state, action) => {
           ...state.foundApartmentList,
           ...action.payload.foundApartmentList,
         ],
+        foundApartmentListHasNextPage:
+          action.payload.foundApartmentListHasNextPage,
+        foundApartmentListEndCursor: action.payload.foundApartmentListEndCursor,
       };
     }
 
@@ -99,7 +104,7 @@ export const appReducer = (state, action) => {
     case SET_FOUND_APARTMENT_LIST: {
       return {
         ...state,
-        foundApartmentList: action.payload.foundApartmentList,
+        ...action.payload,
       };
     }
 

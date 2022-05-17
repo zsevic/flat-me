@@ -35,7 +35,6 @@ import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { getFoundApartmentList } from "services/apartments";
 import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
-import eventBus from "utils/event-bus";
 import { getItem, STATE_KEY, TOKEN_KEY } from "utils/local-storage";
 import { scroll } from "utils/scrolling";
 
@@ -82,17 +81,17 @@ const AppPage = ({ query }) => {
         token: accessToken,
         limitPerPage: PAGE_SIZE,
       });
-      eventBus.dispatch("found-apartment-list-page-changed", {
-        hasNextPage: pageInfo.hasNextPage,
-        endCursor: pageInfo.endCursor,
-      });
       dispatch({
         type: SET_LOADING_FOUND_APARTMENT_LIST,
         payload: { isLoadingFoundApartmentList: false },
       });
       dispatch({
         type: SET_FOUND_APARTMENT_LIST,
-        payload: { foundApartmentList: data },
+        payload: {
+          foundApartmentList: data,
+          foundApartmentListHasNextPage: pageInfo.hasNextPage,
+          foundApartmentListEndCursor: pageInfo.endCursor,
+        },
       });
       setIsInitialFoundSearchDone(true);
       scroll(headerRef);

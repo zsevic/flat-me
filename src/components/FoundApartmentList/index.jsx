@@ -1,7 +1,7 @@
 import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { CgPlayListAdd } from "react-icons/cg";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
@@ -31,7 +31,6 @@ import { useAppContext } from "context";
 import { trackEvent } from "utils/analytics";
 import { getLocationUrl } from "utils/location";
 import { getFoundApartmentList } from "services/apartments";
-import eventBus from "utils/event-bus";
 import {
   APPEND_FOUND_APARTMENT_LIST,
   DECREASE_FOUND_APARTMENTS_COUNTER,
@@ -43,8 +42,6 @@ const { Meta } = Card;
 
 export const FoundApartmentList = () => {
   const router = useRouter();
-  const [endCursor, setEndCursor] = useState(null);
-  const [hasNextPage, setHasNextPage] = useState(false);
   const newSublistStartRef = useRef();
   const [newSublistStartApartmentId, setNewSublistStartApartmentId] =
     useState(null);
@@ -59,15 +56,17 @@ export const FoundApartmentList = () => {
     const { data, pageInfo } = await getFoundApartmentList({
       token: state.accessToken,
       limitPerPage: PAGE_SIZE,
-      cursor: endCursor,
+      cursor: state.foundApartmentListEndCursor,
     });
-    setHasNextPage(pageInfo.hasNextPage);
-    setEndCursor(pageInfo.endCursor);
     const [firstSublistApartment] = data;
     setNewSublistStartApartmentId(firstSublistApartment?.id);
     dispatch({
       type: APPEND_FOUND_APARTMENT_LIST,
-      payload: { foundApartmentList: data },
+      payload: {
+        foundApartmentList: data,
+        foundApartmentListHasNextPage: pageInfo.hasNextPage,
+        foundApartmentListEndCursor: pageInfo.endCursor,
+      },
     });
     dispatch({
       type: SET_LOADING_FOUND_APARTMENT_LIST,
@@ -77,25 +76,19 @@ export const FoundApartmentList = () => {
     trackEvent("found-apartments-load-more", "found-apartments-load-more");
   };
 
-  const loadMore = !state.isLoadingFoundApartmentList && hasNextPage && (
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: 12,
-        height: 32,
-        lineHeight: "32px",
-      }}
-    >
-      <Button onClick={handleLoadMore}>Učitaj još</Button>
-    </div>
-  );
-
-  useEffect(() => {
-    eventBus.on("found-apartment-list-page-changed", (data) => {
-      setHasNextPage(data.hasNextPage);
-      setEndCursor(data.endCursor);
-    });
-  }, []);
+  const loadMore = !state.isLoadingFoundApartmentList &&
+    state.foundApartmentListHasNextPage && (
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: 12,
+          height: 32,
+          lineHeight: "32px",
+        }}
+      >
+        <Button onClick={handleLoadMore}>Učitaj još</Button>
+      </div>
+    );
 
   let clickedCounter = 0;
 
