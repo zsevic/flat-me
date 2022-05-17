@@ -1,4 +1,4 @@
-import { BackTop, Badge, Button, notification, Tabs } from "antd";
+import { BackTop, Badge, Tabs } from "antd";
 import { isSupported } from "firebase/messaging";
 import Head from "next/head";
 import PropTypes from "prop-types";
@@ -10,6 +10,7 @@ import { ApartmentList } from "components/ApartmentList";
 import CommonHead from "components/CommonHead";
 import { FiltersForm } from "components/FiltersForm";
 import { FoundApartmentList } from "components/FoundApartmentList";
+import { PushNotificationsUnsubscribeModal } from "components/modals/PushNotificationUnsubscribe";
 import {
   APARTMENT_LIST_TAB,
   APP_TITLE,
@@ -26,7 +27,6 @@ import {
   SET_FOUND_APARTMENT_LIST,
   SET_FOUND_APARTMENTS_COUNTER,
   SET_LOADING_FOUND_APARTMENT_LIST,
-  UPDATE_PUSH_NOTIFICATIONS,
   INITIALIZE_STORE,
   SET_CLICKED_FOUND_APARTMENTS,
 } from "context/constants";
@@ -34,7 +34,6 @@ import { initialState } from "context/reducer";
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { getFoundApartmentList } from "services/apartments";
-import { unsubscribeFromPushNotifications } from "services/subscriptions";
 import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
 import { getItem, STATE_KEY, TOKEN_KEY } from "utils/local-storage";
@@ -188,28 +187,6 @@ const AppPage = ({ query }) => {
     </>
   );
 
-  const handleUnsubscribe = async () => {
-    try {
-      const accessToken = await getTokenForPushNotifications();
-      await unsubscribeFromPushNotifications({
-        token: accessToken,
-      });
-      dispatch({
-        type: UPDATE_PUSH_NOTIFICATIONS,
-        payload: { isPushNotificationActivated: false },
-      });
-      notification.info({
-        description: "Obaveštenja su uspešno isključena",
-        duration: 0,
-      });
-    } catch (error) {
-      notification.error({
-        description: "Obaveštenja nisu isključena",
-        duration: 0,
-      });
-    }
-  };
-
   const tabs = () => (
     <StickyContainer>
       <Tabs
@@ -252,11 +229,7 @@ const AppPage = ({ query }) => {
               <FoundApartmentList />
               {!state.isLoadingFoundApartmentList &&
                 state.isPushNotificationActivated && (
-                  <div className="text-center mb-3">
-                    <Button size="small" danger onClick={handleUnsubscribe}>
-                      Isključi obaveštenja
-                    </Button>
-                  </div>
+                  <PushNotificationsUnsubscribeModal />
                 )}
               {!state.isLoadingFoundApartmentList && <BackTop />}
             </>
