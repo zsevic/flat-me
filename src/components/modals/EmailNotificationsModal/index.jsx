@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal, notification } from "antd";
-import Link from "next/link";
 import { RiMailLine } from "react-icons/ri";
 import { handleMunicipalities } from "components/FiltersForm/utils";
+import { NotificationFooter } from "components/NotificationFooter";
 import {
   EMAIL_NOTIFICATIONS_MODAL_TITLE,
   EMAIL_NOTIFICATIONS_SUCCESS_MESSAGE,
@@ -98,25 +98,7 @@ export const EmailNotificationsModal = () => {
         title={EMAIL_NOTIFICATIONS_MODAL_TITLE}
         visible={visible}
         onCancel={closeModal}
-        footer={
-          <div>
-            <small>
-              Unošenjem email adrese, slažete sa FlatMe{" "}
-              <Link href="/terms-and-conditions" passHref>
-                <a target="_blank" rel="noopener noreferrer">
-                  Uslovima korišćenja
-                </a>
-              </Link>{" "}
-              i{" "}
-              <Link href="/privacy-policy" passHref>
-                <a target="_blank" rel="noopener noreferrer">
-                  Politikom privatnosti
-                </a>
-              </Link>
-              .
-            </small>
-          </div>
-        }
+        footer={<NotificationFooter />}
       >
         <p>
           Ukoliko želite da primate informacije o novim stanovima koji

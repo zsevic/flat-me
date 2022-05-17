@@ -1,6 +1,6 @@
 import { Button, Modal } from "antd";
-import Link from "next/link";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { NotificationFooter } from "components/NotificationFooter";
 import { PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE } from "constants/config";
 import { useAppContext } from "context";
 import PropTypes from "prop-types";
@@ -82,25 +82,7 @@ export const PushNotificationsActivationModal = ({ handler }) => {
         visible={visible}
         forceRender
         onCancel={closeModal}
-        footer={
-          <div>
-            <small>
-              Aktiviranjem obaveštenja, slažete sa FlatMe{" "}
-              <Link href="/terms-and-conditions" passHref>
-                <a target="_blank" rel="noopener noreferrer">
-                  Uslovima korišćenja
-                </a>
-              </Link>{" "}
-              i{" "}
-              <Link href="/privacy-policy" passHref>
-                <a target="_blank" rel="noopener noreferrer">
-                  Politikom privatnosti
-                </a>
-              </Link>
-              .
-            </small>
-          </div>
-        }
+        footer={<NotificationFooter />}
       >
         <p>
           Ukoliko želite da primate informacije o novim stanovima koji
