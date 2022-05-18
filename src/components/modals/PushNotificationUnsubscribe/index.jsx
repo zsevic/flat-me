@@ -1,7 +1,7 @@
 import { Button, Modal, notification } from "antd";
 import { useAppContext } from "context";
 import { UPDATE_PUSH_NOTIFICATIONS } from "context/constants";
-import { IoMdNotificationsOutline } from "react-icons/io";
+import { IoMdNotificationsOff } from "react-icons/io";
 import { PUSH_NOTIFICATIONS_UNSUBSCRIBE_MODAL_TITLE } from "constants/config";
 import React, { useState } from "react";
 import { trackEvent } from "utils/analytics";
@@ -61,7 +61,7 @@ export const PushNotificationsUnsubscribeModal = () => {
     <>
       <div className="text-center mb-3">
         <Button danger onClick={showModal} size="small">
-          <IoMdNotificationsOutline className="mb-1 mr-1 inline" />
+          <IoMdNotificationsOff className="mb-1 mr-1 inline" />
           {PUSH_NOTIFICATIONS_UNSUBSCRIBE_MODAL_TITLE}
         </Button>
       </div>
