@@ -162,7 +162,7 @@ const AppPage = ({ query }) => {
     // eslint-disable-next-line
     if (key === APARTMENT_LIST_TAB) {
       await handleFoundApartmentsTab();
-      trackEvent("notifications-tab", "notifications-tab-not-ready");
+      trackEvent("found-apartments-tab", "found-apartments-tab");
     }
   };
 

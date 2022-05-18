@@ -173,8 +173,8 @@ export const FoundApartmentList = () => {
                     }
                   }
                   trackEvent(
-                    `apartment-details-${apartment.providerName}`,
-                    `apartment-details-${apartment.id}`
+                    `found-apartment-details-${apartment.providerName}`,
+                    `found-apartment-details-${apartment.id}`
                   );
                 }}
               >
