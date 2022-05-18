@@ -1,4 +1,4 @@
-import { Button, Modal } from "antd";
+import { Button, Modal, Spin } from "antd";
 import { useAppContext } from "context";
 import { NotificationFooter } from "components/NotificationFooter";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -9,6 +9,7 @@ import { trackEvent } from "utils/analytics";
 
 export const PushNotificationsUpdateModal = ({ handler }) => {
   const { state } = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(false);
 
   const closeModal = (track = true) => {
@@ -22,7 +23,9 @@ export const PushNotificationsUpdateModal = ({ handler }) => {
   };
 
   const onClickHandler = async () => {
+    setIsLoading(true);
     const data = await handler();
+    setIsLoading(false);
     if (data.isDone) {
       closeModal(false);
     }
@@ -53,16 +56,19 @@ export const PushNotificationsUpdateModal = ({ handler }) => {
         onCancel={closeModal}
         footer={<NotificationFooter />}
       >
-        <p>
-          Ukoliko želite da promenite sačuvanu pretragu kojom dobijate
-          informacije o novim stanovima koji odgovaraju Vašim izabranim
-          kriterijumima, nakon što se pojave na FlatMe, aktivirajte obaveštenja.
-        </p>
-        <div className="text-center">
-          <Button type="primary" onClick={onClickHandler}>
-            {PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE}
-          </Button>
-        </div>
+        <Spin spinning={isLoading}>
+          <p>
+            Ukoliko želite da promenite sačuvanu pretragu kojom dobijate
+            informacije o novim stanovima koji odgovaraju Vašim izabranim
+            kriterijumima, nakon što se pojave na FlatMe, aktivirajte
+            obaveštenja.
+          </p>
+          <div className="text-center">
+            <Button type="primary" onClick={onClickHandler}>
+              {PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE}
+            </Button>
+          </div>
+        </Spin>
       </Modal>
     </>
   );

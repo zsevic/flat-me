@@ -1,4 +1,4 @@
-import { Button, Modal, notification } from "antd";
+import { Button, Modal, notification, Spin } from "antd";
 import { useAppContext } from "context";
 import { UPDATE_PUSH_NOTIFICATIONS } from "context/constants";
 import { IoMdNotificationsOff } from "react-icons/io";
@@ -10,6 +10,7 @@ import { getTokenForPushNotifications } from "utils/push-notifications";
 
 export const PushNotificationsUnsubscribeModal = () => {
   const { dispatch } = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(false);
 
   const closeModal = (track = true) => {
@@ -25,6 +26,7 @@ export const PushNotificationsUnsubscribeModal = () => {
   const handleUnsubscribe = async () => {
     try {
       const accessToken = await getTokenForPushNotifications();
+      setIsLoading(true);
       await unsubscribeFromPushNotifications({
         token: accessToken,
       });
@@ -46,6 +48,8 @@ export const PushNotificationsUnsubscribeModal = () => {
         description: "Obaveštenja nisu isključena",
         duration: 0,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -72,15 +76,17 @@ export const PushNotificationsUnsubscribeModal = () => {
         onCancel={closeModal}
         footer={null}
       >
-        <p>
-          Ukoliko više ne želite da primate obaveštenja o novim stanovima koji
-          odgovaraju Vašim izabranim kriterijumima, kliknite na dugme ispod.
-        </p>
-        <div className="text-center">
-          <Button danger onClick={handleUnsubscribe}>
-            {PUSH_NOTIFICATIONS_UNSUBSCRIBE_MODAL_TITLE}
-          </Button>
-        </div>
+        <Spin spinning={isLoading}>
+          <p>
+            Ukoliko više ne želite da primate obaveštenja o novim stanovima koji
+            odgovaraju Vašim izabranim kriterijumima, kliknite na dugme ispod.
+          </p>
+          <div className="text-center">
+            <Button danger onClick={handleUnsubscribe}>
+              {PUSH_NOTIFICATIONS_UNSUBSCRIBE_MODAL_TITLE}
+            </Button>
+          </div>
+        </Spin>
       </Modal>
     </>
   );

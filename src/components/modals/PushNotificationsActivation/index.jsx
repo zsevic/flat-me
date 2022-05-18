@@ -1,4 +1,4 @@
-import { Button, Modal } from "antd";
+import { Button, Modal, Spin } from "antd";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { NotificationFooter } from "components/NotificationFooter";
 import { PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE } from "constants/config";
@@ -21,6 +21,7 @@ const deviceTypesMap = {
 export const PushNotificationsActivationModal = ({ handler }) => {
   const [visible, setVisible] = useState(false);
   const [deviceType, setDeviceType] = useState(PHONE);
+  const [isLoading, setIsLoading] = useState(false);
   const { state } = useAppContext();
   const [turnOnNotificationsText, setTurnOnNotificationsText] = useState(
     "Uključi obaveštenja"
@@ -58,7 +59,9 @@ export const PushNotificationsActivationModal = ({ handler }) => {
   };
 
   const onClickHandler = async () => {
+    setIsLoading(true);
     const data = await handler();
+    setIsLoading(false);
     if (data.isDone) {
       closeModal(false);
     }
@@ -84,16 +87,18 @@ export const PushNotificationsActivationModal = ({ handler }) => {
         onCancel={closeModal}
         footer={<NotificationFooter />}
       >
-        <p>
-          Ukoliko želite da primate informacije o novim stanovima koji
-          odgovaraju Vašim izabranim kriterijumima, nakon što se pojave na
-          FlatMe, aktivirajte obaveštenja na {deviceTypesMap[deviceType]}.
-        </p>
-        <div className="text-center">
-          <Button type="primary" onClick={onClickHandler}>
-            {PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
-          </Button>
-        </div>
+        <Spin spinning={isLoading}>
+          <p>
+            Ukoliko želite da primate informacije o novim stanovima koji
+            odgovaraju Vašim izabranim kriterijumima, nakon što se pojave na
+            FlatMe, aktivirajte obaveštenja na {deviceTypesMap[deviceType]}.
+          </p>
+          <div className="text-center">
+            <Button type="primary" onClick={onClickHandler}>
+              {PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE}
+            </Button>
+          </div>
+        </Spin>
       </Modal>
     </>
   );
