@@ -6,9 +6,6 @@ import {
 import { TOO_MANY_REQUESTS_STATUS_CODE } from "constants/status-codes";
 
 export const getErrorMessageForBlockedNotifications = (error) => {
-  const errorMessages = {
-    [TOO_MANY_REQUESTS_STATUS_CODE]: tooManyRequestsErrorMessage,
-  };
   if (
     error.code === "messaging/permission-blocked" &&
     error.name === "FirebaseError"
@@ -16,6 +13,10 @@ export const getErrorMessageForBlockedNotifications = (error) => {
     return notificationsBlockedErrorMessage;
   }
 
+  const errorMessages = {
+    [TOO_MANY_REQUESTS_STATUS_CODE]: tooManyRequestsErrorMessage,
+    422: "Pretraga sa izabranim filterima je već uključena",
+  };
   console.error(error);
   return (
     errorMessages[error?.response?.status] ||
