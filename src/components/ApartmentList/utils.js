@@ -1,4 +1,5 @@
 import latinize from "latinize";
+import { floorsLocaleMap } from "constants/floors";
 
 const isPlaceIncluded = (apartment) => {
   if (!apartment.address || !apartment.place) return false;
@@ -23,3 +24,6 @@ export const getAddressValue = (apartment) => {
 
   return addressValue;
 };
+
+export const handleFloor = (floor) =>
+  floorsLocaleMap[floor] || `na ${floor}. spratu`;

@@ -3,6 +3,7 @@ import {
   SALE_MAX_PRICE,
   SALE_PRICE_STEP,
 } from "constants/config";
+import { getItem, INITIAL_FILTERS_KEY } from "utils/local-storage";
 import { placesMap } from "./data";
 
 export function priceFormatter(value) {
@@ -10,13 +11,7 @@ export function priceFormatter(value) {
 }
 
 export function getInitialFilters() {
-  let filters;
-  try {
-    filters = localStorage.getItem("initial-filters");
-  } catch (err) {
-    console.error(err);
-  }
-  return filters;
+  return getItem(INITIAL_FILTERS_KEY);
 }
 
 export function getPriceStep(maxPriceField) {

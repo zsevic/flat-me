@@ -119,7 +119,7 @@ const TermsAndConditionsPage = () => (
               pretražene na njoj uvek aktuelne, ispravne i/ili potpune.
             </Text>
             <Text as="p" sx={styles.subdescription}>
-              Datum poslednjeg ažuriranja: 22.2.2022.
+              Datum poslednjeg ažuriranja: 18.5.2022.
             </Text>
             <Heading sx={styles.subtitle}>OPŠTI USLOVI KORIŠĆENJA</Heading>
             <Text as="p" sx={styles.subdescription}>
@@ -140,9 +140,9 @@ const TermsAndConditionsPage = () => (
               FlatMe omogućava širokom krugu posetilaca, odnosno korisnika sajta
               da, bez ikakve naknade, pronađu i pregledaju nekretnine na
               izabranoj teritoriji koji odgovaraju zadatim parametrima, kao i da
-              ostavljanjem svoje e-mail adrese dobijaju obaveštenja o svim
-              novoobjavljenim nekretninama koje odgovaraju prethodno izabranim
-              parametrima.
+              ostavljanjem svoje e-mail adrese, odnosno drugih relevantnih
+              podataka, dobijaju obaveštenja o svim novoobjavljenim nekretninama
+              koje odgovaraju prethodno izabranim parametrima.
             </Text>
             <Text as="p" sx={styles.subdescription}>
               Korisnik može biti fizičko ili pravno lice. Korisnik snosi

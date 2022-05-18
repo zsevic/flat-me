@@ -5,16 +5,24 @@ import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
 import "../styles/globals.css";
 import { GOOGLE_ANALYTICS_TRACKING_ID } from "constants/config";
+import { AppWrapper } from "context";
 import { registerServiceWorker } from "services/service-worker-registration";
+import { initializeFirebase } from "utils/push-notifications";
 
 if (process.env.NODE_ENV !== "development") {
   ReactGA.initialize(GOOGLE_ANALYTICS_TRACKING_ID);
 }
 
+initializeFirebase();
+
 function App({ Component, pageProps }) {
   useEffect(() => registerServiceWorker(), []);
 
-  return <Component {...pageProps} />;
+  return (
+    <AppWrapper>
+      <Component {...pageProps} />
+    </AppWrapper>
+  );
 }
 
 App.propTypes = {

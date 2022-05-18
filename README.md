@@ -8,7 +8,7 @@
 git clone https://github.com/zsevic/flat-me
 cd flat-me
 cp .env.sample .env.local # change values after copying
-nvm use 14
+nvm use 16
 npm i
 npm run dev
 ```

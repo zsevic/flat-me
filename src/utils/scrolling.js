@@ -1,5 +1,3 @@
-export function scroll(listRef, behavior = "smooth") {
-  listRef?.current?.scrollIntoView({
-    behavior,
-  });
+export function scroll(listRef) {
+  listRef?.current?.scrollIntoView();
 }

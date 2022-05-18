@@ -22,21 +22,22 @@ const apartmentPropType = PropTypes.shape({
   providerName: PropTypes.string,
   place: PropTypes.string,
   postedAt: PropTypes.string,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   rentOrSale: PropTypes.string.isRequired,
-  size: PropTypes.number.isRequired,
-  structure: PropTypes.number.isRequired,
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  structure: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
   url: PropTypes.string.isRequired,
 });
 
 export const apartmentListPropType = PropTypes.arrayOf(apartmentPropType);
 
 export const filtersPropType = PropTypes.shape({
-  minPrice: PropTypes.number.isRequired,
-  maxPrice: PropTypes.number.isRequired,
-  municipalities: PropTypes.arrayOf(PropTypes.string).isRequired,
-  rentOrSale: PropTypes.string.isRequired,
-  structures: PropTypes.arrayOf(stringOrNumberPropType).isRequired,
+  minPrice: PropTypes.number,
+  maxPrice: PropTypes.number,
+  municipalities: PropTypes.arrayOf(PropTypes.string),
+  rentOrSale: PropTypes.string,
+  structures: PropTypes.arrayOf(stringOrNumberPropType),
 });
 
 export const verificationPagePropTypes = {

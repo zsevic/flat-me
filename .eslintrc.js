@@ -24,7 +24,9 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
+    "consistent-return": "warn",
     "import/no-default-export": "warn",
+    "import/no-extraneous-dependencies": "warn",
     "import/prefer-default-export": "off",
     "jsx-a11y/anchor-is-valid": [
       "error",

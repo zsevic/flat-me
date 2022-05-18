@@ -9,12 +9,17 @@ export const POLICY_PRIVACY_PAGE_TITLE = "FlatMe | Politika privatnosti";
 export const TERMS_AND_CONDITIONS_PAGE_TITLE = "FlatMe | Uslovi korišćenja";
 export const DOMAIN_URL = "https://www.flat-me.com";
 
-export const TRACK_FILTERS_SUCCESS_MESSAGE =
+export const EMAIL_NOTIFICATIONS_SUCCESS_MESSAGE =
   "Proverite mejl (uključujući i deo sa promocijama) za detalje oko potvrde sačuvane pretrage.";
+export const VERIFICATION_SUCCESS_MESSAGE =
+  "Jednom dnevno ćete primati obaveštenja o novim stanovima na osnovu sačuvane pretrage.";
 
 export const APARTMENT_CARD_LOCALE = "sr";
 export const PAGE_SIZE = 12;
 export const NO_RESULTS_TEXT = "Nema rezultata";
+
+export const SEARCH_TAB = "1";
+export const APARTMENT_LIST_TAB = "2";
 
 export const RENT_MIN_PRICE = 0;
 export const RENT_MAX_PRICE = 2000;
@@ -38,7 +43,24 @@ export const INITIAL_FILTERS = {
   structures: [],
 };
 
-export const TRACK_FILTERS_MODAL_TITLE = "Uključi obaveštenja";
+export const firebaseConfig = {
+  apiKey: "AIzaSyC-I6PYtZwd9iiBlceEKqzHIPexlT-X4iA",
+  authDomain: "flat-me-2b34d.firebaseapp.com",
+  projectId: "flat-me-2b34d",
+  storageBucket: "flat-me-2b34d.appspot.com",
+  messagingSenderId: "238414106033",
+  appId: "1:238414106033:web:e38eca44a89cfe3d0ec190",
+  measurementId: "G-1F2ED6J80T",
+};
+
+export const INITIAL_FOUND_APARTMENTS_COUNTER = 0;
+
+export const EMAIL_NOTIFICATIONS_MODAL_TITLE = "Uključi email obaveštenja";
+export const PUSH_NOTIFICATIONS_ACTIVATION_MODAL_TITLE = "Uključi obaveštenja";
+export const PUSH_NOTIFICATIONS_UPDATE_MODAL_TITLE =
+  "Promeni sačuvanu pretragu";
+export const PUSH_NOTIFICATIONS_UNSUBSCRIBE_MODAL_TITLE =
+  "Isključi obaveštenja";
 export const APARTMENT_LIST_LOADER_TEXT = "Prikupljaju se rezultati...";
 
 export const activationType = "activation";

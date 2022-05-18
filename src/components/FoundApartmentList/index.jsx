@@ -1,6 +1,7 @@
 import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import React, { useRef, useState } from "react";
 import { CgPlayListAdd } from "react-icons/cg";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
@@ -16,72 +17,67 @@ import { advertiserTypesMap } from "constants/advertiser-types";
 import {
   APARTMENT_CARD_LOCALE,
   APARTMENT_LIST_LOADER_TEXT,
+  APARTMENT_LIST_TAB,
   LOGO_ENCODED,
   LOGO_URL,
   NO_RESULTS_TEXT,
   PAGE_SIZE,
   PROVIDER_LOGO_URLS,
+  THEME_COLOR,
 } from "constants/config";
 import { furnishedMap } from "constants/furnished";
 import { structuresMap } from "constants/structures";
 import { useAppContext } from "context";
-import * as apartmentsService from "services/apartments";
 import { trackEvent } from "utils/analytics";
-import eventBus from "utils/event-bus";
 import { getLocationUrl } from "utils/location";
-import { scroll } from "utils/scrolling";
+import { getFoundApartmentList } from "services/apartments";
 import {
-  APPEND_APARTMENT_LIST,
-  SET_LOADING_APARTMENT_LIST,
+  APPEND_FOUND_APARTMENT_LIST,
+  DECREASE_FOUND_APARTMENTS_COUNTER,
+  SET_LOADING_FOUND_APARTMENT_LIST,
 } from "context/constants";
-import { getAddressValue, handleFloor } from "./utils";
+import { getAddressValue, handleFloor } from "../ApartmentList/utils";
 
 const { Meta } = Card;
 
-export const ApartmentList = () => {
+export const FoundApartmentList = () => {
+  const router = useRouter();
   const newSublistStartRef = useRef();
   const [newSublistStartApartmentId, setNewSublistStartApartmentId] =
     useState(null);
-  const listRef = useRef();
+  const [clickedFound, setClickedFound] = useState([]);
   const { state, dispatch } = useAppContext();
-
-  useEffect(() => {
-    eventBus.dispatch("list-ref", {
-      listRef,
-    });
-  }, []);
 
   const handleLoadMore = async () => {
     dispatch({
-      type: SET_LOADING_APARTMENT_LIST,
-      payload: { isLoadingApartmentList: true },
+      type: SET_LOADING_FOUND_APARTMENT_LIST,
+      payload: { isLoadingFoundApartmentList: true },
     });
-    scroll(listRef);
-    const { data, pageInfo } = await apartmentsService.getApartmentList({
-      ...state.filters,
+    const { data, pageInfo } = await getFoundApartmentList({
+      token: state.accessToken,
       limitPerPage: PAGE_SIZE,
-      cursor: state.apartmentListEndCursor,
+      cursor: state.foundApartmentListEndCursor,
     });
     const [firstSublistApartment] = data;
     setNewSublistStartApartmentId(firstSublistApartment?.id);
     dispatch({
-      type: APPEND_APARTMENT_LIST,
+      type: APPEND_FOUND_APARTMENT_LIST,
       payload: {
-        apartmentList: data,
-        apartmentListHasNextPage: pageInfo.hasNextPage,
-        apartmentListEndCursor: pageInfo.endCursor,
+        foundApartmentList: data,
+        foundApartmentListHasNextPage: pageInfo.hasNextPage,
+        foundApartmentListEndCursor: pageInfo.endCursor,
       },
     });
     dispatch({
-      type: SET_LOADING_APARTMENT_LIST,
-      payload: { isLoadingApartmentList: false },
+      type: SET_LOADING_FOUND_APARTMENT_LIST,
+      payload: { isLoadingFoundApartmentList: false },
     });
-    scroll(newSublistStartRef);
-    trackEvent("search", "load-more");
+    newSublistStartRef?.current?.scrollIntoView();
+    trackEvent("found-apartments-load-more", "found-apartments-load-more");
   };
 
-  const loadMore = !state.isLoadingApartmentList &&
-    state.apartmentListHasNextPage && (
+  const loadMore = !state.isLoadingFoundApartmentList &&
+    state.foundApartmentListHasNextPage && (
       <div
         style={{
           textAlign: "center",
@@ -90,12 +86,14 @@ export const ApartmentList = () => {
           lineHeight: "32px",
         }}
       >
-        <Button onClick={handleLoadMore}>Pretraži još</Button>
+        <Button onClick={handleLoadMore}>Učitaj još</Button>
       </div>
     );
 
+  let clickedCounter = 0;
+
   return (
-    <div ref={listRef} className="paginated-list">
+    <div className="paginated-list">
       <List
         grid={{
           gutter: 16,
@@ -106,28 +104,31 @@ export const ApartmentList = () => {
           xl: 3,
           xxl: 3,
         }}
-        dataSource={state.apartmentList}
+        dataSource={state.foundApartmentList}
         itemLayout="horizontal"
         loading={{
           tip: APARTMENT_LIST_LOADER_TEXT,
-          spinning: state.isLoadingApartmentList,
+          spinning: state.isLoadingFoundApartmentList,
           className: "mt-2",
         }}
         locale={{
           emptyText: (
             <Empty
-              className={
-                state.isInitialSearchDone && !state.apartmentList.length
-                  ? "block"
-                  : "hidden"
-              }
+              className={!state.foundApartmentList.length ? "block" : "hidden"}
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={NO_RESULTS_TEXT}
             />
           ),
         }}
         loadMore={loadMore}
-        renderItem={(apartment) => {
+        renderItem={(apartment, index) => {
+          const isFound =
+            clickedCounter < state.foundApartmentsCounter &&
+            !clickedFound.includes(index) &&
+            !state.clickedFoundApartments.includes(index);
+          if (isFound) {
+            clickedCounter += 1;
+          }
           let postedAt;
           try {
             postedAt = new Intl.DateTimeFormat(APARTMENT_CARD_LOCALE).format(
@@ -147,12 +148,35 @@ export const ApartmentList = () => {
                 type="primary"
                 size="small"
                 className="find-more-btn"
-                onClick={() =>
+                onClick={() => {
+                  if (isFound) {
+                    const updatedClickedFound = [...clickedFound, index];
+                    setClickedFound(updatedClickedFound);
+                    const isAlreadyClicked = clickedFound.includes(index);
+                    if (
+                      !isAlreadyClicked &&
+                      state.foundApartmentsCounter >= 1
+                    ) {
+                      dispatch({ type: DECREASE_FOUND_APARTMENTS_COUNTER });
+                      router.push(
+                        {
+                          pathname: "/app",
+                          query: {
+                            tab: APARTMENT_LIST_TAB,
+                            foundCounter: state.foundApartmentsCounter,
+                            clicked: updatedClickedFound,
+                          },
+                        },
+                        undefined,
+                        { shallow: true }
+                      );
+                    }
+                  }
                   trackEvent(
-                    `apartment-details-${apartment.providerName}`,
-                    `apartment-details-${apartment.id}`
-                  )
-                }
+                    `found-apartment-details-${apartment.providerName}`,
+                    `found-apartment-details-${apartment.id}`
+                  );
+                }}
               >
                 <Link href={apartment.url} passHref>
                   <a target="_blank" rel="noopener noreferrer">
@@ -188,16 +212,24 @@ export const ApartmentList = () => {
             locationTextComponent
           );
           const apartmentImageAlt = `stan: ${getAddressValue(apartment)}`;
+          const notificationCardStyle = {
+            ...(isFound && {
+              style: {
+                borderColor: THEME_COLOR,
+              },
+            }),
+          };
 
           return (
             <List.Item>
               <Skeleton
                 avatar
-                loading={state.isLoadingApartmentList}
+                loading={state.isLoadingFoundApartmentList}
                 title={false}
                 active
               >
                 <Card
+                  {...notificationCardStyle}
                   cover={
                     apartment.coverPhotoUrl && (
                       <>

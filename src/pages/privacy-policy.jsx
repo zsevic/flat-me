@@ -161,7 +161,7 @@ const PrivacyPolicyPage = () => (
               objavljivanjem na ovoj stranici.
             </Text>
             <Text as="p" sx={styles.subdescription}>
-              Datum poslednjeg ažuriranja: 22.2.2022.
+              Datum poslednjeg ažuriranja: 18.5.2022.
             </Text>
             <Heading sx={styles.subtitle}>Podaci koji se prikupljaju</Heading>
             <Text as="p" sx={styles.subdescription}>
@@ -176,7 +176,7 @@ const PrivacyPolicyPage = () => (
               obuhvataju adresu elektronske pošte Korisnika, dok mogu obuhvatati
               i druge informacije o podatke o lokaciji, vremenu pristupa
               internet stranici, vrsti pretraživača, operativnom sistemu Vašeg
-              računara, i drugo.
+              računara, tokenu i drugo.
             </Text>
             <Heading sx={styles.subtitle}>
               Pravni osnov obrade podataka o ličnosti
@@ -211,9 +211,10 @@ const PrivacyPolicyPage = () => (
               - Dali ste pristanak na obradu svojih podataka o ličnosti za jednu
               ili više posebno određenih svrha. Posećivanjem naše internet
               stranice, kreiranjem naloga na istoj, prijavljivanjem na FlatMe
-              obaveštenja, kao i direktnim pružanjem svojih podataka o ličnosti,
-              dajete svoj pristanak rukovaocu da prikupi i obradi Vaše podatke o
-              ličnosti;
+              obaveštenja, odnosno davanjem odobrenja za prijem obaveštenja ili
+              ponovnim uključivanjem obaveštenja, kao i direktnim pružanjem
+              svojih podataka o ličnosti, dajete svoj pristanak rukovaocu da
+              prikupi i obradi Vaše podatke o ličnosti;
             </Text>
             <Text as="p" sx={styles.subdescription}>
               - Poštovanje pravnih obaveza rukovaoca;
@@ -346,6 +347,20 @@ const PrivacyPolicyPage = () => (
             <Text as="p" sx={styles.subdescription}>
               U svakoj e-mail poruci koju Korisnik dobije od FlatMe platforme se
               nalazi i veza za direktno otkazivanje daljeg prijema istih.
+            </Text>
+            <Text as="p" sx={styles.subdescription}>
+              Ukoliko dozvolite prijem obaveštenja, generisaće se token koji
+              jedinstveno određuje Vaš internet pregledač, koji token se čuva i
+              koristi u svrhe slanja obaveštenja tačno određenom korisniku za
+              čiji pregledač je token generisan, a sve u cilju olakšavanja
+              pretrage i pružanja personalizovane usluge. U svakom trenutku
+              možete blokirati dalji prijem obaveštenja, kada Vaš token postaje
+              nevalidan, dok će se prilikom ponovnog uključivanja obaveštenja
+              generisati novi token. U slučaju da korisnik isključi prijem
+              obaveštenja u okviru aplikacije, isti više neće primati
+              obaveštenja, ali će prethodno generisani token ostati validan, te
+              će se prilikom ponovnog uključivanja obaveštenja, koristiti već
+              postojeći token.
             </Text>
             <Text as="p" sx={styles.subdescription}>
               Podatke o ličnosti rukovalac, obrađivač, primalac podataka,

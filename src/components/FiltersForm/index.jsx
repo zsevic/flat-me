@@ -9,12 +9,15 @@ import {
   Select,
   Slider,
   TreeSelect,
+  notification,
 } from "antd";
 import deepEqual from "fast-deep-equal/react";
-import PropTypes from "prop-types";
+import { isSupported } from "firebase/messaging";
 import React, { useEffect, useState } from "react";
 import { HiSearch } from "react-icons/hi";
-import { TrackFiltersModal } from "components/TrackFiltersModal";
+import { EmailNotificationsModal } from "components/modals/EmailNotificationsModal";
+import { PushNotificationsActivationModal } from "components/modals/PushNotificationsActivation";
+import { PushNotificationsUpdateModal } from "components/modals/PushNotificationsUpdate";
 import { ADVERTISER_TYPES } from "constants/advertiser-types";
 import {
   INITIAL_FILTERS,
@@ -27,14 +30,29 @@ import {
   SALE_MIN_PRICE,
   SALE_SELECTED_MAX_PRICE,
   SALE_SELECTED_MIN_PRICE,
+  VERIFICATION_SUCCESS_MESSAGE,
 } from "constants/config";
 import { floorFilters } from "constants/floors";
 import { FURNISHED } from "constants/furnished";
 import { STRUCTURES } from "constants/structures";
+import { useAppContext } from "context";
+import {
+  INITIAL_SEARCH,
+  SET_ACCESS_TOKEN,
+  SET_APARTMENT_LIST,
+  SET_FILTERS,
+  SET_LOADING_APARTMENT_LIST,
+  UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE,
+  UPDATE_PUSH_NOTIFICATIONS,
+} from "context/constants";
 import * as apartmentsService from "services/apartments";
+import { subscribeForPushNotifications } from "services/subscriptions";
 import { trackEvent } from "utils/analytics";
+import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
+import { INITIAL_FILTERS_KEY, setItem } from "utils/local-storage";
+import { getTokenForPushNotifications } from "utils/push-notifications";
 import { scroll } from "utils/scrolling";
 import { placesData } from "./data";
 import {
@@ -57,14 +75,7 @@ const formItemLayout = {
   },
 };
 
-export const FiltersForm = ({
-  setApartmentList,
-  setFilters,
-  setIsLoadingApartmentList,
-  setIsInitialSearchDone,
-  isInitialSearchDone,
-  listRef,
-}) => {
+export const FiltersForm = () => {
   const [form] = Form.useForm();
   const [isInitialRentOrSale, setIsInitialRentOrSale] = useState(true);
   const [minPriceField, setMinPriceField] = useState(RENT_MIN_PRICE);
@@ -91,6 +102,16 @@ export const FiltersForm = ({
   const [activeKey, setActiveKey] = useState(null);
   const [places, setPlaces] = useState([]);
   const [showRentFilters, setShowRentFilters] = useState(false);
+  const { state, dispatch } = useAppContext();
+  const [isPushNotificationSupported, setIsPushNotificationSupported] =
+    useState(false);
+  const [listRef, setListRef] = useState(null);
+
+  useEffect(() => {
+    eventBus.on("list-ref", (data) => {
+      setListRef(data.listRef);
+    });
+  }, []);
 
   const validateFields = (storedFilters) => {
     form
@@ -98,19 +119,79 @@ export const FiltersForm = ({
       .then(() => {
         const filters = storedFilters || form.getFieldsValue();
         const updatedFilters = getFilters(filters);
-        eventBus.dispatch("filters-changed", { filters: updatedFilters });
-        eventBus.dispatch("trackFilters-changed", { isDisabled: false });
+        dispatch({ type: SET_FILTERS, payload: { filters: updatedFilters } });
+        dispatch({
+          type: UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE,
+          payload: { isDisabled: false },
+        });
       })
       .catch((error) => {
         const isDisabled = error?.errorFields?.length > 0;
         if (!isDisabled) {
           const filters = form.getFieldsValue();
           const updatedFilters = getFilters(filters);
-          eventBus.dispatch("filters-changed", { filters: updatedFilters });
+          dispatch({
+            type: SET_FILTERS,
+            payload: { filters: updatedFilters },
+          });
         }
-        eventBus.dispatch("trackFilters-changed", { isDisabled });
+        dispatch({
+          type: UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE,
+          payload: { isDisabled },
+        });
       });
   };
+
+  const turnOnPushNotifications = async () => {
+    try {
+      const accessToken = await getTokenForPushNotifications();
+
+      const filters = form.getFieldsValue();
+      const formFilters = getFilters(filters);
+      handleMunicipalities(formFilters);
+      const { isUpdated } = await subscribeForPushNotifications({
+        filter: {
+          ...formFilters,
+          ...(formFilters.rentOrSale !== "rent" && { furnished: [] }),
+        },
+        token: accessToken,
+      });
+      const responseMessage = `Pretraga je uspešno ${
+        isUpdated ? "promenjena" : "sačuvana"
+      }. ${VERIFICATION_SUCCESS_MESSAGE}`;
+      notification.info({
+        description: responseMessage,
+        duration: 0,
+      });
+      dispatch({ type: SET_ACCESS_TOKEN, payload: { accessToken } });
+      dispatch({
+        type: UPDATE_PUSH_NOTIFICATIONS,
+        payload: { isPushNotificationActivated: true },
+      });
+      if (isUpdated) {
+        trackEvent("push-notifications-update", "push-notifications-updated");
+      } else {
+        trackEvent(
+          "push-notifications-activation",
+          "push-notifications-activated"
+        );
+      }
+      return { isDone: true, token: accessToken };
+    } catch (error) {
+      const errorMessage = getErrorMessageForBlockedNotifications(error);
+      notification.error({
+        description: errorMessage,
+        duration: 0,
+      });
+      return { isDone: false };
+    }
+  };
+
+  useEffect(() => {
+    if (isSupported()) {
+      setIsPushNotificationSupported(true);
+    }
+  }, []);
 
   useEffect(() => {
     const storedFilters = getInitialFilters();
@@ -149,7 +230,7 @@ export const FiltersForm = ({
     handleMunicipalities(values);
 
     const storedFilters = getInitialFilters();
-    if (storedFilters && isInitialSearchDone) {
+    if (storedFilters && state.isInitialSearchDone) {
       const isSameFilter = deepEqual(JSON.parse(storedFilters), values);
       if (isSameFilter) {
         scroll(listRef);
@@ -158,27 +239,34 @@ export const FiltersForm = ({
     }
 
     const newFilters = getFilters(values);
-    setFilters(newFilters);
-    try {
-      localStorage.setItem("initial-filters", JSON.stringify(values));
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch({ type: SET_FILTERS, payload: { filters: newFilters } });
+    setItem(INITIAL_FILTERS_KEY, JSON.stringify(values));
 
-    setIsLoadingApartmentList(true);
+    dispatch({
+      type: SET_LOADING_APARTMENT_LIST,
+      payload: { isLoadingApartmentList: true },
+    });
     scroll(listRef);
     const { data, pageInfo } = await apartmentsService.getApartmentList({
       ...newFilters,
       limitPerPage: PAGE_SIZE,
     });
-    setApartmentList(data);
-    setIsLoadingApartmentList(false);
-    setIsInitialSearchDone(true);
-    scroll(listRef);
-    eventBus.dispatch("apartment-list-page-changed", {
-      hasNextPage: pageInfo.hasNextPage,
-      endCursor: pageInfo.endCursor,
+    dispatch({
+      type: SET_APARTMENT_LIST,
+      payload: {
+        apartmentList: data,
+        apartmentListHasNextPage: pageInfo.hasNextPage,
+        apartmentListEndCursor: pageInfo.endCursor,
+      },
     });
+    dispatch({
+      type: SET_LOADING_APARTMENT_LIST,
+      payload: { isLoadingApartmentList: false },
+    });
+    dispatch({
+      type: INITIAL_SEARCH,
+    });
+    scroll(listRef);
     trackEvent("search", "search-apartments");
   };
 
@@ -461,22 +549,26 @@ export const FiltersForm = ({
               </Button>
             </Form.Item>
           </Col>
+          {isPushNotificationSupported && (
+            <Col className="mx-1 mb-6">
+              {state.isPushNotificationActivated ? (
+                <PushNotificationsUpdateModal
+                  handler={turnOnPushNotifications}
+                />
+              ) : (
+                <PushNotificationsActivationModal
+                  handler={turnOnPushNotifications}
+                />
+              )}
+            </Col>
+          )}
           <Col className="mx-1">
             <Form.Item>
-              <TrackFiltersModal />
+              <EmailNotificationsModal />
             </Form.Item>
           </Col>
         </Row>
       </Form>
     </Row>
   );
-};
-
-FiltersForm.propTypes = {
-  setApartmentList: PropTypes.func.isRequired,
-  setFilters: PropTypes.func.isRequired,
-  setIsLoadingApartmentList: PropTypes.func.isRequired,
-  setIsInitialSearchDone: PropTypes.func.isRequired,
-  isInitialSearchDone: PropTypes.bool.isRequired,
-  listRef: PropTypes.object.isRequired,
 };

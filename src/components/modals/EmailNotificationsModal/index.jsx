@@ -1,10 +1,10 @@
 import { Button, Form, Input, Modal, notification } from "antd";
-import Link from "next/link";
 import { RiMailLine } from "react-icons/ri";
 import { handleMunicipalities } from "components/FiltersForm/utils";
+import { NotificationFooter } from "components/NotificationFooter";
 import {
-  TRACK_FILTERS_MODAL_TITLE,
-  TRACK_FILTERS_SUCCESS_MESSAGE,
+  EMAIL_NOTIFICATIONS_MODAL_TITLE,
+  EMAIL_NOTIFICATIONS_SUCCESS_MESSAGE,
 } from "constants/config";
 import {
   emailNotValidErrorMessage,
@@ -18,10 +18,10 @@ import {
   TOO_MANY_REQUESTS_STATUS_CODE,
   USER_IS_NOT_VERIFIED_STATUS_CODE,
 } from "constants/status-codes";
-import React, { useEffect, useState } from "react";
+import { useAppContext } from "context";
+import React, { useState } from "react";
 import * as filtersService from "services/filters";
 import { trackEvent } from "utils/analytics";
-import eventBus from "utils/event-bus";
 
 const formItemLayout = {
   labelCol: {
@@ -39,10 +39,9 @@ const errorMessages = {
   [USER_IS_NOT_VERIFIED_STATUS_CODE]: userNotVerifiedErrorMessage,
 };
 
-export const TrackFiltersModal = () => {
-  const [isDisabled, setIsDisabled] = useState(true);
-  const [filters, setFilters] = useState({});
+export const EmailNotificationsModal = () => {
   const [visible, setVisible] = useState(false);
+  const { state } = useAppContext();
   const [form] = Form.useForm();
 
   const closeModal = (track = true) => {
@@ -57,14 +56,14 @@ export const TrackFiltersModal = () => {
     const { email } = values;
 
     try {
-      handleMunicipalities(filters);
+      handleMunicipalities(state.filters);
       await filtersService.saveFilter({
-        ...filters,
-        ...(filters.rentOrSale !== "rent" && { furnished: [] }),
+        ...state.filters,
+        ...(state.filters.rentOrSale !== "rent" && { furnished: [] }),
         email,
       });
       notification.info({
-        description: TRACK_FILTERS_SUCCESS_MESSAGE,
+        description: EMAIL_NOTIFICATIONS_SUCCESS_MESSAGE,
         duration: 0,
       });
       closeModal(false);
@@ -84,51 +83,22 @@ export const TrackFiltersModal = () => {
     trackEvent("notifications", "turn-on-notifications");
   };
 
-  useEffect(() => {
-    eventBus.on("trackFilters-changed", (data) => {
-      setIsDisabled(data.isDisabled);
-    });
-
-    eventBus.on("filters-changed", (data) => {
-      setFilters(data.filters);
-    });
-  }, []);
-
   return (
     <>
       <Button
         type="primary"
         onClick={showModal}
         size="large"
-        disabled={isDisabled}
+        disabled={state.isNotificationActivationDisabled}
       >
         <RiMailLine className="mb-1 mr-1 inline" />
-        {TRACK_FILTERS_MODAL_TITLE}
+        {EMAIL_NOTIFICATIONS_MODAL_TITLE}
       </Button>
       <Modal
-        title={TRACK_FILTERS_MODAL_TITLE}
+        title={EMAIL_NOTIFICATIONS_MODAL_TITLE}
         visible={visible}
-        forceRender
         onCancel={closeModal}
-        footer={
-          <div>
-            <small>
-              Unošenjem email adrese, slažete sa FlatMe{" "}
-              <Link href="/terms-and-conditions" passHref>
-                <a target="_blank" rel="noopener noreferrer">
-                  Uslovima korišćenja
-                </a>
-              </Link>{" "}
-              i{" "}
-              <Link href="/privacy-policy" passHref>
-                <a target="_blank" rel="noopener noreferrer">
-                  Politikom privatnosti
-                </a>
-              </Link>
-              .
-            </small>
-          </div>
-        }
+        footer={<NotificationFooter />}
       >
         <p>
           Ukoliko želite da primate informacije o novim stanovima koji
