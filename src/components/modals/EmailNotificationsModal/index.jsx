@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, notification } from "antd";
+import { Button, Form, Input, Modal, notification, Spin } from "antd";
 import { RiMailLine } from "react-icons/ri";
 import { handleMunicipalities } from "components/FiltersForm/utils";
 import { NotificationFooter } from "components/NotificationFooter";
@@ -41,6 +41,7 @@ const errorMessages = {
 
 export const EmailNotificationsModal = () => {
   const [visible, setVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { state } = useAppContext();
   const [form] = Form.useForm();
 
@@ -57,6 +58,7 @@ export const EmailNotificationsModal = () => {
 
     try {
       handleMunicipalities(state.filters);
+      setIsLoading(true);
       await filtersService.saveFilter({
         ...state.filters,
         ...(state.filters.rentOrSale !== "rent" && { furnished: [] }),
@@ -75,6 +77,8 @@ export const EmailNotificationsModal = () => {
         description: errorMessage,
         duration: 0,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -100,41 +104,43 @@ export const EmailNotificationsModal = () => {
         onCancel={closeModal}
         footer={<NotificationFooter />}
       >
-        <p>
-          Ukoliko želite da primate informacije o novim stanovima koji
-          odgovaraju Vašim izabranim kriterijumima, nakon što se pojave na
-          FlatMe, unesite svoju email adresu. Nakon registracije stići će Vam
-          email preko kog je neophodno da potvrdite svoju email adresu.
-        </p>
-        <Form
-          name="email-form"
-          {...formItemLayout}
-          className="mb-5 text-center"
-          form={form}
-          onFinish={onFinish}
-        >
-          <Form.Item
-            name="email"
-            label="E-mail adresa"
-            className="mt-2"
-            hasFeedback
-            rules={[
-              {
-                type: "email",
-                message: "Uneta e-mail adresa nije ispravna!",
-              },
-              {
-                required: true,
-                message: "Unesi e-mail adresu!",
-              },
-            ]}
+        <Spin spinning={isLoading}>
+          <p>
+            Ukoliko želite da primate informacije o novim stanovima koji
+            odgovaraju Vašim izabranim kriterijumima, nakon što se pojave na
+            FlatMe, unesite svoju email adresu. Nakon registracije stići će Vam
+            email preko kog je neophodno da potvrdite svoju email adresu.
+          </p>
+          <Form
+            name="email-form"
+            {...formItemLayout}
+            className="mb-5 text-center"
+            form={form}
+            onFinish={onFinish}
           >
-            <Input />
-          </Form.Item>
-          <Button type="primary" htmlType="submit">
-            Registruj se
-          </Button>
-        </Form>
+            <Form.Item
+              name="email"
+              label="E-mail adresa"
+              className="mt-2"
+              hasFeedback
+              rules={[
+                {
+                  type: "email",
+                  message: "Uneta e-mail adresa nije ispravna!",
+                },
+                {
+                  required: true,
+                  message: "Unesi e-mail adresu!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Button type="primary" htmlType="submit">
+              Registruj se
+            </Button>
+          </Form>
+        </Spin>
       </Modal>
     </>
   );
