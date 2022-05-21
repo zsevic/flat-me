@@ -85,4 +85,4 @@ export const PROVIDER_LOGO_URLS = {
 export const APP_RELATIVE_URL = "/app";
 export const CTA_TEXT = "Pronađi stan";
 
-export const GOOGLE_ANALYTICS_TRACKING_ID = "G-3EHB5PVZYW";
+export const GOOGLE_ANALYTICS_TRACKING_ID = "G-40HJHGS3VR";
