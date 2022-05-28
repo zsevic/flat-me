@@ -4,7 +4,7 @@ import Head from "next/head";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { HiSearch } from "react-icons/hi";
-import { IoMdNotificationsOutline } from "react-icons/io";
+import { AiOutlineFileSearch } from "react-icons/ai";
 import { StickyContainer, Sticky } from "react-sticky";
 import { ApartmentList } from "components/ApartmentList";
 import CommonHead from "components/CommonHead";
@@ -212,7 +212,7 @@ const AppPage = ({ query }) => {
           tab={
             <Badge count={state.foundApartmentsCounter}>
               <span>
-                <IoMdNotificationsOutline className="mr-1 mb-1 inline" />
+                <AiOutlineFileSearch className="mr-1 mb-1 inline" />
                 Pronađeni stanovi
               </span>
             </Badge>

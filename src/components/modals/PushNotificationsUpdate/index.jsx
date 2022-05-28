@@ -43,6 +43,7 @@ export const PushNotificationsUpdateModal = ({ handler }) => {
           type="primary"
           onClick={showModal}
           size="large"
+          className="w-full"
           disabled={state.isNotificationActivationDisabled}
         >
           <IoMdNotificationsOutline className="mb-1 mr-1 inline" />

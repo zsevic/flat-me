@@ -540,17 +540,25 @@ export const FiltersForm = () => {
           </Panel>
         </Collapse>
 
-        <Row justify="space-around" align="center" className="mt-2">
-          <Col className="mx-1">
-            <Form.Item>
-              <Button type="primary" htmlType="submit" size="large">
-                <HiSearch className="mb-1 mr-1 inline" />
-                Pretraži stanove
-              </Button>
-            </Form.Item>
+        <Row className="mt-2 mb-4">
+          <Col
+            xs={24}
+            sm={isPushNotificationSupported ? 24 : 12}
+            md={isPushNotificationSupported ? 8 : 12}
+            className="mb-2 px-2"
+          >
+            <Button
+              type="primary"
+              className="w-full"
+              htmlType="submit"
+              size="large"
+            >
+              <HiSearch className="mb-1 mr-1 inline" />
+              Pretraži stanove
+            </Button>
           </Col>
           {isPushNotificationSupported && (
-            <Col className="mx-1 mb-6">
+            <Col xs={24} md={8} className="mb-2 px-2">
               {state.isPushNotificationActivated ? (
                 <PushNotificationsUpdateModal
                   handler={turnOnPushNotifications}
@@ -562,10 +570,13 @@ export const FiltersForm = () => {
               )}
             </Col>
           )}
-          <Col className="mx-1">
-            <Form.Item>
-              <EmailNotificationsModal />
-            </Form.Item>
+          <Col
+            xs={24}
+            sm={isPushNotificationSupported ? 24 : 12}
+            md={isPushNotificationSupported ? 8 : 12}
+            className="px-2"
+          >
+            <EmailNotificationsModal />
           </Col>
         </Row>
       </Form>

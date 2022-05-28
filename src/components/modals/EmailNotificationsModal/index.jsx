@@ -93,6 +93,7 @@ export const EmailNotificationsModal = () => {
         type="primary"
         onClick={showModal}
         size="large"
+        className="w-full"
         disabled={state.isNotificationActivationDisabled}
       >
         <RiMailLine className="mb-1 mr-1 inline" />
