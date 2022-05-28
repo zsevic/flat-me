@@ -156,6 +156,9 @@ export const FiltersForm = () => {
         },
         token: accessToken,
       });
+      dispatch({ type: SET_FILTERS, payload: { filters: formFilters } });
+      setItem(INITIAL_FILTERS_KEY, JSON.stringify(filters));
+
       const responseMessage = `Pretraga je uspešno ${
         isUpdated ? "promenjena" : "sačuvana"
       }. ${VERIFICATION_SUCCESS_MESSAGE}`;
