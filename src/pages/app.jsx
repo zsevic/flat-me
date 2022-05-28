@@ -210,12 +210,10 @@ const AppPage = ({ query }) => {
         </TabPane>
         <TabPane
           tab={
-            <Badge count={state.foundApartmentsCounter}>
-              <span>
-                <AiOutlineFileSearch className="mr-1 mb-1 inline" />
-                Pronađeni stanovi
-              </span>
-            </Badge>
+            <span>
+              <AiOutlineFileSearch className="mr-1 mb-1 inline" />
+              Pronađeni stanovi <Badge count={state.foundApartmentsCounter} />
+            </span>
           }
           key={APARTMENT_LIST_TAB}
         >
