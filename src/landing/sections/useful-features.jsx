@@ -15,6 +15,7 @@ const data = [
     icon: "/assets/images/icons/diamond.png",
     title: "Nove informacije u Vašem inboksu",
     description: `Kako se ne bi desilo da propustite idealan stan jer ste ga kasno videli u oglasima, FlatMe Vam šalje email sa svim novim stanovima koji odgovaraju Vašim kriterijumima nakon što se pojave na tržištu.`,
+    alternativeDescription: `Kako se ne bi desilo da propustite idealan stan jer ste ga kasno videli u oglasima, FlatMe Vam šalje na uređaj obaveštenja sa svim novim stanovima koji odgovaraju Vašim kriterijumima nakon što se pojave na tržištu.`,
   },
   {
     id: 3,

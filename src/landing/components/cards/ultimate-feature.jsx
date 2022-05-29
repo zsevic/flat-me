@@ -1,5 +1,6 @@
+import { isSupported } from "firebase/messaging";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Image, Heading, Text } from "theme-ui";
 
 const styles = {
@@ -39,6 +40,15 @@ const styles = {
 };
 
 export const UltimateFeature = ({ data, ...props }) => {
+  const [isPushNotificationSupported, setIsPushNotificationSupported] =
+    useState(false);
+
+  useEffect(() => {
+    if (isSupported()) {
+      setIsPushNotificationSupported(true);
+    }
+  }, []);
+
   return (
     <Box sx={styles.feature} {...props}>
       <figure>
@@ -46,7 +56,14 @@ export const UltimateFeature = ({ data, ...props }) => {
       </figure>
       <Box>
         <Heading as="h4">{data?.title}</Heading>
-        <Text as="p" dangerouslySetInnerHTML={{ __html: data?.description }} />
+        <Text
+          as="p"
+          dangerouslySetInnerHTML={{
+            __html:
+              (isPushNotificationSupported && data?.alternativeDescription) ||
+              data?.description,
+          }}
+        />
       </Box>
     </Box>
   );

@@ -54,6 +54,7 @@ export const Widgets = () => {
               sx={styles.heading}
               title={<>Jedinstvena aplikacija</>}
               description="FlatMe Vam javlja kad pronađe stan po Vašoj meri slanjem mejla u Vaše prijemno sanduče."
+              alternativeDescription="FlatMe Vam javlja kad pronađe stan po Vašoj meri slanjem obaveštenja direktno na Vaš uređaj."
             />
             <Text sx={styles.listItem} as="p">
               <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />

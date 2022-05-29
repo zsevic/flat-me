@@ -48,6 +48,8 @@ const data = [
     icon: "/assets/images/icons/trophy.png",
     description:
       "FlatMe za Vas pretražuje različite platforme i šalje Vam email sa svim novim stanovima koji se pojave na tržištu, a uklapaju se u Vaše želje i mogućnosti.",
+    alternativeDescription:
+      "FlatMe za Vas pretražuje različite platforme i šalje Vam na uređaj obaveštenje sa svim novim stanovima koji se pojave na tržištu, a uklapaju se u Vaše želje i mogućnosti.",
   },
 ];
 

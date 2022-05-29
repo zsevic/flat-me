@@ -1,5 +1,6 @@
+import { isSupported } from "firebase/messaging";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Heading, Text } from "theme-ui";
 
 const styles = {
@@ -24,11 +25,21 @@ const styles = {
 };
 
 export const SectionHeading = ({ title, description, ...props }) => {
+  const [isPushNotificationSupported, setIsPushNotificationSupported] =
+    useState(false);
+
+  useEffect(() => {
+    if (isSupported()) {
+      setIsPushNotificationSupported(true);
+    }
+  }, []);
+
   return (
     <Box sx={styles.heading} {...props}>
       <Heading sx={styles.title}>{title}</Heading>
       <Text as="p" sx={styles.description}>
-        {description}
+        {(isPushNotificationSupported && props?.alternativeDescription) ||
+          description}
       </Text>
     </Box>
   );
@@ -37,8 +48,10 @@ export const SectionHeading = ({ title, description, ...props }) => {
 SectionHeading.propTypes = {
   title: PropTypes.object.isRequired,
   description: PropTypes.string,
+  alternativeDescription: PropTypes.string,
 };
 
 SectionHeading.defaultProps = {
   description: null,
+  alternativeDescription: null,
 };
