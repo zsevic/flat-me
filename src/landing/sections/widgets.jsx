@@ -46,12 +46,11 @@ const styles = {
 };
 
 export const Widgets = () => {
-  const [isPushNotificationSupported, setIsPushNotificationSupported] =
-    useState(false);
+  const [imageUrl, setImageUrl] = useState("/assets/images/widgets.png");
 
   useEffect(() => {
     if (isSupported()) {
-      setIsPushNotificationSupported(true);
+      setImageUrl("/assets/images/widgets2.png");
     }
   }, []);
 
@@ -60,14 +59,7 @@ export const Widgets = () => {
       <Container>
         <Box sx={styles.contentWrapper}>
           <Box sx={styles.leftContent}>
-            <Image
-              src={
-                isPushNotificationSupported
-                  ? "/assets/images/widgets2.png"
-                  : "/assets/images/widgets.png"
-              }
-              alt="widgets"
-            />
+            <Image src={imageUrl} alt="widgets" />
           </Box>
           <Box sx={styles.rightContent}>
             <SectionHeading
