@@ -36,19 +36,23 @@
   "background_color": "#ffffff",
   "theme_color": "#3366cc",
   "screenshots": [{
-    "src": "screenshots/sale.jpg",
+    "src": "screenshots/filters1.jpg",
     "sizes": "1080x2400",
     "type": "image/jpg"
   }, {
-    "src": "screenshots/rent.jpg",
+    "src": "screenshots/filters2.jpg",
     "sizes": "1080x2400",
     "type": "image/jpg"
   }, {
-    "src": "screenshots/results.jpg",
+    "src": "screenshots/results1.jpg",
     "sizes": "1080x2400",
     "type": "image/jpg"
   }, {
-    "src": "screenshots/notifications-modal.jpg",
+    "src": "screenshots/notification.jpg",
+    "sizes": "1080x2400",
+    "type": "image/jpg"
+  }, {
+    "src": "screenshots/results2.jpg",
     "sizes": "1080x2400",
     "type": "image/jpg"
   }]
