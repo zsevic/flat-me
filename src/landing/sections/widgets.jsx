@@ -13,6 +13,9 @@ const styles = {
     gridTemplateColumns: "1fr 1fr",
     alignItems: "center",
   },
+  leftContent: {
+    marginBottom: "1rem",
+  },
   heading: {
     textAlign: "left",
     mb: ["20px"],
