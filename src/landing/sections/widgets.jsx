@@ -1,4 +1,5 @@
-import React from "react";
+import { isSupported } from "firebase/messaging";
+import React, { useEffect, useState } from "react";
 import { Box, Container, Text } from "theme-ui";
 import { CHECK_CIRCLE_FILLED } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
@@ -42,12 +43,28 @@ const styles = {
 };
 
 export const Widgets = () => {
+  const [isPushNotificationSupported, setIsPushNotificationSupported] =
+    useState(false);
+
+  useEffect(() => {
+    if (isSupported()) {
+      setIsPushNotificationSupported(true);
+    }
+  }, []);
+
   return (
     <Box as="section" id="widgets" variant="section.widgets">
       <Container>
         <Box sx={styles.contentWrapper}>
           <Box sx={styles.leftContent}>
-            <Image src="/assets/images/widgets.png" alt="widgets" />
+            <Image
+              src={
+                isPushNotificationSupported
+                  ? "/assets/images/widgets2.png"
+                  : "/assets/images/widgets.png"
+              }
+              alt="widgets"
+            />
           </Box>
           <Box sx={styles.rightContent}>
             <SectionHeading

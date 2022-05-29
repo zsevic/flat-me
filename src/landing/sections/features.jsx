@@ -140,6 +140,7 @@ export const Features = () => {
                 </Fragment>
               }
               description="Traženje stana za kupovinu ili iznajmljivanje ne mora da bude mukotrpno iskustvo. Umesto da svakodnevno trošite po nekoliko sati na proveravanje novih oglasa na različitim platformama, aktivirajte FlatMe obaveštenja i mi ćemo to raditi za Vas, a rezultate pretrage ćemo Vam slati direktno u Vaše prijemno sanduče."
+              alternativeDescription="Traženje stana za kupovinu ili iznajmljivanje ne mora da bude mukotrpno iskustvo. Umesto da svakodnevno trošite po nekoliko sati na proveravanje novih oglasa na različitim platformama, aktivirajte FlatMe obaveštenja i mi ćemo to raditi za Vas, a rezultate pretrage ćemo Vam slati direktno na Vaš uređaj."
             />
             <Box
               sx={styles.explore}
