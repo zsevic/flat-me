@@ -17,13 +17,13 @@ const data = [
   {
     id: 1,
     color: "#28D1DC",
-    value: "4000+",
+    value: "8000+",
     title: "stanova za iznajmljivanje u ponudi",
   },
   {
     id: 2,
     color: "#FF753A",
-    value: "8000+",
+    value: "10000+",
     title: "stanova za kupovinu u ponudi",
   },
   {
