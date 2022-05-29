@@ -55,7 +55,10 @@ export const UltimateFeature = ({ data, ...props }) => {
         <Image src={data?.icon} alt={data?.title} />
       </figure>
       <Box>
-        <Heading as="h4">{data?.title}</Heading>
+        <Heading as="h4">
+          {(isPushNotificationSupported && data?.alternativeTitle) ||
+            data?.title}
+        </Heading>
         <Text
           as="p"
           dangerouslySetInnerHTML={{
