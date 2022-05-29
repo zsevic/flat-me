@@ -24,13 +24,12 @@ const styles = {
   },
 };
 
-export const SectionHeading = ({ title, description, ...props }) => {
-  const [isPushNotificationSupported, setIsPushNotificationSupported] =
-    useState(false);
+export const SectionHeading = ({ title, ...props }) => {
+  const [description, setDescription] = useState(props.description);
 
   useEffect(() => {
     if (isSupported()) {
-      setIsPushNotificationSupported(true);
+      setDescription(props?.alternativeDescription || props.description);
     }
   }, []);
 
@@ -38,8 +37,7 @@ export const SectionHeading = ({ title, description, ...props }) => {
     <Box sx={styles.heading} {...props}>
       <Heading sx={styles.title}>{title}</Heading>
       <Text as="p" sx={styles.description}>
-        {(isPushNotificationSupported && props?.alternativeDescription) ||
-          description}
+        {description}
       </Text>
     </Box>
   );

@@ -40,12 +40,13 @@ const styles = {
 };
 
 export const UltimateFeature = ({ data, ...props }) => {
-  const [isPushNotificationSupported, setIsPushNotificationSupported] =
-    useState(false);
+  const [title, setTitle] = useState(data?.title);
+  const [description, setDescription] = useState(data?.description);
 
   useEffect(() => {
     if (isSupported()) {
-      setIsPushNotificationSupported(true);
+      setTitle(data?.alternativeTitle || data?.title);
+      setDescription(data?.alternativeDescription || data?.description);
     }
   }, []);
 
@@ -55,16 +56,11 @@ export const UltimateFeature = ({ data, ...props }) => {
         <Image src={data?.icon} alt={data?.title} />
       </figure>
       <Box>
-        <Heading as="h4">
-          {(isPushNotificationSupported && data?.alternativeTitle) ||
-            data?.title}
-        </Heading>
+        <Heading as="h4">{title}</Heading>
         <Text
           as="p"
           dangerouslySetInnerHTML={{
-            __html:
-              (isPushNotificationSupported && data?.alternativeDescription) ||
-              data?.description,
+            __html: description,
           }}
         />
       </Box>
