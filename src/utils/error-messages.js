@@ -2,15 +2,23 @@ import {
   defaultNotificationsBlockedErrorMessage,
   notificationsBlockedErrorMessage,
   tooManyRequestsErrorMessage,
+  unsupportedBrowserErrorMessage,
 } from "constants/error-messages";
 import { TOO_MANY_REQUESTS_STATUS_CODE } from "constants/status-codes";
 
-export const getErrorMessageForBlockedNotifications = (error) => {
+export const getErrorMessageForPushNotifications = (error) => {
   if (
     error.code === "messaging/permission-blocked" &&
     error.name === "FirebaseError"
   ) {
     return notificationsBlockedErrorMessage;
+  }
+
+  if (
+    error.code === "messaging/unsupported-browser" &&
+    error.name === "FirebaseError"
+  ) {
+    return unsupportedBrowserErrorMessage;
   }
 
   const errorMessages = {

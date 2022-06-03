@@ -34,7 +34,7 @@ import { initialState } from "context/reducer";
 import { trackEvent } from "utils/analytics";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 import { getFoundApartmentList } from "services/apartments";
-import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
+import { getErrorMessageForPushNotifications } from "utils/error-messages";
 import { getItem, STATE_KEY, TOKEN_KEY } from "utils/local-storage";
 import { scroll } from "utils/scrolling";
 
@@ -96,7 +96,7 @@ const AppPage = ({ query }) => {
       setIsInitialFoundSearchDone(true);
       scroll(headerRef);
     } catch (error) {
-      const errorMessage = getErrorMessageForBlockedNotifications(error);
+      const errorMessage = getErrorMessageForPushNotifications(error);
       dispatch({
         type: SET_LOADING_FOUND_APARTMENT_LIST,
         payload: { isLoadingFoundApartmentList: false },

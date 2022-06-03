@@ -12,3 +12,5 @@ export const defaultNotificationsBlockedErrorMessage =
   "Obaveštenja nisu uključena.";
 export const notificationsBlockedErrorMessage =
   "Obaveštenja nisu uključena. Potrebno je da dozvolite (u podešavanjima pretraživača) primanje obaveštenja sa FlatMe aplikacije.";
+export const unsupportedBrowserErrorMessage =
+  "Obaveštenja nisu uključena. Vaš pregledač ne podržava obaveštenja.";

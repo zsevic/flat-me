@@ -48,7 +48,7 @@ import {
 import * as apartmentsService from "services/apartments";
 import { subscribeForPushNotifications } from "services/subscriptions";
 import { trackEvent } from "utils/analytics";
-import { getErrorMessageForBlockedNotifications } from "utils/error-messages";
+import { getErrorMessageForPushNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
 import { INITIAL_FILTERS_KEY, setItem } from "utils/local-storage";
@@ -181,7 +181,7 @@ export const FiltersForm = () => {
       }
       return { isDone: true, token: accessToken };
     } catch (error) {
-      const errorMessage = getErrorMessageForBlockedNotifications(error);
+      const errorMessage = getErrorMessageForPushNotifications(error);
       notification.error({
         description: errorMessage,
         duration: 0,
