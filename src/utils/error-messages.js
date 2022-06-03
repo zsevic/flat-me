@@ -1,5 +1,5 @@
 import {
-  defaultNotificationsBlockedErrorMessage,
+  defaultNotificationsErrorMessage,
   notificationsBlockedErrorMessage,
   tooManyRequestsErrorMessage,
   unsupportedBrowserErrorMessage,
@@ -27,7 +27,6 @@ export const getErrorMessageForPushNotifications = (error) => {
   };
   console.error(error);
   return (
-    errorMessages[error?.response?.status] ||
-    defaultNotificationsBlockedErrorMessage
+    errorMessages[error?.response?.status] || defaultNotificationsErrorMessage
   );
 };

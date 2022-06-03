@@ -6,6 +6,7 @@ import { PUSH_NOTIFICATIONS_UNSUBSCRIBE_MODAL_TITLE } from "constants/config";
 import React, { useState } from "react";
 import { trackEvent } from "utils/analytics";
 import { unsubscribeFromPushNotifications } from "services/subscriptions";
+import { getErrorMessageForPushNotifications } from "utils/error-messages";
 import { getTokenForPushNotifications } from "utils/push-notifications";
 
 export const PushNotificationsUnsubscribeModal = () => {
@@ -44,8 +45,9 @@ export const PushNotificationsUnsubscribeModal = () => {
       );
       closeModal(false);
     } catch (error) {
+      const errorMessage = getErrorMessageForPushNotifications(error);
       notification.error({
-        description: "Obaveštenja nisu isključena",
+        description: errorMessage,
         duration: 0,
       });
     } finally {

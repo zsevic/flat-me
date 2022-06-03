@@ -20,7 +20,7 @@ import {
   PAGE_SIZE,
   SEARCH_TAB,
 } from "constants/config";
-import { defaultNotificationsBlockedErrorMessage } from "constants/error-messages";
+import { defaultNotificationsErrorMessage } from "constants/error-messages";
 import { useAppContext } from "context";
 import {
   SET_ACCESS_TOKEN,
@@ -49,7 +49,7 @@ const AppPage = ({ query }) => {
   const [
     defaultTextForFoundApartmentsTab,
     setDefaultTextForFoundApartmentsTab,
-  ] = useState(defaultNotificationsBlockedErrorMessage);
+  ] = useState(defaultNotificationsErrorMessage);
   const [isInitialFoundSearchDone, setIsInitialFoundSearchDone] =
     useState(false);
   const [isPushNotificationSupported, setIsPushNotificationSupported] =

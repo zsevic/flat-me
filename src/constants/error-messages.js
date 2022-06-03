@@ -8,8 +8,7 @@ export const tooManyRequestsErrorMessage =
 export const tokenAlreadyUsedErrorMessage = "Link je već iskorišćen.";
 export const userNotVerifiedErrorMessage = `Nije dozvoljeno sačuvati još pretraga za unetu e-mail adresu. E-mail adresa nije potvrđena. ${EMAIL_NOTIFICATIONS_SUCCESS_MESSAGE}`;
 
-export const defaultNotificationsBlockedErrorMessage =
-  "Obaveštenja nisu uključena.";
+export const defaultNotificationsErrorMessage = "Obaveštenja nisu uključena.";
 export const notificationsBlockedErrorMessage =
   "Obaveštenja nisu uključena. Potrebno je da dozvolite (u podešavanjima pretraživača) primanje obaveštenja sa FlatMe aplikacije.";
 export const unsupportedBrowserErrorMessage =
