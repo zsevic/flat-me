@@ -1,3 +1,4 @@
+import { isSupported } from "firebase/messaging";
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import ReactGA from "react-ga4";
@@ -13,10 +14,14 @@ if (process.env.NODE_ENV !== "development") {
   ReactGA.initialize(GOOGLE_ANALYTICS_TRACKING_ID);
 }
 
-initializeFirebase();
-
 function App({ Component, pageProps }) {
   useEffect(() => registerServiceWorker(), []);
+
+  useEffect(() => {
+    if (isSupported()) {
+      initializeFirebase();
+    }
+  }, []);
 
   return (
     <AppWrapper>
