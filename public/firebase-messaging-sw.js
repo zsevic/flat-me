@@ -26,6 +26,8 @@ firebase.initializeApp({
 });
 
 let messaging = null;
-if (firebase.messaging.isSupported()) {
+try {
   messaging = firebase.messaging();
+} catch (error) {
+  console.error(error);
 }
