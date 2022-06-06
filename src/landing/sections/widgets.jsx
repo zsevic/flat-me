@@ -49,9 +49,13 @@ export const Widgets = () => {
   const [imageUrl, setImageUrl] = useState("/assets/images/widgets.png");
 
   useEffect(() => {
-    if (isSupported()) {
-      setImageUrl("/assets/images/widgets2.png");
-    }
+    isSupported()
+      .then((isAvailable) => {
+        if (isAvailable) {
+          setImageUrl("/assets/images/widgets2.png");
+        }
+      })
+      .catch(console.error);
   }, []);
 
   return (

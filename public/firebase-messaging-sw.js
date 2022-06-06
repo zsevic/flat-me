@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-console.log('starting firebase messaging service worker');
+console.log("starting firebase messaging service worker");
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
 
@@ -15,14 +15,14 @@ self.addEventListener("notificationclick", (event) => {
 let messaging = null;
 try {
   if (typeof importScripts === "function") {
-    console.log('importing firebase-app');
+    console.log("importing firebase-app");
     importScripts("https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js");
-    console.log('importing firebase-messaging');
+    console.log("importing firebase-messaging");
     importScripts(
       "https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"
     );
 
-    console.log('initializing app');
+    console.log("initializing app");
     firebase.initializeApp({
       apiKey: "AIzaSyC-I6PYtZwd9iiBlceEKqzHIPexlT-X4iA",
       authDomain: "flat-me-2b34d.firebaseapp.com",
@@ -33,11 +33,11 @@ try {
       measurementId: "G-1F2ED6J80T",
     });
 
-    console.log('setting firebase messaging');
+    console.log("setting firebase messaging");
     messaging = firebase.messaging();
   }
 } catch (error) {
   console.error("Firebase messaging service worker failed", error);
 }
 
-console.log('finished firebase messaging service worker');
+console.log("finished firebase messaging service worker");

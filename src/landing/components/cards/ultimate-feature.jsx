@@ -44,10 +44,14 @@ export const UltimateFeature = ({ data, ...props }) => {
   const [description, setDescription] = useState(data?.description);
 
   useEffect(() => {
-    if (isSupported()) {
-      setTitle(data?.alternativeTitle || data?.title);
-      setDescription(data?.alternativeDescription || data?.description);
-    }
+    isSupported()
+      .then((isAvailable) => {
+        if (isAvailable) {
+          setTitle(data?.alternativeTitle || data?.title);
+          setDescription(data?.alternativeDescription || data?.description);
+        }
+      })
+      .catch(console.error);
   }, []);
 
   return (

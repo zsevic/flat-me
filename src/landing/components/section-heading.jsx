@@ -28,9 +28,13 @@ export const SectionHeading = ({ title, ...props }) => {
   const [description, setDescription] = useState(props.description);
 
   useEffect(() => {
-    if (isSupported()) {
-      setDescription(props?.alternativeDescription || props.description);
-    }
+    isSupported()
+      .then((isAvailable) => {
+        if (isAvailable) {
+          setDescription(props?.alternativeDescription || props.description);
+        }
+      })
+      .catch(console.error);
   }, []);
 
   return (

@@ -191,9 +191,13 @@ export const FiltersForm = () => {
   };
 
   useEffect(() => {
-    if (isSupported()) {
-      setIsPushNotificationSupported(true);
-    }
+    isSupported()
+      .then((isAvailable) => {
+        if (isAvailable) {
+          setIsPushNotificationSupported(true);
+        }
+      })
+      .catch(console.error);
   }, []);
 
   useEffect(() => {

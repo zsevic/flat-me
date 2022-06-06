@@ -18,9 +18,13 @@ function App({ Component, pageProps }) {
   useEffect(() => registerServiceWorker(), []);
 
   useEffect(() => {
-    if (isSupported()) {
-      initializeFirebase();
-    }
+    isSupported()
+      .then((isAvailable) => {
+        if (isAvailable) {
+          initializeFirebase();
+        }
+      })
+      .catch(console.error);
   }, []);
 
   return (
