@@ -13,7 +13,11 @@ if (process.env.NODE_ENV !== "development") {
   ReactGA.initialize(GOOGLE_ANALYTICS_TRACKING_ID);
 }
 
-initializeFirebase();
+try {
+  initializeFirebase();
+} catch (error) {
+  console.error("Initializing Firebase failed", error);
+}
 
 function App({ Component, pageProps }) {
   useEffect(() => registerServiceWorker(), []);
