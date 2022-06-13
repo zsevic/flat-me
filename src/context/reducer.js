@@ -13,6 +13,7 @@ import {
   SET_FOUND_APARTMENT_LIST,
   SET_LOADING_APARTMENT_LIST,
   SET_LOADING_FOUND_APARTMENT_LIST,
+  SET_PUSH_NOTIFICATION_SUPPORT,
   UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE,
   UPDATE_PUSH_NOTIFICATIONS,
 } from "./constants";
@@ -33,6 +34,7 @@ export const initialState = {
   isLoadingFoundApartmentList: true,
   isNotificationActivationDisabled: true,
   isPushNotificationActivated: false,
+  isPushNotificationSupported: false,
 };
 
 export const appReducer = (state, action) => {
@@ -133,6 +135,13 @@ export const appReducer = (state, action) => {
       return {
         ...state,
         isLoadingFoundApartmentList: action.payload.isLoadingFoundApartmentList,
+      };
+    }
+
+    case SET_PUSH_NOTIFICATION_SUPPORT: {
+      return {
+        ...state,
+        isPushNotificationSupported: action.payload.isPushNotificationSupported,
       };
     }
 

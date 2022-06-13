@@ -12,7 +12,6 @@ import {
   notification,
 } from "antd";
 import deepEqual from "fast-deep-equal/react";
-import { isSupported } from "firebase/messaging";
 import React, { useEffect, useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { EmailNotificationsModal } from "components/modals/EmailNotificationsModal";
@@ -103,8 +102,6 @@ export const FiltersForm = () => {
   const [places, setPlaces] = useState([]);
   const [showRentFilters, setShowRentFilters] = useState(false);
   const { state, dispatch } = useAppContext();
-  const [isPushNotificationSupported, setIsPushNotificationSupported] =
-    useState(false);
   const [listRef, setListRef] = useState(null);
 
   useEffect(() => {
@@ -189,16 +186,6 @@ export const FiltersForm = () => {
       return { isDone: false };
     }
   };
-
-  useEffect(() => {
-    isSupported()
-      .then((isAvailable) => {
-        if (isAvailable) {
-          setIsPushNotificationSupported(true);
-        }
-      })
-      .catch(console.error);
-  }, []);
 
   useEffect(() => {
     const storedFilters = getInitialFilters();
@@ -550,8 +537,8 @@ export const FiltersForm = () => {
         <Row className="mt-2 mb-4">
           <Col
             xs={24}
-            sm={isPushNotificationSupported ? 24 : 12}
-            md={isPushNotificationSupported ? 8 : 12}
+            sm={state.isPushNotificationSupported ? 24 : 12}
+            md={state.isPushNotificationSupported ? 8 : 12}
             className="mb-2 px-2"
           >
             <Button
@@ -564,7 +551,7 @@ export const FiltersForm = () => {
               Pretraži stanove
             </Button>
           </Col>
-          {isPushNotificationSupported && (
+          {state.isPushNotificationSupported && (
             <Col xs={24} md={8} className="mb-2 px-2">
               {state.isPushNotificationActivated ? (
                 <PushNotificationsUpdateModal
@@ -579,8 +566,8 @@ export const FiltersForm = () => {
           )}
           <Col
             xs={24}
-            sm={isPushNotificationSupported ? 24 : 12}
-            md={isPushNotificationSupported ? 8 : 12}
+            sm={state.isPushNotificationSupported ? 24 : 12}
+            md={state.isPushNotificationSupported ? 8 : 12}
             className="px-2"
           >
             <EmailNotificationsModal />

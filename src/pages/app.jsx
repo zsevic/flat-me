@@ -29,6 +29,7 @@ import {
   SET_LOADING_FOUND_APARTMENT_LIST,
   INITIALIZE_STORE,
   SET_CLICKED_FOUND_APARTMENTS,
+  SET_PUSH_NOTIFICATION_SUPPORT,
 } from "context/constants";
 import { initialState } from "context/reducer";
 import { trackEvent } from "utils/analytics";
@@ -51,8 +52,6 @@ const AppPage = ({ query }) => {
     setDefaultTextForFoundApartmentsTab,
   ] = useState(defaultNotificationsErrorMessage);
   const [isInitialFoundSearchDone, setIsInitialFoundSearchDone] =
-    useState(false);
-  const [isPushNotificationSupported, setIsPushNotificationSupported] =
     useState(false);
   const { state, dispatch } = useAppContext();
   const headerRef = useRef();
@@ -116,11 +115,27 @@ const AppPage = ({ query }) => {
       accessToken: parsedState.accessToken,
       filters: parsedState.filters,
       isPushNotificationActivated: parsedState.isPushNotificationActivated,
+      isPushNotificationSupported: parsedState.isPushNotificationSupported,
     };
     dispatch({
       type: INITIALIZE_STORE,
       payload: updatedState,
     });
+  }, []);
+
+  useEffect(() => {
+    isSupported()
+      .then((isAvailable) => {
+        if (state.isPushNotificationSupported === isAvailable) return;
+
+        dispatch({
+          type: SET_PUSH_NOTIFICATION_SUPPORT,
+          payload: {
+            isPushNotificationSupported: isAvailable,
+          },
+        });
+      })
+      .catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -236,16 +251,6 @@ const AppPage = ({ query }) => {
     </StickyContainer>
   );
 
-  useEffect(() => {
-    isSupported()
-      .then((isAvailable) => {
-        if (isAvailable) {
-          setIsPushNotificationSupported(true);
-        }
-      })
-      .catch(console.error);
-  }, []);
-
   return (
     <div className="px-2 mt-2">
       <CommonHead />
@@ -277,7 +282,7 @@ const AppPage = ({ query }) => {
         <title>{APP_TITLE}</title>
       </Head>
       <div ref={headerRef}>
-        {isPushNotificationSupported ? tabs() : searchTab()}
+        {state.isPushNotificationSupported ? tabs() : searchTab()}
       </div>
     </div>
   );

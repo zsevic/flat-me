@@ -1,5 +1,6 @@
+import { isSupported } from "firebase/messaging";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import { ThemeProvider } from "theme-ui";
 import CommonHead from "components/CommonHead";
 import {
@@ -7,6 +8,8 @@ import {
   HOMEPAGE_META_DESCRIPTION,
   HOMEPAGE_TITLE,
 } from "constants/config";
+import { useAppContext } from "context";
+import { SET_PUSH_NOTIFICATION_SUPPORT } from "context/constants";
 import { theme } from "landing/theme";
 import { Layout } from "landing/components/layout";
 import { Banner } from "landing/sections/banner";
@@ -18,6 +21,23 @@ import { Widgets } from "landing/sections/widgets";
 import { Subscription } from "landing/sections/subscription";
 
 export default function LandingPage() {
+  const { state, dispatch } = useAppContext();
+
+  useEffect(() => {
+    isSupported()
+      .then((isAvailable) => {
+        if (state.isPushNotificationSupported === isAvailable) return;
+
+        dispatch({
+          type: SET_PUSH_NOTIFICATION_SUPPORT,
+          payload: {
+            isPushNotificationSupported: isAvailable,
+          },
+        });
+      })
+      .catch(console.error);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <Layout>

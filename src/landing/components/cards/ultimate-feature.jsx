@@ -1,6 +1,6 @@
-import { isSupported } from "firebase/messaging";
+import { useAppContext } from "context";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box, Image, Heading, Text } from "theme-ui";
 
 const styles = {
@@ -40,19 +40,7 @@ const styles = {
 };
 
 export const UltimateFeature = ({ data, ...props }) => {
-  const [title, setTitle] = useState(data?.title);
-  const [description, setDescription] = useState(data?.description);
-
-  useEffect(() => {
-    isSupported()
-      .then((isAvailable) => {
-        if (isAvailable) {
-          setTitle(data?.alternativeTitle || data?.title);
-          setDescription(data?.alternativeDescription || data?.description);
-        }
-      })
-      .catch(console.error);
-  }, []);
+  const { state } = useAppContext();
 
   return (
     <Box sx={styles.feature} {...props}>
@@ -60,11 +48,17 @@ export const UltimateFeature = ({ data, ...props }) => {
         <Image src={data?.icon} alt={data?.title} />
       </figure>
       <Box>
-        <Heading as="h4">{title}</Heading>
+        <Heading as="h4">
+          {(state.isPushNotificationSupported && data?.alternativeTitle) ||
+            data?.title}
+        </Heading>
         <Text
           as="p"
           dangerouslySetInnerHTML={{
-            __html: description,
+            __html:
+              (state.isPushNotificationSupported &&
+                data?.alternativeDescription) ||
+              data?.description,
           }}
         />
       </Box>

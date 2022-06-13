@@ -1,7 +1,7 @@
-import { isSupported } from "firebase/messaging";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box, Container, Text } from "theme-ui";
 import { CHECK_CIRCLE_FILLED } from "constants/config";
+import { useAppContext } from "context";
 import { SectionHeading } from "landing/components/section-heading";
 import { Image } from "landing/components/image";
 import { InstallableButton } from "landing/components/button/installable";
@@ -46,24 +46,21 @@ const styles = {
 };
 
 export const Widgets = () => {
-  const [imageUrl, setImageUrl] = useState("/assets/images/widgets.png");
-
-  useEffect(() => {
-    isSupported()
-      .then((isAvailable) => {
-        if (isAvailable) {
-          setImageUrl("/assets/images/widgets2.png");
-        }
-      })
-      .catch(console.error);
-  }, []);
+  const { state } = useAppContext();
 
   return (
     <Box as="section" id="widgets" variant="section.widgets">
       <Container>
         <Box sx={styles.contentWrapper}>
           <Box sx={styles.leftContent}>
-            <Image src={imageUrl} alt="widgets" />
+            <Image
+              src={
+                state.isPushNotificationSupported
+                  ? "/assets/images/widgets2.png"
+                  : "/assets/images/widgets.png"
+              }
+              alt="widgets"
+            />
           </Box>
           <Box sx={styles.rightContent}>
             <SectionHeading

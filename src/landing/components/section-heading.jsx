@@ -1,6 +1,6 @@
-import { isSupported } from "firebase/messaging";
+import { useAppContext } from "context";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box, Heading, Text } from "theme-ui";
 
 const styles = {
@@ -25,23 +25,14 @@ const styles = {
 };
 
 export const SectionHeading = ({ title, ...props }) => {
-  const [description, setDescription] = useState(props.description);
-
-  useEffect(() => {
-    isSupported()
-      .then((isAvailable) => {
-        if (isAvailable) {
-          setDescription(props?.alternativeDescription || props.description);
-        }
-      })
-      .catch(console.error);
-  }, []);
+  const { state } = useAppContext();
 
   return (
     <Box sx={styles.heading} {...props}>
       <Heading sx={styles.title}>{title}</Heading>
       <Text as="p" sx={styles.description}>
-        {description}
+        {(state.isPushNotificationSupported && props?.alternativeDescription) ||
+          props.description}
       </Text>
     </Box>
   );
