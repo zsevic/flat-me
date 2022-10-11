@@ -83,7 +83,9 @@ export const theme = {
     },
   },
   section: {
-    banner: {},
+    banner: {
+      mb: "2rem",
+    },
     shareSection: {
       pt: "2rem",
       backgroundColor: "backgroundSecondary",

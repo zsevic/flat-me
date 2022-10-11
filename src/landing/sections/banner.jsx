@@ -1,11 +1,12 @@
 import React from "react";
-import { Box, Container, Heading, Image, Text } from "theme-ui";
+import Image from "next/image";
+import { Box, Container, Heading, Text } from "theme-ui";
 import { HOMEPAGE_META_DESCRIPTION } from "constants/config";
 import { InstallableButton } from "landing/components/button/installable";
 
 const styles = {
   contentWrapper: {
-    display: [null, null, null, "flex", "grid"],
+    display: [null, null, null, "grid", "grid"],
     gridTemplateColumns: "repeat(2, 1fr)",
     alignItems: "center",
     justifyContent: "center",
@@ -31,17 +32,6 @@ const styles = {
   button: {
     display: ["flex"],
     mt: [15, 25, 25, 25, 25],
-  },
-  clients: {
-    display: "flex",
-    alignItems: "center",
-    mt: ["20px", "45px", "45px", "30px", "45px"],
-    img: {
-      maxWidth: ["80px", "100%", "100%", "100%"],
-      "+ img": {
-        ml: ["14px", "28px", "28px", "20px"],
-      },
-    },
   },
   illustration: {
     display: ["block", "block"],
@@ -72,7 +62,13 @@ export const Banner = () => {
             <InstallableButton sx={styles.button} buttonId="main" />
           </Box>
           <Box sx={styles.illustration}>
-            <Image src="/assets/banner.jpg" alt="banner" />
+            <Image
+              src="/assets/banner.jpg"
+              alt="banner"
+              layout="responsive"
+              width={515}
+              height={343}
+            />
           </Box>
         </Box>
       </Container>
