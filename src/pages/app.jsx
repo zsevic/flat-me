@@ -181,7 +181,7 @@ const AppPage = ({ query }) => {
   };
 
   const renderTabBar = (props, DefaultTabBar) => (
-    <Affix bottomOffset={80}>
+    <Affix offsetTop={0}>
       <DefaultTabBar {...props} className="site-custom-tab-bar" />
     </Affix>
   );
