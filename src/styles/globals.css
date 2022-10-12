@@ -59,6 +59,10 @@ a[target="_blank"]:visited {
   background: #fff;
 }
 
+.ant-tabs-nav-list {
+  display: flex;
+}
+
 .ant-tabs-nav {
   width: 100% !important;
 }

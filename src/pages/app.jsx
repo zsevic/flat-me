@@ -1,11 +1,10 @@
-import { BackTop, Badge, Tabs } from "antd";
+import { Affix, BackTop, Badge, Tabs } from "antd";
 import { isSupported } from "firebase/messaging";
 import Head from "next/head";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { AiOutlineFileSearch } from "react-icons/ai";
-import { StickyContainer, Sticky } from "react-sticky";
 import { ApartmentList } from "components/ApartmentList";
 import CommonHead from "components/CommonHead";
 import { FiltersForm } from "components/FiltersForm";
@@ -182,15 +181,9 @@ const AppPage = ({ query }) => {
   };
 
   const renderTabBar = (props, DefaultTabBar) => (
-    <Sticky bottomOffset={80}>
-      {({ style }) => (
-        <DefaultTabBar
-          {...props}
-          className="site-custom-tab-bar"
-          style={{ ...style }}
-        />
-      )}
-    </Sticky>
+    <Affix bottomOffset={80}>
+      <DefaultTabBar {...props} className="site-custom-tab-bar" />
+    </Affix>
   );
 
   const searchTab = () => (
@@ -202,55 +195,53 @@ const AppPage = ({ query }) => {
   );
 
   const tabs = () => (
-    <StickyContainer>
-      <Tabs
-        onChange={onTabChange}
-        defaultActiveKey={SEARCH_TAB}
-        activeKey={tabKey}
-        centered
-        size="large"
-        type="card"
-        renderTabBar={renderTabBar}
+    <Tabs
+      onChange={onTabChange}
+      defaultActiveKey={SEARCH_TAB}
+      activeKey={tabKey}
+      centered
+      size="large"
+      type="card"
+      renderTabBar={renderTabBar}
+    >
+      <TabPane
+        tab={
+          <span>
+            <HiSearch className="mr-1 mb-1 inline" />
+            Pretraga
+          </span>
+        }
+        key={SEARCH_TAB}
       >
+        {searchTab()}
+      </TabPane>
+      {state.isPushNotificationSupported && (
         <TabPane
           tab={
             <span>
-              <HiSearch className="mr-1 mb-1 inline" />
-              Pretraga
+              <AiOutlineFileSearch className="mr-1 mb-1 inline" />
+              Pronađeni stanovi <Badge count={state.foundApartmentsCounter} />
             </span>
           }
-          key={SEARCH_TAB}
+          key={APARTMENT_LIST_TAB}
         >
-          {searchTab()}
+          {showDefaultTextForFoundApartmentsTab ? (
+            <p className="text-center pt-20 mx-10">
+              {defaultTextForFoundApartmentsTab}
+            </p>
+          ) : (
+            <>
+              <FoundApartmentList />
+              {!state.isLoadingFoundApartmentList &&
+                state.isPushNotificationActivated && (
+                  <PushNotificationsUnsubscribeModal />
+                )}
+              {!state.isLoadingFoundApartmentList && <BackTop />}
+            </>
+          )}
         </TabPane>
-        {state.isPushNotificationSupported && (
-          <TabPane
-            tab={
-              <span>
-                <AiOutlineFileSearch className="mr-1 mb-1 inline" />
-                Pronađeni stanovi <Badge count={state.foundApartmentsCounter} />
-              </span>
-            }
-            key={APARTMENT_LIST_TAB}
-          >
-            {showDefaultTextForFoundApartmentsTab ? (
-              <p className="text-center pt-20 mx-10">
-                {defaultTextForFoundApartmentsTab}
-              </p>
-            ) : (
-              <>
-                <FoundApartmentList />
-                {!state.isLoadingFoundApartmentList &&
-                  state.isPushNotificationActivated && (
-                    <PushNotificationsUnsubscribeModal />
-                  )}
-                {!state.isLoadingFoundApartmentList && <BackTop />}
-              </>
-            )}
-          </TabPane>
-        )}
-      </Tabs>
-    </StickyContainer>
+      )}
+    </Tabs>
   );
 
   return (
