@@ -223,30 +223,32 @@ const AppPage = ({ query }) => {
         >
           {searchTab()}
         </TabPane>
-        <TabPane
-          tab={
-            <span>
-              <AiOutlineFileSearch className="mr-1 mb-1 inline" />
-              Pronađeni stanovi <Badge count={state.foundApartmentsCounter} />
-            </span>
-          }
-          key={APARTMENT_LIST_TAB}
-        >
-          {showDefaultTextForFoundApartmentsTab ? (
-            <p className="text-center pt-20 mx-10">
-              {defaultTextForFoundApartmentsTab}
-            </p>
-          ) : (
-            <>
-              <FoundApartmentList />
-              {!state.isLoadingFoundApartmentList &&
-                state.isPushNotificationActivated && (
-                  <PushNotificationsUnsubscribeModal />
-                )}
-              {!state.isLoadingFoundApartmentList && <BackTop />}
-            </>
-          )}
-        </TabPane>
+        {state.isPushNotificationSupported && (
+          <TabPane
+            tab={
+              <span>
+                <AiOutlineFileSearch className="mr-1 mb-1 inline" />
+                Pronađeni stanovi <Badge count={state.foundApartmentsCounter} />
+              </span>
+            }
+            key={APARTMENT_LIST_TAB}
+          >
+            {showDefaultTextForFoundApartmentsTab ? (
+              <p className="text-center pt-20 mx-10">
+                {defaultTextForFoundApartmentsTab}
+              </p>
+            ) : (
+              <>
+                <FoundApartmentList />
+                {!state.isLoadingFoundApartmentList &&
+                  state.isPushNotificationActivated && (
+                    <PushNotificationsUnsubscribeModal />
+                  )}
+                {!state.isLoadingFoundApartmentList && <BackTop />}
+              </>
+            )}
+          </TabPane>
+        )}
       </Tabs>
     </StickyContainer>
   );
@@ -281,9 +283,7 @@ const AppPage = ({ query }) => {
         <link rel="canonical" href={DOMAIN_URL} />
         <title>{APP_TITLE}</title>
       </Head>
-      <div ref={headerRef}>
-        {state.isPushNotificationSupported ? tabs() : searchTab()}
-      </div>
+      <div ref={headerRef}>{tabs()}</div>
     </div>
   );
 };
