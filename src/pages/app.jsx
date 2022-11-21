@@ -232,11 +232,9 @@ const AppPage = ({ query }) => {
             </p>
           ) : (
             <>
-              {!state.isLoadingApartmentList &&
-                state.isPushNotificationActivated &&
-                state.foundApartmentList.length > 0 && (
-                  <ImmediateNotificationsSection />
-                )}
+              {!state.isLoadingFoundApartmentList && (
+                <ImmediateNotificationsSection />
+              )}
               <FoundApartmentList />
               {!state.isLoadingFoundApartmentList &&
                 state.isPushNotificationActivated && (
