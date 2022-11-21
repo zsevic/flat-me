@@ -9,8 +9,8 @@ export const ImmediateNotificationsSection = () => {
   const onChange = (key) => {
     if (key !== activeKey) {
       trackEvent(
-        "immediate-notifications-in-progress",
-        "immediate-notifications-in-progress"
+        "immediate_notifications_in_progress",
+        "immediate_notifications_in_progress"
       );
     }
     setActiveKey(key);
