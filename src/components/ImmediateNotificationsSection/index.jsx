@@ -5,9 +5,10 @@ import { trackEvent } from "utils/analytics";
 const { Panel } = Collapse;
 
 export const ImmediateNotificationsSection = () => {
+  const panelKey = "immediate-notifications";
   const [activeKey, setActiveKey] = useState();
   const onChange = (key) => {
-    if (key !== activeKey) {
+    if (key !== activeKey && key === panelKey) {
       trackEvent(
         "immediate-notifications-in-progress",
         "immediate-notifications-in-progress"
@@ -19,7 +20,7 @@ export const ImmediateNotificationsSection = () => {
   return (
     <Collapse accordion onChange={onChange} activeKey={activeKey}>
       <Panel
-        key="immediate-notifications"
+        key={panelKey}
         header="Da li želite da primate obaveštenja čim se pojavi novi stan na tržištu?"
       >
         <p>
