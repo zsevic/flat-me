@@ -169,6 +169,7 @@ const AppPage = ({ query }) => {
     if (query.tab === APARTMENT_LIST_TAB) {
       setTabKey(query.tab);
       handleFoundApartmentsTab();
+      trackEvent("found-apartments-tab", "open-notification");
     }
   }, []);
 
