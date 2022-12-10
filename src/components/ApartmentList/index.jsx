@@ -229,6 +229,9 @@ export const ApartmentList = () => {
                           xxl: 100,
                         }}
                         shape="square"
+                        style={{
+                          backgroundColor: "white",
+                        }}
                         icon={
                           <Image
                             alt={`${apartment.providerName} logo`}
