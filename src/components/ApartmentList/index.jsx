@@ -260,7 +260,16 @@ export const ApartmentList = () => {
                           </li>
                           <li className="inline-block px-2">
                             <GiMoneyStack className="inline mb-1" />{" "}
-                            {priceFormatter(apartment.price)}
+                            {apartment.currentPrice &&
+                            Number(apartment.currentPrice) !==
+                              Number(apartment.price) ? (
+                              <>
+                                <del>{apartment.price}</del>{" "}
+                                {priceFormatter(apartment.currentPrice)}
+                              </>
+                            ) : (
+                              priceFormatter(apartment.price)
+                            )}
                           </li>
                         </Row>
                         <Row>
