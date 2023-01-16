@@ -265,10 +265,16 @@ export const ApartmentList = () => {
                               Number(apartment.price) ? (
                               <>
                                 <del>{apartment.price}</del>{" "}
-                                {priceFormatter(apartment.currentPrice)}
+                                {priceFormatter(apartment.currentPrice)} (
+                                {Math.floor(apartment.price / apartment.size)}
+                                €/m<sup>2</sup>)
                               </>
                             ) : (
-                              priceFormatter(apartment.price)
+                              <>
+                                {priceFormatter(apartment.price)} (
+                                {Math.floor(apartment.price / apartment.size)}
+                                €/m<sup>2</sup>)
+                              </>
                             )}
                           </li>
                         </Row>
