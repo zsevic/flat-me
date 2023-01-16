@@ -268,7 +268,7 @@ export const ApartmentList = () => {
                                 {priceFormatter(apartment.currentPrice)}
                                 {apartment.rentOrSale === "sale"
                                   ? ` (${Math.floor(
-                                      apartment.price / apartment.size
+                                      apartment.currentPrice / apartment.size
                                     )}€/m²)`
                                   : ""}
                               </>
