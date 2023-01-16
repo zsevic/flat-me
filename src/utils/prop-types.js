@@ -5,7 +5,7 @@ const stringOrNumberPropType = PropTypes.oneOfType([
   PropTypes.string,
 ]);
 
-const apartmentPropType = PropTypes.shape({
+export const apartmentPropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
   apartmentId: PropTypes.string,
   availableFrom: PropTypes.string,
@@ -23,6 +23,7 @@ const apartmentPropType = PropTypes.shape({
   place: PropTypes.string,
   postedAt: PropTypes.string,
   price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  currentPrice: PropTypes.number,
   rentOrSale: PropTypes.string.isRequired,
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   structure: PropTypes.oneOfType([PropTypes.string, PropTypes.number])

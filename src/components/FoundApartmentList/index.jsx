@@ -12,7 +12,6 @@ import {
   RiFileEditFill,
   RiPencilRuler2Fill,
 } from "react-icons/ri";
-import { priceFormatter } from "components/FiltersForm/utils";
 import { advertiserTypesMap } from "constants/advertiser-types";
 import {
   APARTMENT_CARD_LOCALE,
@@ -36,7 +35,8 @@ import {
   DECREASE_FOUND_APARTMENTS_COUNTER,
   SET_LOADING_FOUND_APARTMENT_LIST,
 } from "context/constants";
-import { getAddressValue, handleFloor, Price } from "../ApartmentList/utils";
+import { getAddressValue, handleFloor } from "../ApartmentList/utils";
+import { Price } from "../ApartmentList/price";
 
 const { Meta } = Card;
 
