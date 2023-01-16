@@ -36,7 +36,7 @@ import {
   DECREASE_FOUND_APARTMENTS_COUNTER,
   SET_LOADING_FOUND_APARTMENT_LIST,
 } from "context/constants";
-import { getAddressValue, handleFloor } from "../ApartmentList/utils";
+import { getAddressValue, handleFloor, Price } from "../ApartmentList/utils";
 
 const { Meta } = Card;
 
@@ -289,7 +289,7 @@ export const FoundApartmentList = () => {
                           </li>
                           <li className="inline-block px-2">
                             <GiMoneyStack className="inline mb-1" />{" "}
-                            {priceFormatter(apartment.price)}
+                            <Price apartment={apartment} />
                           </li>
                         </Row>
                         <Row>

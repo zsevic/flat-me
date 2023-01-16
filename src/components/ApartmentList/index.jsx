@@ -34,7 +34,7 @@ import {
   APPEND_APARTMENT_LIST,
   SET_LOADING_APARTMENT_LIST,
 } from "context/constants";
-import { getAddressValue, handleFloor } from "./utils";
+import { getAddressValue, Price, handleFloor } from "./utils";
 
 const { Meta } = Card;
 
@@ -260,28 +260,7 @@ export const ApartmentList = () => {
                           </li>
                           <li className="inline-block px-2">
                             <GiMoneyStack className="inline mb-1" />{" "}
-                            {apartment.currentPrice &&
-                            Number(apartment.currentPrice) !==
-                              Number(apartment.price) ? (
-                              <>
-                                <del>{apartment.price}</del>{" "}
-                                {priceFormatter(apartment.currentPrice)}
-                                {apartment.rentOrSale === "sale"
-                                  ? ` (${Math.floor(
-                                      apartment.currentPrice / apartment.size
-                                    )}€/m²)`
-                                  : ""}
-                              </>
-                            ) : (
-                              <>
-                                {priceFormatter(apartment.price)}
-                                {apartment.rentOrSale === "sale"
-                                  ? ` (${Math.floor(
-                                      apartment.price / apartment.size
-                                    )}€/m²)`
-                                  : ""}
-                              </>
-                            )}
+                            <Price apartment={apartment} />
                           </li>
                         </Row>
                         <Row>
