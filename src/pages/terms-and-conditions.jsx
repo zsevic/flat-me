@@ -119,26 +119,25 @@ const TermsAndConditionsPage = () => (
               pretražene na njoj uvek aktuelne, ispravne i/ili potpune.
             </Text>
             <Text as="p" sx={styles.subdescription}>
-              Datum poslednjeg ažuriranja: 18.5.2022.
+              Datum poslednjeg ažuriranja: 6.2.2023.
             </Text>
             <Heading sx={styles.subtitle}>OPŠTI USLOVI KORIŠĆENJA</Heading>
             <Text as="p" sx={styles.subdescription}>
-              Flat-me.com platforma na nekomercijalnoj osnovi prikuplja
-              informacije u vezi sa oglasima za prodaju ili zakup nekretnina,
-              objavljenih na internetu, te omogućava Korisniku Platforme
-              pretraživanje istih, na osnovu izabranih filtera. FlatMe nije
-              agencija za izdavanje i/ili prodaju nekretnina, te nije na bilo
-              koji način sponzorisana od strane trećih lica koja se javljaju u
-              svojstvu oglašivača oglasa ili prenosilaca oglasnih poruka, niti
-              je Platforma povezana sa istim licima. FlatMe nema svojstvo,
-              obaveze, ni odgovornosti posrednika prilikom prometa
-              nepokretnosti, niti Platforma učestvuje u posredovanju između dva
-              ili više Korisnika, oglašivača i ostalih lica u njihovim
-              međusobnim transakcijama i trgovini.
+              Flat-me.com platforma prikuplja informacije u vezi sa oglasima za
+              prodaju ili zakup nekretnina, objavljenih na internetu, te
+              omogućava Korisniku Platforme pretraživanje istih, na osnovu
+              izabranih filtera. FlatMe nije agencija za izdavanje i/ili prodaju
+              nekretnina, te nije na bilo koji način sponzorisana od strane
+              trećih lica koja se javljaju u svojstvu oglašivača oglasa ili
+              prenosilaca oglasnih poruka, niti je Platforma povezana sa istim
+              licima. FlatMe nema svojstvo, obaveze, ni odgovornosti posrednika
+              prilikom prometa nepokretnosti, niti Platforma učestvuje u
+              posredovanju između dva ili više Korisnika, oglašivača i ostalih
+              lica u njihovim međusobnim transakcijama i trgovini.
             </Text>
             <Text as="p" sx={styles.subdescription}>
-              FlatMe omogućava širokom krugu posetilaca, odnosno korisnika sajta
-              da, bez ikakve naknade, pronađu i pregledaju nekretnine na
+              FlatMe omogućava širokom krugu posetilaca, odnosno korisnika
+              sajta, odnosno aplikacije, da pronađu i pregledaju nekretnine na
               izabranoj teritoriji koji odgovaraju zadatim parametrima, kao i da
               ostavljanjem svoje e-mail adrese, odnosno drugih relevantnih
               podataka, dobijaju obaveštenja o svim novoobjavljenim nekretninama
@@ -154,6 +153,18 @@ const TermsAndConditionsPage = () => (
               Korisniku privremeno ili trajno onemogući pristup Platformi, kao i
               da povodom navedenog obavesti nadležni državni organ, u skladu sa
               relevantnim zakonskim odredbama.
+            </Text>
+            <Text as="p" sx={styles.subdescription}>
+              Korisnik sajta, odnosno aplikacije prihvata punu odgovornost za
+              svako neovlašćeno korišćenje usluge FlatMe od strane drugih lica,
+              a naročito maloletnika. Korisnik je, takođe, odgovoran za svako
+              korišćenje bilo kog instrumenta plaćanja od strane drugih lica i
+              maloletnika. Korisnik je dužan da ne kupuje, prodaje, iznajmljuje
+              ili poklanja svoj nalog, niti da kreira nalog koristeći se lažnim
+              identitetom nekog drugog lica. Korisnik neće koristiti usluge
+              FlatMe za reklamiranje bilo kog vida robe ili usluge, za svoju
+              korist ili u korist trećeg lica. Korisnik je dužan da čuva sve
+              podatke koje koristi radi kreiranja naloga i korišćenja istog.
             </Text>
             <Heading sx={styles.subtitle}>VEZA SA DRUGIM VEB PORTALIMA</Heading>
             <Text as="p" sx={styles.subdescription}>
@@ -176,13 +187,13 @@ const TermsAndConditionsPage = () => (
               takav sadržaj potekao.
             </Text>
             <Text as="p" sx={styles.subdescription}>
-              FlatMe je nekomercijalna platforma, te ne učestvuje u prodaji ili
-              iznajmljivanju nekretnina koje se oglašavaju na drugim internet
-              stranicama, niti učestvuje u bilo kojoj transakciji koja se
-              eventualno obavlja između korisnika stranice. FlatMe ne garantuje
-              za bilo koju nekretninu pretraženu i prikazanu na strani
-              flat-me.com, uključujući vlasništvo nad istom i spremnost
-              korisnika da izvrši transakciju.
+              FlatMe je platforma koja ne učestvuje u prodaji ili iznajmljivanju
+              nekretnina koje se oglašavaju na drugim internet stranicama, niti
+              učestvuje u bilo kojoj transakciji koja se eventualno obavlja
+              između korisnika stranice. FlatMe ne garantuje za bilo koju
+              nekretninu pretraženu i prikazanu na strani flat-me.com,
+              uključujući vlasništvo nad istom i spremnost korisnika da izvrši
+              transakciju.
             </Text>
             <Heading sx={styles.subtitle}>IZUZEĆE OD ODGOVORNOSTI</Heading>
             <Text as="p" sx={styles.subdescription}>
