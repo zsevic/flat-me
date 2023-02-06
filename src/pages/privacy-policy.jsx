@@ -111,19 +111,14 @@ const PrivacyPolicyPage = () => (
               tekstu: Zakon), u koji zakon su implementirane odredbe direktive
               Evropske unije GDPR (General Data Protection Regulation), radi
               Vašeg upoznavanja sa uslovima prikupljanja i dalje obrade podataka
-              o ličnosti od strane rukovaoca – FlatMe platforme, registrovane na
-              internet domenu{" "}
-              <Link
-                path="https://www.flat-me.com"
-                label="https://www.flat-me.com"
-              />
-              , u cilju prikupljanja javno dostupnih podataka o objavljenim
-              oglasima za prodaju ili izdavanje nekretnina i omogućavanja
-              pretrage istih od strane korisnika (u daljem tekstu: FlatMe
-              platforma ili Platforma). FlatMe se obavezuje da, u skladu sa
-              zakonom, poštuje i zaštiti privatnost ličnih podataka svakog
-              pojedinačnog posetioca, odnosno korisnika Platforme (u daljem
-              tekstu: Korisnik).
+              o ličnosti od strane rukovaoca – SCOPE TECH, Topola, Donja
+              Šatornja bb, MB: 65403072, PIB: 111428553 (u daljem tekstu: FlatMe
+              platforma ili Platforma), u cilju prikupljanja javno dostupnih
+              podataka o objavljenim oglasima za prodaju ili izdavanje
+              nekretnina i omogućavanja pretrage istih od strane korisnika.
+              FlatMe se obavezuje da, u skladu sa zakonom, poštuje i zaštiti
+              privatnost ličnih podataka svakog pojedinačnog posetioca, odnosno
+              korisnika Platforme (u daljem tekstu: Korisnik).
             </Text>
             <Text as="p" sx={styles.subdescription}>
               Obaveštenje o politici privatnosti i uslovima obrade podataka o
@@ -161,7 +156,7 @@ const PrivacyPolicyPage = () => (
               objavljivanjem na ovoj stranici.
             </Text>
             <Text as="p" sx={styles.subdescription}>
-              Datum poslednjeg ažuriranja: 18.5.2022.
+              Datum poslednjeg ažuriranja: 6.2.2023.
             </Text>
             <Heading sx={styles.subtitle}>Podaci koji se prikupljaju</Heading>
             <Text as="p" sx={styles.subdescription}>
