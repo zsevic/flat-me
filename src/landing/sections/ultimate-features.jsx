@@ -26,13 +26,13 @@ const data = [
     id: 1,
     icon: "/assets/images/icons/bulb.png",
     title: "Lako za instalaciju",
-    description: `FlatMe Premium aplikacija je dostupna za Android uređaje na Google Play prodavnici. Brzo i jednostavno je možete instalirati klikom na link <a href="${GOOGLE_PLAY_STORE_URL}" target="_blank" rel="noopener noreferrer">ovde</a>.`,
+    description: `FlatMe Premium aplikacija je dostupna za Android uređaje na Google Play prodavnici. Brzo i jednostavno je možete instalirati klikom na link <a href="${GOOGLE_PLAY_STORE_URL}" rel="noopener noreferrer">ovde</a>.`,
   },
   {
     id: 2,
     title: "Lako za korišćenje",
     icon: "/assets/images/icons/rocket.png",
-    description: `Klikom na <a href="${APP_RELATIVE_URL}">Pronađi stan</a> pristupate stranici gde možete izlistati više hiljada trenutno dostupnih stanova za kupovinu i iznajmljivanje na teritoriji Beograda.`,
+    description: `Klikom na <a href="${APP_RELATIVE_URL}">Pronađi stan</a> pristupate stranici gde možete izlistati više hiljada trenutno dostupnih stanova za kupovinu i iznajmljivanje u Beogradu.`,
   },
   {
     id: 3,
@@ -43,12 +43,10 @@ const data = [
   },
   {
     id: 4,
-    title: "Lak pronalazak stana",
+    title: "Lako praćenje cena",
     icon: "/assets/images/icons/trophy.png",
     description:
-      "FlatMe za Vas pretražuje različite platforme i šalje Vam email sa svim novim stanovima koji se pojave na tržištu, a uklapaju se u Vaše želje i mogućnosti.",
-    alternativeDescription:
-      "FlatMe za Vas pretražuje različite platforme i šalje Vam na uređaj obaveštenje sa svim novim stanovima koji se pojave na tržištu, a uklapaju se u Vaše želje i mogućnosti.",
+      "FlatMe za Vas upoređuje cene stanova i omogućava Vam da budete informisani o trenutnoj i prethodnoj ceni stana ukoliko se razlikuju.",
   },
 ];
 
