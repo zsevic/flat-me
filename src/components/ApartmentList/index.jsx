@@ -51,12 +51,13 @@ export const ApartmentList = () => {
 
   const loadMore = !state.isLoadingApartmentList &&
     state.apartmentListHasNextPage && (
-      <Row justify="center" className="mx-3">
+      <Row justify="center">
         <Link href={GOOGLE_PLAY_STORE_URL}>
           <Button
             type="primary"
             onClick={handleRedirectionToStore}
             size="large"
+            className="w-3/4"
           >
             <FaGooglePlay className="inline mb-1 mr-1" /> Za više rezultata
             instalirajte FlatMe Premium aplikaciju
