@@ -44,7 +44,7 @@ const data = [
   {
     id: 4,
     title: "Lako praćenje cena",
-    icon: "/assets/images/icons/trophy.png",
+    icon: "/assets/images/icons/prices.png",
     description:
       "FlatMe za Vas upoređuje cene stanova i omogućava Vam da budete informisani o trenutnoj i prethodnoj ceni stana ukoliko se razlikuju.",
   },
