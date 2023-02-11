@@ -2,7 +2,7 @@ import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 import { CgPlayListAdd } from "react-icons/cg";
-import { FaGooglePlay, FaMapMarkedAlt } from "react-icons/fa";
+import { FaMapMarkedAlt } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import {
@@ -63,8 +63,7 @@ export const ApartmentList = () => {
               height: "auto",
             }}
           >
-            <FaGooglePlay className="inline mb-1 mr-1" /> Za više rezultata
-            instalirajte FlatMe Premium aplikaciju
+            Za više rezultata instalirajte FlatMe Premium aplikaciju
           </Button>
         </Link>
       </Row>
