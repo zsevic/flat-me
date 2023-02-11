@@ -6,6 +6,7 @@ export const getApartmentList = async (filters) => {
       params: filters,
     });
 
+    apartmentList.data.data.length = 3;
     return apartmentList.data;
   } catch (error) {
     console.error(error);

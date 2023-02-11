@@ -45,7 +45,11 @@ export const ApartmentList = () => {
     state.apartmentListHasNextPage && (
       <Row justify="center">
         <Link href={GOOGLE_PLAY_STORE_URL}>
-          <Button type="primary" onClick={handleRedirectionToStore}>
+          <Button
+            type="primary"
+            onClick={handleRedirectionToStore}
+            size="large"
+          >
             <FaGooglePlay className="inline mb-1 mr-1" /> Za više rezultata
             instalirajte FlatMe Premium aplikaciju
           </Button>
