@@ -58,15 +58,13 @@ export const ApartmentList = () => {
             onClick={handleRedirectionToStore}
             size="large"
             className="w-3/4"
+            icon={<FaGooglePlay />}
             style={{
               whiteSpace: "normal",
               height: "auto",
             }}
           >
-            <div>
-              <FaGooglePlay className="mb-1 mr-1 inline" /> Za više rezultata
-              instalirajte FlatMe Premium aplikaciju
-            </div>
+            Za više rezultata instalirajte FlatMe Premium aplikaciju
           </Button>
         </Link>
       </Row>
