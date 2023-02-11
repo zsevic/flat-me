@@ -31,13 +31,6 @@ import { getAddressValue, handleFloor } from "./utils";
 
 const { Meta } = Card;
 
-const styles = {
-  button: {
-    display: ["flex"],
-    mt: [15, 25, 25, 25, 25],
-  },
-};
-
 export const ApartmentList = () => {
   const { state } = useAppContext();
 
