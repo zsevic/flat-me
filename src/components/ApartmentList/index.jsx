@@ -1,6 +1,6 @@
 import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { CgPlayListAdd } from "react-icons/cg";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
@@ -18,84 +18,40 @@ import {
   LOGO_ENCODED,
   LOGO_URL,
   NO_RESULTS_TEXT,
-  PAGE_SIZE,
   PROVIDER_LOGO_URLS,
 } from "constants/config";
 import { furnishedMap } from "constants/furnished";
 import { structuresMap } from "constants/structures";
 import { useAppContext } from "context";
-import * as apartmentsService from "services/apartments";
 import { trackEvent } from "utils/analytics";
-import eventBus from "utils/event-bus";
 import { getLocationUrl } from "utils/location";
-import { scroll } from "utils/scrolling";
-import {
-  APPEND_APARTMENT_LIST,
-  SET_LOADING_APARTMENT_LIST,
-} from "context/constants";
+import { InstallableButton } from "landing/components/button/installable";
 import { Price } from "./price";
 import { getAddressValue, handleFloor } from "./utils";
 
 const { Meta } = Card;
 
+const styles = {
+  button: {
+    display: ["flex"],
+    mt: [15, 25, 25, 25, 25],
+  },
+};
+
 export const ApartmentList = () => {
-  const newSublistStartRef = useRef();
-  const [newSublistStartApartmentId, setNewSublistStartApartmentId] =
-    useState(null);
-  const listRef = useRef();
-  const { state, dispatch } = useAppContext();
-
-  useEffect(() => {
-    eventBus.dispatch("list-ref", {
-      listRef,
-    });
-  }, []);
-
-  const handleLoadMore = async () => {
-    dispatch({
-      type: SET_LOADING_APARTMENT_LIST,
-      payload: { isLoadingApartmentList: true },
-    });
-    scroll(listRef);
-    const { data, pageInfo } = await apartmentsService.getApartmentList({
-      ...state.filters,
-      limitPerPage: PAGE_SIZE,
-      cursor: state.apartmentListEndCursor,
-    });
-    const [firstSublistApartment] = data;
-    setNewSublistStartApartmentId(firstSublistApartment?.id);
-    dispatch({
-      type: APPEND_APARTMENT_LIST,
-      payload: {
-        apartmentList: data,
-        apartmentListHasNextPage: pageInfo.hasNextPage,
-        apartmentListEndCursor: pageInfo.endCursor,
-      },
-    });
-    dispatch({
-      type: SET_LOADING_APARTMENT_LIST,
-      payload: { isLoadingApartmentList: false },
-    });
-    scroll(newSublistStartRef);
-    trackEvent("search", "load-more");
-  };
+  const { state } = useAppContext();
 
   const loadMore = !state.isLoadingApartmentList &&
     state.apartmentListHasNextPage && (
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: 12,
-          height: 32,
-          lineHeight: "32px",
-        }}
-      >
-        <Button onClick={handleLoadMore}>Pretraži još</Button>
-      </div>
+      <InstallableButton
+        sx={styles.button}
+        buttonId="pagination"
+        text="Za više rezultata instalirajte FlatMe Premium aplikaciju"
+      />
     );
 
   return (
-    <div ref={listRef} className="paginated-list">
+    <div className="paginated-list">
       <List
         grid={{
           gutter: 16,
@@ -200,19 +156,14 @@ export const ApartmentList = () => {
                 <Card
                   cover={
                     apartment.coverPhotoUrl && (
-                      <>
-                        {newSublistStartApartmentId === apartment.id && (
-                          <div ref={newSublistStartRef} />
-                        )}
-                        <Image
-                          alt={apartmentImageAlt}
-                          height={300}
-                          key={`image-${apartment.id}`}
-                          src={apartment.coverPhotoUrl}
-                          preview={false}
-                          fallback={LOGO_ENCODED}
-                        />
-                      </>
+                      <Image
+                        alt={apartmentImageAlt}
+                        height={300}
+                        key={`image-${apartment.id}`}
+                        src={apartment.coverPhotoUrl}
+                        preview={false}
+                        fallback={LOGO_ENCODED}
+                      />
                     )
                   }
                   actions={actions}

@@ -5,7 +5,7 @@ import { Button, Link } from "theme-ui";
 import { GOOGLE_PLAY_STORE_URL } from "constants/config";
 import { trackEvent } from "utils/analytics";
 
-export const InstallableButton = ({ sx, buttonId }) => {
+export const InstallableButton = ({ sx, buttonId, text }) => {
   const handleInstallClick = () => {
     trackEvent(
       "install-google-play-app",
@@ -16,7 +16,7 @@ export const InstallableButton = ({ sx, buttonId }) => {
   return (
     <Link href={GOOGLE_PLAY_STORE_URL}>
       <Button onClick={handleInstallClick} sx={sx}>
-        <FaGooglePlay className="mr-1" /> Instaliraj FlatMe
+        <FaGooglePlay className="mr-1" /> {text}
       </Button>
     </Link>
   );
@@ -25,4 +25,9 @@ export const InstallableButton = ({ sx, buttonId }) => {
 InstallableButton.propTypes = {
   sx: PropTypes.object.isRequired,
   buttonId: PropTypes.string.isRequired,
+  text: PropTypes.string,
+};
+
+InstallableButton.defaultProps = {
+  text: "Instaliraj FlatMe",
 };
