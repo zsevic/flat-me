@@ -9,7 +9,6 @@ import { ApartmentList } from "components/ApartmentList";
 import CommonHead from "components/CommonHead";
 import { FiltersForm } from "components/FiltersForm";
 import { FoundApartmentList } from "components/FoundApartmentList";
-import { ImmediateNotificationsSection } from "components/ImmediateNotificationsSection";
 import { PushNotificationsUnsubscribeModal } from "components/modals/PushNotificationUnsubscribe";
 import {
   APARTMENT_LIST_TAB,
@@ -233,9 +232,6 @@ const AppPage = ({ query }) => {
             </p>
           ) : (
             <>
-              {!state.isLoadingFoundApartmentList && (
-                <ImmediateNotificationsSection />
-              )}
               <FoundApartmentList />
               {!state.isLoadingFoundApartmentList &&
                 state.isPushNotificationActivated && (
