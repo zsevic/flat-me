@@ -66,8 +66,7 @@ export const Widgets = () => {
             <SectionHeading
               sx={styles.heading}
               title={<>Jedinstvena aplikacija</>}
-              description="FlatMe Vam javlja kad pronađe stan po Vašoj meri slanjem mejla u Vaše prijemno sanduče."
-              alternativeDescription="FlatMe Vam javlja kad pronađe stan po Vašoj meri slanjem obaveštenja direktno na Vaš uređaj."
+              description="Veliki broj filtera Vam omogućava da suzite pretragu na tačno one stanove koji Vam odgovaraju."
             />
             <Text sx={styles.listItem} as="p">
               <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
@@ -75,7 +74,7 @@ export const Widgets = () => {
             </Text>
             <Text sx={styles.listItem} as="p">
               <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
-              Automatizovana obaveštenja
+              Praćenje promena cena
             </Text>
             <InstallableButton sx={styles.joinNow} buttonId="notifications" />
           </Box>
