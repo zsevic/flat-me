@@ -43,7 +43,7 @@ export const ApartmentList = () => {
 
   const loadMore = !state.isLoadingApartmentList &&
     state.apartmentListHasNextPage && (
-      <Row justify="center">
+      <Row justify="center" className="mx-3">
         <Link href={GOOGLE_PLAY_STORE_URL}>
           <Button
             type="primary"
