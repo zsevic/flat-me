@@ -82,6 +82,8 @@ export const PROVIDER_LOGO_URLS = {
     "https://sasomange.rs/assets/static/images/favicon/favicon-128.png",
 };
 
+export const GOOGLE_PLAY_STORE_URL =
+  "https://play.google.com/store/apps/details?id=com.flatmeapp";
 export const APP_RELATIVE_URL = "/app";
 export const CTA_TEXT = "Pronađi stan";
 
