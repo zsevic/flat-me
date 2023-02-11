@@ -1,6 +1,6 @@
 import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { CgPlayListAdd } from "react-icons/cg";
 import { FaGooglePlay, FaMapMarkedAlt } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
@@ -26,6 +26,7 @@ import { structuresMap } from "constants/structures";
 import { useAppContext } from "context";
 import { trackEvent } from "utils/analytics";
 import { getLocationUrl } from "utils/location";
+import eventBus from "utils/event-bus";
 import { Price } from "./price";
 import { getAddressValue, handleFloor } from "./utils";
 
@@ -33,6 +34,13 @@ const { Meta } = Card;
 
 export const ApartmentList = () => {
   const { state } = useAppContext();
+  const listRef = useRef();
+
+  useEffect(() => {
+    eventBus.dispatch("list-ref", {
+      listRef,
+    });
+  }, []);
 
   const handleRedirectionToStore = () => {
     trackEvent(
@@ -58,7 +66,7 @@ export const ApartmentList = () => {
     );
 
   return (
-    <div className="paginated-list">
+    <div ref={listRef} className="paginated-list">
       <List
         grid={{
           gutter: 16,
