@@ -66,6 +66,17 @@ export const Footer = () => {
             <Text as="span">&copy; {new Date().getFullYear()} FlatMe</Text>
           </Box>
 
+          <Text as="span">
+            Vizuelni elementi mobilnih uređaja kreirani uz pomoć{" "}
+            <a
+              href="https://deviceframes.com/templates/google-pixel-6"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google Pixel 6 mockups
+            </a>
+          </Text>
+
           <Box as="ul" sx={styles.footerNav}>
             {footerNav.map(({ path, label }) => (
               <li key={`footer-li-${label}`}>

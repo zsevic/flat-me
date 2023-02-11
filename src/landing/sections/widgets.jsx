@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Container, Text } from "theme-ui";
 import { CHECK_CIRCLE_FILLED } from "constants/config";
-import { useAppContext } from "context";
 import { SectionHeading } from "landing/components/section-heading";
 import { Image } from "landing/components/image";
 import { InstallableButton } from "landing/components/button/installable";
@@ -46,21 +45,12 @@ const styles = {
 };
 
 export const Widgets = () => {
-  const { state } = useAppContext();
-
   return (
     <Box as="section" id="widgets" variant="section.widgets">
       <Container>
         <Box sx={styles.contentWrapper}>
           <Box sx={styles.leftContent}>
-            <Image
-              src={
-                state.isPushNotificationSupported
-                  ? "/assets/images/widgets2.png"
-                  : "/assets/images/widgets.png"
-              }
-              alt="widgets"
-            />
+            <Image src="/assets/images/widgets3.png" alt="widgets" />
           </Box>
           <Box sx={styles.rightContent}>
             <SectionHeading
