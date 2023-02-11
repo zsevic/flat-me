@@ -57,8 +57,9 @@ export const ApartmentList = () => {
             type="primary"
             onClick={handleRedirectionToStore}
             size="large"
-            className="w-3/4 break-words"
+            className="w-3/4"
             style={{
+              whiteSpace: "normal",
               height: "auto",
             }}
           >
