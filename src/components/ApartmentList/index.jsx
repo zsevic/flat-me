@@ -2,7 +2,7 @@ import { Avatar, Button, Card, Empty, Image, List, Row, Skeleton } from "antd";
 import Link from "next/link";
 import React from "react";
 import { CgPlayListAdd } from "react-icons/cg";
-import { FaMapMarkedAlt } from "react-icons/fa";
+import { FaGooglePlay, FaMapMarkedAlt } from "react-icons/fa";
 import { GiMoneyStack, GiSofa, GiStairs } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import {
@@ -15,6 +15,7 @@ import { advertiserTypesMap } from "constants/advertiser-types";
 import {
   APARTMENT_CARD_LOCALE,
   APARTMENT_LIST_LOADER_TEXT,
+  GOOGLE_PLAY_STORE_URL,
   LOGO_ENCODED,
   LOGO_URL,
   NO_RESULTS_TEXT,
@@ -25,7 +26,6 @@ import { structuresMap } from "constants/structures";
 import { useAppContext } from "context";
 import { trackEvent } from "utils/analytics";
 import { getLocationUrl } from "utils/location";
-import { InstallableButton } from "landing/components/button/installable";
 import { Price } from "./price";
 import { getAddressValue, handleFloor } from "./utils";
 
@@ -41,13 +41,23 @@ const styles = {
 export const ApartmentList = () => {
   const { state } = useAppContext();
 
+  const handleRedirectionToStore = () => {
+    trackEvent(
+      "download-play-store-app-listing",
+      "download-play-store-app-listing"
+    );
+  };
+
   const loadMore = !state.isLoadingApartmentList &&
     state.apartmentListHasNextPage && (
-      <InstallableButton
-        sx={styles.button}
-        buttonId="pagination"
-        text="Za više rezultata instalirajte FlatMe Premium aplikaciju"
-      />
+      <Row justify="center">
+        <Link href={GOOGLE_PLAY_STORE_URL}>
+          <Button type="primary" onClick={handleRedirectionToStore}>
+            <FaGooglePlay className="inline mb-1 mr-1" /> Za više rezultata
+            instalirajte FlatMe Premium aplikaciju
+          </Button>
+        </Link>
+      </Row>
     );
 
   return (
