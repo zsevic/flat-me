@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Container } from "theme-ui";
-import { APP_RELATIVE_URL } from "constants/config";
+import { APP_RELATIVE_URL, GOOGLE_PLAY_STORE_URL } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { UltimateFeature } from "landing/components/cards/ultimate-feature";
 
@@ -26,14 +26,13 @@ const data = [
     id: 1,
     icon: "/assets/images/icons/bulb.png",
     title: "Lako za instalaciju",
-    description:
-      "Otvaranjem aplikacije preko Chrome ili Edge pretraživača i klikom na dugme za instalaciju dodajete FlatMe na ekran svog mobilnog telefona ili računara odakle mu možete pristupiti.",
+    description: `FlatMe Premium aplikacija je dostupna za Android uređaje na Google Play prodavnici. Brzo i jednostavno je možete instalirati klikom na link <a href="${GOOGLE_PLAY_STORE_URL}" rel="noopener noreferrer">ovde</a>.`,
   },
   {
     id: 2,
     title: "Lako za korišćenje",
     icon: "/assets/images/icons/rocket.png",
-    description: `Klikom na <a href="${APP_RELATIVE_URL}">Pronađi stan</a> pristupate stranici gde možete izlistati više hiljada trenutno dostupnih stanova za kupovinu i iznajmljivanje na teritoriji Beograda.`,
+    description: `Klikom na <a href="${APP_RELATIVE_URL}">Pronađi stan</a> pristupate stranici gde možete izlistati više hiljada trenutno dostupnih stanova za kupovinu i iznajmljivanje u Beogradu.`,
   },
   {
     id: 3,
@@ -44,12 +43,10 @@ const data = [
   },
   {
     id: 4,
-    title: "Lak pronalazak stana",
-    icon: "/assets/images/icons/trophy.png",
+    title: "Lako praćenje cena",
+    icon: "/assets/images/icons/prices.png",
     description:
-      "FlatMe za Vas pretražuje različite platforme i šalje Vam email sa svim novim stanovima koji se pojave na tržištu, a uklapaju se u Vaše želje i mogućnosti.",
-    alternativeDescription:
-      "FlatMe za Vas pretražuje različite platforme i šalje Vam na uređaj obaveštenje sa svim novim stanovima koji se pojave na tržištu, a uklapaju se u Vaše želje i mogućnosti.",
+      "FlatMe za Vas upoređuje cene stanova i omogućava Vam da budete informisani o trenutnoj i prethodnoj ceni stana ukoliko se razlikuju.",
   },
 ];
 

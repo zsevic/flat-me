@@ -13,10 +13,8 @@ const data = [
   {
     id: 2,
     icon: "/assets/images/icons/diamond.png",
-    title: "Nove informacije u Vašem inboksu",
-    alternativeTitle: "Nove informacije na Vašem uređaju",
-    description: `Kako se ne bi desilo da propustite idealan stan jer ste ga kasno videli u oglasima, FlatMe Vam šalje email sa svim novim stanovima koji odgovaraju Vašim kriterijumima nakon što se pojave na tržištu.`,
-    alternativeDescription: `Kako se ne bi desilo da propustite idealan stan jer ste ga kasno videli u oglasima, FlatMe Vam šalje na uređaj obaveštenja sa svim novim stanovima koji odgovaraju Vašim kriterijumima nakon što se pojave na tržištu.`,
+    title: "Praćenje cena",
+    description: `Budite u toku sa promenama cena za stan koji Vas interesuje. FlatMe Vam prikazuje trenutnu uz prethodnu cenu stana ukoliko se razlikuju i omogućava Vam da ih uporedite.`,
   },
   {
     id: 3,

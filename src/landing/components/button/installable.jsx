@@ -1,55 +1,22 @@
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
-import { RiInstallLine } from "react-icons/ri";
+import React from "react";
+import { FaGooglePlay } from "react-icons/fa";
 import { Button, Link } from "theme-ui";
-import { APP_RELATIVE_URL, CTA_TEXT } from "constants/config";
+import { GOOGLE_PLAY_STORE_URL } from "constants/config";
 import { trackEvent } from "utils/analytics";
 
-let deferredPrompt;
-
-export const InstallableButton = ({ sx, buttonId }) => {
-  const [installable, setInstallable] = useState(false);
+export const InstallableButton = ({ sx, buttonId, text }) => {
   const handleInstallClick = () => {
-    trackEvent("install-app", `install-app-${buttonId}`);
-    deferredPrompt.prompt();
-
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === "accepted") {
-        trackEvent(
-          "app-installed",
-          "app-installed-successfully",
-          "installation"
-        );
-      }
-    });
+    trackEvent(
+      "install-google-play-app",
+      `install-google-play-app-${buttonId}`
+    );
   };
 
-  useEffect(() => {
-    window.addEventListener("beforeinstallprompt", (event) => {
-      event.preventDefault();
-      deferredPrompt = event;
-      setInstallable(true);
-    });
-
-    window.addEventListener("appinstalled", () => {
-      setInstallable(false);
-    });
-  }, []);
-
-  return installable ? (
-    <Button onClick={handleInstallClick} sx={sx}>
-      <RiInstallLine className="mr-1" /> Instaliraj FlatMe
-    </Button>
-  ) : (
-    <Link href={APP_RELATIVE_URL}>
-      <Button
-        aria-label={CTA_TEXT}
-        sx={sx}
-        onClick={() =>
-          trackEvent("find-apartment", `find-apartment-${buttonId}`)
-        }
-      >
-        {CTA_TEXT}
+  return (
+    <Link href={GOOGLE_PLAY_STORE_URL}>
+      <Button onClick={handleInstallClick} sx={sx}>
+        <FaGooglePlay className="mr-1" /> {text}
       </Button>
     </Link>
   );
@@ -58,4 +25,9 @@ export const InstallableButton = ({ sx, buttonId }) => {
 InstallableButton.propTypes = {
   sx: PropTypes.object.isRequired,
   buttonId: PropTypes.string.isRequired,
+  text: PropTypes.string,
+};
+
+InstallableButton.defaultProps = {
+  text: "Instaliraj FlatMe",
 };

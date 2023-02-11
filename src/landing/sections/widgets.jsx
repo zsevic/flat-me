@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Container, Text } from "theme-ui";
 import { CHECK_CIRCLE_FILLED } from "constants/config";
-import { useAppContext } from "context";
 import { SectionHeading } from "landing/components/section-heading";
 import { Image } from "landing/components/image";
 import { InstallableButton } from "landing/components/button/installable";
@@ -46,28 +45,18 @@ const styles = {
 };
 
 export const Widgets = () => {
-  const { state } = useAppContext();
-
   return (
     <Box as="section" id="widgets" variant="section.widgets">
       <Container>
         <Box sx={styles.contentWrapper}>
           <Box sx={styles.leftContent}>
-            <Image
-              src={
-                state.isPushNotificationSupported
-                  ? "/assets/images/widgets2.png"
-                  : "/assets/images/widgets.png"
-              }
-              alt="widgets"
-            />
+            <Image src="/assets/images/widgets3.png" alt="widgets" />
           </Box>
           <Box sx={styles.rightContent}>
             <SectionHeading
               sx={styles.heading}
               title={<>Jedinstvena aplikacija</>}
-              description="FlatMe Vam javlja kad pronađe stan po Vašoj meri slanjem mejla u Vaše prijemno sanduče."
-              alternativeDescription="FlatMe Vam javlja kad pronađe stan po Vašoj meri slanjem obaveštenja direktno na Vaš uređaj."
+              description="Veliki broj filtera Vam omogućava da suzite pretragu na tačno one stanove koji Vam odgovaraju."
             />
             <Text sx={styles.listItem} as="p">
               <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
@@ -75,7 +64,7 @@ export const Widgets = () => {
             </Text>
             <Text sx={styles.listItem} as="p">
               <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
-              Automatizovana obaveštenja
+              Praćenje promena cena
             </Text>
             <InstallableButton sx={styles.joinNow} buttonId="notifications" />
           </Box>
