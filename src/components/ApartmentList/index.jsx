@@ -58,6 +58,9 @@ export const ApartmentList = () => {
             onClick={handleRedirectionToStore}
             size="large"
             className="w-3/4 break-words"
+            style={{
+              height: "auto",
+            }}
           >
             <FaGooglePlay className="inline mb-1 mr-1" /> Za više rezultata
             instalirajte FlatMe Premium aplikaciju
