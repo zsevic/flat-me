@@ -38,13 +38,6 @@ const AppPage = () => {
     });
   }, []);
 
-  const searchTab = () => (
-    <>
-      <FiltersForm />
-      <ApartmentList />
-    </>
-  );
-
   return (
     <div className="px-2 mt-2">
       <CommonHead />
@@ -75,7 +68,10 @@ const AppPage = () => {
         <link rel="canonical" href={DOMAIN_URL} />
         <title>{APP_TITLE}</title>
       </Head>
-      <div ref={headerRef}>{searchTab()}</div>
+      <div ref={headerRef}>
+        <FiltersForm />
+        <ApartmentList />
+      </div>
     </div>
   );
 };
