@@ -1,4 +1,3 @@
-import { BackTop } from "antd";
 import Head from "next/head";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef } from "react";
@@ -18,7 +17,7 @@ import { initialState } from "context/reducer";
 import { getItem, STATE_KEY } from "utils/local-storage";
 
 const AppPage = () => {
-  const { state, dispatch } = useAppContext();
+  const { dispatch } = useAppContext();
   const headerRef = useRef();
 
   useEffect(() => {
@@ -43,7 +42,6 @@ const AppPage = () => {
     <>
       <FiltersForm />
       <ApartmentList />
-      {!state.isLoadingApartmentList && <BackTop />}
     </>
   );
 
