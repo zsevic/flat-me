@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Container } from "theme-ui";
-import { APP_RELATIVE_URL } from "constants/config";
+import { APP_RELATIVE_URL, GOOGLE_PLAY_STORE_URL } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { UltimateFeature } from "landing/components/cards/ultimate-feature";
 
@@ -26,8 +26,7 @@ const data = [
     id: 1,
     icon: "/assets/images/icons/bulb.png",
     title: "Lako za instalaciju",
-    description:
-      "Otvaranjem aplikacije preko Chrome ili Edge pretraživača i klikom na dugme za instalaciju dodajete FlatMe na ekran svog mobilnog telefona ili računara odakle mu možete pristupiti.",
+    description: `FlatMe Premium aplikacija je dostupna za Android uređaje na Google Play prodavnici. Brzo i jednostavno je možete instalirati klikom na link <a href="${GOOGLE_PLAY_STORE_URL}" target="_blank" rel="noopener noreferrer">ovde</a>.`,
   },
   {
     id: 2,
