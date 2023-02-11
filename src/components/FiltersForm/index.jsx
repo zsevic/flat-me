@@ -9,14 +9,10 @@ import {
   Select,
   Slider,
   TreeSelect,
-  notification,
 } from "antd";
 import deepEqual from "fast-deep-equal/react";
 import React, { useEffect, useState } from "react";
 import { HiSearch } from "react-icons/hi";
-import { EmailNotificationsModal } from "components/modals/EmailNotificationsModal";
-import { PushNotificationsActivationModal } from "components/modals/PushNotificationsActivation";
-import { PushNotificationsUpdateModal } from "components/modals/PushNotificationsUpdate";
 import { ADVERTISER_TYPES } from "constants/advertiser-types";
 import {
   INITIAL_FILTERS,
@@ -29,7 +25,6 @@ import {
   SALE_MIN_PRICE,
   SALE_SELECTED_MAX_PRICE,
   SALE_SELECTED_MIN_PRICE,
-  VERIFICATION_SUCCESS_MESSAGE,
 } from "constants/config";
 import { floorFilters } from "constants/floors";
 import { FURNISHED } from "constants/furnished";
@@ -37,21 +32,16 @@ import { STRUCTURES } from "constants/structures";
 import { useAppContext } from "context";
 import {
   INITIAL_SEARCH,
-  SET_ACCESS_TOKEN,
   SET_APARTMENT_LIST,
   SET_FILTERS,
   SET_LOADING_APARTMENT_LIST,
   UPDATE_NOTIFICATION_ACTIVATION_ALLOWANCE,
-  UPDATE_PUSH_NOTIFICATIONS,
 } from "context/constants";
 import * as apartmentsService from "services/apartments";
-import { subscribeForPushNotifications } from "services/subscriptions";
 import { trackEvent } from "utils/analytics";
-import { getErrorMessageForPushNotifications } from "utils/error-messages";
 import eventBus from "utils/event-bus";
 import { getFilters } from "utils/filters";
 import { INITIAL_FILTERS_KEY, setItem } from "utils/local-storage";
-import { getTokenForPushNotifications } from "utils/push-notifications";
 import { scroll } from "utils/scrolling";
 import { placesData } from "./data";
 import {
@@ -137,54 +127,6 @@ export const FiltersForm = () => {
           payload: { isDisabled },
         });
       });
-  };
-
-  const turnOnPushNotifications = async () => {
-    try {
-      const accessToken = await getTokenForPushNotifications();
-
-      const filters = form.getFieldsValue();
-      const formFilters = getFilters(filters);
-      handleMunicipalities(formFilters);
-      const { isUpdated } = await subscribeForPushNotifications({
-        filter: {
-          ...formFilters,
-          ...(formFilters.rentOrSale !== "rent" && { furnished: [] }),
-        },
-        token: accessToken,
-      });
-      dispatch({ type: SET_FILTERS, payload: { filters: formFilters } });
-      setItem(INITIAL_FILTERS_KEY, JSON.stringify(filters));
-
-      const responseMessage = `Pretraga je uspešno ${
-        isUpdated ? "promenjena" : "sačuvana"
-      }. ${VERIFICATION_SUCCESS_MESSAGE}`;
-      notification.info({
-        description: responseMessage,
-        duration: 0,
-      });
-      dispatch({ type: SET_ACCESS_TOKEN, payload: { accessToken } });
-      dispatch({
-        type: UPDATE_PUSH_NOTIFICATIONS,
-        payload: { isPushNotificationActivated: true },
-      });
-      if (isUpdated) {
-        trackEvent("push-notifications-update", "push-notifications-updated");
-      } else {
-        trackEvent(
-          "push-notifications-activation",
-          "push-notifications-activated"
-        );
-      }
-      return { isDone: true, token: accessToken };
-    } catch (error) {
-      const errorMessage = getErrorMessageForPushNotifications(error);
-      notification.error({
-        description: errorMessage,
-        duration: 0,
-      });
-      return { isDone: false };
-    }
   };
 
   useEffect(() => {
@@ -534,44 +476,11 @@ export const FiltersForm = () => {
           </Panel>
         </Collapse>
 
-        <Row className="mt-2 mb-4">
-          <Col
-            xs={24}
-            sm={state.isPushNotificationSupported ? 24 : 12}
-            md={state.isPushNotificationSupported ? 8 : 12}
-            className="mb-2 px-2"
-          >
-            <Button
-              type="primary"
-              className="w-full"
-              htmlType="submit"
-              size="large"
-            >
-              <HiSearch className="mb-1 mr-1 inline" />
-              Pretraži stanove
-            </Button>
-          </Col>
-          {state.isPushNotificationSupported && (
-            <Col xs={24} md={8} className="mb-2 px-2">
-              {state.isPushNotificationActivated ? (
-                <PushNotificationsUpdateModal
-                  handler={turnOnPushNotifications}
-                />
-              ) : (
-                <PushNotificationsActivationModal
-                  handler={turnOnPushNotifications}
-                />
-              )}
-            </Col>
-          )}
-          <Col
-            xs={24}
-            sm={state.isPushNotificationSupported ? 24 : 12}
-            md={state.isPushNotificationSupported ? 8 : 12}
-            className="px-2"
-          >
-            <EmailNotificationsModal />
-          </Col>
+        <Row className="mt-2 mb-4" justify="center">
+          <Button type="primary" htmlType="submit" size="large">
+            <HiSearch className="mb-1 mr-1 inline" />
+            Pretraži stanove
+          </Button>
         </Row>
       </Form>
     </Row>
