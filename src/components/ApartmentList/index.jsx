@@ -58,7 +58,7 @@ export const ApartmentList = () => {
             onClick={handleRedirectionToStore}
             size="large"
             className="w-3/4"
-            icon={<FaGooglePlay className="inline" />}
+            icon={<FaGooglePlay className="inline-flex" />}
             style={{
               whiteSpace: "normal",
               height: "auto",
