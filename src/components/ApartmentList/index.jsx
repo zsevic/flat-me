@@ -50,7 +50,7 @@ export const ApartmentList = () => {
   };
 
   const loadMore = !state.isLoadingApartmentList &&
-    state.apartmentListHasNextPage && (
+    state.apartmentList.length && (
       <Row justify="center">
         <Link href={GOOGLE_PLAY_STORE_URL}>
           <Button
