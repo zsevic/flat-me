@@ -6,8 +6,9 @@ export const getApartmentList = async (filters) => {
       params: filters,
     });
 
-    if (apartmentList.data.data.length > 3) {
-      apartmentList.data.data.length = 3;
+    const resultLimit = 2;
+    if (apartmentList.data.data.length > resultLimit) {
+      apartmentList.data.data.length = resultLimit;
     }
     return apartmentList.data;
   } catch (error) {
