@@ -43,9 +43,10 @@ export const ApartmentList = () => {
   }, []);
 
   const handleRedirectionToStore = () => {
+    const eventName = `download-play-store-app-listing-${state?.filters?.rentOrSale}`;
     trackEvent(
-      "download-play-store-app-listing",
-      "download-play-store-app-listing"
+      eventName,
+      eventName,
     );
   };
 
