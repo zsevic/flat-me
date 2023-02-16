@@ -26,7 +26,7 @@ const data = [
     id: 1,
     icon: "/assets/images/icons/bulb.png",
     title: "Lako za instalaciju",
-    description: `FlatMe Premium aplikacija je dostupna za Android uređaje na Google Play prodavnici. Brzo i jednostavno je možete instalirati klikom na link <a href="${GOOGLE_PLAY_STORE_URL}" rel="noopener noreferrer">ovde</a>.`,
+    description: `FlatMe Premium aplikacija je dostupna na Google Play prodavnici. Možete je instalirati klikom na link <a href="${GOOGLE_PLAY_STORE_URL}" rel="noopener noreferrer">ovde</a>, nakon čega je potrebno uneti podatke sa svoje kartice.`,
   },
   {
     id: 2,

@@ -66,6 +66,10 @@ export const Widgets = () => {
               <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
               Praćenje promena cena
             </Text>
+            <Text sx={styles.listItem} as="p">
+              <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
+              Neograničeno korišćenje aplikacije za samo 599 dinara
+            </Text>
             <InstallableButton sx={styles.joinNow} buttonId="notifications" />
           </Box>
         </Box>
