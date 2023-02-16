@@ -56,7 +56,10 @@ export const Banner = () => {
               as="p"
               sx={styles.text}
               dangerouslySetInnerHTML={{
-                __html: HOMEPAGE_META_DESCRIPTION.replace("-", "&#8209;") + ' Neograničeno korišćenje aplikacije za samo 599 dinara.',
+                __html: `${HOMEPAGE_META_DESCRIPTION.replace(
+                  "-",
+                  "&#8209;"
+                )} Neograničeno korišćenje aplikacije za samo 599 dinara.`,
               }}
             />
             <InstallableButton sx={styles.button} buttonId="main" />
