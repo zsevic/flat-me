@@ -68,7 +68,8 @@ export const Widgets = () => {
             </Text>
             <Text sx={styles.listItem} as="p">
               <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
-              Neograničeno korišćenje aplikacije za samo {MOBILE_APP_PRICE} dinara
+              Neograničeno korišćenje aplikacije za samo {MOBILE_APP_PRICE}{" "}
+              dinara
             </Text>
             <InstallableButton sx={styles.joinNow} buttonId="notifications" />
           </Box>
