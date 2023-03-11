@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Box, Container, Heading, Text } from "theme-ui";
-import { HOMEPAGE_META_DESCRIPTION } from "constants/config";
+import { HOMEPAGE_META_DESCRIPTION, MOBILE_APP_PRICE } from "constants/config";
 import { InstallableButton } from "landing/components/button/installable";
 
 const styles = {
@@ -59,7 +59,7 @@ export const Banner = () => {
                 __html: `${HOMEPAGE_META_DESCRIPTION.replace(
                   "-",
                   "&#8209;"
-                )} Neograničeno korišćenje aplikacije za samo 599 dinara.`,
+                )} Neograničeno korišćenje aplikacije za samo ${MOBILE_APP_PRICE} dinara.`,
               }}
             />
             <InstallableButton sx={styles.button} buttonId="main" />

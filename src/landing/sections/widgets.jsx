@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Container, Text } from "theme-ui";
-import { CHECK_CIRCLE_FILLED } from "constants/config";
+import { CHECK_CIRCLE_FILLED, MOBILE_APP_PRICE } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { Image } from "landing/components/image";
 import { InstallableButton } from "landing/components/button/installable";
@@ -68,7 +68,7 @@ export const Widgets = () => {
             </Text>
             <Text sx={styles.listItem} as="p">
               <Image src={CHECK_CIRCLE_FILLED} alt="check icon" />
-              Neograničeno korišćenje aplikacije za samo 599 dinara
+              Neograničeno korišćenje aplikacije za samo {MOBILE_APP_PRICE} dinara
             </Text>
             <InstallableButton sx={styles.joinNow} buttonId="notifications" />
           </Box>

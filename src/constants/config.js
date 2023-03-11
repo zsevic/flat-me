@@ -1,6 +1,8 @@
 export const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
 
+export const MOBILE_APP_PRICE = 299;
+
 export const HOMEPAGE_META_DESCRIPTION =
   "FlatMe prikuplja sve aktuelne oglase za kupovinu i iznajmljivanje stanova u Beogradu sa različitih veb-sajtova i pretražuje ih za Vas. Prvi saznajte kada se novi stan nađe na tržištu.";
 export const HOMEPAGE_TITLE = "FlatMe";
