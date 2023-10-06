@@ -1,10 +1,12 @@
 import React from "react";
 import Sticky from "react-stickynode";
-import { Box, Button, Container, Link } from "theme-ui";
-import { APP_RELATIVE_URL, CTA_TEXT } from "constants/config";
-import { trackEvent } from "utils/analytics";
+import { Box, Container, Link } from "theme-ui";
+import { InstallableButton } from "../button/installable";
 
 const styles = {
+  button: {
+    display: ["flex"],
+  },
   headerWrapper: {
     backgroundColor: "transparent",
     ".is-sticky": {
@@ -72,17 +74,7 @@ export const Header = () => {
           <Container>
             <Box sx={styles.headerInner}>
               <Link href="/">FlatMe</Link>
-              <Link href={APP_RELATIVE_URL}>
-                <Button
-                  sx={styles.joinNow}
-                  onClick={() =>
-                    trackEvent("find-apartment", "find-apartment-header")
-                  }
-                  aria-label={CTA_TEXT}
-                >
-                  {CTA_TEXT}
-                </Button>
-              </Link>
+              <InstallableButton sx={styles.button} buttonId="header" />
             </Box>
           </Container>
         </Box>

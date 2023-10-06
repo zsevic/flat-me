@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Container } from "theme-ui";
-import { APP_RELATIVE_URL, GOOGLE_PLAY_STORE_URL } from "constants/config";
+import { GOOGLE_PLAY_STORE_URL } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { UltimateFeature } from "landing/components/cards/ultimate-feature";
 
@@ -32,7 +32,8 @@ const data = [
     id: 2,
     title: "Lako za korišćenje",
     icon: "/assets/images/icons/rocket.png",
-    description: `Klikom na <a href="${APP_RELATIVE_URL}">Pronađi stan</a> pristupate stranici gde možete izlistati više hiljada trenutno dostupnih stanova za kupovinu i iznajmljivanje u Beogradu.`,
+    description:
+      "Preko FlatMe Premium aplikacije možete izlistati više hiljada trenutno dostupnih stanova za kupovinu i iznajmljivanje u Beogradu.",
   },
   {
     id: 3,

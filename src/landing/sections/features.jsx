@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { Box, Container, Link } from "theme-ui";
-import { APP_RELATIVE_URL, CTA_TEXT } from "constants/config";
+import { GOOGLE_PLAY_STORE_URL } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { Feature } from "landing/components/cards/feature";
 import { trackEvent } from "utils/analytics";
@@ -147,8 +147,8 @@ export const Features = () => {
                 trackEvent("find-apartment", "find-apartment-statistics")
               }
             >
-              <Link href={APP_RELATIVE_URL} sx={styles.learnMore}>
-                {CTA_TEXT} <HiOutlineChevronRight />
+              <Link href={GOOGLE_PLAY_STORE_URL} sx={styles.learnMore}>
+                Instaliraj FlatMe <HiOutlineChevronRight />
               </Link>
             </Box>
           </Box>
