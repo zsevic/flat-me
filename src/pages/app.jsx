@@ -1,11 +1,12 @@
+import { GOOGLE_PLAY_STORE_URL } from "constants/config";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-export default function Custom404() {
+export default function AppPage() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/");
+    router.replace(GOOGLE_PLAY_STORE_URL);
   }, []);
 
   return null;
