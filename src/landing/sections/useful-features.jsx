@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Container } from "theme-ui";
+import { EMAIL_ADDRESS } from "constants/config";
 import { SectionHeading } from "landing/components/section-heading";
 import { UltimateFeature } from "landing/components/cards/ultimate-feature";
 
@@ -26,7 +27,7 @@ const data = [
     id: 4,
     icon: "/assets/images/icons/help.png",
     title: "Korisnička podrška",
-    description: `Briga o korisnicima i njihovom pozitivnom utisku o aplikaciji nam je prioritet. Za sve komentare, pohvale, kritike i sugestije nas možete kontaktirati na <a href="mailto:info@flat-me.com">info@flat-me.com</a>.`,
+    description: `Briga o korisnicima i njihovom pozitivnom utisku o aplikaciji nam je prioritet. Za sve komentare, pohvale, kritike i sugestije nas možete kontaktirati na <a href="mailto:${EMAIL_ADDRESS}">${EMAIL_ADDRESS}</a>.`,
   },
 ];
 

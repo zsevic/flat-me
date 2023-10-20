@@ -10,6 +10,7 @@ export const APP_TITLE = "FlatMe | Pronađi stan";
 export const POLICY_PRIVACY_PAGE_TITLE = "FlatMe | Politika privatnosti";
 export const TERMS_AND_CONDITIONS_PAGE_TITLE = "FlatMe | Uslovi korišćenja";
 export const DOMAIN_URL = "https://www.flat-me.com";
+export const EMAIL_ADDRESS = "flatmeapp@gmail.com";
 
 export const EMAIL_NOTIFICATIONS_SUCCESS_MESSAGE =
   "Proverite mejl (uključujući i deo sa promocijama) za detalje oko potvrde sačuvane pretrage.";

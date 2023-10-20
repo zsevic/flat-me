@@ -5,6 +5,7 @@ import { Box, Container, Heading, Text, ThemeProvider } from "theme-ui";
 import CommonHead from "components/CommonHead";
 import {
   DOMAIN_URL,
+  EMAIL_ADDRESS,
   HOMEPAGE_META_DESCRIPTION,
   POLICY_PRIVACY_PAGE_TITLE,
 } from "constants/config";
@@ -426,7 +427,7 @@ const PrivacyPolicyPage = () => (
               as="p"
               sx={styles.subdescription}
               dangerouslySetInnerHTML={{
-                __html: `Podatke koje Korisnik ostavi prilikom prijave na obaveštenja o novim nekretninama koje se pojave na tržištu, a koje odgovaraju njegovim izabranim kriterijumima i/ili podaci koje unese prilikom prijave na obaveštenja o novostima u vezi FlatMe platforme se čuvaju dok isti ne zatraži da se izbrišu putem “Odjavi me” veze u e-mail poruci koju primi od FlatMe platforme ili slanjem zahteva na e-mail adresu: <a href="mailto:info@flat-me.com">info@flat-me.com</a>.`,
+                __html: `Podatke koje Korisnik ostavi prilikom prijave na obaveštenja o novim nekretninama koje se pojave na tržištu, a koje odgovaraju njegovim izabranim kriterijumima i/ili podaci koje unese prilikom prijave na obaveštenja o novostima u vezi FlatMe platforme se čuvaju dok isti ne zatraži da se izbrišu putem “Odjavi me” veze u e-mail poruci koju primi od FlatMe platforme ili slanjem zahteva na e-mail adresu: <a href="mailto:${EMAIL_ADDRESS}">${EMAIL_ADDRESS}</a>.`,
               }}
             />
             <Text as="p" sx={styles.subdescription}>
@@ -690,7 +691,7 @@ const PrivacyPolicyPage = () => (
               dangerouslySetInnerHTML={{
                 __html: `Za sva pitanja u vezi sa ovom Politikom privatnosti, zaštiti privatnosti na FlatMe platformi
                 i načinu prikupljanja, obrade i korišćenja ličnih podataka Korisnika Platforme, možete nas
-                kontaktirati na: <a href="mailto:info@flat-me.com">info@flat-me.com</a>.`,
+                kontaktirati na: <a href="mailto:${EMAIL_ADDRESS}">${EMAIL_ADDRESS}</a>.`,
               }}
             />
           </Box>

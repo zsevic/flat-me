@@ -5,6 +5,7 @@ import { Box, Container, Heading, Text, ThemeProvider } from "theme-ui";
 import CommonHead from "components/CommonHead";
 import {
   DOMAIN_URL,
+  EMAIL_ADDRESS,
   HOMEPAGE_META_DESCRIPTION,
   TERMS_AND_CONDITIONS_PAGE_TITLE,
 } from "constants/config";
@@ -282,7 +283,7 @@ const TermsAndConditionsPage = () => (
               sx={styles.subdescription}
               dangerouslySetInnerHTML={{
                 __html: `Ukoliko imate bilo kakvih pitanja ili sugestija, možete nas
-              kontaktirati na: <a href="mailto:info@flat-me.com">info@flat-me.com</a>.`,
+              kontaktirati na: <a href="mailto:${EMAIL_ADDRESS}">${EMAIL_ADDRESS}</a>.`,
               }}
             />
           </Box>
